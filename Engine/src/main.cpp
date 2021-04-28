@@ -4,6 +4,8 @@
 
 #include "application.hpp"
 
+#include "debug.hpp"
+
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
@@ -21,15 +23,15 @@ int main()
 	}
 	catch (const char* msg)
 	{
-		//Log::logAssertion(msg);
+		Core::Debug::Log::assertion(msg);
 	}
 	catch (const std::string& msg)
 	{
-		//Log::logAssertion(msg);
+		Core::Debug::Log::assertion(msg);
 	}
 	catch (const std::exception& assertion)
 	{
-		//Log::logAssertion(assertion.what());
+		Core::Debug::Log::assertion(assertion.what());
 	}
 
 	Core::Application::kill();

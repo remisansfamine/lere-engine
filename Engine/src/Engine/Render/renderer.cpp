@@ -4,9 +4,9 @@
 
 namespace LowRenderer
 {
-	Renderer::Renderer()
+	Renderer::Renderer(Engine::GameObject& gameObject, const std::shared_ptr<Renderer>& childPtr)
+		: Component(gameObject, childPtr)
 	{
-		//TODO
-		//LowRenderer::RenderManager::addRenderer(this);
+		RenderManager::addRenderer(childPtr);
 	}
 }

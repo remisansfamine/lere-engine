@@ -1,7 +1,11 @@
 #include "game_object.hpp"
 
+#include "component.hpp"
+
 #include "debug.hpp"
 #include "sprite_renderer.hpp"
+
+#include "render_manager.hpp"
 
 namespace Engine
 {
@@ -10,12 +14,11 @@ namespace Engine
 	{
 		Core::Debug::Log::info("Creating a GameObject named " + name);
 
-		m_components.push_back(std::shared_ptr<Component>(new LowRenderer::SpriteRenderer()));
+		addComponent<LowRenderer::SpriteRenderer>();
 	}
 
 	GameObject::~GameObject()
 	{
-
 	}
 
 	// TODO: CALL AWAKE AT THE CORRECT TIME

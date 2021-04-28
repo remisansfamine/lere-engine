@@ -14,8 +14,5 @@ namespace Engine
 		void virtual setActive(bool value);
 		
 		void virtual destroy() {}
-
-		//template <typename C>
-		//std::shared_ptr<C> getComponent<C>();
 	};
 }

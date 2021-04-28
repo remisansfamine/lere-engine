@@ -6,8 +6,10 @@ namespace LowRenderer
 {
 	class Renderer : public Engine::Component
 	{
+	protected:
+		Renderer(Engine::GameObject& gameObject, const std::shared_ptr<Renderer>& childPtr);
+
 	public:
-		Renderer();
 
 		void virtual draw() = 0;
 	};

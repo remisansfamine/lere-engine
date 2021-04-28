@@ -23,7 +23,7 @@ namespace LowRenderer
 
 		static void draw();
 
-		static void addRenderer(Renderer* rendererToDraw);
+		static void addRenderer(const std::shared_ptr<Renderer>& rendererToDraw);
 		static void clearRenderers();
 	};
 }

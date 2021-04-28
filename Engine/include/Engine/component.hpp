@@ -2,7 +2,9 @@
 
 #include "object.hpp"
 
-//#include "game_object.hpp"
+#include "game_object.hpp"
+
+#include <memory>
 
 namespace Engine
 {
@@ -11,7 +13,7 @@ namespace Engine
 		//friend class GameObject;
 
 	public:
-		//GameObject& gameObject;
+		GameObject& m_gameObject;
 		//Trasnform& transform;
 
 		void setActive(bool value) override;
@@ -28,8 +30,8 @@ namespace Engine
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
 
-	public:
-		Component() {}
-		~Component() {}
+		protected:
+			Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
+			~Component();
 	};
 }

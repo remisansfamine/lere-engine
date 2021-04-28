@@ -11,7 +11,7 @@ namespace LowRenderer
 
 	RenderManager::~RenderManager()
 	{
-		//renderers.clear();
+		renderers.clear();
 
 		Core::Debug::Log::info("Destroying the Render Manager");
 	}
@@ -24,10 +24,10 @@ namespace LowRenderer
 			renderer->draw();
 	}
 
-	void RenderManager::addRenderer(Renderer* rendererToDraw)
+	void RenderManager::addRenderer(const std::shared_ptr<Renderer>& rendererToDraw)
 	{
 		// TODO
-		//instance()->renderers.push_back(std::shared_ptr<Renderer>(rendererToDraw));
+		instance()->renderers.push_back(rendererToDraw);
 	}
 
 	void RenderManager::clearRenderers()

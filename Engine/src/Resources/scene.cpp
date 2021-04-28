@@ -3,6 +3,9 @@
 #include "debug.hpp"
 #include "render_manager.hpp"
 
+#include "sprite_renderer.hpp"
+#include "model_renderer.hpp"
+
 namespace Resources
 {
 	Scene::Scene(const std::string& path)
@@ -40,8 +43,6 @@ namespace Resources
 	void Scene::update()
 	{
 		for (Engine::GameObject& go : gameObjects)
-		{
 			go.updateComponents();
-		}
 	}
 }
