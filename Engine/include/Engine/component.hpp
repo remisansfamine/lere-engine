@@ -19,13 +19,14 @@ namespace Engine
 		void setActive(bool value) override;
 		void destroy() override;
 
-		void virtual awake() { };
-		void virtual start() { };
-		void virtual update() { };
-		void virtual fixedUpdate() { };
-		void virtual lateUpdate() { };
-		void virtual onEnable() { };
-		void virtual onDisable() { };
+		void virtual draw() { }
+		void virtual awake() { }
+		void virtual start() { }
+		void virtual update() { }
+		void virtual fixedUpdate() { }
+		void virtual lateUpdate() { }
+		void virtual onEnable() { }
+		void virtual onDisable() { }
 
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()

@@ -141,6 +141,12 @@
     <ClCompile Include="src\Resources\scene.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\color.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\light.cpp">
+      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -199,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="include\Resources\scene.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Render\light.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\color.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\maths.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

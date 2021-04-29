@@ -6,6 +6,7 @@
 #include <memory>
 
 #include "renderer.hpp"
+#include "light.hpp"
 
 namespace LowRenderer
 {
@@ -18,12 +19,15 @@ namespace LowRenderer
 		~RenderManager();
 
 		std::vector<std::shared_ptr<Renderer>> renderers;
+		std::vector<std::shared_ptr<Light>> lights;
 
 	public:
 
 		static void draw();
 
 		static void addRenderer(const std::shared_ptr<Renderer>& rendererToDraw);
+		static void addLight(const std::shared_ptr<Light>& lightToDraw);
 		static void clearRenderers();
+		static void clearLights();
 	};
 }
