@@ -26,12 +26,16 @@ namespace Engine
 		template <typename C>
 		void constexpr addComponent()
 		{
+			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
+
 			new C(*this);
 		}
 
 		template <typename C>
 		bool tryGetComponent(std::shared_ptr<C>& componentToReturn)
 		{
+			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
+
 			for (std::shared_ptr<Component> component : m_components)
 			{
 				auto castedComponent = std::dynamic_pointer_cast<C>(component);
