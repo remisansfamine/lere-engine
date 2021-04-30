@@ -1,7 +1,10 @@
 #pragma once
 
-#include <glad/glad.h>
 #include <unordered_map>
+
+#include <glad/glad.h>
+
+#include "resource.hpp"
 
 namespace Resources
 {
@@ -11,7 +14,7 @@ namespace Resources
 		GLenum type;
 	};
 
-	class Shader
+	class Shader : public Resource
 	{
 	private:
 		std::string loadFromFile(const std::string& filePath);
@@ -22,7 +25,7 @@ namespace Resources
 		Shader(const std::string& shaderPath);
 	};
 
-	class ShaderProgram
+	class ShaderProgram : public Resource
 	{
 	private:
 		GLint programID = GL_INVALID_VALUE;

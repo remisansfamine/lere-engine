@@ -2,11 +2,16 @@
 
 #include "debug.hpp"
 
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
 namespace Resources
 {
 	ResourcesManager::ResourcesManager()
 	{
 		Core::Debug::Log::info("Creating the Resources Manager");
+
+		stbi_set_flip_vertically_on_load(true);
 	}
 
 	ResourcesManager::~ResourcesManager()
@@ -74,5 +79,35 @@ namespace Resources
 
 		// TODO: Add Warn load fail
 		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(ShaderProgram(programName, vertPath, fragPath));
+	}
+
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
+	{
+		ResourcesManager* RM = instance();
+
+		const auto& textureIt = RM->textures.find(texturePath);
+
+		if (textureIt != RM->textures.end())
+		{
+			return textureIt->second;
+		}
+
+		// TODO: Add Warn load fail
+		return RM->textures[texturePath] = std::make_shared<Texture>(Texture(texturePath));
+	}
+
+	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
+	{
+		ResourcesManager* RM = instance();
+
+		const auto& materialIt = RM->materials.find(materialPath);
+
+		if (materialIt != RM->materials.end())
+		{
+			return materialIt->second;
+		}
+
+		// TODO: Add Warn load fail
+		return RM->materials[materialPath] = std::make_shared<Material>(Material());
 	}
 }

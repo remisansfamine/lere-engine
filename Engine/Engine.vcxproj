@@ -172,6 +172,9 @@
     <ClCompile Include="src\Engine\Render\renderer.cpp" />
     <ClCompile Include="src\Engine\Render\render_manager.cpp" />
     <ClCompile Include="src\Engine\Render\sprite_renderer.cpp" />
+    <ClCompile Include="src\Resources\material.cpp" />
+    <ClCompile Include="src\Resources\mesh.cpp" />
+    <ClCompile Include="src\Resources\resource.cpp" />
     <ClCompile Include="src\Resources\scene.cpp" />
     <ClCompile Include="src\glad.c" />
     <ClCompile Include="src\imgui.cpp" />
@@ -183,6 +186,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Resources\resources_manager.cpp" />
     <ClCompile Include="src\Resources\shader.cpp" />
+    <ClCompile Include="src\Resources\texture.cpp" />
     <ClCompile Include="src\Utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,11 +209,16 @@
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp" />
     <ClInclude Include="include\Engine\renderer.hpp" />
     <ClInclude Include="include\Engine\Render\light.hpp" />
+    <ClInclude Include="include\Engine\Render\model.hpp" />
     <ClInclude Include="include\Engine\Render\render_manager.hpp" />
+    <ClInclude Include="include\Resources\material.hpp" />
+    <ClInclude Include="include\Resources\mesh.hpp" />
+    <ClInclude Include="include\Resources\resource.hpp" />
     <ClInclude Include="include\Resources\scene.hpp" />
     <ClInclude Include="include\Engine\sprite_renderer.hpp" />
     <ClInclude Include="include\Resources\resources_manager.hpp" />
     <ClInclude Include="include\Resources\shader.hpp" />
+    <ClInclude Include="include\Resources\texture.hpp" />
     <ClInclude Include="include\Utils\singleton.hpp" />
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />

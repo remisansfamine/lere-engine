@@ -8,6 +8,8 @@
 
 #include "shader.hpp"
 #include "scene.hpp"
+#include "texture.hpp"
+#include "material.hpp"
 
 namespace Resources
 {
@@ -21,6 +23,8 @@ namespace Resources
 		ResourcesManager();
 		~ResourcesManager();
 
+		std::unordered_map<std::string, std::shared_ptr<Texture>> textures;
+		std::unordered_map<std::string, std::shared_ptr<Material>> materials;
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
 		std::unordered_map<std::string, std::shared_ptr<Scene>>			scenes;
@@ -28,6 +32,8 @@ namespace Resources
 	public:
 		static void init();
 
+		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
+		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
 		static std::shared_ptr<Scene> loadScene(const std::string& scenePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
 		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "");
