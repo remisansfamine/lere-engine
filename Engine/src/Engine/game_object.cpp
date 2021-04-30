@@ -14,8 +14,8 @@ namespace Engine
 	{
 		Core::Debug::Log::info("Creating a GameObject named " + name);
 
-		//addComponent<LowRenderer::Light>();
-		addComponent<LowRenderer::SpriteRenderer>();
+		//addComponent<LowRenderer::SpriteRenderer>();
+		addComponent<LowRenderer::Light>();
 	}
 
 	GameObject::~GameObject()

@@ -1,14 +1,13 @@
 ﻿#include "light.hpp"
 #include "render_manager.hpp"
 
+#include "inputs_manager.hpp"
+
 namespace LowRenderer
 {
 	Light::Light(Engine::GameObject& gameObject)
 		: Light(gameObject, std::shared_ptr<Light>(this))
-	{
-		// TODO: add light to the Render Manager
-		//LowRenderer::RenderManager::addLight();
-	}
+	{ }
 
 	Light::Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr)
 		: Component(gameObject, ptr)
@@ -41,8 +40,6 @@ namespace LowRenderer
 		outterCutoff = 50.f * Core::Maths::DEG2RAD;
 	}
 
-
-
 	void Light::compute()
 	{
 		// TODO
@@ -52,6 +49,11 @@ namespace LowRenderer
 
 	void Light::draw()
 	{
-		Core::Debug::Log::info("Je suis une lumière :D");
+		// TODO: REMOVE THAT
+		if (Core::Input::InputManager::getButtonDown("Jump"))
+			Core::Debug::Log::info("IVE BEEN PRESSED");
+
+		if (Core::Input::InputManager::getButtonUp("Jump"))
+			Core::Debug::Log::info("IVE BEEN RELEASED YOUHOUH");
 	}
 }

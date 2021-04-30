@@ -64,6 +64,12 @@
     <Filter Include="Fichiers sources\Engine\Render\LowRenderer">
       <UniqueIdentifier>{1abba2a0-9545-4e39-981b-209b6f3a037f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Core\Input">
+      <UniqueIdentifier>{5619c947-b597-4c83-99b9-82c85c0c321e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Core\Input">
+      <UniqueIdentifier>{97898d89-cd9f-44c9-9320-de52f541853f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -71,9 +77,6 @@
     </ClCompile>
     <ClCompile Include="src\glad.c">
       <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\application.cpp">
-      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\imgui.cpp">
       <Filter>Fichiers sources\ThirdParty\ImGui</Filter>
@@ -147,6 +150,21 @@
     <ClCompile Include="src\Engine\Render\light.cpp">
       <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\inputs_manager.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\key_axis.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\key_button.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\input.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\application.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -217,6 +235,18 @@
     </ClInclude>
     <ClInclude Include="include\Utils\type_at.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\inputs_manager.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\input.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\key_button.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\key_axis.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

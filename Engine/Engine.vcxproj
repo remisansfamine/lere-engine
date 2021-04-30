@@ -156,6 +156,10 @@
     <ClCompile Include="src\Core\application.cpp" />
     <ClCompile Include="src\Core\color.cpp" />
     <ClCompile Include="src\Core\debug.cpp" />
+    <ClCompile Include="src\Core\input.cpp" />
+    <ClCompile Include="src\Core\inputs_manager.cpp" />
+    <ClCompile Include="src\Core\key_axis.cpp" />
+    <ClCompile Include="src\Core\key_button.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
     <ClCompile Include="src\Engine\engine_master.cpp" />
@@ -184,8 +188,12 @@
   <ItemGroup>
     <ClInclude Include="header\stb_image.h" />
     <ClInclude Include="include\Core\application.hpp" />
+    <ClInclude Include="include\Core\key_axis.hpp" />
+    <ClInclude Include="include\Core\key_button.hpp" />
     <ClInclude Include="include\Core\color.hpp" />
     <ClInclude Include="include\Core\debug.hpp" />
+    <ClInclude Include="include\Core\input.hpp" />
+    <ClInclude Include="include\Core\inputs_manager.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />

@@ -5,6 +5,7 @@
 #include <imgui_impl_opengl3.h>
 
 #include "resources_manager.hpp"
+#include "inputs_manager.hpp"
 #include "debug.hpp"
 
 #include "engine_master.hpp"
@@ -29,17 +30,15 @@ namespace Core
 	{
 		Resources::ResourcesManager::kill();
 
-		// TODO: Kill graph/physicManager/ etc..
+		Debug::Log::info("Destroying the Application");
 
-		Core::Debug::Log::info("Destroying the Application");
-
-
-
-		Core::Debug::Assertion::kill();
-		Core::Engine::EngineMaster::kill();
+		Input::InputManager::kill();
+		Debug::Assertion::kill();
+		Engine::EngineMaster::kill();
 
 		TimeManager::kill();
-		Core::Debug::Log::kill();
+
+		Debug::Log::kill();
 
 		// Destroy ImGui context
 		ImGui_ImplGlfw_Shutdown();
@@ -62,18 +61,18 @@ namespace Core
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 		// Create window
-		Core::Debug::Log::info("Creating the window");
+		Debug::Log::info("Creating the window");
 		GLFWwindow* newWindow = glfwCreateWindow(screenWidth, screenHeight, title, monitor, share);
 
 		// If the window could not be created, exit the program
-		Core::Debug::Assertion::out(newWindow, "Failed to create GLFW window");
+		Debug::Assertion::out(newWindow, "Failed to create GLFW window");
 
 		// Initialize glfw context
 		glfwMakeContextCurrent(newWindow);
 		glfwSetFramebufferSizeCallback(newWindow, framebufferSizeCallback);
 
 		// glad - Load all OpenGL function pointers, if it fails, assert
-		Core::Debug::Assertion::out(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
+		Debug::Assertion::out(gladLoadGLLoader((GLADloadproc)glfwGetProcAddress), "Failed to initialize GLAD");
 
 		// ImGui - Initialization
 		IMGUI_CHECKVERSION();
@@ -95,17 +94,21 @@ namespace Core
 
 		if (AP->initialized)
 		{
-			Core::Debug::Log::error("The Application is already initialized");
+			Debug::Log::error("The Application is already initialized");
 			return;
 		}
 
 		AP->window = createWindow(screenWidth, screenHeight, title, monitor, share);
 		AP->initialized = true;
 
-		Core::Debug::Log::info("Application initialized");
+		Debug::Log::info("Application initialized");
 
 		// Init Resources Manager
 		Resources::ResourcesManager::init();
+
+		Input::InputManager::init(AP->window);
+
+		Input::InputManager::addButton("Return", GLFW_KEY_ESCAPE);
 	}
 
 	void Application::update()
@@ -118,9 +121,13 @@ namespace Core
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
+			// Tell to glfw to close the window when the "Return" key is pressed
+			glfwSetWindowShouldClose(AP->window, Input::InputManager::getButton("Return"));
+
 			TimeManager::computeTime();
 
-			// TODO: Update Time / Inputs
+			Input::InputManager::compute();
+
 			Engine::EngineMaster::update();
 
 			ImGui::Render();
@@ -130,8 +137,5 @@ namespace Core
 			glfwSwapBuffers(AP->window);
 			glfwPollEvents();
 		}
-
-		// TODO: remove
-		std::cout << "Bonsoir LERE" << std::endl;
 	}
 }
