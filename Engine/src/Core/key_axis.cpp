@@ -2,7 +2,7 @@
 
 namespace Core::Input
 {
-	KeyAxis::KeyAxis(int positiveKeyID, int negativeKeyID)
+	KeyAxis::KeyAxis(int negativeKeyID, int positiveKeyID)
 		: m_positiveKeyID(positiveKeyID), m_negativeKeyID(negativeKeyID)
 	{
 
@@ -10,7 +10,7 @@ namespace Core::Input
 
 	void KeyAxis::compute()
 	{
-		m_value = glfwGetKey(window, m_positiveKeyID) - glfwGetKey(window, m_negativeKeyID);
+		m_value = (float)(glfwGetKey(window, m_positiveKeyID) - glfwGetKey(window, m_negativeKeyID));
 	}
 
 	float KeyAxis::getValue()

@@ -171,6 +171,7 @@
     <ClCompile Include="src\Engine\Physics\physic_manager.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\Render\light.cpp" />
+    <ClCompile Include="src\Engine\Render\model.cpp" />
     <ClCompile Include="src\Engine\Render\model_renderer.cpp" />
     <ClCompile Include="src\Engine\Render\renderer.cpp" />
     <ClCompile Include="src\Engine\Render\render_manager.cpp" />
@@ -226,6 +227,10 @@
     <ClInclude Include="include\Utils\singleton.hpp" />
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shader\advancedLighting.frag" />
+    <None Include="resources\shader\advancedLighting.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

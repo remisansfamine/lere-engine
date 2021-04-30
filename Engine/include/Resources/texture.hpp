@@ -19,5 +19,13 @@ namespace Resources
 		Texture(const std::string& filePath);
 
 		GLuint getID();
-	};
+
+		void bind(int textureIndex);
+
+		//static std::shared_ptr<Texture> defaultAlpha;
+		//static std::shared_ptr<Texture> defaultAmbient;
+		//static std::shared_ptr<Texture> defaultDiffuse;
+		//static std::shared_ptr<Texture> defaultEmissive;
+		//static std::shared_ptr<Texture> defaultSpecular;
+	};	
 }

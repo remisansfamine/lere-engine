@@ -3,7 +3,7 @@
 #include "component.hpp"
 
 #include "debug.hpp"
-#include "sprite_renderer.hpp"
+#include "model_renderer.hpp"
 
 #include "render_manager.hpp"
 
@@ -16,7 +16,7 @@ namespace Engine
 	{
 		Core::Debug::Log::info("Creating a GameObject named " + name);
 
-		addComponent<LowRenderer::SpriteRenderer>();
+		addComponent<LowRenderer::ModelRenderer>("FirstModel");
 		addComponent<LowRenderer::Light>();
 	}
 

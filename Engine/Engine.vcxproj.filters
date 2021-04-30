@@ -82,6 +82,9 @@
     <Filter Include="Fichiers d%27en-tête\Gameplay\Player">
       <UniqueIdentifier>{aa32bb03-6492-427c-a79b-0ca4788bb486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Resources\Shader">
+      <UniqueIdentifier>{8c8bc748-ed7a-4951-b243-959b65ceb008}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -192,6 +195,9 @@
     <ClCompile Include="src\Engine\Physics\transform.cpp">
       <Filter>Fichiers sources\Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Render\model.cpp">
+      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -293,5 +299,13 @@
     <ClInclude Include="include\Engine\Physics\transform.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resources\shader\advancedLighting.frag">
+      <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
+    </None>
+    <None Include="resources\shader\advancedLighting.vert">
+      <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

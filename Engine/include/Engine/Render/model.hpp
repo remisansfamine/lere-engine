@@ -5,18 +5,34 @@
 
 #include "mesh.hpp"
 #include "shader.hpp"
+#include "material.hpp"
+
+namespace Physics
+{
+	class Transform;
+}
 
 namespace LowRenderer
 {
 	class Model
 	{
 	private:
-		std::shared_ptr<Resources::Mesh> mesh = nullptr;
-		std::shared_ptr<Resources::ShaderProgram> shaderProgram = nullptr;
-		//std::shared_ptr<Resources::Material> material = nullptr;
+		std::shared_ptr<Resources::Mesh> m_mesh = nullptr;
+		std::shared_ptr<Resources::ShaderProgram> m_shaderProgram = nullptr;
+		std::shared_ptr<Resources::Material> m_material = nullptr;
 
-		std::vector<Model> children;
+		std::vector<Model> m_children;
+
+		std::string m_filePath;
+
+		Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName, std::shared_ptr<Resources::ShaderProgram> program);
 
 	public:
+		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+
+		Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform, const std::string& shaderProgramName);
+
+		void draw();
+		std::string& getPath();
 	};
 }

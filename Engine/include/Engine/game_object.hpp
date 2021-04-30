@@ -27,12 +27,12 @@ namespace Engine
 		GameObject(const std::string& name);
 		virtual ~GameObject();
 
-		template <class C>
-		void constexpr addComponent()
+		template <class C, class ...Crest>
+		void constexpr addComponent(Crest... args)
 		{
 			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
 
-			new C(*this);
+			new C(*this, args...);
 		}
 
 		template <class C>

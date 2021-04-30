@@ -89,7 +89,7 @@ namespace Resources
         if (!success)
         {
             glGetProgramInfoLog(programID, infoSize, NULL, infoLog);
-            Core::Debug::Log::error(programName + " shader program linking failed" + infoLog);
+            Core::Debug::Log::error(programName + " shader program linking failed: " + infoLog);
         }
         // If there is no error, load the uniform locations of the program
         else
@@ -211,5 +211,15 @@ namespace Resources
                 break;
         }
         #pragma endregion
+    }
+
+    void ShaderProgram::bind()
+    {
+        glUseProgram(programID);
+    }
+
+    void ShaderProgram::unbind()
+    {
+        glUseProgram(0);
     }
 }

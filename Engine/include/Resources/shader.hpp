@@ -34,9 +34,11 @@ namespace Resources
 
 		void loadLocations();
 
-		void setUniform(const std::string& target, const void* value, int count = 1, bool transpose = false) const;
-
 	public:
 		ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath);
+
+		void setUniform(const std::string& target, const void* value, int count = 1, bool transpose = false) const;
+		void bind();
+		void unbind();
 	};
 }

@@ -4,6 +4,7 @@
 #include "inputs_manager.hpp"
 
 #include "transform.hpp"
+#include "time.hpp"
 
 namespace LowRenderer
 {
@@ -60,5 +61,6 @@ namespace LowRenderer
 			Core::Debug::Log::info("IVE BEEN RELEASED YOUHOUH");
 
 		Core::Debug::Log::info("x = " + std::to_string(m_transform->m_position.x));
+		//Core::Debug::Log::info("x = " + std::to_string(Core::TimeManager::getDeltaTime()));
 	}
 }

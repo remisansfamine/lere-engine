@@ -13,7 +13,7 @@ namespace Core::Input
 		int m_negativeKeyID = -1;
 		int m_positiveKeyID = 1;
 
-		KeyAxis(int positiveKeyID, int negativeKeyID);
+		KeyAxis(int negativeKeyID, int positiveKeyID);
 
 		void compute();
 

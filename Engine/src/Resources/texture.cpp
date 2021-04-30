@@ -7,6 +7,13 @@
 
 namespace Resources
 {
+	 /*std::shared_ptr<Texture> Texture::defaultAlpha = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultAmbient = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultDiffuse = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultEmissive = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultSpecular = nullptr;*/
+
+
 	Texture::Texture(const std::string& filePath)
 		: Resource(filePath)
 	{
@@ -55,5 +62,11 @@ namespace Resources
 	GLuint Texture::getID()
 	{
 		return textureID;
+	}
+
+	void Texture::bind(int textureIndex)
+	{
+		glActiveTexture(GL_TEXTURE0 + textureIndex);
+		glBindTexture(GL_TEXTURE_2D, textureID);
 	}
 }

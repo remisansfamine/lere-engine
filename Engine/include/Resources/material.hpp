@@ -5,6 +5,7 @@
 
 #include "resource.hpp"
 #include "texture.hpp"
+#include "shader.hpp"
 
 namespace Resources
 {
@@ -15,8 +16,17 @@ namespace Resources
 		LowRenderer::Color specular = { 0.0f, 0.0f, 0.0f, 1.0f };
 		LowRenderer::Color emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
 
+		std::shared_ptr<Resources::Texture> ambientTex  = nullptr;
+		std::shared_ptr<Resources::Texture> diffuseTex  = nullptr;
+		std::shared_ptr<Resources::Texture> specularTex = nullptr;
+		std::shared_ptr<Resources::Texture> emissiveTex = nullptr;
+		std::shared_ptr<Resources::Texture> dissolveTex = nullptr;
+
 		float shininess = 100.f;
 
 		static Material defaultMaterial;
+
+		void sendToShader(const std::shared_ptr<Resources::ShaderProgram>& shaderProgram);
+		void bindTextures();
 	};
 }
