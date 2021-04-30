@@ -25,9 +25,23 @@ namespace LowRenderer
 
 		static void draw();
 
-		static void addRenderer(const std::shared_ptr<Renderer>& rendererToDraw);
-		static void addLight(const std::shared_ptr<Light>& lightToDraw);
-		static void clearRenderers();
-		static void clearLights();
+		static void linkComponent(const std::shared_ptr<Light>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<Renderer>& compToLink);
+
+		template <class C>
+		static void clearComponents();
+
+		template<>
+		static void clearComponents<Light>()
+		{
+			instance()->lights.clear();
+		}
+
+		template<>
+		static void clearComponents<Renderer>()
+		{
+			instance()->renderers.clear();
+		}
 	};
 }

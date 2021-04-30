@@ -1,5 +1,4 @@
 #include "component.hpp"
-#include <iostream>
 
 namespace Engine
 {

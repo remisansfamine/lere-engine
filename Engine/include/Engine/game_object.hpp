@@ -15,6 +15,8 @@ namespace Engine
 	class GameObject : public Object
 	{
 	private:
+
+
 	public:
 		bool isStatic = false;
 		std::string m_name;
@@ -23,7 +25,7 @@ namespace Engine
 		GameObject(const std::string& name);
 		~GameObject();
 
-		template <typename C>
+		template <class C>
 		void constexpr addComponent()
 		{
 			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
@@ -31,8 +33,8 @@ namespace Engine
 			new C(*this);
 		}
 
-		template <typename C>
-		bool tryGetComponent(std::shared_ptr<C>& componentToReturn)
+		template <class C>
+		bool tryGetComponent(std::shared_ptr<C> componentToReturn = nullptr)
 		{
 			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
 
@@ -42,7 +44,9 @@ namespace Engine
 
 				if (castedComponent != nullptr)
 				{
-					componentToReturn = castedComponent;
+					if (componentToReturn)
+						componentToReturn = castedComponent;
+
 					return true;
 				}
 			}
@@ -50,7 +54,7 @@ namespace Engine
 			return false;
 		}
 
-		template <typename C>
+		template <class C>
 		[[nodiscard]] std::shared_ptr<C> getComponent()
 		{
 			std::shared_ptr<C> componentToReturn;

@@ -13,7 +13,7 @@ namespace LowRenderer
 	Light::Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr)
 		: Component(gameObject, ptr)
 	{
-		LowRenderer::RenderManager::addLight(ptr);
+		LowRenderer::RenderManager::linkComponent(ptr);
 	}
 
 

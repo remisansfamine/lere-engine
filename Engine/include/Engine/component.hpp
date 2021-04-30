@@ -10,7 +10,19 @@ namespace Engine
 {
 	class Component : public Object
 	{
+	private:
 		//friend class GameObject;
+
+	protected:
+		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
+		virtual ~Component();
+
+		template <class C>
+		void requireComponent()
+		{
+			if (!m_gameObject.tryGetComponent<C>())
+				m_gameObject.addComponent<C>();
+		}
 
 	public:
 		GameObject& m_gameObject;
@@ -30,9 +42,5 @@ namespace Engine
 
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
-
-		protected:
-			Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
-			~Component();
 	};
 }

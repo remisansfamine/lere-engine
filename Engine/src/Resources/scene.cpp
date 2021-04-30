@@ -27,7 +27,7 @@ namespace Resources
 	{
 		// TODO: load scene from name
 
-		LowRenderer::RenderManager::clearRenderers();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
 	}
 
 	void Scene::save()

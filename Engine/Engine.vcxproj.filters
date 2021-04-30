@@ -215,5 +215,8 @@
     <ClInclude Include="include\Core\maths.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
+    <ClInclude Include="include\Utils\type_at.hpp">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
