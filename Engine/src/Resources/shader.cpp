@@ -91,7 +91,6 @@ namespace Resources
             glGetProgramInfoLog(programID, infoSize, NULL, infoLog);
             Core::Debug::Log::error(programName + " shader program linking failed" + infoLog);
         }
-        // TODO: Load locations
         // If there is no error, load the uniform locations of the program
         else
             loadLocations();

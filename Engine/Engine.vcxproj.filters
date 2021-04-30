@@ -70,6 +70,18 @@
     <Filter Include="Fichiers d%27en-tête\Core\Input">
       <UniqueIdentifier>{97898d89-cd9f-44c9-9320-de52f541853f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers sources\Gameplay">
+      <UniqueIdentifier>{e6d461f0-2a83-4f65-a8e4-f4dd7a4644d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Gameplay">
+      <UniqueIdentifier>{be3bdb28-1ca7-41ee-adce-aaf3b4c44ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Gameplay\Player">
+      <UniqueIdentifier>{3a8653ae-70f8-4c13-b735-6cad18e1c3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Gameplay\Player">
+      <UniqueIdentifier>{aa32bb03-6492-427c-a79b-0ca4788bb486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -177,6 +189,9 @@
     <ClCompile Include="src\Resources\resource.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Physics\transform.cpp">
+      <Filter>Fichiers sources\Engine\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -274,6 +289,9 @@
     </ClInclude>
     <ClInclude Include="include\Resources\resource.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Physics\transform.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

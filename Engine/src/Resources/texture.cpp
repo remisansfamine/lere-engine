@@ -1,14 +1,17 @@
 #include "texture.hpp"
 
-#include "stb_image.h"
-
 #include "debug.hpp"
+
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 namespace Resources
 {
 	Texture::Texture(const std::string& filePath)
 		: Resource(filePath)
 	{
+		stbi_set_flip_vertically_on_load(true);
+
 		int width = 0, height = 0;
 		int channel = 0;
 

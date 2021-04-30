@@ -18,7 +18,6 @@ int main()
 	{
 		Core::Application::init(SCR_WIDTH, SCR_HEIGHT, "Engine");
 
-		// TODO: Update AP
 		Core::Application::update();
 	}
 	catch (const char* msg)

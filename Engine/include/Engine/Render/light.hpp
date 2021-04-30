@@ -3,12 +3,20 @@
 #include "component.hpp"
 #include "color.hpp"
 
+namespace Physics
+{
+	class Transform;
+}
+
 namespace LowRenderer
 {
 	class Light : public Engine::Component
 	{
 	private:
 		Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr);
+
+		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+
 	public:
 		Light(Engine::GameObject& gameObject);
 

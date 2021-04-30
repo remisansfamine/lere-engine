@@ -2,16 +2,12 @@
 
 #include "debug.hpp"
 
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-
 namespace Resources
 {
 	ResourcesManager::ResourcesManager()
 	{
 		Core::Debug::Log::info("Creating the Resources Manager");
 
-		stbi_set_flip_vertically_on_load(true);
 	}
 
 	ResourcesManager::~ResourcesManager()

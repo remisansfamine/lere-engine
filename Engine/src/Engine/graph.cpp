@@ -25,20 +25,16 @@ namespace Core::Engine
 
 	void Graph::init()
 	{
-
+		Graph* graph = instance();
 	}
 
 	void Graph::draw()
 	{
-		Graph* graph = instance();
-
-		graph->curScene.draw();
+		instance()->curScene.draw();
 	}
 
 	void Graph::update()
 	{
-		Graph* graph = instance();
-
-		graph->curScene.update();
+		instance()->curScene.update();
 	}
 }

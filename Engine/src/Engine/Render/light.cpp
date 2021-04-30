@@ -3,18 +3,21 @@
 
 #include "inputs_manager.hpp"
 
+#include "transform.hpp"
+
 namespace LowRenderer
 {
 	Light::Light(Engine::GameObject& gameObject)
 		: Light(gameObject, std::shared_ptr<Light>(this))
-	{ }
+	{
+		m_transform = requireComponent<Physics::Transform>();
+	}
 
 	Light::Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr)
 		: Component(gameObject, ptr)
 	{
 		LowRenderer::RenderManager::linkComponent(ptr);
 	}
-
 
 	void Light::setAsDirectionnal()
 	{
@@ -55,5 +58,7 @@ namespace LowRenderer
 
 		if (Core::Input::InputManager::getButtonUp("Jump"))
 			Core::Debug::Log::info("IVE BEEN RELEASED YOUHOUH");
+
+		Core::Debug::Log::info("x = " + std::to_string(m_transform->m_position.x));
 	}
 }

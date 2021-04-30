@@ -19,11 +19,13 @@ namespace Engine
 
 	public:
 		bool isStatic = false;
-		std::string m_name;
+
+		std::string m_name = "GameObject";
+
 		std::vector<std::shared_ptr<Component>> m_components;
 
 		GameObject(const std::string& name);
-		~GameObject();
+		virtual ~GameObject();
 
 		template <class C>
 		void constexpr addComponent()
@@ -34,21 +36,26 @@ namespace Engine
 		}
 
 		template <class C>
-		bool tryGetComponent(std::shared_ptr<C> componentToReturn = nullptr)
+		bool tryGetComponent()
+		{
+			std::shared_ptr<C> componentToReturn;
+			return tryGetComponent(componentToReturn);
+		}
+
+		template <class C>
+		bool tryGetComponent(std::shared_ptr<C>& componentToReturn)
 		{
 			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
 
-			for (std::shared_ptr<Component> component : m_components)
+			for (std::shared_ptr<Component>& component : m_components)
 			{
 				auto castedComponent = std::dynamic_pointer_cast<C>(component);
 
-				if (castedComponent != nullptr)
-				{
-					if (componentToReturn)
-						componentToReturn = castedComponent;
+				if (!castedComponent)
+					continue;
 
-					return true;
-				}
+				componentToReturn = castedComponent;
+				return true;
 			}
 
 			return false;

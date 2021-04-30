@@ -1,16 +1,18 @@
 #pragma once
 
+#include <memory>
+
 #include "object.hpp"
 
 #include "game_object.hpp"
-
-#include <memory>
 
 namespace Engine
 {
 	class Component : public Object
 	{
 	private:
+		GameObject& m_gameObject;
+
 		//friend class GameObject;
 
 	protected:
@@ -18,15 +20,20 @@ namespace Engine
 		virtual ~Component();
 
 		template <class C>
-		void requireComponent()
+		std::shared_ptr<C> requireComponent()
 		{
-			if (!m_gameObject.tryGetComponent<C>())
+			std::shared_ptr<C> tempPtr;
+
+			if (!m_gameObject.tryGetComponent<C>(tempPtr))
+			{
 				m_gameObject.addComponent<C>();
+				return m_gameObject.getComponent<C>();
+			}
+
+			return tempPtr;
 		}
 
 	public:
-		GameObject& m_gameObject;
-		//Trasnform& transform;
 
 		void setActive(bool value) override;
 		void destroy() override;
@@ -36,10 +43,12 @@ namespace Engine
 		void virtual start() { }
 		void virtual update() { }
 		void virtual fixedUpdate() { }
+		void virtual lateFixedUpdate() { }
 		void virtual lateUpdate() { }
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
+		GameObject& getHost();
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
 	};

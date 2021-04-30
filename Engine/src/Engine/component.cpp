@@ -1,5 +1,7 @@
 #include "component.hpp"
 
+#include "transform.hpp"
+
 namespace Engine
 {
 	Component::Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr)
@@ -23,5 +25,10 @@ namespace Engine
 	void Component::destroy()
 	{
 
+	}
+
+	GameObject& Component::getHost()
+	{
+		return m_gameObject;
 	}
 }

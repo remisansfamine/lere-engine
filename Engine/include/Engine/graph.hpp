@@ -1,7 +1,6 @@
 #pragma once
 
 #include "singleton.hpp"
-#include "game_object.hpp"
 #include "scene.hpp"
 
 namespace Core::Engine
@@ -19,7 +18,8 @@ namespace Core::Engine
 	public:
 		void loadScene(const std::string& scenePath);
 		void saveCurrentScene();
-		void init();
+		static void init();
+
 		static void draw();
 		static void update();
 	};
