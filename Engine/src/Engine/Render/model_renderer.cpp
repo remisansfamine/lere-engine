@@ -8,7 +8,7 @@
 namespace LowRenderer
 {
 	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath)
-		: Renderer(gameObject, std::shared_ptr<ModelRenderer>(this)), model(filePath, m_transform, "advancedLighting")
+		: Renderer(gameObject, std::shared_ptr<ModelRenderer>(this)), model(filePath, m_transform, "testShader")
 	{
 	}
 

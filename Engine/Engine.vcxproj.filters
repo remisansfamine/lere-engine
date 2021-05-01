@@ -198,7 +198,7 @@
     <ClCompile Include="src\Resources\texture.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
-        <ClCompile Include="src\Engine\Render\camera.cpp">
+    <ClCompile Include="src\Engine\Render\camera.cpp">
       <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
     </ClCompile>
   </ItemGroup>
@@ -302,12 +302,21 @@
     <ClInclude Include="include\Engine\Physics\transform.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="include\Engine\Render\camera.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shader\advancedLighting.frag">
+    <None Include="resources\shaders\testShader.frag">
       <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
     </None>
-    <None Include="resources\shader\advancedLighting.vert">
+    <None Include="resources\shaders\testShader.vert">
+      <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
+    </None>
+    <None Include="resources\shaders\advancedLighting.frag">
+      <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
+    </None>
+    <None Include="resources\shaders\advancedLighting.vert">
       <Filter>Fichiers d%27en-tête\Resources\Shader</Filter>
     </None>
   </ItemGroup>

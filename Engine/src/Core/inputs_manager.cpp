@@ -12,7 +12,8 @@ namespace Core::Input
 
 		addAxis("Horizontal", GLFW_KEY_A, GLFW_KEY_D);
 		addAxis("Vertical", GLFW_KEY_S, GLFW_KEY_W);
-		addButton("Jump", GLFW_KEY_SPACE);
+		addAxis("UpDown", GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE);
+		addButton("LockCursor", GLFW_KEY_C);
 	}
 
 	void InputManager::compute()

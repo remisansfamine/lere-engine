@@ -25,6 +25,8 @@ namespace LowRenderer
 
 	public:
 
+		static std::shared_ptr<Camera> getCurrentCamera();
+
 		static void draw();
 
 		static void linkComponent(const std::shared_ptr<Light>& compToLink);

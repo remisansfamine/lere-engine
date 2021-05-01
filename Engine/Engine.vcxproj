@@ -231,8 +231,10 @@
     <ClInclude Include="include\Utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="resources\shader\advancedLighting.frag" />
-    <None Include="resources\shader\advancedLighting.vert" />
+    <None Include="resources\shaders\advancedLighting.frag" />
+    <None Include="resources\shaders\advancedLighting.vert" />
+    <None Include="resources\shaders\testShader.frag" />
+    <None Include="resources\shaders\testShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

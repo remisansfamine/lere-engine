@@ -2,6 +2,7 @@
 
 #include "transform.hpp"
 #include "resources_manager.hpp"
+#include "render_manager.hpp"
 
 namespace LowRenderer
 {
@@ -35,6 +36,12 @@ namespace LowRenderer
 			m_shaderProgram->bind();
 
 			m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
+
+
+			std::shared_ptr<Camera> cam = LowRenderer::RenderManager::getCurrentCamera();
+
+			if (cam != nullptr)
+				m_shaderProgram->setUniform("viewProj", (cam->getProjection() * cam->getViewMatrix()).e, 1, 1);
 
 			// use other material
 			//material->sendToShader(shaderProgram);

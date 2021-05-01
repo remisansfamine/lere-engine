@@ -138,4 +138,37 @@ namespace Core
 			glfwPollEvents();
 		}
 	}
+
+	float Application::getAspect()
+	{
+		int width, height;
+		glfwGetWindowSize(instance()->window, &width, &height);
+		return (float)width / (float)height;
+	}
+
+	void Application::getDeltasMouse(Core::Maths::vec2& deltaMouse)
+	{
+		double newMouseX, newMouseY;
+		static float mouseX = 0.f;
+		static float mouseY = 0.f;
+
+		glfwGetCursorPos(instance()->window, &newMouseX, &newMouseY);
+		deltaMouse.x = (float)(newMouseX - mouseX);
+		deltaMouse.y = (float)(newMouseY - mouseY);
+		mouseX = (float)newMouseX;
+		mouseY = (float)newMouseY;
+	}
+
+	void Application::setCursor(bool isCursorLock)
+	{
+		Application* AP = instance();
+
+		if (isCursorLock)
+		{
+			glfwSetInputMode(AP->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			return;
+		}
+
+		glfwSetInputMode(AP->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
 }

@@ -40,4 +40,13 @@ namespace LowRenderer
 		instance()->cameras.push_back(compToLink);
 	}
 
+	std::shared_ptr<Camera> RenderManager::getCurrentCamera()
+	{
+		RenderManager* RM = instance();
+
+		if (RM->cameras.size() > 0)
+			return RM->cameras.back();
+
+		return nullptr;
+	}
 }

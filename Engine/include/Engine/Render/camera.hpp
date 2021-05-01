@@ -19,7 +19,7 @@ namespace LowRenderer
 		std::shared_ptr<Physics::Transform> m_transform = nullptr;
 
 	public:
-		float aspect;
+		float aspect = 0.f;
 		float near = 0.001f;
 		float far = 200.f;
 		float fovY = 90.f;
@@ -28,5 +28,7 @@ namespace LowRenderer
 
 		Core::Maths::mat4 getViewMatrix() const;
 		Core::Maths::mat4 getProjection() const;
+
+		void update() override;
 	};
 }

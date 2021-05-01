@@ -12,5 +12,7 @@ namespace LowRenderer
 		RenderManager::linkComponent(childPtr);
 
 		m_transform = requireComponent<Physics::Transform>();
+		m_transform->m_position.z = -2.f;
+		m_transform->m_position.y = - 1.f;
 	}
 }
