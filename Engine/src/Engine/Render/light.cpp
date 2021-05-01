@@ -50,17 +50,4 @@ namespace LowRenderer
 		enable = (float)isActive();
 		//position.xyz = transform.position;
 	}
-
-	void Light::draw()
-	{
-		// TODO: REMOVE THAT
-		if (Core::Input::InputManager::getButtonDown("Jump"))
-			Core::Debug::Log::info("IVE BEEN PRESSED");
-
-		if (Core::Input::InputManager::getButtonUp("Jump"))
-			Core::Debug::Log::info("IVE BEEN RELEASED YOUHOUH");
-
-		Core::Debug::Log::info("x = " + std::to_string(m_transform->m_position.x));
-		//Core::Debug::Log::info("x = " + std::to_string(Core::TimeManager::getDeltaTime()));
-	}
 }

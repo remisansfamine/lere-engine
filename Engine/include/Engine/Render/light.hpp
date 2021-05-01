@@ -36,7 +36,5 @@ namespace LowRenderer
 		void setAsPoint();
 		void setAsSpot();
 		void compute();
-
-		void draw() override;
 	};
 }

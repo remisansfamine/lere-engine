@@ -27,26 +27,22 @@ namespace Engine
 		GameObject(const std::string& name);
 		virtual ~GameObject();
 
-		template <class C, class ...Crest>
+		template <class C, class ...Crest, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		void constexpr addComponent(Crest... args)
 		{
-			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
-
 			new C(*this, args...);
 		}
 
-		template <class C>
+		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		bool tryGetComponent()
 		{
 			std::shared_ptr<C> componentToReturn;
 			return tryGetComponent(componentToReturn);
 		}
 
-		template <class C>
+		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		bool tryGetComponent(std::shared_ptr<C>& componentToReturn)
 		{
-			static_assert(std::is_base_of<Component, C>::value, "C is not a Component");
-
 			for (std::shared_ptr<Component>& component : m_components)
 			{
 				auto castedComponent = std::dynamic_pointer_cast<C>(component);
@@ -61,7 +57,7 @@ namespace Engine
 			return false;
 		}
 
-		template <class C>
+		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		[[nodiscard]] std::shared_ptr<C> getComponent()
 		{
 			std::shared_ptr<C> componentToReturn;

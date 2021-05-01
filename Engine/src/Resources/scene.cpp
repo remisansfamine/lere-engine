@@ -3,7 +3,6 @@
 #include "debug.hpp"
 #include "render_manager.hpp"
 
-#include "sprite_renderer.hpp"
 #include "model_renderer.hpp"
 
 namespace Resources
@@ -15,7 +14,21 @@ namespace Resources
 
 	Scene::Scene()
 	{
-		gameObjects.push_back(Engine::GameObject("LERE"));
+		// Craftsman creation
+		{
+			Engine::GameObject craftsman("Craftsman");
+			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj");
+
+			gameObjects.push_back(craftsman);
+		}
+
+		// Player creation
+		{
+			Engine::GameObject player("Player");
+			player.addComponent<LowRenderer::Camera>();
+
+			gameObjects.push_back(player);
+		}
 	}
 
 	Scene::~Scene()
@@ -28,6 +41,8 @@ namespace Resources
 		// TODO: load scene from name
 
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 	}
 
 	void Scene::save()

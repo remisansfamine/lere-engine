@@ -187,7 +187,12 @@ namespace Core
             return frustum(-right, right, -top, top, near, far);
         }
 
-        inline vec4 operator*(const mat4& m, vec4 v)
+        inline vec3 operator-(const vec3& vec)
+        {
+            return { -vec.x, -vec.y, -vec.z };
+        }
+
+        inline vec4 operator*(const mat4& m, const vec4& v)
         {
             vec4 result;
 

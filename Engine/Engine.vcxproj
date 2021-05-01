@@ -170,6 +170,7 @@
     <ClCompile Include="src\Engine\object.cpp" />
     <ClCompile Include="src\Engine\Physics\physic_manager.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
+    <ClCompile Include="src\Engine\Render\camera.cpp" />
     <ClCompile Include="src\Engine\Render\light.cpp" />
     <ClCompile Include="src\Engine\Render\model.cpp" />
     <ClCompile Include="src\Engine\Render\model_renderer.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\renderer.hpp" />
+    <ClInclude Include="include\Engine\Render\camera.hpp" />
     <ClInclude Include="include\Engine\Render\light.hpp" />
     <ClInclude Include="include\Engine\Render\model.hpp" />
     <ClInclude Include="include\Engine\Render\render_manager.hpp" />

@@ -15,9 +15,6 @@ namespace Engine
 		: m_name(name)
 	{
 		Core::Debug::Log::info("Creating a GameObject named " + name);
-
-		addComponent<LowRenderer::ModelRenderer>("FirstModel");
-		addComponent<LowRenderer::Light>();
 	}
 
 	GameObject::~GameObject()

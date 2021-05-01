@@ -23,9 +23,6 @@ namespace LowRenderer
 
 		for (std::shared_ptr<Renderer>& renderer : RM->renderers)
 			renderer->draw();
-
-		for (std::shared_ptr<Light>& light : RM->lights)
-			light->draw();
 	}
 
 	void RenderManager::linkComponent(const std::shared_ptr<Light>& compToLink)
@@ -36,6 +33,11 @@ namespace LowRenderer
 	void RenderManager::linkComponent(const std::shared_ptr<Renderer>& compToLink)
 	{
 		instance()->renderers.push_back(compToLink);
+	}
+
+	void RenderManager::linkComponent(const std::shared_ptr<Camera>& compToLink)
+	{
+		instance()->cameras.push_back(compToLink);
 	}
 
 }
