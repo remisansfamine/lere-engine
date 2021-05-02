@@ -74,9 +74,9 @@ namespace Core::Input
 		instance()->keyButtons.insert(std::make_pair(name, KeyButton(keyID)));
 	}
 
-	void InputManager::addAxis(const std::string& name, int positiveKeyID, int negativeKeyID)
+	void InputManager::addAxis(const std::string& name, int negativeKeyID, int positiveKeyID)
 	{
-		instance()->keyAxes.insert(std::make_pair(name, KeyAxis(positiveKeyID, negativeKeyID)));
+		instance()->keyAxes.insert(std::make_pair(name, KeyAxis(negativeKeyID, positiveKeyID)));
 	}
 
 	void InputManager::editButton(const std::string& name, int newKeyID)

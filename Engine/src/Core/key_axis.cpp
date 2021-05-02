@@ -4,9 +4,7 @@ namespace Core::Input
 {
 	KeyAxis::KeyAxis(int negativeKeyID, int positiveKeyID)
 		: m_positiveKeyID(positiveKeyID), m_negativeKeyID(negativeKeyID)
-	{
-
-	}
+	{ }
 
 	void KeyAxis::compute()
 	{

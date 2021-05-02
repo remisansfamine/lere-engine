@@ -24,6 +24,5 @@ namespace LowRenderer
 
 	void ModelRenderer::update()
 	{
-		model.m_transform->m_position.x += Core::Input::InputManager::getAxis("Horizontal") * Core::TimeManager::getDeltaTime();
 	}
 }

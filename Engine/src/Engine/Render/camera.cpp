@@ -9,18 +9,6 @@
 
 namespace LowRenderer
 {
-	void getDeltasMouse(GLFWwindow* window, float& deltaX, float& deltaY, float& mouseX, float& mouseY)
-	{
-		double newMouseX, newMouseY;
-
-		glfwGetCursorPos(window, &newMouseX, &newMouseY);
-		deltaX = (float)(newMouseX - mouseX);
-		deltaY = (float)(newMouseY - mouseY);
-		mouseX = (float)newMouseX;
-		mouseY = (float)newMouseY;
-	}
-
-
 	Camera::Camera(Engine::GameObject& gameObject)
 		: Camera(gameObject, std::shared_ptr<Camera>(this))
 	{
@@ -36,7 +24,7 @@ namespace LowRenderer
 	Core::Maths::mat4 Camera::getViewMatrix() const
 	{
 		// Get the camera view matrix
-		return /*Core::Maths::rotateZ(m_transform->m_rotation.z) * */Core::Maths::rotateX(m_transform->m_rotation.x) *
+		return Core::Maths::rotateZ(m_transform->m_rotation.z) * Core::Maths::rotateX(m_transform->m_rotation.x) *
 			   Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position);
 	}
 
@@ -46,6 +34,12 @@ namespace LowRenderer
 		return Core::Maths::perspective(fovY * Core::Maths::DEG2RAD, aspect, near, far, false);
 	}
 
+	Core::Maths::mat4 Camera::getViewProjection() const
+	{
+		return getProjection() * getViewMatrix();
+	}
+
+	// TODO: Remove this
 	void setCursor(Core::Maths::vec2& deltaMouse)
 	{
 		static bool isCursorLock = false;
@@ -65,7 +59,9 @@ namespace LowRenderer
 
 	void Camera::update()
 	{
-		float sensivity = 0.008f;
+		float deltaTime = Core::TimeManager::getDeltaTime();
+
+		float sensivity = 0.05f * deltaTime;
 
 		aspect = Core::Application::getAspect();
 
@@ -77,13 +73,17 @@ namespace LowRenderer
 		m_transform->m_rotation.x += deltaMouse.y * sensivity;
 		m_transform->m_rotation.y += deltaMouse.x * sensivity;
 
-		float forwardMove = Core::Input::InputManager::getAxis("Vertical") * 0.5f * Core::TimeManager::getDeltaTime();
-		float strafeMove = Core::Input::InputManager::getAxis("Horizontal") * 0.5f * Core::TimeManager::getDeltaTime();
-		float verticalMove = Core::Input::InputManager::getAxis("UpDown") * 0.5f * Core::TimeManager::getDeltaTime();
+		float translationSpeed = 0.5f * deltaTime;
 
-		m_transform->m_position.x += sinf(m_transform->m_rotation.y) * forwardMove + cosf(m_transform->m_rotation.y) * strafeMove;
-		m_transform->m_position.z -= cosf(m_transform->m_rotation.y) * forwardMove - sinf(m_transform->m_rotation.y) * strafeMove;
+		float forwardMove = Core::Input::InputManager::getAxis("Vertical");
+		float strafeMove = Core::Input::InputManager::getAxis("Horizontal");
+		float verticalMove = Core::Input::InputManager::getAxis("UpDown");
 
-		m_transform->m_position.y += verticalMove;
+		float sin = sinf(m_transform->m_rotation.y), cos = cosf(m_transform->m_rotation.y);
+
+		m_transform->m_position.x += (sin * forwardMove + cos * strafeMove) * translationSpeed;
+		m_transform->m_position.z += (sin * strafeMove - cos * forwardMove) * translationSpeed;
+
+		m_transform->m_position.y += verticalMove * translationSpeed;
 	}
 }

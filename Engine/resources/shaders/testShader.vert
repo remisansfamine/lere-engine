@@ -10,6 +10,6 @@ out float depth;
 
 void main()
 {
-   gl_Position = (viewProj * model) * vec4(aPos, 1.0);
+   gl_Position = viewProj * model * vec4(aPos, 1.0);
    depth = gl_Position.z / 20.0;
 }
