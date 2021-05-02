@@ -91,4 +91,17 @@ namespace Core::Input
 		axis.m_positiveKeyID = newPositiveKeyID;
 		axis.m_negativeKeyID = newNegativeKeyID;
 	}
+
+	void InputManager::getDeltasMouse(Core::Maths::vec2& deltaMouse)
+	{
+		double newMouseX, newMouseY;
+		static float mouseX = 0.f;
+		static float mouseY = 0.f;
+
+		glfwGetCursorPos(Input::window, &newMouseX, &newMouseY);
+		deltaMouse.x = (float)(newMouseX - mouseX);
+		deltaMouse.y = (float)(newMouseY - mouseY);
+		mouseX = (float)newMouseX;
+		mouseY = (float)newMouseY;
+	}
 }

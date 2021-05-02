@@ -146,19 +146,6 @@ namespace Core
 		return (float)width / (float)height;
 	}
 
-	void Application::getDeltasMouse(Core::Maths::vec2& deltaMouse)
-	{
-		double newMouseX, newMouseY;
-		static float mouseX = 0.f;
-		static float mouseY = 0.f;
-
-		glfwGetCursorPos(instance()->window, &newMouseX, &newMouseY);
-		deltaMouse.x = (float)(newMouseX - mouseX);
-		deltaMouse.y = (float)(newMouseY - mouseY);
-		mouseX = (float)newMouseX;
-		mouseY = (float)newMouseY;
-	}
-
 	void Application::setCursor(bool isCursorLock)
 	{
 		Application* AP = instance();

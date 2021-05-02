@@ -66,7 +66,7 @@ namespace LowRenderer
 		aspect = Core::Application::getAspect();
 
 		Core::Maths::vec2 deltaMouse;
-		Core::Application::getDeltasMouse(deltaMouse);
+		Core::Input::InputManager::getDeltasMouse(deltaMouse);
 
 		setCursor(deltaMouse);
 

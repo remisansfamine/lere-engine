@@ -28,6 +28,5 @@ namespace Core
 		static void update();
 		static float getAspect();
 		static void setCursor(bool isCursorLock);
-		static void getDeltasMouse(Core::Maths::vec2& deltaMouse);
 	};
 }

@@ -7,6 +7,7 @@
 
 #include "key_button.hpp"
 #include "key_axis.hpp"
+#include "maths.hpp"
 
 namespace Core::Input
 {
@@ -39,5 +40,7 @@ namespace Core::Input
 
 		static void editButton(const std::string& name, int newKeyID);
 		static void editAxis(const std::string& name, int newPositiveKeyID, int newNegativeKeyID);
+
+		static void getDeltasMouse(Core::Maths::vec2& deltaMouse);
 	};
 }
