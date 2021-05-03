@@ -16,15 +16,16 @@ namespace Engine
 
 	void Component::setActive(bool value)
 	{
+		// Call the correct function when state changed
 		if (isActive() != value)
 			value ? onEnable() : onDisable();
 
+		// Activate or deactivate the component
 		Object::setActive(value);
 	}
 
 	void Component::destroy()
 	{
-
 	}
 
 	GameObject& Component::getHost()

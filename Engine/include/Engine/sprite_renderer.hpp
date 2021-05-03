@@ -10,9 +10,8 @@ namespace LowRenderer
 		// std::shared_ptr<Texture> texture = nullptr;
 
 	public:
-		SpriteRenderer(Engine::GameObject& gameObject);
+		SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName);
 
 		void draw() override;
-		void update() override;
 	};
 }

@@ -1,4 +1,5 @@
 #include "resource.hpp"
+
 #include "utils.hpp"
 
 namespace Resources

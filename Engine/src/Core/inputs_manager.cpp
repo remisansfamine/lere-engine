@@ -4,12 +4,13 @@
 
 namespace Core::Input
 {
-	void InputManager::init(GLFWwindow* window)
+	void InputManager::init(GLFWwindow* _window)
 	{
 		InputManager* IM = instance();
 
-		Input::window = window;
+		IM->window = _window;
 
+		// Add default axes and buttons
 		addAxis("Horizontal", GLFW_KEY_A, GLFW_KEY_D);
 		addAxis("Vertical", GLFW_KEY_S, GLFW_KEY_W);
 		addAxis("UpDown", GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE);
@@ -20,11 +21,25 @@ namespace Core::Input
 	{
 		InputManager* IM = instance();
 
+		// Compute buttons
 		for (auto buttonIt = IM->keyButtons.begin(); buttonIt != IM->keyButtons.end(); buttonIt++)
-			buttonIt->second.compute();
+			buttonIt->second.compute(IM->window);
 
+		// Compute axes
 		for (auto axisIt = IM->keyAxes.begin(); axisIt != IM->keyAxes.end(); axisIt++)
-			axisIt->second.compute();
+			axisIt->second.compute(IM->window);
+
+		// Compute mouse motion
+		{
+			double newMouseX, newMouseY;
+
+			glfwGetCursorPos(IM->window, &newMouseX, &newMouseY);
+
+			// Calculate mouse position differencies with the last frame
+			IM->deltasMouse.x = (float)(newMouseX - IM->mousePosition.x);
+			IM->deltasMouse.y = (float)(newMouseY - IM->mousePosition.y);
+			IM->mousePosition = Core::Maths::vec2(newMouseX, newMouseY);
+		}
 	}
 
 	KeyButton& InputManager::getButtonByName(const std::string& name)
@@ -33,6 +48,7 @@ namespace Core::Input
 
 		auto keyIt = IM->keyButtons.find(name);
 
+		// Assert if the key does not exist
 		Core::Debug::Assertion::out(keyIt != IM->keyButtons.end(), "Button " + name + " does not exist");
 
 		return keyIt->second;
@@ -44,6 +60,7 @@ namespace Core::Input
 
 		auto keyIt = IM->keyAxes.find(name);
 
+		// Assert if the axis does not exist
 		Core::Debug::Assertion::out(keyIt != IM->keyAxes.end(), "Axis " + name + " does not exist");
 
 		return keyIt->second;
@@ -92,16 +109,8 @@ namespace Core::Input
 		axis.m_negativeKeyID = newNegativeKeyID;
 	}
 
-	void InputManager::getDeltasMouse(Core::Maths::vec2& deltaMouse)
+	Core::Maths::vec2 InputManager::getDeltasMouse()
 	{
-		double newMouseX, newMouseY;
-		static float mouseX = 0.f;
-		static float mouseY = 0.f;
-
-		glfwGetCursorPos(Input::window, &newMouseX, &newMouseY);
-		deltaMouse.x = (float)(newMouseX - mouseX);
-		deltaMouse.y = (float)(newMouseY - mouseY);
-		mouseX = (float)newMouseX;
-		mouseY = (float)newMouseY;
+		return instance()->deltasMouse;
 	}
 }

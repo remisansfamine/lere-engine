@@ -1,12 +1,10 @@
 #include "game_object.hpp"
 
-#include "component.hpp"
-
-#include "debug.hpp"
 #include "model_renderer.hpp"
-
 #include "render_manager.hpp"
+#include "debug.hpp"
 
+#include "component.hpp"
 #include "transform.hpp"
 
 namespace Engine
@@ -24,6 +22,7 @@ namespace Engine
 	// TODO: CALL AWAKE AT THE CORRECT TIME
 	void GameObject::awakeComponents()
 	{
+		// Call the awake function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
 			component->awake();
 	}
@@ -31,12 +30,14 @@ namespace Engine
 	// TODO: CALL START AT THE CORRECT TIME
 	void GameObject::startComponents()
 	{
+		// Call the start function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
 			component->start();
 	}
 
 	void GameObject::updateComponents()
 	{
+		// Call the update function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
 			component->update();
 	}

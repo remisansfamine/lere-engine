@@ -11,10 +11,9 @@ namespace LowRenderer
 		LowRenderer::Model model;
 
 	public:
-		ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath);
+		ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName);
 		~ModelRenderer();
 
 		void draw() override;
-		void update() override;
 	};
 }

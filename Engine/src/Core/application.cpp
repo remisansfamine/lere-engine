@@ -6,12 +6,9 @@
 
 #include "resources_manager.hpp"
 #include "inputs_manager.hpp"
-#include "debug.hpp"
-
 #include "engine_master.hpp"
-
+#include "debug.hpp"
 #include "time.hpp"
-#include "utils.hpp"
 
 // glfw - Whenever the window size changed (by OS or user resize) this callback function executes
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -52,6 +49,7 @@ namespace Core
 
 	GLFWwindow* Application::createWindow(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
 	{
+		// Check if the Application instance is already initialized
 		if (instance()->initialized)
 			return nullptr;
 
@@ -93,21 +91,22 @@ namespace Core
 	{
 		Application* AP = instance();
 
+		// Check if the Application is already initialized
 		if (AP->initialized)
 		{
 			Debug::Log::error("The Application is already initialized");
 			return;
 		}
 
+		// Return the Window created by GLFW
 		AP->window = createWindow(screenWidth, screenHeight, title, monitor, share);
 		AP->initialized = true;
  		Debug::Log::info("Application initialized");
 
-		// Init Resources Manager
+		// Init Managers
 		Resources::ResourcesManager::init();
 
 		Input::InputManager::init(AP->window);
-
 		Input::InputManager::addButton("Return", GLFW_KEY_ESCAPE);
 	}
 
@@ -115,8 +114,10 @@ namespace Core
 	{
 		Application* AP = instance();
 
+		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
+			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
@@ -124,12 +125,14 @@ namespace Core
 			// Tell to glfw to close the window when the "Return" key is pressed
 			glfwSetWindowShouldClose(AP->window, Input::InputManager::getButton("Return"));
 
+			// Compute managers
 			TimeManager::computeTime();
-
 			Input::InputManager::compute();
 
+			// Update the Engine
 			Engine::EngineMaster::update();
 
+			// Render ImGui
 			ImGui::Render();
 			ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
@@ -141,6 +144,7 @@ namespace Core
 
 	float Application::getAspect()
 	{
+		// Return the aspect of the Window
 		int width, height;
 		glfwGetWindowSize(instance()->window, &width, &height);
 		return (float)width / (float)height;
@@ -150,6 +154,7 @@ namespace Core
 	{
 		Application* AP = instance();
 
+		// Toggle the cursor visibility
 		if (isCursorLock)
 		{
 			glfwSetInputMode(AP->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);

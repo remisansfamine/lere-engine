@@ -4,6 +4,8 @@
 #include "render_manager.hpp"
 
 #include "model_renderer.hpp"
+#include "transform.hpp"
+#include "light.hpp"
 
 namespace Resources
 {
@@ -17,9 +19,41 @@ namespace Resources
 		// Craftsman creation
 		{
 			Engine::GameObject craftsman("Craftsman");
-			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj");
+			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+
+			auto transform = craftsman.getComponent<Physics::Transform>();
+			transform->m_position.z = 0.f;
+			transform->m_position.x = 1.f;
 
 			gameObjects.push_back(craftsman);
+		}
+
+		// Craftsman creation
+		{
+			Engine::GameObject craftsman("Craftsman2");
+			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+
+			auto transform = craftsman.getComponent<Physics::Transform>();
+			transform->m_position.z = 0.f;
+			transform->m_position.x = -2.f;
+
+			gameObjects.push_back(craftsman);
+		}
+
+		// Light creation
+		{
+			Engine::GameObject light("Light");
+			light.addComponent<LowRenderer::Light>();
+
+			auto transform = light.getComponent<Physics::Transform>();
+			transform->m_position.z = 0.f;
+			transform->m_position.x = -1.f;
+			transform->m_position.y = 2.f;
+
+			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
+			light.getComponent<LowRenderer::Light>()->setAsPoint();
+
+			gameObjects.push_back(light);
 		}
 
 		// Player creation
@@ -52,10 +86,11 @@ namespace Resources
 
 	void Scene::draw()
 	{
-		glClearColor(1.f, 0.64f, 0.f, 1.f);
+		glClearColor(1.f, 0.3f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
 		glEnable(GL_DEPTH_TEST);
+		glEnable(GL_FRAMEBUFFER_SRGB);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);

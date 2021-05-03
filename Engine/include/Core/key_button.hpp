@@ -17,7 +17,7 @@ namespace Core::Input
 
 		KeyButton(int keyID);
 
-		void compute();
+		void compute(GLFWwindow* window) override;
 
 		bool isButtonPressed();
 		bool isButtonReleased();

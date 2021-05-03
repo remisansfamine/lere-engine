@@ -1,14 +1,15 @@
 #include "model_renderer.hpp"
 
-#include "inputs_manager.hpp"
 #include "resources_manager.hpp"
+#include "inputs_manager.hpp"
 #include "time.hpp"
+
 #include "transform.hpp"
 
 namespace LowRenderer
 {
-	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath)
-		: Renderer(gameObject, std::shared_ptr<ModelRenderer>(this)), model(filePath, m_transform, "shader")
+	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName)
+		: Renderer(gameObject, std::shared_ptr<ModelRenderer>(this), shaderPromgramName), model(filePath, m_transform)
 	{
 	}
 
@@ -19,10 +20,6 @@ namespace LowRenderer
 
 	void ModelRenderer::draw()
 	{
-		model.draw();
-	}
-
-	void ModelRenderer::update()
-	{
+		model.draw(m_shaderProgram);
 	}
 }

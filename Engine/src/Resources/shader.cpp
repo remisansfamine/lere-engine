@@ -1,10 +1,11 @@
+#include "shader.hpp"
+
 #include <fstream>
 
-#include "shader.hpp"
-#include "debug.hpp"
-#include "utils.hpp"
-
 #include "resources_manager.hpp"
+#include "debug.hpp"
+
+#include "utils.hpp"
 
 namespace Resources
 {

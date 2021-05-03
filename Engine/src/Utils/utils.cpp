@@ -1,13 +1,13 @@
 #include "utils.hpp"
 
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
 
 namespace Utils
 {
     bool hasPrefix(const std::string& str, const std::string& prefix)
     {
-        // Check if the current string as the input suffix
+        // Check if the current string as the input prefix
         return str.size() >= prefix.size() &&
             str.compare(0, prefix.size(), prefix) == 0;
     }

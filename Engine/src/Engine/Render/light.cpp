@@ -1,10 +1,10 @@
 ﻿#include "light.hpp"
-#include "render_manager.hpp"
 
+#include "render_manager.hpp"
 #include "inputs_manager.hpp"
+#include "time.hpp"
 
 #include "transform.hpp"
-#include "time.hpp"
 
 namespace LowRenderer
 {
@@ -46,8 +46,14 @@ namespace LowRenderer
 
 	void Light::compute()
 	{
-		// TODO
 		enable = (float)isActive();
-		//position.xyz = transform.position;
+		position.xyz = m_transform->m_position;
+	}
+
+	void Light::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index)
+	{
+		// Send light parameters to the ShaderProgram packed into matrices
+		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position);
+		program->setUniform("lightAttribs2[" + std::to_string(index) + "][0]", &attenuation);
 	}
 }

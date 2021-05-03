@@ -1,24 +1,26 @@
-#include "model.hpp"
+﻿#include "model.hpp"
 
-#include "transform.hpp"
 #include "resources_manager.hpp"
 #include "render_manager.hpp"
 
+#include "transform.hpp"
+
 namespace LowRenderer
 {
-	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform, const std::string& shaderProgramName)
-		: m_transform(transform), m_shaderProgram(Resources::ResourcesManager::loadShaderProgram(shaderProgramName)), m_filePath(filePath)
+	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform)
+		: m_transform(transform), m_filePath(filePath)
 	{
-		// TODO: Load from Resoures Manager
+		// Load meshes
 		Resources::ResourcesManager::loadObj(filePath);
 
 		std::vector<std::string>* modelChildrens = Resources::ResourcesManager::getMeshNames(filePath);
 
+		// Get model childrens
 		if (modelChildrens != nullptr)
 		{
 			for (std::string& meshName : *modelChildrens)
 			{
-				Model child = Model(transform, meshName, m_shaderProgram);
+				Model child = Model(transform, meshName);
 				child.m_material = Resources::ResourcesManager::getMatByMeshName(meshName);
 				m_children.push_back(child);
 			}
@@ -27,34 +29,28 @@ namespace LowRenderer
 		m_mesh = nullptr;
 	}
 
-	Model::Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName, std::shared_ptr<Resources::ShaderProgram> program)
-		: m_transform(transform), m_shaderProgram(program), m_mesh(Resources::ResourcesManager::getMeshByName(meshName))
+	Model::Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName)
+		: m_transform(transform), m_mesh(Resources::ResourcesManager::getMeshByName(meshName))
 	{ }
 
-	void Model::draw()
+	void Model::draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram)
 	{
 		if (m_mesh)
 		{
-			m_shaderProgram->bind();
+			// Send model matrix to program
+			shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
 
-			m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
-
-			std::shared_ptr<Camera> cam = LowRenderer::RenderManager::getCurrentCamera();
-
-			if (cam != nullptr)
-				m_shaderProgram->setUniform("viewProj", cam->getViewProjection().e, 1, 1);
-
-			// use other material
-			m_material->sendToShader(m_shaderProgram);
+			// Send and bind material to program
+			m_material->sendToShader(shaderProgram);
 			m_material->bindTextures();
 
+			// Draw the mesh
 			m_mesh->draw();
-
-			m_shaderProgram->unbind();
 		}
 
+		// Draw children
 		for (Model& child : m_children)
-			child.draw();
+			child.draw(shaderProgram);
 	}
 
 	std::string& Model::getPath()

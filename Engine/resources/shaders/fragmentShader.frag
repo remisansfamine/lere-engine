@@ -58,9 +58,9 @@ void parseLights()
 		lights[i].specular	= lightAttribs1[i][0][3];
 
 		lights[i].attenuation		= vec3(lightAttribs2[i][0][0]);
-		lights[i].spotCutoff		= cos(radians(lightAttribs2[i][0][0][3]));
+		lights[i].spotCutoff		= cos(lightAttribs2[i][0][0][3]);
 		lights[i].spotDirection		= vec3(lightAttribs2[i][0][1]);
-		lights[i].spotOuterCutoff	= cos(radians(lightAttribs2[i][0][1][3]));
+		lights[i].spotOuterCutoff	= cos(lightAttribs2[i][0][1][3]);
 		lights[i].enable			= bool(lightAttribs2[i][0][2][0]);
 	}
 }
@@ -124,9 +124,7 @@ void main()
 {
 	parseLights();
 
-	vec4 ambient = vec4(0.2, 0.2, 0.2, 1.0);
-	vec4 diffuse = vec4(1.0);
-	vec4 specular = vec4(0.0);
+	vec4 ambient, diffuse, specular;
 
 	getLightColor(ambient, diffuse, specular);
 

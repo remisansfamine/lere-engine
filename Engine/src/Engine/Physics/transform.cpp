@@ -15,6 +15,7 @@ namespace Physics
 
 	Core::Maths::mat4 Transform::getModel()
 	{
+		// Return the model matrix (TRS where R = ZXY like Unity)
 		return Core::Maths::translate(m_position) *
 			   Core::Maths::rotateZ(m_rotation.z) *
 			   Core::Maths::rotateX(m_rotation.x) *

@@ -1,11 +1,11 @@
 #include "time.hpp"
 
 #include <glad/glad.h>
-
-#include "debug.hpp"
-
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+#include <algorithm>
+
+#include "debug.hpp"
 
 namespace Core
 {
@@ -23,12 +23,11 @@ namespace Core
 	{
 		TimeManager* TM = instance();
 
+		// Update the Application Time
 		TM->lastTime = TM->time;
-
 		TM->time = (float)glfwGetTime();
 
 		TM->unscaledDeltaTime = TM->time - TM->lastTime;
-
 		TM->deltaTime = TM->unscaledDeltaTime * TM->timeScale;
 	}
 
@@ -55,8 +54,6 @@ namespace Core
 
 	void TimeManager::setTimeScale(float value)
 	{
-		// TODO: clamp to 0 if less than 0
-		if (value >= 0.f)
-			instance()->timeScale = value;
+		instance()->timeScale = std::max(0.f, value);
 	}
 }

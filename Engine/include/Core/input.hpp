@@ -8,8 +8,6 @@ namespace Core::Input
 	class Input
 	{
 	public:
-		virtual void compute() = 0;
-
-		static GLFWwindow* window;
+		virtual void compute(GLFWwindow* window) = 0;
 	};
 }

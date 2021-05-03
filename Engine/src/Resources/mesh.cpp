@@ -44,6 +44,7 @@ namespace Resources
 
 	void Mesh::compute(std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices)
 	{
+		// Create attributs vector from mesh values
 		for (size_t i = 0; i < indices.size(); i += 3)
 		{
 			Core::Maths::vec3& vertex = vertices[indices[i]];
@@ -65,6 +66,7 @@ namespace Resources
 			attributs.push_back(normal.z);
 		}
 
+		// Generate the VAO buffer
 		generateVAO();
 	}
 }

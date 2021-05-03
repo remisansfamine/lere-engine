@@ -17,6 +17,10 @@ namespace Core::Input
 
 	private:
 		bool initialized = false;
+		GLFWwindow* window = nullptr;
+
+		Core::Maths::vec2 mousePosition;
+		Core::Maths::vec2 deltasMouse;
 
 		std::unordered_map<std::string, KeyAxis> keyAxes;
 		std::unordered_map<std::string, KeyButton> keyButtons;
@@ -25,6 +29,7 @@ namespace Core::Input
 		static KeyAxis& getAxisByName(const std::string& name);
 
 	public:
+
 		static void init(GLFWwindow* window);
 
 		static void compute();
@@ -41,6 +46,6 @@ namespace Core::Input
 		static void editButton(const std::string& name, int newKeyID);
 		static void editAxis(const std::string& name, int newPositiveKeyID, int newNegativeKeyID);
 
-		static void getDeltasMouse(Core::Maths::vec2& deltaMouse);
+		static Core::Maths::vec2 getDeltasMouse();
 	};
 }

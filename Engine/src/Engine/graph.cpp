@@ -1,4 +1,5 @@
 #include "graph.hpp"
+
 #include "debug.hpp"
 
 namespace Core::Engine
@@ -15,12 +16,12 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath)
 	{
-
+		// TODO
 	}
 
 	void Graph::saveCurrentScene()
 	{
-		
+		// TODO
 	}
 
 	void Graph::init()
@@ -30,11 +31,13 @@ namespace Core::Engine
 
 	void Graph::draw()
 	{
+		// Draw the scene
 		instance()->curScene.draw();
 	}
 
 	void Graph::update()
 	{
+		// Update the scene
 		instance()->curScene.update();
 	}
 }

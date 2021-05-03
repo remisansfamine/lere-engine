@@ -3,6 +3,7 @@
 #include "component.hpp"
 
 #include "maths.hpp"
+#include "shader.hpp"
 
 namespace Physics
 {
@@ -31,5 +32,6 @@ namespace LowRenderer
 		Core::Maths::mat4 getViewProjection() const;
 
 		void update() override;
+		void sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 	};
 }

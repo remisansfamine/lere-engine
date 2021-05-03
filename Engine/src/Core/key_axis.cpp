@@ -6,7 +6,7 @@ namespace Core::Input
 		: m_positiveKeyID(positiveKeyID), m_negativeKeyID(negativeKeyID)
 	{ }
 
-	void KeyAxis::compute()
+	void KeyAxis::compute(GLFWwindow* window)
 	{
 		m_value = (float)(glfwGetKey(window, m_positiveKeyID) - glfwGetKey(window, m_negativeKeyID));
 	}

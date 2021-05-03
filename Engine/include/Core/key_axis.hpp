@@ -15,7 +15,7 @@ namespace Core::Input
 
 		KeyAxis(int negativeKeyID, int positiveKeyID);
 
-		void compute();
+		void compute(GLFWwindow* window) override;
 
 		float getValue();
 	};

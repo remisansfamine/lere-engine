@@ -8,11 +8,12 @@ namespace Core::Input
 
 	}
 
-	void KeyButton::compute()
+	void KeyButton::compute(GLFWwindow* window)
 	{
 		m_wasDown = m_isDown;
 		m_isDown = glfwGetKey(window, m_keyID);
 
+		// Set button parameters
 		m_isPressed = !m_wasDown && m_isDown;
 		m_isReleased = m_wasDown && !m_isDown;
 	}

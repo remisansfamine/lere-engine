@@ -1,7 +1,7 @@
+#include "resources_manager.hpp"
+
 #include <fstream>
 #include <sstream>
-
-#include "resources_manager.hpp"
 
 #include "debug.hpp"
 
@@ -13,7 +13,6 @@ namespace Resources
 	ResourcesManager::ResourcesManager()
 	{
 		Core::Debug::Log::info("Creating the Resources Manager");
-
 	}
 
 	ResourcesManager::~ResourcesManager()
@@ -32,6 +31,7 @@ namespace Resources
 		// Purple and black grid
 		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
 
+		// Load the default textures
 		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
 		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
 		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
@@ -43,6 +43,7 @@ namespace Resources
 		Texture::defaultEmissive = blackTex;
 		Texture::defaultSpecular = whiteTex;
 
+		// Load the default material
 		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE");
 	}
 
@@ -50,16 +51,14 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
+		// Check if the ResourcesManager instance is already initialized
 		if (RM->initialized)
 		{
 			Core::Debug::Log::error("The Resources Manager is already initialized");
 			return;
 		}
 
-		// TODO : Add basic materials/models/textures
-
 		RM->initialized = true;
-
 		Core::Debug::Log::info("Resources Manager initialized");
 
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
@@ -74,6 +73,7 @@ namespace Resources
 		
 		const auto& sceneIt = RM->scenes.find(scenePath);
 
+		// Check if the Scene is already loaded
 		if (sceneIt != RM->scenes.end())
 		{
 			return sceneIt->second;
@@ -89,6 +89,7 @@ namespace Resources
 		
 		const auto& shaderIt = RM->shaders.find(shaderPath);
 
+		// Check if the Shader is already loaded
 		if (shaderIt != RM->shaders.end())
 		{
 			return shaderIt->second;
@@ -104,6 +105,7 @@ namespace Resources
 
 		const auto& programIt = RM->shaderPrograms.find(programName);
 
+		// Check if the ShaderProgram is already loaded
 		if (programIt != RM->shaderPrograms.end())
 			return programIt->second;
 
@@ -117,6 +119,7 @@ namespace Resources
 
 		const auto& textureIt = RM->textures.find(texturePath);
 
+		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
 			return textureIt->second;
@@ -132,6 +135,7 @@ namespace Resources
 
 		const auto& textureIt = RM->textures.find(name);
 
+		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
 			return textureIt->second;
@@ -147,6 +151,7 @@ namespace Resources
 
 		const auto& materialIt = RM->materials.find(materialPath);
 
+		// Check if the Material is already loaded
 		if (materialIt != RM->materials.end())
 		{
 			return materialIt->second;
@@ -158,6 +163,7 @@ namespace Resources
 
 	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
 	{
+		// Get a 3D Vector data form string stream
 		Core::Maths::vec3 data = { 0.f };
 
 		iss >> data.x;
@@ -169,6 +175,7 @@ namespace Resources
 
 	LowRenderer::Color getColor(std::istringstream& iss)
 	{
+		// Get a Color data form string stream
 		LowRenderer::Color color = { 0.f };
 
 		iss >> color.data.r;
@@ -182,6 +189,8 @@ namespace Resources
 	int getNumFace(const std::string& line)
 	{
 		int numFace = 0;
+
+		// Check how many spaces the line has
 		for (size_t i = 0; i < line.length(); i++)
 		{
 			if (line[i] == ' ')
@@ -280,6 +289,7 @@ namespace Resources
 
 		std::string filePath = dirPath + mtlName;
 
+		// Check if the file exist
 		std::ifstream dataMat(filePath.c_str());
 		if (!dataMat)
 		{
@@ -294,6 +304,7 @@ namespace Resources
 
 		Core::Debug::Log::info("Loading materials at " + filePath);
 
+		// Get all mesh materials
 		while (std::getline(dataMat, line))
 		{
 			std::istringstream iss(line);
@@ -309,6 +320,7 @@ namespace Resources
 					isFirstMat = false;
 				else
 				{
+					// Add the material
 					*ResourcesManager::loadMaterial(mat.m_name) = mat;
 					mat = Material();
 				}
@@ -340,6 +352,7 @@ namespace Resources
 			std::string texName;
 			iss >> texName;
 
+			// Load mesh textures
 			if (type == "map_Ka")
 				mat.ambientTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Kd")
@@ -352,6 +365,7 @@ namespace Resources
 				mat.alphaTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 		}
 
+		// Add the material
 		*ResourcesManager::loadMaterial(mat.m_name) = mat;
 
 		dataMat.close();
@@ -410,6 +424,7 @@ namespace Resources
 					isFirstObject = false;
 				else
 				{
+					// Compute and add the mesh
 					mesh.compute(vertices, texCoords, normals, indices);
 					RM->meshes[mesh.name] = std::make_shared<Mesh>(mesh);
 					names.push_back(mesh.name);
@@ -441,10 +456,12 @@ namespace Resources
 				std::string mtlName;
 				iss >> mtlName;
 
+				// Load mtl file
 				ResourcesManager::loadMaterialsFromMtl(dirPath, mtlName);
 			}
 		}
 
+		// Compute and add the mesh
 		mesh.compute(vertices, texCoords, normals, indices);
 		RM->meshes[mesh.name] = std::make_shared<Mesh>(mesh);
 		names.push_back(mesh.name);
@@ -464,6 +481,7 @@ namespace Resources
 
 		auto meshNameIt = RM->childrenMeshes.find(filePath);
 
+		// Check if meshes are linked to the filePath
 		if (meshNameIt == RM->childrenMeshes.end())
 		{
 			Core::Debug::Log::error("Can not find mesh children at " + filePath);
@@ -479,6 +497,7 @@ namespace Resources
 
 		auto meshIt = RM->meshes.find(meshName);
 
+		// Check if the mesh exist
 		if (meshIt == RM->meshes.end())
 		{
 			Core::Debug::Log::error("Can not find mesh named " + meshName);
@@ -494,12 +513,14 @@ namespace Resources
 
 		auto materialIt = RM->childrenMaterials.find(meshName);
 
+		// Check if a material is link to the mesh name
 		if (materialIt == RM->childrenMaterials.end())
 		{
 			Core::Debug::Log::error("Can not find material at " + meshName);
 			return nullptr;
 		}
 
+		// Load and return the material
 		return ResourcesManager::loadMaterial(materialIt->second);
 	}
 }

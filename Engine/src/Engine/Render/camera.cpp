@@ -1,11 +1,11 @@
 #include "camera.hpp"
 
-
 #include "render_manager.hpp"
 #include "inputs_manager.hpp"
-#include "transform.hpp"
 #include "application.hpp"
 #include "time.hpp"
+
+#include "transform.hpp"
 
 namespace LowRenderer
 {
@@ -44,6 +44,7 @@ namespace LowRenderer
 	{
 		static bool isCursorLock = false;
 
+		// Set the cursor visibility
 		if (Core::Input::InputManager::getButtonDown("LockCursor"))
 		{
 			isCursorLock = !isCursorLock;
@@ -60,13 +61,11 @@ namespace LowRenderer
 	void Camera::update()
 	{
 		float deltaTime = Core::TimeManager::getDeltaTime();
-
 		float sensivity = 0.05f * deltaTime;
 
 		aspect = Core::Application::getAspect();
 
-		Core::Maths::vec2 deltaMouse;
-		Core::Input::InputManager::getDeltasMouse(deltaMouse);
+		Core::Maths::vec2 deltaMouse = Core::Input::InputManager::getDeltasMouse();
 
 		setCursor(deltaMouse);
 
@@ -85,5 +84,11 @@ namespace LowRenderer
 		m_transform->m_position.z += (sin * strafeMove - cos * forwardMove) * translationSpeed;
 
 		m_transform->m_position.y += verticalMove * translationSpeed;
+	}
+
+	void Camera::sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
+	{
+		program->setUniform("viewProj", getViewProjection().e, 1, 1);
+		program->setUniform("viewPos", m_transform->m_position.e);
 	}
 }
