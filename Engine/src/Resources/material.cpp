@@ -2,7 +2,7 @@
 
 namespace Resources
 {
-	Material Material::defaultMaterial = Material();
+	std::shared_ptr<Material> Material::defaultMaterial = nullptr;
 
 	void Material::sendToShader(const std::shared_ptr<ShaderProgram>& shaderProgram)
 	{
@@ -13,15 +13,34 @@ namespace Resources
 		shaderProgram->setUniform("material.emissive", &emissive);
 
 		shaderProgram->setUniform("material.shininess", &shininess);
+
+		// Set the textures' location of the shader program
+		std::vector<std::string> shaderName =
+		{ "material.alphaTexture", "material.ambientTexture", "material.diffuseTexture",
+			"material.emissiveTexture", "material.specularTexture" };
+
+		for (int i = 0; i < 5; i++)
+			shaderProgram->setUniform(shaderName[i], &i);
 	}
 
 	void Material::bindTextures()
 	{
 		// TODO : set textures with uniform
-		ambientTex->bind(0);
-		diffuseTex->bind(1);
-		specularTex->bind(2);
-		emissiveTex->bind(3);
-		dissolveTex->bind(4);
+		if (alphaTex)
+			alphaTex->bind(0);
+
+		if (ambientTex)
+			ambientTex->bind(1);
+
+		if (diffuseTex)
+			diffuseTex->bind(2);
+			
+		if (emissiveTex)
+			emissiveTex->bind(3);
+
+		if (specularTex)
+			specularTex->bind(4);
+
+		glActiveTexture(0);
 	}
 }

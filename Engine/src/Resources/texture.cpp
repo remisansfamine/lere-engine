@@ -7,11 +7,11 @@
 
 namespace Resources
 {
-	 /*std::shared_ptr<Texture> Texture::defaultAlpha = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultAlpha = nullptr;
 	 std::shared_ptr<Texture> Texture::defaultAmbient = nullptr;
 	 std::shared_ptr<Texture> Texture::defaultDiffuse = nullptr;
 	 std::shared_ptr<Texture> Texture::defaultEmissive = nullptr;
-	 std::shared_ptr<Texture> Texture::defaultSpecular = nullptr;*/
+	 std::shared_ptr<Texture> Texture::defaultSpecular = nullptr;
 
 
 	Texture::Texture(const std::string& filePath)
@@ -36,6 +36,11 @@ namespace Resources
 		}
 		else
 			Core::Debug::Log::error("Cannot find the texture file at " + filePath);
+	}
+
+	Texture::Texture(int width, int height, float* colorBuffer)
+	{
+		generateID(width, height, colorBuffer);
 	}
 
 	void Texture::generateID(int width, int height, float* colorBuffer)

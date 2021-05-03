@@ -7,11 +7,11 @@ namespace Resources
 	{
 	protected:
 		std::string m_filePath;
-		std::string m_name;
 
 		Resource() = default;
 		Resource(const std::string& filePath);
 	public:
+		std::string m_name;
 		std::string getPath();
 	};
 }

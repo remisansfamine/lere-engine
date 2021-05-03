@@ -24,10 +24,11 @@ namespace Resources
 		ResourcesManager();
 		~ResourcesManager();
 
-		std::unordered_map<std::string, std::vector<std::string>>		modelChildren;
+		std::unordered_map<std::string, std::vector<std::string>>		childrenMeshes;
+		std::unordered_map<std::string, std::string>		childrenMaterials;
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>>		textures;
-		std::unordered_map<std::string, std::shared_ptr<Mesh>>		meshes;
+		std::unordered_map<std::string, std::shared_ptr<Mesh>>			meshes;
 		std::unordered_map<std::string, std::shared_ptr<Material>>		materials;
 
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
@@ -35,12 +36,17 @@ namespace Resources
 
 		std::unordered_map<std::string, std::shared_ptr<Scene>>			scenes;
 
+		void setDefaultResources();
+
 
 	public:
 		static void init();
 
 		static void loadObj(const std::string& filePath);
+		static void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
+
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
+		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
 		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
 		static std::shared_ptr<Scene> loadScene(const std::string& scenePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
@@ -48,5 +54,6 @@ namespace Resources
 
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);
+		static std::shared_ptr<Material> getMatByMeshName(const std::string& meshName);
 	};
 }

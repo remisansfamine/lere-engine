@@ -18,7 +18,9 @@ namespace LowRenderer
 		{
 			for (std::string& meshName : *modelChildrens)
 			{
-				m_children.push_back(Model(transform, meshName, m_shaderProgram));
+				Model child = Model(transform, meshName, m_shaderProgram);
+				child.m_material = Resources::ResourcesManager::getMatByMeshName(meshName);
+				m_children.push_back(child);
 			}
 		}
 
@@ -43,8 +45,8 @@ namespace LowRenderer
 				m_shaderProgram->setUniform("viewProj", cam->getViewProjection().e, 1, 1);
 
 			// use other material
-			//material->sendToShader(shaderProgram);
-			//material->bindTextures();
+			m_material->sendToShader(m_shaderProgram);
+			m_material->bindTextures();
 
 			m_mesh->draw();
 

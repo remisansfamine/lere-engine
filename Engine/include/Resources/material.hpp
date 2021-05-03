@@ -16,15 +16,18 @@ namespace Resources
 		LowRenderer::Color specular = { 0.0f, 0.0f, 0.0f, 1.0f };
 		LowRenderer::Color emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-		std::shared_ptr<Resources::Texture> ambientTex  = nullptr;
-		std::shared_ptr<Resources::Texture> diffuseTex  = nullptr;
-		std::shared_ptr<Resources::Texture> specularTex = nullptr;
-		std::shared_ptr<Resources::Texture> emissiveTex = nullptr;
-		std::shared_ptr<Resources::Texture> dissolveTex = nullptr;
+		std::shared_ptr<Resources::Texture> alphaTex	= Resources::Texture::defaultAlpha;
+		std::shared_ptr<Resources::Texture> ambientTex  = Resources::Texture::defaultAmbient;
+		std::shared_ptr<Resources::Texture> diffuseTex  = Resources::Texture::defaultDiffuse;
+		std::shared_ptr<Resources::Texture> emissiveTex = Resources::Texture::defaultEmissive;
+		std::shared_ptr<Resources::Texture> specularTex = Resources::Texture::defaultSpecular;
 
 		float shininess = 100.f;
+		float opticalDensity = 0.f;
+		float transparency = 0.f;
+		float illumination = 0.f;
 
-		static Material defaultMaterial;
+		static std::shared_ptr<Material> defaultMaterial;
 
 		void sendToShader(const std::shared_ptr<Resources::ShaderProgram>& shaderProgram);
 		void bindTextures();

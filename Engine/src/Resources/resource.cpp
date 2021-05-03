@@ -1,12 +1,11 @@
 #include "resource.hpp"
+#include "utils.hpp"
 
 namespace Resources
 {
 	Resource::Resource(const std::string& filePath)
 		: m_filePath(filePath)
 	{
-		// TODO
-		//m_name = Utils::getNameFromPath(filePath);
 	}
 
 	std::string Resource::getPath()

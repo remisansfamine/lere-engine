@@ -126,21 +126,23 @@ void mat4ToLight(in mat4 lights[NB_LIGHTS][1], in mat4 attribsLights[NB_LIGHTS][
 	}
 }
 
-void uniformToMaterial(in mat4 material, out Material _material)
+void uniformToMaterial(in mat4 material, in vec4 materialAttribs, out Material _material)
 {
 	_material.ambientColor   = vec3(material[0]);
-	_material.opticalDensity = material[0][3];
 	_material.diffuseColor   = vec3(material[1]);
-	_material.shininess		 = material[1][3];
 	_material.specularColor  = vec3(material[2]);
-	_material.transparency   = material[2][3];
 	_material.emissiveColor  = vec3(material[3]);
-	_material.illumination   = material[3][3];
+
+	_material.shininess = materialAttribs.x;
+	_material.opticalDensity = materialAttribs.y;
+	_material.transparency = materialAttribs.z;
+	_material.illumination = materialAttribs.w;
 }
 
 uniform mat4 lights[NB_LIGHTS][1];
 uniform mat4 attribsLights[NB_LIGHTS][1];
 uniform mat4 material;
+uniform vec4 materialAttribs;
 uniform sampler2D textures[5][1];
 uniform bool istextures[5][1];
 uniform sampler2D texDif;
@@ -154,7 +156,7 @@ void main()
 {
 	Light _lights[NB_LIGHTS];
 	Material mat;
-	uniformToMaterial(material, mat);
+	uniformToMaterial(material, materialAttribs, mat);
 	mat4ToLight(lights, attribsLights, _lights);
 
 	vec3 viewDir = normalize(viewPos - FragPos);
@@ -172,7 +174,7 @@ void main()
 	if (istextures[3][0])
 		emissive  = texture(textures[3][0], TexCoords); //+ vec4(mat.emissiveColor, 1.0);
 
-	FragColor = texValue * (emissive + vec4(lightShader, 1.0));
+	FragColor = texValue * emissive; //+ vec4(lightShader, 1.0));
 
 	if (istextures[4][0])
 		FragColor.a = texture(textures[4][0], TexCoords).r;

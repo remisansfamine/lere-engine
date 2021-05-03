@@ -6,6 +6,7 @@
 #include "debug.hpp"
 
 #include "maths.hpp"
+#include "utils.hpp"
 
 namespace Resources
 {
@@ -18,6 +19,31 @@ namespace Resources
 	ResourcesManager::~ResourcesManager()
 	{
 		Core::Debug::Log::info("Destroying the Resources Manager");
+	}
+
+	void ResourcesManager::setDefaultResources()
+	{
+		// White color
+		float whiteBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
+
+		// Black color
+		float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
+
+		// Purple and black grid
+		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
+
+		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
+		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
+
+		// Set the default textures
+		Texture::defaultAlpha = whiteTex;
+		Texture::defaultAmbient = whiteTex;
+		Texture::defaultDiffuse = noDiffuseTex;
+		Texture::defaultEmissive = blackTex;
+		Texture::defaultSpecular = whiteTex;
+
+		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE");
 	}
 
 	void ResourcesManager::init()
@@ -36,7 +62,10 @@ namespace Resources
 
 		Core::Debug::Log::info("Resources Manager initialized");
 
-		loadShaderProgram("testShader", "resources/shaders/testShader.vert", "resources/shaders/testShader.frag");
+		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
+
+		// Set default textures and materials
+		RM->setDefaultResources();
 	}
 
 	std::shared_ptr<Scene> ResourcesManager::loadScene(const std::string& scenePath)
@@ -76,9 +105,7 @@ namespace Resources
 		const auto& programIt = RM->shaderPrograms.find(programName);
 
 		if (programIt != RM->shaderPrograms.end())
-		{
 			return programIt->second;
-		}
 
 		// TODO: Add Warn load fail
 		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(ShaderProgram(programName, vertPath, fragPath));
@@ -99,6 +126,21 @@ namespace Resources
 		return RM->textures[texturePath] = std::make_shared<Texture>(Texture(texturePath));
 	}
 
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
+	{
+		ResourcesManager* RM = instance();
+
+		const auto& textureIt = RM->textures.find(name);
+
+		if (textureIt != RM->textures.end())
+		{
+			return textureIt->second;
+		}
+
+		// TODO: Add Warn load fail
+		return RM->textures[name] = std::make_shared<Texture>(Texture(width, height, data));
+	}
+
 	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
 	{
 		ResourcesManager* RM = instance();
@@ -114,45 +156,26 @@ namespace Resources
 		return RM->materials[materialPath] = std::make_shared<Material>(Material());
 	}
 
-	void addVertices(std::vector<Core::Maths::vec3>& vertices, std::istringstream& iss)
+	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
 	{
-		Core::Maths::vec3 vertice;
+		Core::Maths::vec3 data = { 0.f };
 
-		iss >> vertice.x;
-		iss >> vertice.y;
-		iss >> vertice.z;
+		iss >> data.x;
+		iss >> data.y;
+		iss >> data.z;
 
-		vertices.push_back(vertice);
-
-		return;
+		dataVector.push_back(data);
 	}
 
-	// Add a texture coordinate from an .obj
-	void addTexCoords(std::vector<Core::Maths::vec3>& texCoordsVec, std::istringstream& iss)
+	LowRenderer::Color getColor(std::istringstream& iss)
 	{
-		Core::Maths::vec3 texCoords;
+		LowRenderer::Color color = { 0.f };
 
-		iss >> texCoords.x;
-		iss >> texCoords.y;
-		iss >> texCoords.z;
+		iss >> color.data.r;
+		iss >> color.data.g;
+		iss >> color.data.b;
 
-		texCoordsVec.push_back(texCoords);
-
-		return;
-	}
-
-	// Add a vertice normal from an .obj
-	void addNormals(std::vector<Core::Maths::vec3>& normalsVec, std::istringstream& iss)
-	{
-		Core::Maths::vec3 normals;
-
-		iss >> normals.x;
-		iss >> normals.y;
-		iss >> normals.z;
-
-		normalsVec.push_back(normals);
-
-		return;
+		return color;
 	}
 
 	// Use to know if needed to triangulate faces
@@ -251,18 +274,104 @@ namespace Resources
 		}
 	}
 
+	void ResourcesManager::loadMaterialsFromMtl(const std::string& dirPath, const std::string& mtlName)
+	{
+		ResourcesManager* RM = instance();
+
+		std::string filePath = dirPath + mtlName;
+
+		std::ifstream dataMat(filePath.c_str());
+		if (!dataMat)
+		{
+			Core::Debug::Log::error("Unable to read the file: " + filePath);
+			dataMat.close();
+			return;
+		}
+
+		Material mat;
+		std::string line;
+		bool isFirstMat = true;
+
+		Core::Debug::Log::info("Loading materials at " + filePath);
+
+		while (std::getline(dataMat, line))
+		{
+			std::istringstream iss(line);
+			std::string type;
+			iss >> type;
+
+			if (type == "#" || type == "" || type == "\n")
+				continue;
+
+			if (type == "newmtl")
+			{
+				if (isFirstMat)
+					isFirstMat = false;
+				else
+				{
+					*ResourcesManager::loadMaterial(mat.m_name) = mat;
+					mat = Material();
+				}
+
+				iss >> mat.m_name;
+
+				continue;
+			}
+			else if (type == "Ns")
+				iss >> mat.shininess;
+			else if (type == "Ka")
+				mat.ambient = getColor(iss);
+			else if (type == "Kd")
+				mat.diffuse = getColor(iss);
+			else if (type == "Ks")
+				mat.specular = getColor(iss);
+			else if (type == "Ke")
+				mat.emissive = getColor(iss);
+			else if (type == "Ni")
+				iss >> mat.opticalDensity;
+			else if (type == "d")
+				iss >> mat.transparency;
+			else if (type == "illum")
+			{
+				iss >> mat.illumination;
+				continue;
+			}
+			
+			std::string texName;
+			iss >> texName;
+
+			if (type == "map_Ka")
+				mat.ambientTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+			else if (type == "map_Kd")
+				mat.diffuseTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+			else if (type == "map_Ks")
+				mat.specularTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+			else if (type == "map_Ke")
+				mat.emissiveTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+			else if (type == "map_d")
+				mat.alphaTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+		}
+
+		*ResourcesManager::loadMaterial(mat.m_name) = mat;
+
+		dataMat.close();
+	}
+
 	// Load an obj with mtl (do triangulation)
 	void ResourcesManager::loadObj(const std::string& filePath)
 	{
 		ResourcesManager* RM = instance();
-		/*if (isObjLoad(nameMeshes, filePath))
+
+		// Check if the object is already loaded
+		if (RM->childrenMeshes.find(filePath) != RM->childrenMeshes.end())
 		{
-			Core::Debug::Log::info("Model at " + filePath + " is already load");
+			Core::Debug::Log::info("Model at " + filePath + " is already loaded");
 			return;
-		}*/
+		}
 
 		std::ifstream dataObj(filePath.c_str());
 
+		// Check if the file exists
 		if (!dataObj)
 		{
 			Core::Debug::Log::error("ERROR: Unable to read the file : " + filePath + ")");
@@ -277,6 +386,7 @@ namespace Resources
 		std::vector<Core::Maths::vec3> normals;
 		std::vector<unsigned int> indices;
 		std::vector<std::string> names;
+		std::string dirPath = Utils::getDirectory(filePath);
 
 		bool isFirstObject = true;
 		Resources::Mesh mesh;
@@ -312,22 +422,34 @@ namespace Resources
 				continue;
 			}
 			else if (type == "v")
-				addVertices(vertices, iss);
+				addData(vertices, iss);
 			else if (type == "vt")
-				addTexCoords(texCoords, iss);
+				addData(texCoords, iss);
 			else if (type == "vn")
-				addNormals(normals, iss);
+				addData(normals, iss);
 			else if (type == "f")
 				addIndices(indices, iss, line);
+			else if (type == "usemtl")
+			{
+				std::string matName;
+				iss >> matName;
 
-			iss.clear();
+				RM->childrenMaterials[mesh.name] = matName;
+			}
+			else if (type == "mtllib")
+			{
+				std::string mtlName;
+				iss >> mtlName;
+
+				ResourcesManager::loadMaterialsFromMtl(dirPath, mtlName);
+			}
 		}
 
 		mesh.compute(vertices, texCoords, normals, indices);
 		RM->meshes[mesh.name] = std::make_shared<Mesh>(mesh);
 		names.push_back(mesh.name);
 
-		RM->modelChildren[filePath] = names;
+		RM->childrenMeshes[filePath] = names;
 
 		dataObj.close();
 
@@ -340,9 +462,9 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
-		auto meshNameIt = RM->modelChildren.find(filePath);
+		auto meshNameIt = RM->childrenMeshes.find(filePath);
 
-		if (meshNameIt == RM->modelChildren.end())
+		if (meshNameIt == RM->childrenMeshes.end())
 		{
 			Core::Debug::Log::error("Can not find mesh children at " + filePath);
 			return nullptr;
@@ -364,5 +486,20 @@ namespace Resources
 		}
 
 		return meshIt->second;
+	}
+
+	std::shared_ptr<Material> ResourcesManager::getMatByMeshName(const std::string& meshName)
+	{
+		ResourcesManager* RM = instance();
+
+		auto materialIt = RM->childrenMaterials.find(meshName);
+
+		if (materialIt == RM->childrenMaterials.end())
+		{
+			Core::Debug::Log::error("Can not find material at " + meshName);
+			return nullptr;
+		}
+
+		return ResourcesManager::loadMaterial(materialIt->second);
 	}
 }

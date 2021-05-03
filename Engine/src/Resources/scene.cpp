@@ -52,7 +52,7 @@ namespace Resources
 
 	void Scene::draw()
 	{
-		glClearColor(0.f, 0.f, 0.f, 1.f);
+		glClearColor(1.f, 0.64f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
 		glEnable(GL_DEPTH_TEST);

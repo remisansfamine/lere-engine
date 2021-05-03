@@ -322,5 +322,11 @@
     <None Include="resources\shaders\testShader.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
+    <None Include="resources\shaders\fragmentShader.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\vertexShader.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

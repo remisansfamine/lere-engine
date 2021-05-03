@@ -4,8 +4,6 @@
 
 #include <functional>
 
-//#include "maths.hpp"
-
 namespace Utils
 {
     // Check if the input string contains the prefix
@@ -23,4 +21,10 @@ namespace Utils
     // Split the input string with the delimiter
     void splitString(const std::string& input, const std::string& delimiter,
         std::string& output, const std::function<void()>& lambda);
+
+    // Return the name of the file from the input filepath
+    std::string getFileNameFromPath(const std::string& filePath);
+
+    // Return the directory of the file from the input filepath
+    std::string getDirectory(const std::string& filePath);
 }

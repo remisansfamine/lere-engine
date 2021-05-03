@@ -83,4 +83,16 @@ namespace Utils
 
         lambda();
     }
+
+    std::string getFileNameFromPath(const std::string& filePath)
+    {
+        return filePath.substr(filePath.find_last_of("/\\") + 1, filePath.size());
+    }
+
+    std::string getDirectory(const std::string& filePath)
+    {
+        std::string fileName = getFileNameFromPath(filePath);
+
+        return filePath.substr(0, filePath.size() - fileName.size());
+    }
 }

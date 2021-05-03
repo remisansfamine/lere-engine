@@ -1,4 +1,4 @@
-#include "application.hpp"
+﻿#include "application.hpp"
 
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
@@ -11,6 +11,7 @@
 #include "engine_master.hpp"
 
 #include "time.hpp"
+#include "utils.hpp"
 
 // glfw - Whenever the window size changed (by OS or user resize) this callback function executes
 void framebufferSizeCallback(GLFWwindow* window, int width, int height)
@@ -100,8 +101,7 @@ namespace Core
 
 		AP->window = createWindow(screenWidth, screenHeight, title, monitor, share);
 		AP->initialized = true;
-
-		Debug::Log::info("Application initialized");
+ 		Debug::Log::info("Application initialized");
 
 		// Init Resources Manager
 		Resources::ResourcesManager::init();
