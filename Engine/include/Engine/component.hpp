@@ -19,14 +19,14 @@ namespace Engine
 		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
 		virtual ~Component();
 
-		template <class C>
-		std::shared_ptr<C> requireComponent()
+		template <class C, class ...Crest, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		std::shared_ptr<C> requireComponent(Crest... args)
 		{
 			std::shared_ptr<C> tempPtr;
 
 			if (!m_gameObject.tryGetComponent<C>(tempPtr))
 			{
-				m_gameObject.addComponent<C>();
+				m_gameObject.addComponent<C>(args...);
 				return m_gameObject.getComponent<C>();
 			}
 

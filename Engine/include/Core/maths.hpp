@@ -89,6 +89,15 @@ namespace Core::Maths
         vec4  c[4];
     };
 
+    inline mat3 toMat3(const mat4& mat)
+    {
+        return {
+            mat.e[0], mat.e[1], mat.e[2],
+            mat.e[4], mat.e[5], mat.e[6],
+            mat.e[8], mat.e[9], mat.e[10]
+        };
+    }
+
     inline mat4 translate(const vec3& value)
     {
         return {
@@ -191,6 +200,16 @@ namespace Core::Maths
         float right = top * aspect;
 
         return frustum(-right, right, -top, top, near, far);
+    }
+
+    inline mat4 toMat4(const mat3& mat)
+    {
+        return {
+            mat.e[0], mat.e[1], mat.e[2], 0.f,
+            mat.e[3], mat.e[4], mat.e[5], 0.f,
+            mat.e[6], mat.e[7], mat.e[8], 0.f,
+              0.f,      0.f,      0.f,    1.f
+        };
     }
 
     inline vec4 operator*(const mat4& m, const vec4& v)

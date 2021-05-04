@@ -29,6 +29,10 @@ namespace LowRenderer
 		std::shared_ptr<Resources::ShaderProgram> program;
 
 		// TODO : sort renderers by shader
+		if (RM->skyBoxes.size() > 0)
+		{
+			RM->skyBoxes.back()->draw();
+		}
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)RM->lights.size(), 8);
@@ -74,6 +78,12 @@ namespace LowRenderer
 	{
 		// Insert camera to render
 		instance()->cameras.push_back(compToLink);
+	}
+
+	void RenderManager::linkComponent(const std::shared_ptr<SkyBox>& compToLink)
+	{
+		// Insert camera to render
+		instance()->skyBoxes.push_back(compToLink);
 	}
 
 	std::shared_ptr<Camera> RenderManager::getCurrentCamera()

@@ -6,10 +6,11 @@
 
 #include "singleton.hpp"
 
+#include "cube_map.hpp"
+#include "material.hpp"
+#include "texture.hpp"
 #include "shader.hpp"
 #include "scene.hpp"
-#include "texture.hpp"
-#include "material.hpp"
 #include "mesh.hpp"
 
 namespace Resources
@@ -28,6 +29,7 @@ namespace Resources
 		std::unordered_map<std::string, std::string>		childrenMaterials;
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>>		textures;
+		std::unordered_map<std::string, std::shared_ptr<CubeMap>>		cubeMaps;
 		std::unordered_map<std::string, std::shared_ptr<Mesh>>			meshes;
 		std::unordered_map<std::string, std::shared_ptr<Material>>		materials;
 
@@ -43,10 +45,12 @@ namespace Resources
 		static void init();
 
 		static void loadObj(const std::string& filePath);
+		static void loadMesh(const std::string& meshName, const std::string& filePath);
 		static void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
 
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
+		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
 		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
 		static std::shared_ptr<Scene> loadScene(const std::string& scenePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);

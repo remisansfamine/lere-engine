@@ -216,6 +216,15 @@
     <ClCompile Include="src\Engine\Physics\sphere_collider.cpp">
       <Filter>Fichiers sources\Engine\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="src\Resources\cube_map.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Render\sky_box.cpp">
+      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\stb_image.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -331,6 +340,12 @@
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\sphere_collider.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resources\cube_map.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Render\sky_box.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -62,6 +62,8 @@ namespace Resources
 		Core::Debug::Log::info("Resources Manager initialized");
 
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
+		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag");
+		loadMesh("cube", "resources/obj/cube.obj");
 
 		// Set default textures and materials
 		RM->setDefaultResources();
@@ -143,6 +145,27 @@ namespace Resources
 
 		// TODO: Add Warn load fail
 		return RM->textures[name] = std::make_shared<Texture>(Texture(width, height, data));
+	}
+
+	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
+	{
+		ResourcesManager* RM = instance();
+
+		if (cubeMapPaths.size() == 0)
+			return nullptr;
+
+		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
+
+		const auto& cubeMapIt = RM->cubeMaps.find(pathsDir);
+
+		// Check if the Texture is already loaded
+		if (cubeMapIt != RM->cubeMaps.end())
+		{
+			return cubeMapIt->second;
+		}
+
+		// TODO: Add Warn load fail
+		return RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(CubeMap(cubeMapPaths));
 	}
 
 	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
@@ -354,15 +377,15 @@ namespace Resources
 
 			// Load mesh textures
 			if (type == "map_Ka")
-				mat.ambientTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.ambientTex  = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Kd")
-				mat.diffuseTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.diffuseTex  = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ks")
 				mat.specularTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ke")
 				mat.emissiveTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_d")
-				mat.alphaTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.alphaTex    = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
 		}
 
 		// Add the material
@@ -473,6 +496,68 @@ namespace Resources
 		Core::Debug::Log::info("Finish loading obj " + filePath);
 
 		return;
+	}
+
+	void ResourcesManager::loadMesh(const std::string& meshName, const std::string& filePath)
+	{
+		ResourcesManager* RM = instance();
+
+		// Check if the object is already loaded
+		if (RM->meshes.find(meshName) != RM->meshes.end())
+		{
+			Core::Debug::Log::info("Mesh " + meshName + " is already loaded");
+			return;
+		}
+
+		std::ifstream dataObj(filePath.c_str());
+
+		// Check if the file exists
+		if (!dataObj)
+		{
+			Core::Debug::Log::error("ERROR: Unable to read the file : " + filePath + ")");
+			dataObj.close();
+			return;
+		}
+
+		Core::Debug::Log::info("Start loading mesh " + meshName);
+
+		std::vector<Core::Maths::vec3> vertices;
+		std::vector<Core::Maths::vec3> texCoords;
+		std::vector<Core::Maths::vec3> normals;
+		std::vector<unsigned int> indices;
+		std::string dirPath = Utils::getDirectory(filePath);
+
+		bool isFirstObject = true;
+		Resources::Mesh mesh;
+
+		std::string line;
+		while (std::getline(dataObj, line))
+		{
+			std::istringstream iss(line);
+			std::string type;
+
+			iss >> type;
+
+			if (type == "#" || type == "" || type == "\n")
+				continue;
+
+			if (type == "v")
+				addData(vertices, iss);
+			else if (type == "vt")
+				addData(texCoords, iss);
+			else if (type == "vn")
+				addData(normals, iss);
+			else if (type == "f")
+				addIndices(indices, iss, line);
+		}
+
+		// Compute and add the mesh
+		mesh.compute(vertices, texCoords, normals, indices);
+		RM->meshes[meshName] = std::make_shared<Mesh>(mesh);
+
+		dataObj.close();
+
+		Core::Debug::Log::info("Finish loading mesh " + meshName);
 	}
 
 	std::vector<std::string>* ResourcesManager::getMeshNames(const std::string& filePath)

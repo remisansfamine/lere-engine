@@ -6,6 +6,7 @@
 #include "debug.hpp"
 
 #include "transform.hpp"
+#include "sky_box.hpp"
 #include "light.hpp"
 
 namespace Resources
@@ -44,6 +45,24 @@ namespace Resources
 			transform->m_position.x = -2.f;
 
 			gameObjects.push_back(craftsman);
+		}
+
+		// SkyBox creation
+		{
+			std::string dir = "resources/skyboxes/";
+			std::vector<std::string> paths = {
+				dir + "right.jpg",
+				dir + "left.jpg",
+				dir + "top.jpg",
+				dir + "bottom.jpg",
+				dir + "front.jpg",
+				dir + "back.jpg"
+			};
+
+			Engine::GameObject skyBox("SkyBox");
+			skyBox.addComponent<LowRenderer::SkyBox>(paths, "skyBox");
+
+			gameObjects.push_back(skyBox);
 		}
 
 		// Light creation
@@ -93,7 +112,7 @@ namespace Resources
 
 	void Scene::draw()
 	{
-		glClearColor(1.f, 0.3f, 0.f, 1.f);
+		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
 		glEnable(GL_DEPTH_TEST);
