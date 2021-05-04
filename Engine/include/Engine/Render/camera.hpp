@@ -31,7 +31,7 @@ namespace LowRenderer
 		Core::Maths::mat4 getProjection() const;
 		Core::Maths::mat4 getViewProjection() const;
 
-		void update() override;
+		void fixedUpdate() override;
 		void sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 	};
 }

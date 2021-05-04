@@ -23,6 +23,5 @@ namespace Physics
 		Core::Maths::vec3 m_scale		= Core::Maths::vec3(1.f, 1.f, 1.f);
 
 		Core::Maths::mat4 getModel();
-		//Core::Maths::mat4 getPushModel();
 	};
 }

@@ -22,5 +22,6 @@ namespace Core::Engine
 
 		static void draw();
 		static void update();
+		static void fixedUpdate();
 	};
 }

@@ -1,6 +1,7 @@
 #include "graph.hpp"
 
 #include "debug.hpp"
+#include "physic_manager.hpp"
 
 namespace Core::Engine
 {
@@ -39,5 +40,14 @@ namespace Core::Engine
 	{
 		// Update the scene
 		instance()->curScene.update();
+
+		// Update rigidbodies and colliders
+		Physics::PhysicManager::update();
+	}
+
+	void Graph::fixedUpdate()
+	{
+		// Fixed update the scene
+		instance()->curScene.fixedUpdate();
 	}
 }

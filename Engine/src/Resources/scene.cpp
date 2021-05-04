@@ -1,9 +1,10 @@
 #include "scene.hpp"
 
-#include "debug.hpp"
 #include "render_manager.hpp"
-
 #include "model_renderer.hpp"
+#include "physic_manager.hpp"
+#include "debug.hpp"
+
 #include "transform.hpp"
 #include "light.hpp"
 
@@ -20,6 +21,7 @@ namespace Resources
 		{
 			Engine::GameObject craftsman("Craftsman");
 			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			craftsman.addComponent<Physics::BoxCollider>();
 
 			auto transform = craftsman.getComponent<Physics::Transform>();
 			transform->m_position.z = 0.f;
@@ -32,6 +34,10 @@ namespace Resources
 		{
 			Engine::GameObject craftsman("Craftsman2");
 			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			craftsman.addComponent<Physics::BoxCollider>();
+			craftsman.addComponent<Physics::Rigidbody>();
+
+			craftsman.getComponent<Physics::Rigidbody>()->isAwake = true;
 
 			auto transform = craftsman.getComponent<Physics::Transform>();
 			transform->m_position.z = 0.f;
@@ -77,6 +83,7 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
+		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 	}
 
 	void Scene::save()
@@ -102,5 +109,14 @@ namespace Resources
 	{
 		for (Engine::GameObject& go : gameObjects)
 			go.updateComponents();
+
+		for (Engine::GameObject& go : gameObjects)
+			go.lateUpdateComponents();
+	}
+
+	void Scene::fixedUpdate()
+	{
+		for (Engine::GameObject& go : gameObjects)
+			go.fixedUpdateComponents();
 	}
 }

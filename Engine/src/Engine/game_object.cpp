@@ -19,6 +19,9 @@ namespace Engine
 	{
 	}
 
+
+
+
 	// TODO: CALL AWAKE AT THE CORRECT TIME
 	void GameObject::awakeComponents()
 	{
@@ -40,5 +43,38 @@ namespace Engine
 		// Call the update function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
 			component->update();
+	}
+
+	void GameObject::fixedUpdateComponents()
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->fixedUpdate();
+	}
+
+	void GameObject::lateUpdateComponents()
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->lateUpdate();
+	}
+
+
+
+
+	void GameObject::callCollisionEnter()
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onCollisionEnter();
+	}
+	
+	void GameObject::callCollisionStay()
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onCollisionStay();
+	}
+
+	void GameObject::callCollisionExit()
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onCollisionExit();
 	}
 }

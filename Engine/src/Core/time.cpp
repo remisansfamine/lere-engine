@@ -24,11 +24,12 @@ namespace Core
 		TimeManager* TM = instance();
 
 		// Update the Application Time
-		TM->lastTime = TM->time;
 		TM->time = (float)glfwGetTime();
 
 		TM->unscaledDeltaTime = TM->time - TM->lastTime;
 		TM->deltaTime = TM->unscaledDeltaTime * TM->timeScale;
+
+		TM->lastTime = TM->time;
 	}
 
 	float TimeManager::getTime()
@@ -36,7 +37,6 @@ namespace Core
 		return instance()->time;
 	}
 
-	// TODO: FIX DELTATIME
 	float TimeManager::getDeltaTime()
 	{
 		return instance()->deltaTime;

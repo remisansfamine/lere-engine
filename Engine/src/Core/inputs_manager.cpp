@@ -38,7 +38,7 @@ namespace Core::Input
 			// Calculate mouse position differencies with the last frame
 			IM->deltasMouse.x = (float)(newMouseX - IM->mousePosition.x);
 			IM->deltasMouse.y = (float)(newMouseY - IM->mousePosition.y);
-			IM->mousePosition = Core::Maths::vec2(newMouseX, newMouseY);
+			IM->mousePosition = Core::Maths::vec2((float)newMouseX, (float)newMouseY);
 		}
 	}
 

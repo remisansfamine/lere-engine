@@ -168,7 +168,11 @@
     <ClCompile Include="src\Engine\game_object.cpp" />
     <ClCompile Include="src\Engine\graph.cpp" />
     <ClCompile Include="src\Engine\object.cpp" />
+    <ClCompile Include="src\Engine\Physics\box_collider.cpp" />
+    <ClCompile Include="src\Engine\Physics\collider.cpp" />
     <ClCompile Include="src\Engine\Physics\physic_manager.cpp" />
+    <ClCompile Include="src\Engine\Physics\rigidbody.cpp" />
+    <ClCompile Include="src\Engine\Physics\sphere_collider.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\Render\camera.cpp" />
     <ClCompile Include="src\Engine\Render\light.cpp" />
@@ -211,7 +215,11 @@
     <ClInclude Include="include\Engine\graph.hpp" />
     <ClInclude Include="include\Engine\model_renderer.hpp" />
     <ClInclude Include="include\Engine\object.hpp" />
+    <ClInclude Include="include\Engine\Physics\box_collider.hpp" />
+    <ClInclude Include="include\Engine\Physics\collider.hpp" />
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp" />
+    <ClInclude Include="include\Engine\Physics\rigidbody.hpp" />
+    <ClInclude Include="include\Engine\Physics\sphere_collider.hpp" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\renderer.hpp" />
     <ClInclude Include="include\Engine\Render\camera.hpp" />
@@ -231,6 +239,7 @@
     <ClInclude Include="include\Utils\utils.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\Core\maths.inl" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\fragmentShader.frag" />

@@ -20,5 +20,6 @@ namespace Resources
 		void save();
 		void draw();
 		void update();
+		void fixedUpdate();
 	};
 }

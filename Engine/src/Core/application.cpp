@@ -117,6 +117,7 @@ namespace Core
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
+
 			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();

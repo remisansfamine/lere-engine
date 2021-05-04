@@ -11,10 +11,6 @@ namespace Core::Engine
 	EngineMaster::EngineMaster()
 	{
 		Core::Debug::Log::info("Creating the Engine");
-
-		TimeManager::setTimeScale(5.f);
-
-		Physics::PhysicManager::clearColliders();
 	}
 
 	EngineMaster::~EngineMaster()

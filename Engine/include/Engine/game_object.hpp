@@ -61,8 +61,11 @@ namespace Engine
 		[[nodiscard]] std::shared_ptr<C> getComponent()
 		{
 			std::shared_ptr<C> componentToReturn;
+			
+			bool hasComponent = tryGetComponent(componentToReturn);
 
-			Core::Debug::Assertion::out(tryGetComponent(componentToReturn), "Component not found");
+			if (!hasComponent)
+				Core::Debug::Log::error("Component not found");
 
 			return componentToReturn;
 		}
@@ -71,6 +74,12 @@ namespace Engine
 		void awakeComponents();
 		void startComponents();
 		void updateComponents();
+		void fixedUpdateComponents();
+		void lateUpdateComponents();
+
+		void callCollisionEnter();
+		void callCollisionStay();
+		void callCollisionExit();
 
 		void destroy() override {}
 	};

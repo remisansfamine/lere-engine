@@ -58,10 +58,10 @@ namespace LowRenderer
 		}
 	}
 
-	void Camera::update()
+	void Camera::fixedUpdate()
 	{
-		float deltaTime = Core::TimeManager::getDeltaTime();
-		float sensivity = 0.05f * deltaTime;
+		float deltaTime = Core::TimeManager::getFixedDeltaTime();
+		float sensivity = 0.3f * deltaTime;
 
 		aspect = Core::Application::getAspect();
 
@@ -72,7 +72,7 @@ namespace LowRenderer
 		m_transform->m_rotation.x += deltaMouse.y * sensivity;
 		m_transform->m_rotation.y += deltaMouse.x * sensivity;
 
-		float translationSpeed = 0.5f * deltaTime;
+		float translationSpeed = 2.f * deltaTime;
 
 		float forwardMove = Core::Input::InputManager::getAxis("Vertical");
 		float strafeMove = Core::Input::InputManager::getAxis("Horizontal");

@@ -11,8 +11,8 @@ namespace Core
 	private:
 		float time = 0.f;
 		float lastTime = 0.f;
-		float deltaTime = 0.f;
-		float fixedDeltaTime = 0.f;
+		float deltaTime = 1.f / 60.f;
+		float fixedDeltaTime = 1.f / 60.f;
 		float unscaledDeltaTime = 0.f;
 
 		TimeManager();

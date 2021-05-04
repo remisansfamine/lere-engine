@@ -48,6 +48,10 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
+		void virtual onCollisionEnter() { }
+		void virtual onCollisionStay() { }
+		void virtual onCollisionExit() { }
+
 		GameObject& getHost();
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
