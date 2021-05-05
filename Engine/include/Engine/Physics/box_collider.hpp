@@ -1,6 +1,7 @@
 #pragma once
 
 #include "collider.hpp"
+#include "box.h"
 
 namespace Physics
 {
@@ -11,5 +12,9 @@ namespace Physics
 
 	public:
 		BoxCollider(Engine::GameObject& gameObject);
+
+		Box box = Box();
+
+		void updateShape() override;
 	};
 }

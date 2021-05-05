@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(ProjectDir)include\Engine\Physics\Toolbox;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -174,6 +174,8 @@
     <ClCompile Include="src\Engine\Physics\physic_manager.cpp" />
     <ClCompile Include="src\Engine\Physics\rigidbody.cpp" />
     <ClCompile Include="src\Engine\Physics\sphere_collider.cpp" />
+    <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp" />
+    <ClCompile Include="src\Engine\Physics\Toolbox\shape.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\Render\camera.cpp" />
     <ClCompile Include="src\Engine\Render\light.cpp" />
@@ -223,6 +225,15 @@
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp" />
     <ClInclude Include="include\Engine\Physics\rigidbody.hpp" />
     <ClInclude Include="include\Engine\Physics\sphere_collider.hpp" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\box.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\capsule.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\cylinder.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\disk.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\intersection.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\plane.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\shape.hpp" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\quad.h" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\renderer.hpp" />
     <ClInclude Include="include\Engine\Render\camera.hpp" />

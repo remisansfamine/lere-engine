@@ -89,6 +89,46 @@ namespace Core::Maths
         vec4  c[4];
     };
 
+    union quat
+    {
+        quat(float x, float y, float z, float w)
+            : x(x), y(y), z(z), w(w)
+        { }
+
+        quat(vec3 axis, float angle)
+        {
+            if (axis.magnitude() != 0.0f)
+                angle *= 0.5f;
+
+            axis = axis.normalized();
+
+            float sinres = sinf(angle);
+            float cosres = cosf(angle);
+
+            *this = quat(axis.x * sinres, axis.y * sinres, axis.z * sinres, cosres).normalized();
+        }
+
+        float e[4];
+        struct { float x; float y; float z; float w; };
+
+        inline void getAxisAngle(vec3& axis, float& angle) const;
+
+        inline float length() const;
+        inline quat normalized() const;
+
+        inline static quat identity();
+    };
+
+    inline mat4 identity()
+    {
+        return {
+            1.f, 0.f, 0.f, 0.f,
+            0.f, 1.f, 0.f, 0.f,
+            0.f, 0.f, 1.f, 0.f,
+            0.f, 0.f, 0.f, 1.f
+        };
+    }
+
     inline mat3 toMat3(const mat4& mat)
     {
         return {
@@ -247,10 +287,7 @@ namespace Core::Maths
         return result;
     }
 
-    /*inline float map(float x, float in_min, float in_max, float out_min, float out_max)
-    {
-        return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-    }*/
+    inline vec3 vectorRotate(const vec3& v, const quat& q);
 
 	template<typename T>
 	vec3& operator*=(vec3& lhs, const T& scale)
@@ -336,6 +373,22 @@ namespace Core::Maths
 	vec3 operator*(const T& scale, const vec3& vec)
 	{
 		return vec * scale;
+    }
+
+    inline quat operator*(const quat& lhs, const quat& rhs)
+    {
+        return {
+            lhs.x * rhs.w + lhs.w * rhs.x + lhs.y * rhs.z - lhs.z * rhs.y,
+            lhs.y * rhs.w + lhs.w * rhs.y + lhs.z * rhs.x - lhs.x * rhs.z,
+            lhs.z * rhs.w + lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x,
+            lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z
+        };
+    }
+
+    inline quat& operator*=(quat& lhs, const quat& rhs)
+    {
+        lhs = lhs * rhs;
+        return lhs;
     }
 }
 

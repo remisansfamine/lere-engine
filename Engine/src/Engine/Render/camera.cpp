@@ -25,7 +25,8 @@ namespace LowRenderer
 	{
 		// Get the camera view matrix
 		return Core::Maths::rotateZ(m_transform->m_rotation.z) * Core::Maths::rotateX(m_transform->m_rotation.x) *
-			   Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position);
+			Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position);
+			   //m_transform->getParentModel();
 	}
 
 	Core::Maths::mat4 Camera::getProjection() const

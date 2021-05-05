@@ -23,16 +23,30 @@ namespace Physics
 			   Core::Maths::scale(m_scale);
 	}
 
-	/*Core::Maths::mat4 Transform::getPushModel()
+	Core::Maths::mat4 Transform::getGlobalModel()
 	{
-		mat4 pushModel = mat4x4::identity();
-		Physics::Transform* curParent = parent;
+		if (parent)
+			return getModel() * getParentModel();
 
-		if (curParent != nullptr)
-			pushModel = pushModel * curParent->getPushModel();
+		return getModel();
+	}
 
-		pushModel = pushModel * getModel();
+	Core::Maths::mat4 Transform::getParentModel()
+	{
+		return parent->getGlobalModel();
+	}
 
-		return pushModel;
-	}*/
+	void Transform::setParent(std::shared_ptr<Physics::Transform> _parent)
+	{
+		parent = _parent;
+	}
+
+	void Transform::setParent(Engine::GameObject& gameObject)
+	{
+		std::shared_ptr<Transform> newParent;
+		if (!gameObject.tryGetComponent<Transform>(newParent))
+			return;
+
+		parent = newParent;
+	}
 }

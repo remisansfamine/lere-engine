@@ -18,7 +18,7 @@ namespace LowRenderer
 	{
 	private:
 		std::shared_ptr<Resources::Mesh> m_mesh = nullptr;
-		std::shared_ptr<Resources::Material> m_material = nullptr;
+		std::shared_ptr<Resources::Material> m_material = Resources::Material::defaultMaterial;
 
 		std::vector<Model> m_children;
 

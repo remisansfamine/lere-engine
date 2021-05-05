@@ -5,6 +5,7 @@ namespace Physics
 	Collider::Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr)
 		: Component(gameObject, ptr)
 	{
+		m_transform = requireComponent<Transform>();
 		m_rigidbody = gameObject.getComponent<Rigidbody>();
 	}
 

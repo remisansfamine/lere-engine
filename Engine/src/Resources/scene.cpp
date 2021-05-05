@@ -3,6 +3,7 @@
 #include "render_manager.hpp"
 #include "model_renderer.hpp"
 #include "physic_manager.hpp"
+#include "inputs_manager.hpp"
 #include "debug.hpp"
 
 #include "transform.hpp"
@@ -19,6 +20,34 @@ namespace Resources
 	Scene::Scene()
 	{
 		// Craftsman creation
+		{
+			Engine::GameObject box("box");
+			box.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			box.addComponent<Physics::BoxCollider>();
+
+			auto transform = box.getComponent<Physics::Transform>();
+			transform->m_position.z = -3.f;
+			transform->m_position.y = -2.f;
+
+			gameObjects.push_back(box);
+		}
+
+		{
+			Engine::GameObject sphere("sphere");
+			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			sphere.addComponent<Physics::Rigidbody>();
+			sphere.addComponent<Physics::SphereCollider>();
+
+			sphere.getComponent<Physics::Rigidbody>()->isAwake = true;
+
+			auto transform = sphere.getComponent<Physics::Transform>();
+			transform->m_position.z = -3.f;
+			transform->m_position.y = 10.f;
+
+			gameObjects.push_back(sphere);
+		}
+
+		/*// Craftsman creation
 		{
 			Engine::GameObject craftsman("Craftsman");
 			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
@@ -45,6 +74,14 @@ namespace Resources
 			transform->m_position.x = -2.f;
 
 			gameObjects.push_back(craftsman);
+		}*/
+
+		{
+			// Player creation
+			Engine::GameObject player("Player");
+			player.addComponent<LowRenderer::Camera>();
+
+			gameObjects.push_back(player);
 		}
 
 		// SkyBox creation
@@ -79,14 +116,6 @@ namespace Resources
 			light.getComponent<LowRenderer::Light>()->setAsPoint();
 
 			gameObjects.push_back(light);
-		}
-
-		// Player creation
-		{
-			Engine::GameObject player("Player");
-			player.addComponent<LowRenderer::Camera>();
-
-			gameObjects.push_back(player);
 		}
 	}
 
@@ -131,6 +160,8 @@ namespace Resources
 
 		for (Engine::GameObject& go : gameObjects)
 			go.lateUpdateComponents();
+
+		gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("Vertical") * 2.f;
 	}
 
 	void Scene::fixedUpdate()

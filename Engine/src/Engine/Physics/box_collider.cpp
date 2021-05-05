@@ -13,6 +13,10 @@ namespace Physics
 	BoxCollider::BoxCollider(Engine::GameObject& gameObject)
 		: BoxCollider(gameObject, std::shared_ptr<BoxCollider>(this))
 	{
+	}
 
+	void BoxCollider::updateShape()
+	{
+		box.center = m_transform->m_position;
 	}
 }

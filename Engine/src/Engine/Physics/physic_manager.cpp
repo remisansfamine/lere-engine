@@ -5,6 +5,7 @@
 #include "debug.hpp"
 #include "time.hpp"
 #include "graph.hpp"
+#include "intersection.h"
 
 namespace Physics
 {
@@ -51,11 +52,6 @@ namespace Physics
 		PM->sphereColliders.insert(PM->sphereColliders.end(), compToLink);
 	}
 
-	void sortColliders(std::shared_ptr<Collider>& collider0, std::shared_ptr<Collider>& collider1)
-	{
-
-	}
-
 	void PhysicManager::computeCollisions()
 	{
 		// Sort the part of the colliders linked to a rigidbody
@@ -63,8 +59,7 @@ namespace Physics
 
 		for (auto boxColliderIt = boxColliders.begin(); boxColliderIt != boxPartition; boxColliderIt++)
 		{
-			// Box Collider with rigidbody awake*
-			Core::Debug::Log::info("Oui");
+
 		}
 
 		// Sort the part of the colliders linked to a rigidbody
@@ -72,7 +67,21 @@ namespace Physics
 
 		for (auto sphereColliderIt = sphereColliders.begin(); sphereColliderIt != spherePartition; sphereColliderIt++)
 		{
-			// Sphere Collider with rigidbody awake
+			auto sphereCollider = *sphereColliderIt;
+
+			for (auto& boxCollider : boxColliders)
+			{
+				sphereCollider->updateShape();
+				boxCollider->updateShape();
+
+				vec3 interPt, interNormal;
+				if (IntersectSphereBox(sphereCollider->sphere,
+					sphereCollider->sphere.center + sphereCollider->m_rigidbody->velocity * Core::TimeManager::getFixedDeltaTime(),
+					boxCollider->box, interPt, interNormal))
+				{
+					sphereCollider->m_transform->m_position = interPt + vec3(0.f, sphereCollider->sphere.radius, 0.f);
+				}
+			}
 		}
 	}
 

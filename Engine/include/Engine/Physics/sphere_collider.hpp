@@ -1,6 +1,7 @@
 #pragma once
 
 #include "collider.hpp"
+#include "sphere.h"
 
 namespace Physics
 {
@@ -10,5 +11,9 @@ namespace Physics
 		SphereCollider(Engine::GameObject& gameObject, std::shared_ptr<SphereCollider> ptr);
 	public:
 		SphereCollider(Engine::GameObject& gameObject);
+
+		void updateShape() override;
+
+		Sphere sphere;
 	};
 }

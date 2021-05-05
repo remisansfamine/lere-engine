@@ -457,7 +457,6 @@ namespace Resources
 				}
 
 				iss >> mesh.name;
-				continue;
 			}
 			else if (type == "v")
 				addData(vertices, iss);
@@ -494,8 +493,6 @@ namespace Resources
 		dataObj.close();
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
-
-		return;
 	}
 
 	void ResourcesManager::loadMesh(const std::string& meshName, const std::string& filePath)
