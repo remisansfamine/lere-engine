@@ -76,10 +76,13 @@ namespace Physics
 
 				vec3 interPt, interNormal;
 				if (IntersectSphereBox(sphereCollider->sphere,
-					sphereCollider->sphere.center + sphereCollider->m_rigidbody->velocity * Core::TimeManager::getFixedDeltaTime(),
+					sphereCollider->m_rigidbody->getNewPosition(),
 					boxCollider->box, interPt, interNormal))
 				{
-					sphereCollider->m_transform->m_position = interPt + vec3(0.f, sphereCollider->sphere.radius, 0.f);
+					sphereCollider->m_transform->m_position = interPt; //+ interNormal * sphereCollider->sphere.radius;
+					sphereCollider->m_rigidbody->velocity.y = 0.f;
+
+					Core::Debug::Log::info("InterPt : x = " + std::to_string(interPt.x) + ", y = " + std::to_string(interPt.y) + ", z = " + std::to_string(interPt.z));
 				}
 			}
 		}
@@ -98,10 +101,10 @@ namespace Physics
 		{
 			PM->timeStocker -= fixedDeltaTime;
 
+			PM->computeCollisions();
+
 			// Call fixed update for all components
 			Core::Engine::Graph::fixedUpdate();
-
-			PM->computeCollisions();
 		}
 	}
 }

@@ -45,7 +45,6 @@ namespace Resources
 		static void init();
 
 		static void loadObj(const std::string& filePath);
-		static void loadMesh(const std::string& meshName, const std::string& filePath);
 		static void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
 
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);

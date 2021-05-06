@@ -22,7 +22,7 @@ namespace Resources
 		// Craftsman creation
 		{
 			Engine::GameObject box("box");
-			box.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			box.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
 			box.addComponent<Physics::BoxCollider>();
 
 			auto transform = box.getComponent<Physics::Transform>();
@@ -34,7 +34,7 @@ namespace Resources
 
 		{
 			Engine::GameObject sphere("sphere");
-			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
+			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
 			sphere.addComponent<Physics::Rigidbody>();
 			sphere.addComponent<Physics::SphereCollider>();
 
@@ -161,7 +161,9 @@ namespace Resources
 		for (Engine::GameObject& go : gameObjects)
 			go.lateUpdateComponents();
 
-		gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("Vertical") * 2.f;
+		gameObjects[0].getComponent<Physics::Transform>()->m_position.x += Core::Input::InputManager::getAxis("MoveObjectHorizontal") * 0.1f;
+		gameObjects[0].getComponent<Physics::Transform>()->m_position.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 0.1f;
+		gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("MoveObjectVertical") * 0.1f;
 	}
 
 	void Scene::fixedUpdate()

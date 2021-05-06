@@ -63,7 +63,9 @@ namespace Resources
 
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
 		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag");
-		loadMesh("cube", "resources/obj/cube.obj");
+
+		loadObj("resources/obj/cube.obj");
+		loadObj("resources/obj/sphere.obj");
 
 		// Set default textures and materials
 		RM->setDefaultResources();
@@ -493,68 +495,6 @@ namespace Resources
 		dataObj.close();
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
-	}
-
-	void ResourcesManager::loadMesh(const std::string& meshName, const std::string& filePath)
-	{
-		ResourcesManager* RM = instance();
-
-		// Check if the object is already loaded
-		if (RM->meshes.find(meshName) != RM->meshes.end())
-		{
-			Core::Debug::Log::info("Mesh " + meshName + " is already loaded");
-			return;
-		}
-
-		std::ifstream dataObj(filePath.c_str());
-
-		// Check if the file exists
-		if (!dataObj)
-		{
-			Core::Debug::Log::error("ERROR: Unable to read the file : " + filePath + ")");
-			dataObj.close();
-			return;
-		}
-
-		Core::Debug::Log::info("Start loading mesh " + meshName);
-
-		std::vector<Core::Maths::vec3> vertices;
-		std::vector<Core::Maths::vec3> texCoords;
-		std::vector<Core::Maths::vec3> normals;
-		std::vector<unsigned int> indices;
-		std::string dirPath = Utils::getDirectory(filePath);
-
-		bool isFirstObject = true;
-		Resources::Mesh mesh;
-
-		std::string line;
-		while (std::getline(dataObj, line))
-		{
-			std::istringstream iss(line);
-			std::string type;
-
-			iss >> type;
-
-			if (type == "#" || type == "" || type == "\n")
-				continue;
-
-			if (type == "v")
-				addData(vertices, iss);
-			else if (type == "vt")
-				addData(texCoords, iss);
-			else if (type == "vn")
-				addData(normals, iss);
-			else if (type == "f")
-				addIndices(indices, iss, line);
-		}
-
-		// Compute and add the mesh
-		mesh.compute(vertices, texCoords, normals, indices);
-		RM->meshes[meshName] = std::make_shared<Mesh>(mesh);
-
-		dataObj.close();
-
-		Core::Debug::Log::info("Finish loading mesh " + meshName);
 	}
 
 	std::vector<std::string>* ResourcesManager::getMeshNames(const std::string& filePath)

@@ -21,6 +21,11 @@ namespace Physics
 
 	}
 
+	Core::Maths::vec3 Rigidbody::getNewPosition()
+	{
+		return m_transform->m_position + velocity * Core::TimeManager::getFixedDeltaTime();
+	}
+
 	void Rigidbody::fixedUpdate()
 	{
 		// C'ets putain de nice tout ça

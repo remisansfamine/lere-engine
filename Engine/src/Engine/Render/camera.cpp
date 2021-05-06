@@ -41,7 +41,7 @@ namespace LowRenderer
 	}
 
 	// TODO: Remove this
-	void setCursor(Core::Maths::vec2& deltaMouse)
+	bool setCursor(Core::Maths::vec2& deltaMouse)
 	{
 		static bool isCursorLock = false;
 
@@ -57,6 +57,8 @@ namespace LowRenderer
 			deltaMouse.x = 0.f;
 			deltaMouse.y = 0.f;
 		}
+
+		return isCursorLock;
 	}
 
 	void Camera::fixedUpdate()
@@ -68,7 +70,8 @@ namespace LowRenderer
 
 		Core::Maths::vec2 deltaMouse = Core::Input::InputManager::getDeltasMouse();
 
-		setCursor(deltaMouse);
+		if (!setCursor(deltaMouse))
+			return;
 
 		m_transform->m_rotation.x += deltaMouse.y * sensivity;
 		m_transform->m_rotation.y += deltaMouse.x * sensivity;

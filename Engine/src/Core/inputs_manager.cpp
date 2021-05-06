@@ -13,6 +13,9 @@ namespace Core::Input
 		// Add default axes and buttons
 		addAxis("Horizontal", GLFW_KEY_A, GLFW_KEY_D);
 		addAxis("Vertical", GLFW_KEY_S, GLFW_KEY_W);
+		addAxis("MoveObjectHorizontal", GLFW_KEY_KP_4, GLFW_KEY_KP_6);
+		addAxis("MoveObjectVertical", GLFW_KEY_KP_7, GLFW_KEY_KP_9);
+		addAxis("MoveObjectForward", GLFW_KEY_KP_5, GLFW_KEY_KP_8);
 		addAxis("UpDown", GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE);
 		addButton("LockCursor", GLFW_KEY_C);
 	}

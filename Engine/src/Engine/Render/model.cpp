@@ -21,7 +21,11 @@ namespace LowRenderer
 			for (std::string& meshName : *modelChildrens)
 			{
 				Model child = Model(transform, meshName);
-				child.m_material = Resources::ResourcesManager::getMatByMeshName(meshName);
+
+				std::shared_ptr<Resources::Material> newMat = Resources::ResourcesManager::getMatByMeshName(meshName);
+
+				if (newMat)
+					child.m_material = newMat;
 				m_children.push_back(child);
 			}
 		}

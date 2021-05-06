@@ -102,6 +102,7 @@ namespace Physics
 		// Segment AB
 		vec3 AB = B - A;
 
+		vec3 newInterNormal;
 		// Is collide with front face
 		if (dot(k, AB) < 0.f)
 		{
@@ -113,7 +114,7 @@ namespace Physics
 			{
 				// If the box is rounded, check voronoi regions
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				// Else return intersect box
 				return INTERSECTION;
@@ -128,7 +129,7 @@ namespace Physics
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				return INTERSECTION;
 			}
@@ -143,7 +144,7 @@ namespace Physics
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				return INTERSECTION;
 			}
@@ -157,7 +158,7 @@ namespace Physics
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				return INTERSECTION;
 			}
@@ -172,7 +173,7 @@ namespace Physics
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				return INTERSECTION;
 			}
@@ -186,7 +187,7 @@ namespace Physics
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, interNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
 
 				return INTERSECTION;
 			}
@@ -444,7 +445,7 @@ namespace Physics
 		roundedBox.size = roundedBox.size + sphere.radius;  // Set new size
 
 		// Avoid segment point A inside roundedBox OBB
-		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + box.offsetRounding + ZERO);
+		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + box.offsetRounding);
 
 		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPt, interNormal);
 	}
