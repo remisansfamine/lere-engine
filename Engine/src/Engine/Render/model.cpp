@@ -1,5 +1,7 @@
 ﻿#include "model.hpp"
 
+#include "imgui.h"
+
 #include "resources_manager.hpp"
 #include "render_manager.hpp"
 
@@ -64,6 +66,6 @@ namespace LowRenderer
 
 	void Model::drawImGui()
 	{
-
+		ImGui::Text(m_filePath.c_str());
 	}
 }

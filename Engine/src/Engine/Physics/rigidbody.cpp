@@ -30,7 +30,9 @@ namespace Physics
 
 	void Rigidbody::fixedUpdate()
 	{
-		// C'ets putain de nice tout ça
+		if (wasInCollision)
+			return;
+
 		float fixedDeltaTime = Core::TimeManager::getFixedDeltaTime();
 
 		//addForce(Core::Maths::vec3(0.f, -0.2, 0.f));
@@ -47,10 +49,13 @@ namespace Physics
 		{
 			std::string velocityStr = "Velocity : x = " + std::to_string(velocity.x) + "   y = " + std::to_string(velocity.y) + "   z = " + std::to_string(velocity.z);
 			ImGui::Text(velocityStr.c_str());
+
 			std::string velocityMagStr = "Velocity magnitude :" + std::to_string(velocity.magnitude());
 			ImGui::Text(velocityMagStr.c_str());
+
 			std::string accelerationStr = "Acceleration :" + std::to_string(acceleration.x) + "   y = " + std::to_string(acceleration.y) + "   z = " + std::to_string(acceleration.z);
 			ImGui::Text(accelerationStr.c_str());
+
 			std::string accelerationMagStr = "Acceleration magnitude :" + std::to_string(acceleration.magnitude());
 			ImGui::Text(accelerationMagStr.c_str());
 

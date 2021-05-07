@@ -19,15 +19,16 @@ namespace Physics
 
 	void BoxCollider::updateShape()
 	{
-		box.center = m_transform->m_position;
+		box.center = m_transform->m_position + m_positionOffset;
 	}
 
 	void BoxCollider::drawImGui()
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
-			ImGui:DragFloat("Radius :", &sphere.radius);
-			ImGui:DragFloat3("Center :", &sphere.center.x);
+			ImGui::DragFloat3("Size :", &box.size.x);
+			ImGui::DragFloat3("Center :", &box.center.x);
+			ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
 
 			ImGui::TreePop();
 		}

@@ -20,15 +20,16 @@ namespace Physics
 
 	void SphereCollider::updateShape()
 	{
-		sphere.center = m_transform->m_position;
+		sphere.center = m_transform->m_position + m_positionOffset;
 	}
 
 	void SphereCollider::drawImGui()
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
-			ImGui:DragFloat("Radius :", &sphere.radius);
-			ImGui:DragFloat3("Center :", &sphere.center.x);
+			ImGui::DragFloat("Radius :", &sphere.radius);
+			ImGui::DragFloat3("Center :", &sphere.center.x);
+			ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
 
 			ImGui::TreePop();
 		}

@@ -13,7 +13,7 @@ namespace Physics
 	protected:
 		std::vector<std::shared_ptr<Collider>> m_colliders;
 		Core::Maths::vec3 m_center;
-
+		Core::Maths::vec3 m_positionOffset;
 
 		Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr);
 

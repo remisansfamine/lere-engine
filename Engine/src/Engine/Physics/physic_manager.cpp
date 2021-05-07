@@ -69,6 +69,8 @@ namespace Physics
 		{
 			auto sphereCollider = *sphereColliderIt;
 
+			sphereCollider->m_rigidbody->wasInCollision = false;
+
 			for (auto& boxCollider : boxColliders)
 			{
 				sphereCollider->updateShape();
@@ -83,13 +85,19 @@ namespace Physics
 					sphereCollider->m_rigidbody->getNewPosition(),
 					boxCollider->box, interPt, interNormal))
 				{
-					sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
-					sphereCollider->m_rigidbody->velocity.y = 0.f;//addForce(interNormal.normalize() * sphereCollider->m_rigidbody->velocity.magnitude());
-				}
+					auto relfect = reflect(sphereCollider->m_rigidbody->velocity, interNormal);
 
-				/*Core::Debug::Log::info("Velocity : x = " + std::to_string(sphereCollider->m_rigidbody->velocity.x) +
-					", y = " + std::to_string(sphereCollider->m_rigidbody->velocity.y) +
-					", z = " + std::to_string(sphereCollider->m_rigidbody->velocity.z));*/
+					float diff = (sphereCollider->m_rigidbody->getNewPosition() - interPt).magnitude();
+
+					sphereCollider->m_rigidbody->velocity = relfect.normalized() * diff;
+
+					sphereCollider->m_transform->m_position = sphereCollider->m_rigidbody->getNewPosition();
+
+					sphereCollider->m_rigidbody->wasInCollision = true;
+
+					//sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
+					//sphereCollider->m_rigidbody->velocity.y = 0.f;//addForce(interNormal.normalize() * sphereCollider->m_rigidbody->velocity.magnitude());
+				}
 			}
 		}
 	}

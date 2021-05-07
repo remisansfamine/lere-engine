@@ -1,5 +1,7 @@
 #include "model_renderer.hpp"
 
+#include "imgui.h"
+
 #include "resources_manager.hpp"
 #include "inputs_manager.hpp"
 #include "time.hpp"
@@ -25,6 +27,10 @@ namespace LowRenderer
 
 	void ModelRenderer::drawImGui()
 	{
-
+		if (ImGui::TreeNode("Model renderer"))
+		{
+			model.drawImGui();
+			ImGui::TreePop();
+		}
 	}
 }

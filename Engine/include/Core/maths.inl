@@ -37,6 +37,12 @@ namespace Core::Maths
 		};
 	}
 
+	vec3 reflect(const vec3& toReflect, const vec3& normal)
+	{
+		return toReflect - 2.f * normal * dot(toReflect, normal);
+	}
+
+
 	void quat::getAxisAngle(vec3& axis, float& angle) const
 	{
 		quat normalizedQuat = *this;

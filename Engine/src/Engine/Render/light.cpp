@@ -1,5 +1,7 @@
 ﻿#include "light.hpp"
 
+#include "imgui.h"
+
 #include "render_manager.hpp"
 #include "inputs_manager.hpp"
 #include "time.hpp"
@@ -59,6 +61,17 @@ namespace LowRenderer
 
 	void Light::drawImGui()
 	{
+		if (ImGui::TreeNode("Light"))
+		{
+			ImGui::DragFloat3("Ambient: ", &ambient.data.x);
+			ImGui::DragFloat3("Diffuse: ", &diffuse.data.x);
+			ImGui::DragFloat3("Specular: ", &specular.data.x);
+			ImGui::DragFloat3("Attenuation: ", &attenuation.x);
+			ImGui::DragFloat3("Direction: ", &direction.x);
+			ImGui::DragFloat("Cutoff: ", &cutoff);
+			ImGui::DragFloat("Outer cutoff: ", &outterCutoff);
 
+			ImGui::TreePop();
+		}
 	}
 }

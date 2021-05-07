@@ -375,6 +375,8 @@ namespace Core::Maths
 		return vec * scale;
     }
 
+    inline vec3 reflect(const vec3& toReflect, const vec3& normal);
+
     inline quat operator*(const quat& lhs, const quat& rhs)
     {
         return {

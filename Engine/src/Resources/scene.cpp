@@ -47,16 +47,12 @@ namespace Resources
 			transform->m_position.z = -3.f;
 			transform->m_position.y = 10.f;
 
-
-
 			Engine::GameObject sphere2("sphere2");
 			sphere2.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
 
 			auto transform2 = sphere2.getComponent<Physics::Transform>();
 			transform2->m_position.x = 2.f;
 			transform2->setParent(transform);
-
-
 
 			// Player creation
 			Engine::GameObject player("Player");
