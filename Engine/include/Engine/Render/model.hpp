@@ -7,6 +7,8 @@
 #include "shader.hpp"
 #include "material.hpp"
 
+#define COLLIDER_COLOR Core::Maths::vec3(0.f, 1.f, 0.f)
+
 namespace Physics
 {
 	class Transform;
@@ -29,9 +31,10 @@ namespace LowRenderer
 	public:
 		std::shared_ptr<Physics::Transform> m_transform = nullptr;
 
-		Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform);
+		Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform);
 
 		void draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram);
+		void drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider);
 		void drawImGui();
 
 		std::string& getPath();

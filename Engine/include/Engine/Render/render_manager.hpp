@@ -9,6 +9,7 @@
 #include "light.hpp"
 #include "camera.hpp"
 #include "sky_box.hpp"
+#include "collider_renderer.hpp"
 
 namespace LowRenderer
 {
@@ -20,10 +21,13 @@ namespace LowRenderer
 		RenderManager();
 		~RenderManager();
 
+		std::vector<std::shared_ptr<ColliderRenderer>> colliders;
 		std::vector<std::shared_ptr<Renderer>> renderers;
 		std::vector<std::shared_ptr<Light>> lights;
 		std::vector<std::shared_ptr<Camera>> cameras;
 		std::vector<std::shared_ptr<SkyBox>> skyBoxes;
+
+		void drawColliders();
 
 	public:
 
@@ -38,6 +42,8 @@ namespace LowRenderer
 		static void linkComponent(const std::shared_ptr<Camera>& compToLink);
 
 		static void linkComponent(const std::shared_ptr<SkyBox>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink);
 
 		template <class C>
 		static void clearComponents();
@@ -64,6 +70,12 @@ namespace LowRenderer
 		static void clearComponents<SkyBox>()
 		{
 			instance()->skyBoxes.clear();
+		}
+
+		template<>
+		static void clearComponents<ColliderRenderer>()
+		{
+			instance()->colliders.clear();
 		}
 	};
 }

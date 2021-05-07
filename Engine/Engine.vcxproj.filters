@@ -427,5 +427,11 @@
     <None Include="include\Core\maths.inl">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </None>
+    <None Include="resources\shaders\fragmentCollider.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\vertexCollider.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

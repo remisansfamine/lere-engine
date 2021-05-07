@@ -3,6 +3,9 @@
 #include "imgui.h"
 
 #include "physic_manager.hpp"
+#include "render_manager.hpp"
+
+#include "collider_renderer.hpp"
 
 namespace Physics
 {
@@ -10,6 +13,8 @@ namespace Physics
 		: Collider(gameObject, ptr)
 	{
 		PhysicManager::linkComponent(ptr);
+		gameObject.addComponent<LowRenderer::ColliderRenderer>(ptr, "resources/obj/colliders/boxCollider.obj");
+		LowRenderer::RenderManager::linkComponent(gameObject.getComponent<LowRenderer::ColliderRenderer>());
 	}
 
 	BoxCollider::BoxCollider(Engine::GameObject& gameObject)
@@ -19,16 +24,19 @@ namespace Physics
 
 	void BoxCollider::updateShape()
 	{
-		box.center = m_transform->m_position + m_positionOffset;
+		box.center = Core::Maths::modelMatrixToPosition(m_transform->getGlobalModel()) + m_center;
+		extensions = box.size;
 	}
 
 	void BoxCollider::drawImGui()
 	{
-		if (ImGui::TreeNode("Sphere Collider"))
+		if (ImGui::TreeNode("Box Collider"))
 		{
+			ImGui::DragFloat3("Center :", &m_center.x);
 			ImGui::DragFloat3("Size :", &box.size.x);
-			ImGui::DragFloat3("Center :", &box.center.x);
-			ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
+			ImGui::Checkbox("IsTrigger", &isTrigger);
+			ImGui::Checkbox("IsDraw", &isDraw);
+			//ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
 
 			ImGui::TreePop();
 		}

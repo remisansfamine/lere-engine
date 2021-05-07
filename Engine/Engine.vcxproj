@@ -264,9 +264,11 @@
     <None Include="include\Core\maths.inl" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
+    <None Include="resources\shaders\fragmentCollider.frag" />
     <None Include="resources\shaders\fragmentShader.frag" />
     <None Include="resources\shaders\testShader.frag" />
     <None Include="resources\shaders\testShader.vert" />
+    <None Include="resources\shaders\vertexCollider.vert" />
     <None Include="resources\shaders\vertexShader.vert" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

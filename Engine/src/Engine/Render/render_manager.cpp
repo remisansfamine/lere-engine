@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "debug.hpp"
+#include "resources_manager.hpp"
 
 #include "shader.hpp"
 
@@ -60,6 +61,30 @@ namespace LowRenderer
 		}
 
 		program->unbind();
+
+		RM->drawColliders();
+	}
+
+	void RenderManager::drawColliders()
+	{
+		if (colliders.size() == 0)
+			return;
+
+		glDisable(GL_DEPTH_TEST);
+
+		std::shared_ptr<Resources::ShaderProgram> program = colliders[0]->getProgram();
+
+		program->bind();
+
+		getCurrentCamera()->sendToProgram(program);
+
+		for (std::shared_ptr<ColliderRenderer>& rendererCollider : colliders)
+		{
+			if (rendererCollider->canBeDraw())
+				rendererCollider->draw();
+		}
+
+		program->unbind();
 	}
 
 	void RenderManager::linkComponent(const std::shared_ptr<Light>& compToLink)
@@ -84,6 +109,12 @@ namespace LowRenderer
 	{
 		// Insert camera to render
 		instance()->skyBoxes.push_back(compToLink);
+	}
+
+	void RenderManager::linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink)
+	{
+		// Insert camera to render
+		instance()->colliders.push_back(compToLink);
 	}
 
 	std::shared_ptr<Camera> RenderManager::getCurrentCamera()

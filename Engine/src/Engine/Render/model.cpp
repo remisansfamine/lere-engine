@@ -9,7 +9,7 @@
 
 namespace LowRenderer
 {
-	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform)
+	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform)
 		: m_transform(transform), m_filePath(filePath)
 	{
 		// Load meshes
@@ -57,6 +57,24 @@ namespace LowRenderer
 		// Draw children
 		for (Model& child : m_children)
 			child.draw(shaderProgram);
+	}
+
+	void Model::drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider)
+	{
+		if (m_mesh)
+		{
+			Core::Maths::vec3 color = Core::Maths::vec3(0.f, 1.f, 0.f);
+			// Send model matrix to program
+			shaderProgram->setUniform("model", modelCollider.e, 1, 1);
+			shaderProgram->setUniform("color", color.e, 1, 1);
+
+			// Draw the mesh
+			m_mesh->draw();
+		}
+
+		// Draw children
+		for (Model& child : m_children)
+			child.drawCollider(shaderProgram, modelCollider);
 	}
 
 	std::string& Model::getPath()

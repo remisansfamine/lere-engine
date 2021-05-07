@@ -289,6 +289,11 @@ namespace Core::Maths
 
     inline vec3 vectorRotate(const vec3& v, const quat& q);
 
+    inline vec3 modelMatrixToPosition(const mat4& matrix)
+    {
+        return vec3(matrix.e[3], matrix.e[7], matrix.e[11]);
+    }
+
 	template<typename T>
 	vec3& operator*=(vec3& lhs, const T& scale)
 	{

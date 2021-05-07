@@ -1,5 +1,7 @@
 #include "collider.hpp"
 
+#include "imGui.h"
+
 namespace Physics
 {
 	Collider::Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr)
@@ -36,6 +38,5 @@ namespace Physics
 
 	void Collider::drawImGui()
 	{
-
 	}
 }
