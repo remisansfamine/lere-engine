@@ -13,8 +13,6 @@ namespace Engine
 	private:
 		GameObject& m_gameObject;
 
-		//friend class GameObject;
-
 	protected:
 		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
 		virtual ~Component();
@@ -34,7 +32,6 @@ namespace Engine
 		}
 
 	public:
-
 		void setActive(bool value) override;
 		void destroy() override;
 
@@ -55,7 +52,9 @@ namespace Engine
 		void virtual onCollisionExit() { }
 
 		GameObject& getHost();
+
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
+		virtual std::string toString() { return ""; }
 	};
 }

@@ -2,6 +2,8 @@
 
 #include "imgui.h"
 
+#include "utils.hpp"
+
 namespace Physics
 {
 	Transform::Transform(Engine::GameObject& gameObject)
@@ -77,5 +79,12 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
+	}
+
+	std::string Transform::toString()
+	{
+		return  "position = " + Utils::vecToString(m_position) +
+				"rotation = " + Utils::vecToString(m_rotation) +
+				"scale = " + Utils::vecToString(m_scale);
 	}
 }

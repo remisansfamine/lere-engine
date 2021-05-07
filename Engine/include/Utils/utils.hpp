@@ -1,8 +1,9 @@
 #pragma once
 
 #include <string>
-
 #include <functional>
+
+#include "maths.hpp"
 
 namespace Utils
 {
@@ -27,4 +28,10 @@ namespace Utils
 
     // Return the directory of the file from the input filepath
     std::string getDirectory(const std::string& filePath);
+
+    std::string vecToString(const Core::Maths::vec2& toWrite);
+
+    std::string vecToString(const Core::Maths::vec3& toWrite);
+
+    std::string vecToString(const Core::Maths::vec4& toWrite);
 }

@@ -30,5 +30,7 @@ namespace Physics
 		void setParent(std::shared_ptr<Physics::Transform> _parent);
 		void setParent(Engine::GameObject& gameObject);
 		void drawImGui() override;
+
+		std::string toString() override;
 	};
 }

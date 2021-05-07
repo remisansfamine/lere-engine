@@ -76,9 +76,9 @@ namespace Physics
 				sphereCollider->updateShape();
 				boxCollider->updateShape();
 
-				Core::Debug::Log::info("Sphere new pos : x = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().x) +
-					", y = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().y) +
-					", z = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().z));
+				//Core::Debug::Log::info("Sphere new pos : x = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().x) +
+				//	", y = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().y) +
+				//	", z = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().z));
 
 				vec3 interPt, interNormal;
 				if (IntersectSphereBox(sphereCollider->sphere,

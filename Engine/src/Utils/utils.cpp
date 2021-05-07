@@ -95,4 +95,19 @@ namespace Utils
 
         return filePath.substr(0, filePath.size() - fileName.size());
     }
+
+    std::string vecToString(const Core::Maths::vec2& toWrite)
+    {
+        return "x = " + std::to_string(toWrite.x) + "y = " + std::to_string(toWrite.y);
+    }
+
+    std::string vecToString(const Core::Maths::vec3& toWrite)
+    {
+        return vecToString(toWrite.xy) + "z = " + std::to_string(toWrite.z);
+    }
+
+    std::string vecToString(const Core::Maths::vec4& toWrite)
+    {
+        return vecToString(toWrite.xyz) + "w = " + std::to_string(toWrite.w);
+    }
 }
