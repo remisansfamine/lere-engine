@@ -42,7 +42,7 @@ namespace LowRenderer
 		if (m_mesh)
 		{
 			// Send model matrix to program
-			shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
+			shaderProgram->setUniform("model", m_transform->getGlobalModel().e, 1, 1);
 
 			// Send and bind material to program
 			m_material->sendToShader(shaderProgram);
@@ -60,5 +60,10 @@ namespace LowRenderer
 	std::string& Model::getPath()
 	{
 		return m_filePath;
+	}
+
+	void Model::drawImGui()
+	{
+
 	}
 }

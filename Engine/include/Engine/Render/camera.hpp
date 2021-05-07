@@ -23,7 +23,7 @@ namespace LowRenderer
 		float aspect = 0.f;
 		float near = 0.001f;
 		float far = 200.f;
-		float fovY = 90.f;
+		float fovY = 60.f;
 
 		Camera(Engine::GameObject& gameObject);
 
@@ -32,6 +32,8 @@ namespace LowRenderer
 		Core::Maths::mat4 getViewProjection() const;
 
 		void fixedUpdate() override;
+		void drawImGui() override;
+
 		void sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 	};
 }

@@ -38,5 +38,7 @@ namespace LowRenderer
 		void setAsSpot();
 		void compute();
 		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index);
+
+		void drawImGui() override;
 	};
 }

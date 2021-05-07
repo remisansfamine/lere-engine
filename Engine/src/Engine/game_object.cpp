@@ -1,5 +1,7 @@
 #include "game_object.hpp"
 
+#include "imgui.h"
+
 #include "model_renderer.hpp"
 #include "render_manager.hpp"
 #include "debug.hpp"
@@ -76,5 +78,13 @@ namespace Engine
 	{
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onCollisionExit();
+	}
+
+	void GameObject::drawImGui()
+	{
+		ImGui::InputText(": Name", &m_name[0], 50);
+
+		for (auto& component : m_components)
+			component->drawImGui();
 	}
 }

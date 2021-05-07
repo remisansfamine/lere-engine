@@ -18,11 +18,16 @@ namespace Physics
 
 		std::shared_ptr<Transform> m_transform = nullptr;
 
+		Core::Maths::vec3 forceSum;
+
 	public:
 		Rigidbody(Engine::GameObject& gameObject);
 
 		Core::Maths::vec3 velocity;
+		Core::Maths::vec3 gravity = Core::Maths::vec3(0.f, -3.f, 0.f);
 		float mass = 1.f;
+
+		float drag = 0.5f;
 
 		bool isAwake = false;
 
@@ -30,5 +35,6 @@ namespace Physics
 		Core::Maths::vec3 getNewPosition();
 
 		void fixedUpdate() override;
+		void drawImGui() override;
 	};
 }

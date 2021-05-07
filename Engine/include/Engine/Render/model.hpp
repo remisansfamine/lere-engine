@@ -32,6 +32,8 @@ namespace LowRenderer
 		Model(const std::string& filePath, std::shared_ptr<Physics::Transform>& transform);
 
 		void draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram);
+		void drawImGui();
+
 		std::string& getPath();
 	};
 }

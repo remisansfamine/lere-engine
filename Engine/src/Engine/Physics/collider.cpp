@@ -33,4 +33,9 @@ namespace Physics
 	{
 		getHost().callCollisionExit();
 	}
+
+	void Collider::drawImGui()
+	{
+
+	}
 }

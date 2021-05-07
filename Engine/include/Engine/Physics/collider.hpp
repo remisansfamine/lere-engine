@@ -31,6 +31,8 @@ namespace Physics
 
 		virtual void updateShape() = 0;
 
+		void drawImGui() override;
+
 		//void callTriggerEnter();
 		//void callTriggerStay();
 		//void callTriggerExit();

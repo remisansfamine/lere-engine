@@ -56,4 +56,9 @@ namespace LowRenderer
 		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position);
 		program->setUniform("lightAttribs2[" + std::to_string(index) + "][0]", &attenuation);
 	}
+
+	void Light::drawImGui()
+	{
+
+	}
 }

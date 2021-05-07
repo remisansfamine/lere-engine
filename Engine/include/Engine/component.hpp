@@ -39,6 +39,8 @@ namespace Engine
 		void destroy() override;
 
 		void virtual draw() { }
+		void virtual drawImGui() {}
+
 		void virtual awake() { }
 		void virtual start() { }
 		void virtual update() { }

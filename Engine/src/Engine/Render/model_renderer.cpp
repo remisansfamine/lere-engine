@@ -22,4 +22,9 @@ namespace LowRenderer
 	{
 		model.draw(m_shaderProgram);
 	}
+
+	void ModelRenderer::drawImGui()
+	{
+
+	}
 }

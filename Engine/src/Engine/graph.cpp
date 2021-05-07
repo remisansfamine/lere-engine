@@ -1,5 +1,7 @@
 #include "graph.hpp"
 
+#include "imgui.h"
+
 #include "debug.hpp"
 #include "physic_manager.hpp"
 
@@ -49,5 +51,13 @@ namespace Core::Engine
 	{
 		// Fixed update the scene
 		instance()->curScene.fixedUpdate();
+	}
+
+	void Graph::drawImGui()
+	{
+		if (ImGui::Begin("Inspector"))
+			instance()->curScene.drawImGui();
+
+		ImGui::End();
 	}
 }

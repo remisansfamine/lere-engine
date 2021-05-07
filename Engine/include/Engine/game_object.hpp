@@ -81,6 +81,8 @@ namespace Engine
 		void callCollisionStay();
 		void callCollisionExit();
 
+		void drawImGui();
+
 		void destroy() override {}
 	};
 }

@@ -1,11 +1,14 @@
 #include "scene.hpp"
 
+#include "imgui.h"
+
 #include "render_manager.hpp"
 #include "model_renderer.hpp"
 #include "physic_manager.hpp"
 #include "inputs_manager.hpp"
 #include "debug.hpp"
 
+#include "player_movement.hpp"
 #include "transform.hpp"
 #include "sky_box.hpp"
 #include "light.hpp"
@@ -35,7 +38,7 @@ namespace Resources
 		{
 			Engine::GameObject sphere("sphere");
 			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
-			sphere.addComponent<Physics::Rigidbody>();
+			sphere.addComponent<Gameplay::PlayerMovement>();
 			sphere.addComponent<Physics::SphereCollider>();
 
 			sphere.getComponent<Physics::Rigidbody>()->isAwake = true;
@@ -44,7 +47,28 @@ namespace Resources
 			transform->m_position.z = -3.f;
 			transform->m_position.y = 10.f;
 
+
+
+			Engine::GameObject sphere2("sphere2");
+			sphere2.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
+
+			auto transform2 = sphere2.getComponent<Physics::Transform>();
+			transform2->m_position.x = 2.f;
+			transform2->setParent(transform);
+
+
+
+			// Player creation
+			Engine::GameObject player("Player");
+			player.addComponent<LowRenderer::Camera>();
+
+			auto transformPlayer = player.getComponent<Physics::Transform>();
+			//transformPlayer->setParent(transform);
+			//transformPlayer->m_position.z = 5.f;
+
+			gameObjects.push_back(player);
 			gameObjects.push_back(sphere);
+			gameObjects.push_back(sphere2);
 		}
 
 		/*// Craftsman creation
@@ -77,11 +101,7 @@ namespace Resources
 		}*/
 
 		{
-			// Player creation
-			Engine::GameObject player("Player");
-			player.addComponent<LowRenderer::Camera>();
-
-			gameObjects.push_back(player);
+			
 		}
 
 		// SkyBox creation
@@ -153,6 +173,18 @@ namespace Resources
 		LowRenderer::RenderManager::draw();
 	}
 
+	void Scene::drawImGui()
+	{
+		int goSize = (int)(gameObjects.size());
+
+		if (goSize == 0)
+			return;
+
+		ImGui::SliderInt("Index current GameObject", &curGameObjectIndex, 0, goSize - 1);
+
+		gameObjects[curGameObjectIndex].drawImGui();
+	}
+
 	void Scene::update()
 	{
 		for (Engine::GameObject& go : gameObjects)
@@ -161,9 +193,10 @@ namespace Resources
 		for (Engine::GameObject& go : gameObjects)
 			go.lateUpdateComponents();
 
-		gameObjects[0].getComponent<Physics::Transform>()->m_position.x += Core::Input::InputManager::getAxis("MoveObjectHorizontal") * 0.1f;
-		gameObjects[0].getComponent<Physics::Transform>()->m_position.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 0.1f;
-		gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("MoveObjectVertical") * 0.1f;
+		gameObjects[2].getComponent<Physics::Transform>()->m_rotation.y += Core::Input::InputManager::getAxis("MoveObjectHorizontal") * 2.f * Core::Maths::DEG2RAD;
+		gameObjects[2].getComponent<Physics::Transform>()->m_rotation.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 2.f * Core::Maths::DEG2RAD;
+		//gameObjects[0].getComponent<Physics::Transform>()->m_position.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 0.1f;
+		//gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("MoveObjectVertical") * 0.1f;
 	}
 
 	void Scene::fixedUpdate()

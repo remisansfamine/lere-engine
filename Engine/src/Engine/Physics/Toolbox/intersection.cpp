@@ -93,7 +93,7 @@ namespace Physics
 		return INTERSECTION;
 	}
 
-	bool IntersectSegmentBox(const vec3& A, const vec3& B, const Box& box, vec3& interPtBox, vec3& interNormal)
+	bool IntersectSegmentBox(const vec3& A, const vec3& B, const Box& box, vec3& interPtBox, vec3& interNormalBox, vec3& interPtCapsule, vec3& interNormalCapsule)
 	{
 		// Box referential
 		vec3 i, j, k;
@@ -102,7 +102,6 @@ namespace Physics
 		// Segment AB
 		vec3 AB = B - A;
 
-		vec3 newInterNormal;
 		// Is collide with front face
 		if (dot(k, AB) < 0.f)
 		{
@@ -110,11 +109,11 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ 0,0,box.size.z }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, PI * 0.5f));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				// If the box is rounded, check voronoi regions
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				// Else return intersect box
 				return INTERSECTION;
@@ -126,10 +125,10 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ 0,0,-box.size.z }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, -PI * 0.5f));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				return INTERSECTION;
 			}
@@ -141,10 +140,10 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ box.size.x  ,0,0 }, box.quaternion) + box.center,
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, -PI * 0.5f));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				return INTERSECTION;
 			}
@@ -155,10 +154,10 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ -box.size.x ,0,0 }, box.quaternion) + box.center,
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, PI * 0.5f));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				return INTERSECTION;
 			}
@@ -170,10 +169,10 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ 0,box.size.y ,0 }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.z }, box.quaternion * quat({ 0,0,0 }, PI));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				return INTERSECTION;
 			}
@@ -184,10 +183,10 @@ namespace Physics
 			Quad quad = Quad(vectorRotate({ 0,-box.size.y ,0 }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.z }, box.quaternion * quat({ 1,0,0 }, PI));
 
-			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormal))
+			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
 				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtBox, newInterNormal);
+					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 
 				return INTERSECTION;
 			}
@@ -429,6 +428,7 @@ namespace Physics
 		if (PIdotPQ > PQdotPQ)
 			return IntersectSegmentSphere(ptA, ptB, Sphere(caps.ptB, caps.radius, caps.quaternion), interPt, interNormal);
 
+
 		// Get the plane perpendicular to the cylinder axe and get intersection point to get intersection normal
 		vec3 newInterPt;
 		IntersectLinePlane(caps.ptA, caps.ptB, Plane(PQ.normalized(), interPt), newInterPt, interNormal);
@@ -441,12 +441,13 @@ namespace Physics
 	bool IntersectSphereBox(const Sphere& sphere, const vec3& newSpherePos, const Box& box, vec3& interPt, vec3& interNormal)
 	{
 		Box roundedBox = box;
-		roundedBox.offsetRounding += sphere.radius;					    // Set rounding as the radius to consider the sphere
-		roundedBox.size = roundedBox.size + sphere.radius;  // Set new size
+		roundedBox.offsetRounding = sphere.radius;				    // Set rounding as the radius to consider the sphere
+		roundedBox.size += vec3(sphere.radius, sphere.radius, sphere.radius);  // Set new size
 
 		// Avoid segment point A inside roundedBox OBB
 		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + box.offsetRounding);
 
-		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPt, interNormal);
+		vec3 interPtCaps, interNormalCaps;
+		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPtCaps, interNormalCaps, interPt, interNormal);
 	}
 }

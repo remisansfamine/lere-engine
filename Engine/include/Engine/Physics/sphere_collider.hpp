@@ -13,6 +13,7 @@ namespace Physics
 		SphereCollider(Engine::GameObject& gameObject);
 
 		void updateShape() override;
+		void drawImGui() override;
 
 		Sphere sphere;
 	};

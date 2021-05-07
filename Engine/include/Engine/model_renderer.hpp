@@ -15,5 +15,6 @@ namespace LowRenderer
 		~ModelRenderer();
 
 		void draw() override;
+		void drawImGui() override;
 	};
 }

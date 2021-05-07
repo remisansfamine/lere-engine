@@ -1,5 +1,7 @@
 #include "sphere_collider.hpp"
 
+#include "imgui.h"
+
 #include "physic_manager.hpp"
 
 namespace Physics
@@ -19,5 +21,16 @@ namespace Physics
 	void SphereCollider::updateShape()
 	{
 		sphere.center = m_transform->m_position;
+	}
+
+	void SphereCollider::drawImGui()
+	{
+		if (ImGui::TreeNode("Sphere Collider"))
+		{
+			ImGui:DragFloat("Radius :", &sphere.radius);
+			ImGui:DragFloat3("Center :", &sphere.center.x);
+
+			ImGui::TreePop();
+		}
 	}
 }

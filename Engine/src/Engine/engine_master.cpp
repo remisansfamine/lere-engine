@@ -30,5 +30,6 @@ namespace Core::Engine
 
 		Graph::update();
 		Graph::draw();
+		Graph::drawImGui();
 	}
 }	

@@ -7,6 +7,8 @@ namespace Resources
 	class Scene
 	{
 	private:
+		int curGameObjectIndex = 0;
+
 	public:
 		std::string name;
 		std::vector<Engine::GameObject> gameObjects;
@@ -21,5 +23,7 @@ namespace Resources
 		void draw();
 		void update();
 		void fixedUpdate();
+
+		void drawImGui();
 	};
 }

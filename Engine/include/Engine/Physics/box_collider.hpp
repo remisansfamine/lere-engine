@@ -16,5 +16,7 @@ namespace Physics
 		Box box = Box();
 
 		void updateShape() override;
+
+		void drawImGui() override;
 	};
 }

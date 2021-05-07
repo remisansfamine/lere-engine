@@ -237,6 +237,15 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp">
       <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Render\collider_renderer.cpp">
+      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gameplay\player_movement.cpp">
+      <Filter>Fichiers sources\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gameplay\player_state.cpp">
+      <Filter>Fichiers sources\Gameplay\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -385,6 +394,15 @@
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\Toolbox\shape.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Render\collider_renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Gameplay\player_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Gameplay\player_state.hpp">
+      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

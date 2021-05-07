@@ -12,7 +12,7 @@ namespace Physics
 {
 	// Intersection from a segment
 	bool IntersectSegmentQuad(const vec3& A, const vec3& B, const Quad& quad, vec3& interPt, vec3& interNornal);
-	bool IntersectSegmentBox(const vec3& A, const vec3& B, const Box& box, vec3& interPtBox, vec3& interNormal);
+	bool IntersectSegmentBox(const vec3& A, const vec3& B, const Box& box, vec3& interPtBox, vec3& interNormalBox, vec3& interPtCapsule, vec3& interNormalCapsule);
 	bool IntersectSegmentPlane(const vec3& A, const vec3& B, const Plane& plane, vec3& interPt, vec3& interNormal);
 	bool IntersectLinePlane(const vec3& A, const vec3& B, const Plane& plane, vec3& interPt, vec3& interNormal);
 	bool IntersectSegmentDisk(const vec3& A, const vec3& B, const Disk& disk, vec3& interPt, vec3& interNormal);

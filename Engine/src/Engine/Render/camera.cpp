@@ -1,5 +1,7 @@
 #include "camera.hpp"
 
+#include "imgui.h"
+
 #include "render_manager.hpp"
 #include "inputs_manager.hpp"
 #include "application.hpp"
@@ -23,10 +25,14 @@ namespace LowRenderer
 
 	Core::Maths::mat4 Camera::getViewMatrix() const
 	{
+		auto viewModel = m_transform->getParentModel();
+		viewModel.e[3] = -viewModel.e[3];
+		viewModel.e[7] = -viewModel.e[7];
+		viewModel.e[11] = -viewModel.e[11];
+
 		// Get the camera view matrix
 		return Core::Maths::rotateZ(m_transform->m_rotation.z) * Core::Maths::rotateX(m_transform->m_rotation.x) *
-			Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position);
-			   //m_transform->getParentModel();
+			Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position) * viewModel;
 	}
 
 	Core::Maths::mat4 Camera::getProjection() const
@@ -76,7 +82,7 @@ namespace LowRenderer
 		m_transform->m_rotation.x += deltaMouse.y * sensivity;
 		m_transform->m_rotation.y += deltaMouse.x * sensivity;
 
-		float translationSpeed = 2.f * deltaTime;
+		/*float translationSpeed = 2.f * deltaTime;
 
 		float forwardMove = Core::Input::InputManager::getAxis("Vertical");
 		float strafeMove = Core::Input::InputManager::getAxis("Horizontal");
@@ -87,12 +93,23 @@ namespace LowRenderer
 		m_transform->m_position.x += (sin * forwardMove + cos * strafeMove) * translationSpeed;
 		m_transform->m_position.z += (sin * strafeMove - cos * forwardMove) * translationSpeed;
 
-		m_transform->m_position.y += verticalMove * translationSpeed;
+		m_transform->m_position.y += verticalMove * translationSpeed;*/
 	}
 
 	void Camera::sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
 	{
 		program->setUniform("viewProj", getViewProjection().e, 1, 1);
 		program->setUniform("viewPos", m_transform->m_position.e);
+	}
+
+	void Camera::drawImGui()
+	{
+		if (ImGui::TreeNode("Camera"))
+		{
+			ImGui::DragFloat("Near plane :", &near);
+			ImGui::DragFloat("Far plane :", &far);
+			ImGui::DragFloat("FOV Y :", &fovY);
+			ImGui::TreePop();
+		}
 	}
 }

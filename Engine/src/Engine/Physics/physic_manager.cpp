@@ -74,16 +74,22 @@ namespace Physics
 				sphereCollider->updateShape();
 				boxCollider->updateShape();
 
+				Core::Debug::Log::info("Sphere new pos : x = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().x) +
+					", y = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().y) +
+					", z = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().z));
+
 				vec3 interPt, interNormal;
 				if (IntersectSphereBox(sphereCollider->sphere,
 					sphereCollider->m_rigidbody->getNewPosition(),
 					boxCollider->box, interPt, interNormal))
 				{
-					sphereCollider->m_transform->m_position = interPt; //+ interNormal * sphereCollider->sphere.radius;
-					sphereCollider->m_rigidbody->velocity.y = 0.f;
-
-					Core::Debug::Log::info("InterPt : x = " + std::to_string(interPt.x) + ", y = " + std::to_string(interPt.y) + ", z = " + std::to_string(interPt.z));
+					sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
+					sphereCollider->m_rigidbody->velocity.y = 0.f;//addForce(interNormal.normalize() * sphereCollider->m_rigidbody->velocity.magnitude());
 				}
+
+				/*Core::Debug::Log::info("Velocity : x = " + std::to_string(sphereCollider->m_rigidbody->velocity.x) +
+					", y = " + std::to_string(sphereCollider->m_rigidbody->velocity.y) +
+					", z = " + std::to_string(sphereCollider->m_rigidbody->velocity.z));*/
 			}
 		}
 	}

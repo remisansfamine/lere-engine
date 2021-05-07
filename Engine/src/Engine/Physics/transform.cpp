@@ -1,5 +1,7 @@
 #include "transform.hpp"
 
+#include "imgui.h"
+
 namespace Physics
 {
 	Transform::Transform(Engine::GameObject& gameObject)
@@ -26,14 +28,18 @@ namespace Physics
 	Core::Maths::mat4 Transform::getGlobalModel()
 	{
 		if (parent)
-			return getModel() * getParentModel();
+			return getParentModel() * getModel();
+			//return getModel() * getParentModel();
 
 		return getModel();
 	}
 
 	Core::Maths::mat4 Transform::getParentModel()
 	{
-		return parent->getGlobalModel();
+		if (parent)
+			return parent->getGlobalModel();
+
+		return Core::Maths::identity();
 	}
 
 	void Transform::setParent(std::shared_ptr<Physics::Transform> _parent)
@@ -48,5 +54,28 @@ namespace Physics
 			return;
 
 		parent = newParent;
+	}
+
+	void Transform::drawImGui()
+	{
+		if (ImGui::TreeNode("Transform"))
+		{
+			Core::Maths::vec3 rotateDegrees = m_rotation * Core::Maths::RAD2DEG;
+
+			ImGui::DragFloat3("Position :", &m_position.x);
+			ImGui::DragFloat3("Rotation :", &rotateDegrees.x, 1.f, 0.f, 360.f);
+			ImGui::DragFloat3("Scale :", &m_scale.x);
+
+			m_rotation = rotateDegrees * Core::Maths::DEG2RAD;
+
+			/*if (parent)
+			{
+				std::string parentName = "Parent: " + getHost().m_name;
+				ImGui::Text(parentName.c_str());
+			}*/
+
+
+			ImGui::TreePop();
+		}
 	}
 }
