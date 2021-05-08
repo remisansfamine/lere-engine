@@ -36,6 +36,7 @@ namespace Physics
 		Core::Maths::vec3 getNewPosition();
 
 		void fixedUpdate() override;
+		void computeNextPos();
 		void drawImGui() override;
 	};
 }

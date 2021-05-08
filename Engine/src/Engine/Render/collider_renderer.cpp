@@ -17,7 +17,11 @@ namespace LowRenderer
 
 	Core::Maths::mat4 ColliderRenderer::getModelCollider()
 	{
-		return m_transform->getGlobalModel() * Core::Maths::translate(collider->m_center) * Core::Maths::scale(collider->extensions);
+		return Core::Maths::translate(collider->m_center) * 
+			   Core::Maths::rotateX(m_transform->m_rotation.x) *
+			   Core::Maths::rotateY(m_transform->m_rotation.y) *
+			   Core::Maths::rotateZ(m_transform->m_rotation.z) *
+			   Core::Maths::scale(collider->extensions);
 	}
 
 	bool ColliderRenderer::canBeDraw()

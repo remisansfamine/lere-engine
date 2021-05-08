@@ -80,25 +80,41 @@ namespace Physics
 				//	", y = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().y) +
 				//	", z = " + std::to_string(sphereCollider->m_rigidbody->getNewPosition().z));
 
+				Sphere newSphere = sphereCollider->sphere;
+				newSphere.center = sphereCollider->m_center;
+				newSphere.radius = sphereCollider->extensions.x;
+				newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->m_rotation);
+
+				Box newBox = boxCollider->box;
+				newBox.center = boxCollider->m_center;
+				newBox.size = boxCollider->extensions;
+				newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->m_rotation);
+
 				vec3 interPt, interNormal;
-				if (IntersectSphereBox(sphereCollider->sphere,
+				if (IntersectSphereBox(newSphere,
 					sphereCollider->m_rigidbody->getNewPosition(),
-					boxCollider->box, interPt, interNormal))
+					newBox, interPt, interNormal))
 				{
+					Core::Maths::vec3 distanceColliderToInter = interPt - sphereCollider->sphere.center;
+
 					auto relfect = reflect(sphereCollider->m_rigidbody->velocity, interNormal);
 
-					float diff = (sphereCollider->m_rigidbody->getNewPosition() - interPt).magnitude();
+					Core::Maths::vec3 axisY = interNormal.normalized();
+					Core::Maths::vec3 axisX = (axisY ^ sphereCollider->m_rigidbody->velocity).normalized();
 
-					sphereCollider->m_rigidbody->velocity = relfect.normalized() * diff;
+					//float diff = (sphereCollider->m_rigidbody->getNewPosition() - interPt).magnitude();
 
-					sphereCollider->m_transform->m_position = sphereCollider->m_rigidbody->getNewPosition();
+					Core::Maths::vec3 supportReaction  = axisY * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisY));
+					Core::Maths::vec3 tangeantReaction = axisX * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisX));
 
-					sphereCollider->m_rigidbody->wasInCollision = true;
-
+					sphereCollider->m_rigidbody->velocity += supportReaction + tangeantReaction;//interNormal.normalized() * relfect.normalized() * diff;
+					//sphereCollider->m_transform->m_position = interPt;
 					//sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
 					//sphereCollider->m_rigidbody->velocity.y = 0.f;//addForce(interNormal.normalize() * sphereCollider->m_rigidbody->velocity.magnitude());
 				}
 			}
+
+			sphereCollider->m_rigidbody->computeNextPos();
 		}
 	}
 
@@ -115,10 +131,10 @@ namespace Physics
 		{
 			PM->timeStocker -= fixedDeltaTime;
 
-			PM->computeCollisions();
-
 			// Call fixed update for all components
 			Core::Engine::Graph::fixedUpdate();
+
+			PM->computeCollisions();
 		}
 	}
 }

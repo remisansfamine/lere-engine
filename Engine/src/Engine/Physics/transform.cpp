@@ -21,9 +21,9 @@ namespace Physics
 	{
 		// Return the model matrix (TRS where R = ZXY like Unity)
 		return Core::Maths::translate(m_position) *
-			   Core::Maths::rotateZ(m_rotation.z) *
 			   Core::Maths::rotateX(m_rotation.x) *
 			   Core::Maths::rotateY(m_rotation.y) *
+			   Core::Maths::rotateZ(m_rotation.z) *
 			   Core::Maths::scale(m_scale);
 	}
 

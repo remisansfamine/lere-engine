@@ -33,14 +33,19 @@ namespace Physics
 		if (wasInCollision)
 			return;
 
-		float fixedDeltaTime = Core::TimeManager::getFixedDeltaTime();
-
 		//addForce(Core::Maths::vec3(0.f, -0.2, 0.f));
-		acceleration = forceSum + gravity;
-		velocity += acceleration * fixedDeltaTime;
-		m_transform->m_position += velocity * fixedDeltaTime;
-
+		// Calculate the acceleration
+		Core::Maths::vec3 dragForce = (velocity ^ abs(velocity)) * drag * 0.5f;
+		acceleration = (forceSum + gravity - dragForce) / mass;
 		forceSum = Core::Maths::vec3();
+
+		// Update velocity
+		velocity += acceleration * Core::TimeManager::getFixedDeltaTime();
+	}
+
+	void Rigidbody::computeNextPos()
+	{
+		m_transform->m_position += velocity * Core::TimeManager::getFixedDeltaTime();
 	}
 
 	void Rigidbody::drawImGui()

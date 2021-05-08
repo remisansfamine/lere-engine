@@ -25,7 +25,11 @@ namespace Physics
 
 	void SphereCollider::updateShape()
 	{
-		sphere.center = Core::Maths::modelMatrixToPosition(m_transform->getGlobalModel()) + m_center;
+		//Core::Maths::vec3 scale = Core::Maths::modelMatrixToPosition(globalModel);
+		//float minScale = std::min(std::min(scale.x, scale.y), scale.z);
+
+		Core::Maths::mat4 globalModel = m_transform->getGlobalModel();
+		m_center = Core::Maths::modelMatrixToPosition(globalModel) + sphere.center;
 		extensions = Core::Maths::vec3(sphere.radius, sphere.radius, sphere.radius);
 	}
 

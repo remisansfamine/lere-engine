@@ -294,6 +294,11 @@ namespace Core::Maths
         return vec3(matrix.e[3], matrix.e[7], matrix.e[11]);
     }
 
+    inline vec3 modelMatrixToScale(const mat4& matrix)
+    {
+        return vec3(matrix.e[0], matrix.e[5], matrix.e[10]);
+    }
+
 	template<typename T>
 	vec3& operator*=(vec3& lhs, const T& scale)
 	{
@@ -392,10 +397,37 @@ namespace Core::Maths
         };
     }
 
+    inline vec3 abs(const vec3& vector)
+    {
+        return { fabsf(vector.x), fabsf(vector.y), fabsf(vector.z) };
+    }
+
     inline quat& operator*=(quat& lhs, const quat& rhs)
     {
         lhs = lhs * rhs;
         return lhs;
+    }
+
+    inline quat quaternionFromEuler(float roll, float pitch, float yaw)
+    {
+        float x0 = cosf(roll * 0.5f);
+        float x1 = sinf(roll * 0.5f);
+        float y0 = cosf(pitch * 0.5f);
+        float y1 = sinf(pitch * 0.5f);
+        float z0 = cosf(yaw * 0.5f);
+        float z1 = sinf(yaw * 0.5f);
+
+        return {
+            x1 * y0 * z0 - x0 * y1 * z1,
+            x0 * y1 * z0 + x1 * y0 * z1,
+            x0 * y0 * z1 - x1 * y1 * z0,
+            x0 * y0 * z0 + x1 * y1 * z1
+        };
+    }
+
+    inline quat quaternionFromEuler(const vec3& rotation)
+    {
+        return quaternionFromEuler(rotation.x, rotation.y, rotation.z);
     }
 }
 

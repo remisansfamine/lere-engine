@@ -63,9 +63,9 @@ namespace LowRenderer
 	{
 		if (ImGui::TreeNode("Light"))
 		{
-			ImGui::DragFloat3("Ambient: ", &ambient.data.x);
-			ImGui::DragFloat3("Diffuse: ", &diffuse.data.x);
-			ImGui::DragFloat3("Specular: ", &specular.data.x);
+			ImGui::ColorEdit3("Ambient: ", &ambient.data.x);
+			ImGui::ColorEdit3("Diffuse: ", &diffuse.data.x);
+			ImGui::ColorEdit3("Specular: ", &specular.data.x);
 			ImGui::DragFloat3("Attenuation: ", &attenuation.x);
 			ImGui::DragFloat3("Direction: ", &direction.x);
 			ImGui::DragFloat("Cutoff: ", &cutoff);

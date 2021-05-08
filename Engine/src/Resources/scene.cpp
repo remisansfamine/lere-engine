@@ -35,6 +35,34 @@ namespace Resources
 			gameObjects.push_back(box);
 		}
 
+		// Craftsman creation
+		{
+			Engine::GameObject wall("wall");
+			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
+			wall.addComponent<Physics::BoxCollider>();
+
+			auto transform = wall.getComponent<Physics::Transform>();
+			transform->m_position.z = -3.f;
+			transform->m_position.y = -2.f;
+			transform->m_position.x = 1.f;
+
+			gameObjects.push_back(wall);
+		}
+
+		// Craftsman creation
+		{
+			Engine::GameObject wall("wall2");
+			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
+			wall.addComponent<Physics::BoxCollider>();
+
+			auto transform = wall.getComponent<Physics::Transform>();
+			transform->m_position.z = -3.f;
+			transform->m_position.y = -2.f;
+			transform->m_position.x = 2.f;
+
+			gameObjects.push_back(wall);
+		}
+
 		{
 			Engine::GameObject sphere("sphere");
 			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
@@ -59,8 +87,9 @@ namespace Resources
 			player.addComponent<LowRenderer::Camera>();
 
 			auto transformPlayer = player.getComponent<Physics::Transform>();
-			//transformPlayer->setParent(transform);
-			//transformPlayer->m_position.z = 5.f;
+			transformPlayer->m_position.z = 10.f;
+			transformPlayer->m_position.y = 1.f;
+			transformPlayer->m_rotation.x = 20.f * Core::Maths::DEG2RAD;
 
 			gameObjects.push_back(player);
 			gameObjects.push_back(sphere);
@@ -188,11 +217,6 @@ namespace Resources
 
 		for (Engine::GameObject& go : gameObjects)
 			go.lateUpdateComponents();
-
-		gameObjects[2].getComponent<Physics::Transform>()->m_rotation.y += Core::Input::InputManager::getAxis("MoveObjectHorizontal") * 2.f * Core::Maths::DEG2RAD;
-		gameObjects[2].getComponent<Physics::Transform>()->m_rotation.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 2.f * Core::Maths::DEG2RAD;
-		//gameObjects[0].getComponent<Physics::Transform>()->m_position.z += Core::Input::InputManager::getAxis("MoveObjectForward") * 0.1f;
-		//gameObjects[0].getComponent<Physics::Transform>()->m_position.y += Core::Input::InputManager::getAxis("MoveObjectVertical") * 0.1f;
 	}
 
 	void Scene::fixedUpdate()
