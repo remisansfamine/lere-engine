@@ -20,7 +20,7 @@ namespace Resources
 		// TODO
 		void load(const std::string& _name);
 		void save();
-		void draw();
+		void draw() const;
 		void update();
 		void fixedUpdate();
 

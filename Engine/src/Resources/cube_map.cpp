@@ -36,12 +36,12 @@ namespace Resources
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	}
 
-	GLuint CubeMap::getID()
+	GLuint CubeMap::getID() const
 	{
 		return cubeMapID;
 	}
 
-	void CubeMap::bind()
+	void CubeMap::bind() const
 	{
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapID);
 	}

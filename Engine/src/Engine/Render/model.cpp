@@ -39,7 +39,7 @@ namespace LowRenderer
 		: m_transform(transform), m_mesh(Resources::ResourcesManager::getMeshByName(meshName))
 	{ }
 
-	void Model::draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram)
+	void Model::draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram) const
 	{
 		if (m_mesh)
 		{
@@ -55,11 +55,11 @@ namespace LowRenderer
 		}
 
 		// Draw children
-		for (Model& child : m_children)
+		for (const Model& child : m_children)
 			child.draw(shaderProgram);
 	}
 
-	void Model::drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider)
+	void Model::drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider) const
 	{
 		if (m_mesh)
 		{
@@ -73,7 +73,7 @@ namespace LowRenderer
 		}
 
 		// Draw children
-		for (Model& child : m_children)
+		for (const Model& child : m_children)
 			child.drawCollider(shaderProgram, modelCollider);
 	}
 

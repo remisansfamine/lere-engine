@@ -63,12 +63,12 @@ namespace Resources
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	GLuint Texture::getID()
+	GLuint Texture::getID() const
 	{
 		return textureID;
 	}
 
-	void Texture::bind(int textureIndex)
+	void Texture::bind(int textureIndex) const
 	{
 		glActiveTexture(GL_TEXTURE0 + textureIndex);
 		glBindTexture(GL_TEXTURE_2D, textureID);

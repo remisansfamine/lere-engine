@@ -82,9 +82,6 @@
     <Filter Include="Fichiers d%27en-tête\Gameplay\Player">
       <UniqueIdentifier>{aa32bb03-6492-427c-a79b-0ca4788bb486}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Resources\Shader">
-      <UniqueIdentifier>{8c8bc748-ed7a-4951-b243-959b65ceb008}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{47a8c70e-8faa-41eb-80b9-8e8e879d4285}</UniqueIdentifier>
     </Filter>

@@ -26,9 +26,9 @@ namespace LowRenderer
 		//Core::Debug::Log::info("Unload model " + cubeMap;
 	}
 
-	void SkyBox::draw()
+	void SkyBox::draw() const
 	{
-		glDepthMask(0x00);
+		glDepthMask(0);
 
 		m_shaderProgram->bind();
 
@@ -43,6 +43,6 @@ namespace LowRenderer
 
 		m_shaderProgram->unbind();
 
-		glDepthMask(0xFF);
+		glDepthMask(1);
 	}
 }

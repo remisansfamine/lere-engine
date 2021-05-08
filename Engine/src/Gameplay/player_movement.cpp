@@ -25,7 +25,9 @@ namespace Gameplay
 
 		float fixedSpeed = m_speed * fixedDeltaTime;
 
-		m_rigidbody->velocity = Core::Maths::vec3(m_playerState->horizontalMove * m_speed, m_rigidbody->velocity.y, m_playerState->forwardMove * m_speed);
+		//m_rigidbody->addForce(Core::Maths::vec3(m_playerState->horizontalMove, 0.f, m_playerState->forwardMove).normalized() * fixedSpeed);
+
+		m_rigidbody->velocity = Core::Maths::vec3(m_playerState->horizontalMove * fixedSpeed, m_rigidbody->velocity.y, m_playerState->forwardMove * fixedSpeed);
 
 		if (m_playerState->isJumping)
 			m_rigidbody->addForce(Core::Maths::vec3(0.f, m_jumpForce, 0.f));

@@ -40,7 +40,6 @@ namespace Resources
 
 		void setDefaultResources();
 
-
 	public:
 		static void init();
 

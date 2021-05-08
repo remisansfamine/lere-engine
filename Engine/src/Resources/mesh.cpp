@@ -2,7 +2,7 @@
 
 namespace Resources
 {
-	void Mesh::draw()
+	void Mesh::draw() const
 	{
 		// Bind the mesh's VAO and draw it
 		glBindVertexArray(VAO);

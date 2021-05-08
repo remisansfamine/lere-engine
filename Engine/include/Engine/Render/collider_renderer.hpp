@@ -19,9 +19,9 @@ namespace LowRenderer
 		ColliderRenderer(Engine::GameObject& gameObject, std::shared_ptr<Physics::Collider> ptr, const std::string& modelFilePath);
 		~ColliderRenderer() {}
 
-		Core::Maths::mat4 getModelCollider();
+		Core::Maths::mat4 getModelCollider() const;
 		bool canBeDraw();
-		void draw() override;
+		void draw() const override;
 		//void draw() override;
 	};
 }

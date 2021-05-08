@@ -17,7 +17,7 @@ namespace Physics
 	{
 	}
 
-	Core::Maths::mat4 Transform::getModel()
+	Core::Maths::mat4 Transform::getModel() const
 	{
 		// Return the model matrix (TRS where R = ZXY like Unity)
 		return Core::Maths::translate(m_position) *
@@ -27,7 +27,7 @@ namespace Physics
 			   Core::Maths::scale(m_scale);
 	}
 
-	Core::Maths::mat4 Transform::getGlobalModel()
+	Core::Maths::mat4 Transform::getGlobalModel() const
 	{
 		if (parent)
 			return getParentModel() * getModel();
@@ -36,7 +36,7 @@ namespace Physics
 		return getModel();
 	}
 
-	Core::Maths::mat4 Transform::getParentModel()
+	Core::Maths::mat4 Transform::getParentModel() const
 	{
 		if (parent)
 			return parent->getGlobalModel();

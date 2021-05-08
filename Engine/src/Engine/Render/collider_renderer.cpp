@@ -9,13 +9,13 @@ namespace LowRenderer
 	{
 	}
 
-	void ColliderRenderer::draw()
+	void ColliderRenderer::draw() const
 	{
 		Core::Maths::mat4 newModel = getModelCollider();
 		model.drawCollider(m_shaderProgram, newModel);
 	}
 
-	Core::Maths::mat4 ColliderRenderer::getModelCollider()
+	Core::Maths::mat4 ColliderRenderer::getModelCollider() const
 	{
 		return Core::Maths::translate(collider->m_center) * 
 			   Core::Maths::rotateX(m_transform->m_rotation.x) *

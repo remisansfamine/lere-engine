@@ -23,9 +23,14 @@ namespace Physics
 		forceSum += force;
 	}
 
-	Core::Maths::vec3 Rigidbody::getNewPosition()
+	Core::Maths::vec3 Rigidbody::getNewPosition() const
 	{
 		return m_transform->m_position + velocity * Core::TimeManager::getFixedDeltaTime();
+	}
+
+	void Rigidbody::computeNextPos()
+	{
+		m_transform->m_position = getNewPosition();
 	}
 
 	void Rigidbody::fixedUpdate()
@@ -33,7 +38,6 @@ namespace Physics
 		if (wasInCollision)
 			return;
 
-		//addForce(Core::Maths::vec3(0.f, -0.2, 0.f));
 		// Calculate the acceleration
 		Core::Maths::vec3 dragForce = (velocity ^ abs(velocity)) * drag * 0.5f;
 		acceleration = (forceSum + gravity - dragForce) / mass;
@@ -41,11 +45,6 @@ namespace Physics
 
 		// Update velocity
 		velocity += acceleration * Core::TimeManager::getFixedDeltaTime();
-	}
-
-	void Rigidbody::computeNextPos()
-	{
-		m_transform->m_position += velocity * Core::TimeManager::getFixedDeltaTime();
 	}
 
 	void Rigidbody::drawImGui()

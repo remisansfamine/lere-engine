@@ -18,8 +18,8 @@ namespace Resources
 	public:
 		CubeMap(const std::vector<std::string>& paths);
 
-		GLuint getID();
+		GLuint getID() const;
 
-		void bind();
+		void bind() const;
 	};
 }

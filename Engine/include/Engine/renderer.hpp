@@ -21,6 +21,6 @@ namespace LowRenderer
 	public:
 		std::shared_ptr<Resources::ShaderProgram> getProgram();
 
-		void virtual draw() = 0;
+		void virtual draw() const = 0;
 	};
 }

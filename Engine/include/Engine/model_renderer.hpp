@@ -14,7 +14,7 @@ namespace LowRenderer
 		ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName);
 		~ModelRenderer();
 
-		void draw() override;
+		void draw() const override;
 		void drawImGui() override;
 	};
 }

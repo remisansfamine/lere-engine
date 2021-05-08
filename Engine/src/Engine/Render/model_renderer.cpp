@@ -20,7 +20,7 @@ namespace LowRenderer
 		Core::Debug::Log::info("Unload model " + model.getPath());
 	}
 
-	void ModelRenderer::draw()
+	void ModelRenderer::draw() const
 	{
 		model.draw(m_shaderProgram);
 	}

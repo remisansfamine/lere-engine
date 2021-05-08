@@ -12,7 +12,7 @@ namespace LowRenderer
 	public:
 		SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName);
 
-		void draw() override;
+		void draw() const override;
 		//void drawImGui() override;
 	};
 }

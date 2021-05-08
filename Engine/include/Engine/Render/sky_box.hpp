@@ -19,6 +19,6 @@ namespace LowRenderer
 		SkyBox(Engine::GameObject& gameObject, const std::string& shaderPromgramName, std::shared_ptr<SkyBox> ptr);
 		~SkyBox();
 
-		void draw();
+		void draw() const;
 	};
 }

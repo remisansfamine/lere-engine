@@ -12,6 +12,6 @@ namespace Resources
 		Resource(const std::string& filePath);
 	public:
 		std::string m_name;
-		std::string getPath();
+		std::string getPath() const;
 	};
 }

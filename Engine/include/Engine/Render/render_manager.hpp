@@ -27,7 +27,7 @@ namespace LowRenderer
 		std::vector<std::shared_ptr<Camera>> cameras;
 		std::vector<std::shared_ptr<SkyBox>> skyBoxes;
 
-		void drawColliders();
+		void drawColliders() const;
 
 	public:
 

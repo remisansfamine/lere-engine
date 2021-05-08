@@ -10,7 +10,7 @@ namespace Gameplay
 	{
 
 	private:
-		float m_speed = 5.f;
+		float m_speed = 125.f;
 		float m_jumpForce = 500.f;
 
 		std::shared_ptr<Physics::Rigidbody> m_rigidbody;

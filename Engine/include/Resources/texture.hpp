@@ -20,9 +20,9 @@ namespace Resources
 		Texture(const std::string& filePath);
 		Texture(int width, int height, float* colorBuffer);
 
-		GLuint getID();
+		GLuint getID() const;
 
-		void bind(int textureIndex);
+		void bind(int textureIndex) const;
 
 		static std::shared_ptr<Texture> defaultAlpha;
 		static std::shared_ptr<Texture> defaultAmbient;

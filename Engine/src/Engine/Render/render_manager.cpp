@@ -65,7 +65,7 @@ namespace LowRenderer
 		RM->drawColliders();
 	}
 
-	void RenderManager::drawColliders()
+	void RenderManager::drawColliders() const
 	{
 		if (colliders.size() == 0)
 			return;
@@ -78,7 +78,7 @@ namespace LowRenderer
 
 		getCurrentCamera()->sendToProgram(program);
 
-		for (std::shared_ptr<ColliderRenderer>& rendererCollider : colliders)
+		for (const std::shared_ptr<ColliderRenderer>& rendererCollider : colliders)
 		{
 			if (rendererCollider->canBeDraw())
 				rendererCollider->draw();

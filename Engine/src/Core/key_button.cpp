@@ -18,17 +18,17 @@ namespace Core::Input
 		m_isReleased = m_wasDown && !m_isDown;
 	}
 
-	bool KeyButton::isButtonPressed()
+	bool KeyButton::isButtonPressed() const
 	{
 		return m_isPressed;
 	}
 
-	bool KeyButton::isButtonReleased()
+	bool KeyButton::isButtonReleased() const
 	{
 		return m_isReleased;
 	}
 
-	bool KeyButton::isButtonDown()
+	bool KeyButton::isButtonDown() const
 	{
 		return m_isDown;
 	}

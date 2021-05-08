@@ -27,8 +27,8 @@ namespace Engine
 		GameObject(const std::string& name);
 		virtual ~GameObject();
 
-		template <class C, class ...Crest, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		void constexpr addComponent(Crest... args)
+		template <class C, class ...Args, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		void constexpr addComponent(Args... args)
 		{
 			new C(*this, args...);
 		}

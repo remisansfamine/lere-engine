@@ -17,6 +17,6 @@ namespace Core::Input
 
 		void compute(GLFWwindow* window) override;
 
-		float getValue();
+		float getValue() const;
 	};
 }

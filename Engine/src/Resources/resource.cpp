@@ -9,7 +9,7 @@ namespace Resources
 	{
 	}
 
-	std::string Resource::getPath()
+	std::string Resource::getPath() const
 	{
 		return m_filePath;
 	}

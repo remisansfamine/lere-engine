@@ -12,7 +12,7 @@ namespace LowRenderer
 	{ 
 	}
 
-	void SpriteRenderer::draw()
+	void SpriteRenderer::draw() const
 	{
 	}
 }

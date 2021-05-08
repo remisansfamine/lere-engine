@@ -19,8 +19,8 @@ namespace Core::Input
 
 		void compute(GLFWwindow* window) override;
 
-		bool isButtonPressed();
-		bool isButtonReleased();
-		bool isButtonDown();
+		bool isButtonPressed() const;
+		bool isButtonReleased() const;
+		bool isButtonDown() const;
 	};
 }

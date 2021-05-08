@@ -4,7 +4,7 @@ namespace Resources
 {
 	std::shared_ptr<Material> Material::defaultMaterial = nullptr;
 
-	void Material::sendToShader(const std::shared_ptr<ShaderProgram>& shaderProgram)
+	void Material::sendToShader(const std::shared_ptr<ShaderProgram>& shaderProgram) const
 	{
 		// Set the model's material informations 
 		shaderProgram->setUniform("material.ambient", &ambient);
@@ -23,7 +23,7 @@ namespace Resources
 			shaderProgram->setUniform(shaderName[i], &i);
 	}
 
-	void Material::bindTextures()
+	void Material::bindTextures() const
 	{
 		// TODO : set textures with uniform
 		if (alphaTex)

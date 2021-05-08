@@ -35,7 +35,7 @@ namespace Engine
 		void setActive(bool value) override;
 		void destroy() override;
 
-		void virtual draw() { }
+		void virtual draw() const { }
 		void virtual drawImGui() {}
 
 		void virtual awake() { }

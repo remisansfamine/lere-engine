@@ -37,7 +37,7 @@ namespace LowRenderer
 		void setAsPoint();
 		void setAsSpot();
 		void compute();
-		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index);
+		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const;
 
 		void drawImGui() override;
 	};

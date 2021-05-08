@@ -52,7 +52,7 @@ namespace LowRenderer
 		position.xyz = m_transform->m_position;
 	}
 
-	void Light::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index)
+	void Light::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const
 	{
 		// Send light parameters to the ShaderProgram packed into matrices
 		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position);
