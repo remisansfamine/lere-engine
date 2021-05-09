@@ -59,25 +59,22 @@ namespace Engine
 			component->lateUpdate();
 	}
 
-
-
-
-	void GameObject::callCollisionEnter()
+	void GameObject::callCollisionEnter(std::shared_ptr<Physics::Collider> other)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionEnter();
+			component->onCollisionEnter(other);
 	}
 	
-	void GameObject::callCollisionStay()
+	void GameObject::callCollisionStay(std::shared_ptr<Physics::Collider> other)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionStay();
+			component->onCollisionStay(other);
 	}
 
-	void GameObject::callCollisionExit()
+	void GameObject::callCollisionExit(std::shared_ptr<Physics::Collider> other)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionExit();
+			component->onCollisionExit(other);
 	}
 
 	void GameObject::drawImGui()

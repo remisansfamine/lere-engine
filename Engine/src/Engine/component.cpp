@@ -2,6 +2,8 @@
 
 #include "transform.hpp"
 
+#include "collider.hpp"
+
 namespace Engine
 {
 	Component::Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr)
@@ -32,4 +34,8 @@ namespace Engine
 	{
 		return m_gameObject;
 	}
+
+	void Component::onCollisionEnter(std::shared_ptr<Physics::Collider> other) { }
+	void Component::onCollisionStay(std::shared_ptr<Physics::Collider> other) { }
+	void Component::onCollisionExit(std::shared_ptr<Physics::Collider> other) { }
 }

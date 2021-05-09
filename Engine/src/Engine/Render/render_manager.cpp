@@ -51,7 +51,7 @@ namespace LowRenderer
 
 				program->bind();
 
-				getCurrentCamera()->sendToProgram(program);
+				getCurrentCamera()->sendViewProjToProgram(program);
 
 				for (int i = 0; i < lightCount; i++)
 					RM->lights[i]->sendToProgram(program, i);
@@ -76,7 +76,7 @@ namespace LowRenderer
 
 		program->bind();
 
-		getCurrentCamera()->sendToProgram(program);
+		getCurrentCamera()->sendProjToProgram(program);
 
 		for (const std::shared_ptr<ColliderRenderer>& rendererCollider : colliders)
 		{

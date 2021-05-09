@@ -8,6 +8,11 @@
 
 #include "debug.hpp"
 
+namespace Physics
+{
+	class Collider;
+}
+
 namespace Engine
 {
 	class Component;
@@ -77,9 +82,9 @@ namespace Engine
 		void fixedUpdateComponents();
 		void lateUpdateComponents();
 
-		void callCollisionEnter();
-		void callCollisionStay();
-		void callCollisionExit();
+		void callCollisionEnter(std::shared_ptr<Physics::Collider> other);
+		void callCollisionStay(std::shared_ptr<Physics::Collider> other);
+		void callCollisionExit(std::shared_ptr<Physics::Collider> other);
 
 		void drawImGui();
 

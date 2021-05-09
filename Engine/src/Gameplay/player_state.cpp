@@ -19,7 +19,8 @@ namespace Gameplay
 
 	void PlayerState::update()
 	{
-		isJumping = Core::Input::InputManager::getButtonDown("Jump");
+		if (Core::Input::InputManager::getButtonDown("Jump"))
+			isJumping = true;
 
 		horizontalMove = Core::Input::InputManager::getAxis("Horizontal");
 		forwardMove = Core::Input::InputManager::getAxis("Forward");
@@ -35,5 +36,15 @@ namespace Gameplay
 			ImGui::Text(forwardStr.c_str());
 			ImGui::TreePop();
 		}
+	}
+
+	void PlayerState::onCollisionEnter(std::shared_ptr<Physics::Collider> other)
+	{
+		isGrounded = true;
+	}
+
+	void PlayerState::onCollisionExit(std::shared_ptr<Physics::Collider> other)
+	{
+		isGrounded = false;
 	}
 }

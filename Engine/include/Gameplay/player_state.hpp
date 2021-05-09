@@ -14,6 +14,7 @@ namespace Gameplay
 		bool isRunning = false;
 		bool isJumping = false;
 		bool isFalling = false;
+		bool isGrounded = false;
 
 		float horizontalMove = 0.f;
 		float forwardMove = 0.f;
@@ -21,5 +22,8 @@ namespace Gameplay
 		void start() override;
 		void update() override;
 		void drawImGui() override;
+
+		void onCollisionEnter(std::shared_ptr<Physics::Collider> other) override;
+		void onCollisionExit(std::shared_ptr<Physics::Collider> other) override;
 	};
 }

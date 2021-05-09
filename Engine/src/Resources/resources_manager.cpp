@@ -416,7 +416,7 @@ namespace Resources
 		// Check if the file exists
 		if (!dataObj)
 		{
-			Core::Debug::Log::error("ERROR: Unable to read the file : " + filePath + ")");
+			Core::Debug::Log::error("Unable to read the file : " + filePath);
 			dataObj.close();
 			return;
 		}

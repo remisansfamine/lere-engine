@@ -96,10 +96,15 @@ namespace LowRenderer
 		m_transform->m_position.y += verticalMove * translationSpeed;*/
 	}
 
-	void Camera::sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
+	void Camera::sendViewProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
 	{
 		program->setUniform("viewProj", getViewProjection().e, 1, 1);
 		program->setUniform("viewPos", m_transform->m_position.e);
+	}
+
+	void Camera::sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
+	{
+		program->setUniform("viewProj", getViewProjection().e, 1, 1);
 	}
 
 	void Camera::drawImGui()

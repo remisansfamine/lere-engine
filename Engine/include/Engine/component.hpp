@@ -6,6 +6,11 @@
 
 #include "game_object.hpp"
 
+namespace Physics
+{
+	class Collider;
+}
+
 namespace Engine
 {
 	class Component : public Object
@@ -47,9 +52,9 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
-		void virtual onCollisionEnter() { }
-		void virtual onCollisionStay() { }
-		void virtual onCollisionExit() { }
+		void virtual onCollisionEnter(std::shared_ptr<Physics::Collider> other);
+		void virtual onCollisionStay(std::shared_ptr<Physics::Collider> other);
+		void virtual onCollisionExit(std::shared_ptr<Physics::Collider> other);
 
 		GameObject& getHost();
 

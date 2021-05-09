@@ -2,6 +2,10 @@
 
 #include "imGui.h"
 
+#include <algorithm>
+
+#include "debug.hpp"
+
 namespace Physics
 {
 	Collider::Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr)
@@ -21,19 +25,31 @@ namespace Physics
 		return hasRigidbody() && m_rigidbody->isAwake;
 	}
 
-	void Collider::callCollisionEnter()
+	void Collider::computeCallback(bool hasHit, std::shared_ptr<Collider> other)
 	{
-		getHost().callCollisionEnter();
-	}
+		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), other);
 
-	void Collider::callCollisionStay()
-	{
-		getHost().callCollisionStay();
-	}
+		bool isInVector = colliderIt != m_colliders.end();
 
-	void Collider::callCollisionExit()
-	{
-		getHost().callCollisionExit();
+		if (isInVector)
+		{
+			if (!hasHit)
+			{
+				m_colliders.erase(colliderIt);
+				getHost().callCollisionExit(other);
+				return;
+			}
+
+			getHost().callCollisionStay(other);
+			return;
+		}
+
+		if (hasHit)
+		{
+			m_colliders.push_back(other);
+			getHost().callCollisionEnter(other);
+			return;
+		}
 	}
 
 	void Collider::drawImGui()

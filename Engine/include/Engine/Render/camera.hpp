@@ -34,6 +34,7 @@ namespace LowRenderer
 		void fixedUpdate() override;
 		void drawImGui() override;
 
-		void sendToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
+		void sendViewProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
+		void sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 	};
 }

@@ -40,7 +40,7 @@ namespace Physics
 
 		// Calculate the acceleration
 		Core::Maths::vec3 dragForce = (velocity ^ abs(velocity)) * drag * 0.5f;
-		acceleration = (forceSum + gravity - dragForce) / mass;
+		acceleration = (forceSum - dragForce) / mass + gravity;
 		forceSum = Core::Maths::vec3();
 
 		// Update velocity

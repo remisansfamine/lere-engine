@@ -29,16 +29,10 @@ namespace Physics
 		bool hasRigidbody();
 		bool isRigidbodyAwake();
 
-		void callCollisionEnter();
-		void callCollisionStay();
-		void callCollisionExit();
+		void computeCallback(bool hasHit, std::shared_ptr<Collider> other);
 
 		virtual void updateShape() = 0;
 
 		void drawImGui() override;
-
-		//void callTriggerEnter();
-		//void callTriggerStay();
-		//void callTriggerExit();
 	};
 }

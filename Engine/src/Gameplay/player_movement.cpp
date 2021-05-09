@@ -16,7 +16,7 @@ namespace Gameplay
 
 	void PlayerMovement::update()
 	{
-		
+
 	}
 
 	void PlayerMovement::fixedUpdate()
@@ -29,8 +29,11 @@ namespace Gameplay
 
 		m_rigidbody->velocity = Core::Maths::vec3(m_playerState->horizontalMove * fixedSpeed, m_rigidbody->velocity.y, m_playerState->forwardMove * fixedSpeed);
 
-		if (m_playerState->isJumping)
+		if (m_playerState->isGrounded && m_playerState->isJumping)
+		{
 			m_rigidbody->addForce(Core::Maths::vec3(0.f, m_jumpForce, 0.f));
+			m_playerState->isJumping = false;
+		}
 	}
 
 	void PlayerMovement::drawImGui()

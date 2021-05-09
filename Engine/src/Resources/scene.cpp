@@ -24,20 +24,18 @@ namespace Resources
 	{
 		// Craftsman creation
 		{
-			Engine::GameObject box("box");
+			auto& box = addGameObject("box");
 			box.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
 			box.addComponent<Physics::BoxCollider>();
 
 			auto transform = box.getComponent<Physics::Transform>();
 			transform->m_position.z = -3.f;
 			transform->m_position.y = -2.f;
-
-			gameObjects.push_back(box);
 		}
 
 		// Craftsman creation
 		{
-			Engine::GameObject wall("wall");
+			auto& wall = addGameObject("wall");
 			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
 			wall.addComponent<Physics::BoxCollider>();
 
@@ -45,13 +43,11 @@ namespace Resources
 			transform->m_position.z = -3.f;
 			transform->m_position.y = -2.f;
 			transform->m_position.x = 1.f;
-
-			gameObjects.push_back(wall);
 		}
 
 		// Craftsman creation
 		{
-			Engine::GameObject wall("wall2");
+			auto& wall = addGameObject("wall2");
 			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
 			wall.addComponent<Physics::BoxCollider>();
 
@@ -59,12 +55,10 @@ namespace Resources
 			transform->m_position.z = -3.f;
 			transform->m_position.y = -2.f;
 			transform->m_position.x = 2.f;
-
-			gameObjects.push_back(wall);
 		}
 
 		{
-			Engine::GameObject sphere("sphere");
+			auto& sphere = addGameObject("sphere");
 			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
 			sphere.addComponent<Gameplay::PlayerMovement>();
 			sphere.addComponent<Physics::SphereCollider>();
@@ -75,7 +69,7 @@ namespace Resources
 			transform->m_position.z = -3.f;
 			transform->m_position.y = 10.f;
 
-			Engine::GameObject sphere2("sphere2");
+			auto& sphere2 = addGameObject("sphere2");
 			sphere2.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
 
 			auto transform2 = sphere2.getComponent<Physics::Transform>();
@@ -83,17 +77,13 @@ namespace Resources
 			transform2->setParent(transform);
 
 			// Player creation
-			Engine::GameObject player("Player");
+			auto& player = addGameObject("Player");
 			player.addComponent<LowRenderer::Camera>();
 
 			auto transformPlayer = player.getComponent<Physics::Transform>();
 			transformPlayer->m_position.z = 10.f;
 			transformPlayer->m_position.y = 1.f;
 			transformPlayer->m_rotation.x = 20.f * Core::Maths::DEG2RAD;
-
-			gameObjects.push_back(player);
-			gameObjects.push_back(sphere);
-			gameObjects.push_back(sphere2);
 		}
 
 		/*// Craftsman creation
@@ -141,15 +131,14 @@ namespace Resources
 				dir + "back.jpg"
 			};
 
-			Engine::GameObject skyBox("SkyBox");
+			auto& skyBox = addGameObject("SkyBox");
 			skyBox.addComponent<LowRenderer::SkyBox>(paths, "skyBox");
-
-			gameObjects.push_back(skyBox);
 		}
 
 		// Light creation
 		{
-			Engine::GameObject light("Light");
+			auto& light = addGameObject("Light");
+
 			light.addComponent<LowRenderer::Light>();
 
 			auto transform = light.getComponent<Physics::Transform>();
@@ -159,8 +148,6 @@ namespace Resources
 
 			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
 			light.getComponent<LowRenderer::Light>()->setAsPoint();
-
-			gameObjects.push_back(light);
 		}
 	}
 
@@ -223,5 +210,10 @@ namespace Resources
 	{
 		for (Engine::GameObject& go : gameObjects)
 			go.fixedUpdateComponents();
+	}
+
+	Engine::GameObject& Scene::addGameObject(std::string gameObjectName)
+	{
+		return *gameObjects.insert(gameObjects.end(), Engine::GameObject(gameObjectName));
 	}
 }

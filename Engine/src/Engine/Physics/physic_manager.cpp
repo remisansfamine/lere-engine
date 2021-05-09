@@ -95,23 +95,24 @@ namespace Physics
 					sphereCollider->m_rigidbody->getNewPosition(),
 					newBox, interPt, interNormal))
 				{
-					Core::Maths::vec3 distanceColliderToInter = interPt - sphereCollider->sphere.center;
-
-					auto relfect = reflect(sphereCollider->m_rigidbody->velocity, interNormal);
-
 					Core::Maths::vec3 axisY = interNormal.normalized();
 					Core::Maths::vec3 axisX = (axisY ^ sphereCollider->m_rigidbody->velocity).normalized();
-
-					//float diff = (sphereCollider->m_rigidbody->getNewPosition() - interPt).magnitude();
 
 					Core::Maths::vec3 supportReaction  = axisY * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisY));
 					Core::Maths::vec3 tangeantReaction = axisX * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisX));
 
-					sphereCollider->m_rigidbody->velocity += supportReaction + tangeantReaction;//interNormal.normalized() * relfect.normalized() * diff;
+					sphereCollider->m_rigidbody->velocity += supportReaction + tangeantReaction;
 					//sphereCollider->m_transform->m_position = interPt;
 					//sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
-					//sphereCollider->m_rigidbody->velocity.y = 0.f;//addForce(interNormal.normalize() * sphereCollider->m_rigidbody->velocity.magnitude());
+
+					sphereCollider->computeCallback(true, boxCollider);
+					boxCollider->computeCallback(true, sphereCollider);
+
+					continue;
 				}
+
+				sphereCollider->computeCallback(false, boxCollider);
+				boxCollider->computeCallback(false, sphereCollider);
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();

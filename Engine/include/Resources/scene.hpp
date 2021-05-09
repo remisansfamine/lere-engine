@@ -1,5 +1,7 @@
 #pragma once
 
+#include <deque>
+
 #include "game_object.hpp"
 
 namespace Resources
@@ -11,7 +13,7 @@ namespace Resources
 
 	public:
 		std::string name;
-		std::vector<Engine::GameObject> gameObjects;
+		std::deque<Engine::GameObject> gameObjects;
 
 		Scene(const std::string& path);
 		Scene();
@@ -25,5 +27,7 @@ namespace Resources
 		void fixedUpdate();
 
 		void drawImGui();
+
+		Engine::GameObject& addGameObject(std::string gameObjectName);
 	};
 }
