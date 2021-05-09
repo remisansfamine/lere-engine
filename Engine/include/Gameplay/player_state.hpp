@@ -19,6 +19,8 @@ namespace Gameplay
 		float horizontalMove = 0.f;
 		float forwardMove = 0.f;
 
+		int colliderCount = 0;
+
 		void start() override;
 		void update() override;
 		void drawImGui() override;

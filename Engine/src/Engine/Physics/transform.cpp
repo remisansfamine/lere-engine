@@ -70,12 +70,11 @@ namespace Physics
 
 			m_rotation = rotateDegrees * Core::Maths::DEG2RAD;
 
-			/*if (parent)
+			if (parent)
 			{
-				std::string parentName = "Parent: " + getHost().m_name;
+				std::string parentName = "Parent: " + parent->getHost().m_name;
 				ImGui::Text(parentName.c_str());
-			}*/
-
+			}
 
 			ImGui::TreePop();
 		}

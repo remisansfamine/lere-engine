@@ -1,0 +1,8 @@
+newmtl Platform1
+Ns 32
+d 1
+illum 2
+Ka 0.6941 0.3451 0.1059
+Kd 0.6941 0.3451 0.1059
+Ks 0.3500 0.3500 0.3500
+map_Kd cobble.png

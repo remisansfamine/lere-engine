@@ -19,7 +19,7 @@ namespace Gameplay
 
 	void PlayerState::update()
 	{
-		if (Core::Input::InputManager::getButtonDown("Jump"))
+		if (Core::Input::InputManager::getButtonDown("Jump") && isGrounded)
 			isJumping = true;
 
 		horizontalMove = Core::Input::InputManager::getAxis("Horizontal");
@@ -41,10 +41,14 @@ namespace Gameplay
 	void PlayerState::onCollisionEnter(std::shared_ptr<Physics::Collider> other)
 	{
 		isGrounded = true;
+		colliderCount++;
 	}
 
 	void PlayerState::onCollisionExit(std::shared_ptr<Physics::Collider> other)
 	{
-		isGrounded = false;
+		colliderCount--;
+
+		if (colliderCount == 0)
+			isGrounded = false;
 	}
 }

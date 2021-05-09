@@ -22,101 +22,87 @@ namespace Resources
 
 	Scene::Scene()
 	{
-		// Craftsman creation
+		// Adding platforms
 		{
-			auto& box = addGameObject("box");
-			box.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
-			box.addComponent<Physics::BoxCollider>();
+			auto& platform0 = addGameObject("Platform0");
+			platform0.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
+			platform0.addComponent<Physics::BoxCollider>();
 
-			auto transform = box.getComponent<Physics::Transform>();
-			transform->m_position.z = -3.f;
-			transform->m_position.y = -2.f;
+			auto transform0 = platform0.getComponent<Physics::Transform>();
+			transform0->m_scale.x = 4.f;
+			transform0->m_scale.z = 3.f;
+
+			// -----------------------------------------------------------------------------------
+
+			auto& platform1 = addGameObject("Platform1");
+			platform1.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
+			platform1.addComponent<Physics::BoxCollider>();
+
+			auto transform1 = platform1.getComponent<Physics::Transform>();
+			transform1->m_position.x = 15.f;
+			transform1->m_scale.x = 10.f;
+			transform1->m_scale.z = 4.f;
+
+			// -----------------------------------------------------------------------------------
+
+			auto& platform2 = addGameObject("Platform2");
+			platform2.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform0.obj", "shader");
+			platform2.addComponent<Physics::BoxCollider>();
+
+			auto transform2 = platform2.getComponent<Physics::Transform>();
+			transform2->m_position.x = 13.f;
+			transform2->m_position.y = 4.f;
+			transform2->m_scale.x = 3.f;
+			transform2->m_scale.z = 4.f;
+			transform2->m_scale.y = 0.5f;
+
+			// -----------------------------------------------------------------------------------
+
+			auto& platform3 = addGameObject("Platform3");
+			platform3.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform0.obj", "shader");
+			platform3.addComponent<Physics::BoxCollider>();
+
+			auto transform3 = platform3.getComponent<Physics::Transform>();
+			transform3->m_position.x = 18.f;
+			transform3->m_position.y = 7.f;
+			transform3->m_scale.x = 3.f;
+			transform3->m_scale.z = 4.f;
+			transform3->m_scale.y = 0.5f;
+
+			// -----------------------------------------------------------------------------------
+
+			auto& platform4 = addGameObject("Platform4");
+			platform4.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform2.obj", "shader");
+			platform4.addComponent<Physics::BoxCollider>();
+
+			auto transform4 = platform4.getComponent<Physics::Transform>();
+			transform4->m_position.x = 6.f;
+			transform4->m_position.y = 9.f;
+			transform4->m_scale.x = 5.f;
+			transform4->m_scale.z = 4.f;
+			transform4->m_scale.y = 0.8f;
 		}
 
-		// Craftsman creation
+		// Adding player and camera attached
 		{
-			auto& wall = addGameObject("wall");
-			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
-			wall.addComponent<Physics::BoxCollider>();
+			auto& player = addGameObject("Player");
+			player.addComponent<LowRenderer::ModelRenderer>("resources/obj/player/among_us.obj", "shader");
+			player.addComponent<Gameplay::PlayerMovement>();
+			player.addComponent<Physics::SphereCollider>();
 
-			auto transform = wall.getComponent<Physics::Transform>();
-			transform->m_position.z = -3.f;
-			transform->m_position.y = -2.f;
-			transform->m_position.x = 1.f;
-		}
+			player.getComponent<Physics::Rigidbody>()->isAwake = true;
 
-		// Craftsman creation
-		{
-			auto& wall = addGameObject("wall2");
-			wall.addComponent<LowRenderer::ModelRenderer>("resources/obj/cube.obj", "shader");
-			wall.addComponent<Physics::BoxCollider>();
-
-			auto transform = wall.getComponent<Physics::Transform>();
-			transform->m_position.z = -3.f;
-			transform->m_position.y = -2.f;
-			transform->m_position.x = 2.f;
-		}
-
-		{
-			auto& sphere = addGameObject("sphere");
-			sphere.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
-			sphere.addComponent<Gameplay::PlayerMovement>();
-			sphere.addComponent<Physics::SphereCollider>();
-
-			sphere.getComponent<Physics::Rigidbody>()->isAwake = true;
-
-			auto transform = sphere.getComponent<Physics::Transform>();
-			transform->m_position.z = -3.f;
-			transform->m_position.y = 10.f;
-
-			auto& sphere2 = addGameObject("sphere2");
-			sphere2.addComponent<LowRenderer::ModelRenderer>("resources/obj/sphere.obj", "shader");
-
-			auto transform2 = sphere2.getComponent<Physics::Transform>();
-			transform2->m_position.x = 2.f;
-			transform2->setParent(transform);
+			auto transform = player.getComponent<Physics::Transform>();
+			transform->m_position.y = 4.f;
 
 			// Player creation
-			auto& player = addGameObject("Player");
-			player.addComponent<LowRenderer::Camera>();
+			auto& camera = addGameObject("MainCamera");
+			camera.addComponent<LowRenderer::Camera>();
 
-			auto transformPlayer = player.getComponent<Physics::Transform>();
-			transformPlayer->m_position.z = 10.f;
-			transformPlayer->m_position.y = 1.f;
-			transformPlayer->m_rotation.x = 20.f * Core::Maths::DEG2RAD;
-		}
-
-		/*// Craftsman creation
-		{
-			Engine::GameObject craftsman("Craftsman");
-			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
-			craftsman.addComponent<Physics::BoxCollider>();
-
-			auto transform = craftsman.getComponent<Physics::Transform>();
-			transform->m_position.z = 0.f;
-			transform->m_position.x = 1.f;
-
-			gameObjects.push_back(craftsman);
-		}
-
-		// Craftsman creation
-		{
-			Engine::GameObject craftsman("Craftsman2");
-			craftsman.addComponent<LowRenderer::ModelRenderer>("resources/obj/craftsman/craftsman.obj", "shader");
-			craftsman.addComponent<Physics::BoxCollider>();
-			craftsman.addComponent<Physics::Rigidbody>();
-
-			craftsman.getComponent<Physics::Rigidbody>()->isAwake = true;
-
-			auto transform = craftsman.getComponent<Physics::Transform>();
-			transform->m_position.z = 0.f;
-			transform->m_position.x = -2.f;
-
-			gameObjects.push_back(craftsman);
-		}*/
-
-		{
-			
+			auto camTransform = camera.getComponent<Physics::Transform>();
+			camTransform->setParent(player);
+			camTransform->m_position.z = 20.f;
+			camTransform->m_position.y = 2.f;
 		}
 
 		// SkyBox creation
@@ -142,12 +128,10 @@ namespace Resources
 			light.addComponent<LowRenderer::Light>();
 
 			auto transform = light.getComponent<Physics::Transform>();
-			transform->m_position.z = 0.f;
-			transform->m_position.x = -1.f;
-			transform->m_position.y = 2.f;
+			transform->m_position.y = 1.f;
 
 			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
-			light.getComponent<LowRenderer::Light>()->setAsPoint();
+			light.getComponent<LowRenderer::Light>()->setAsDirectionnal();
 		}
 	}
 

@@ -102,7 +102,7 @@ namespace Physics
 					Core::Maths::vec3 tangeantReaction = axisX * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisX));
 
 					sphereCollider->m_rigidbody->velocity += supportReaction + tangeantReaction;
-					//sphereCollider->m_transform->m_position = interPt;
+					sphereCollider->m_transform->m_position = interPt;
 					//sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
 
 					sphereCollider->computeCallback(true, boxCollider);

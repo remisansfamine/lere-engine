@@ -86,4 +86,13 @@ namespace LowRenderer
 	{
 		ImGui::Text(m_filePath.c_str());
 	}
+
+	void Model::setDiffuseTexture(const std::string& difTexName)
+	{
+		
+		for (auto child : m_children)
+		{
+
+		}
+	}
 }
