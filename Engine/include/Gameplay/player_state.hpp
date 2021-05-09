@@ -25,6 +25,10 @@ namespace Gameplay
 		void update() override;
 		void drawImGui() override;
 
+		std::string toString();
+
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+
 		void onCollisionEnter(std::shared_ptr<Physics::Collider> other) override;
 		void onCollisionExit(std::shared_ptr<Physics::Collider> other) override;
 	};

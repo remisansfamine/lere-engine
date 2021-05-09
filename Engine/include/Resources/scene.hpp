@@ -1,6 +1,7 @@
 #pragma once
 
 #include <deque>
+#include <unordered_map>
 
 #include "game_object.hpp"
 
@@ -11,6 +12,7 @@ namespace Resources
 	private:
 		int curGameObjectIndex = 0;
 
+		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
 	public:
 		std::string name;
 		std::deque<Engine::GameObject> gameObjects;

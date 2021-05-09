@@ -18,5 +18,7 @@ namespace Physics
 		std::string toString() override;
 
 		Sphere sphere;
+
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};
 }

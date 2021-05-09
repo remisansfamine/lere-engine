@@ -88,4 +88,41 @@ namespace LowRenderer
 							   std::to_string(outterCutoff) + " " +
 							   std::to_string(enable);
 	}
+
+	void Light::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		gameObject.addComponent<Light>();
+		auto light = gameObject.getComponent<Light>();
+
+		iss >> light->position.w;
+
+		iss >> light->ambient.data.r;
+		iss >> light->ambient.data.g;
+		iss >> light->ambient.data.b;
+		iss >> light->ambient.data.a;
+
+		iss >> light->diffuse.data.r;
+		iss >> light->diffuse.data.g;
+		iss >> light->diffuse.data.b;
+		iss >> light->diffuse.data.a;
+
+		iss >> light->specular.data.r;
+		iss >> light->specular.data.g;
+		iss >> light->specular.data.b;
+		iss >> light->specular.data.a;
+
+		iss >> light->attenuation.c;
+		iss >> light->attenuation.l;
+		iss >> light->attenuation.q;
+
+		iss >> light->cutoff;
+
+		iss >> light->direction.x;
+		iss >> light->direction.y;
+		iss >> light->direction.z;
+
+		iss >> light->outterCutoff;
+
+		iss >> light->enable;
+	}
 }

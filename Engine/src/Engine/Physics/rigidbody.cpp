@@ -78,4 +78,24 @@ namespace Physics
 								   Utils::vecToStringParsing(gravity) +
 								   std::to_string(mass) + " " + std::to_string(drag) + " " + std::to_string(isAwake);
 	}
+
+	void Rigidbody::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		if (!gameObject.tryGetComponent<Rigidbody>())
+			gameObject.addComponent<Rigidbody>();
+
+		auto rb = gameObject.getComponent<Rigidbody>();
+
+		iss >> rb->velocity.x;
+		iss >> rb->velocity.y;
+		iss >> rb->velocity.z;
+
+		iss >> rb->gravity.x;
+		iss >> rb->gravity.y;
+		iss >> rb->gravity.z;
+
+		iss >> rb->mass;
+		iss >> rb->drag;
+		iss >> rb->isAwake;
+	}
 }

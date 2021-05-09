@@ -54,4 +54,21 @@ namespace Physics
 										std::to_string(sphere.radius) + " " +
 										Utils::quatToStringParsing(sphere.quaternion);
 	}
+
+	void SphereCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		gameObject.addComponent<SphereCollider>();
+		auto collider = gameObject.getComponent<SphereCollider>();
+
+		iss >> collider->sphere.center.x;
+		iss >> collider->sphere.center.y;
+		iss >> collider->sphere.center.z;
+
+		iss >> collider->sphere.radius;
+
+		iss >> collider->sphere.quaternion.x;
+		iss >> collider->sphere.quaternion.y;
+		iss >> collider->sphere.quaternion.z;
+		iss >> collider->sphere.quaternion.w;
+	}
 }

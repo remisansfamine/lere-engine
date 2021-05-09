@@ -51,4 +51,25 @@ namespace Physics
 									 Utils::quatToStringParsing(box.quaternion) +
 									 std::to_string(box.offsetRounding);
 	}
+
+	void BoxCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		gameObject.addComponent<BoxCollider>();
+		auto collider = gameObject.getComponent<BoxCollider>();
+
+		iss >> collider->box.center.x;
+		iss >> collider->box.center.y;
+		iss >> collider->box.center.z;
+
+		iss >> collider->box.size.x;
+		iss >> collider->box.size.y;
+		iss >> collider->box.size.z;
+
+		iss >> collider->box.quaternion.x;
+		iss >> collider->box.quaternion.y;
+		iss >> collider->box.quaternion.z;
+		iss >> collider->box.quaternion.w;
+
+		iss >> collider->box.offsetRounding;
+	}
 }

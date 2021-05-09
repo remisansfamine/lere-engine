@@ -26,8 +26,9 @@ namespace Resources
 
 	Scene::Scene()
 	{
+		load("resources/scenes/test.scn");
 		// Adding platforms
-		{
+		/*{
 			auto& platform0 = addGameObject("Platform0");
 			platform0.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
 			platform0.addComponent<Physics::BoxCollider>();
@@ -136,7 +137,7 @@ namespace Resources
 
 			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
 			light.getComponent<LowRenderer::Light>()->setAsDirectionnal();
-		}
+		}*/
 	}
 
 	Scene::~Scene()
@@ -146,6 +147,32 @@ namespace Resources
 		gameObjects.clear();
 	}
 
+	void Scene::setGameObjectParent(const std::string& goName, const std::string& goChildName)
+	{
+		size_t indexGO = 0;
+		size_t indexGOChild = 0;
+		int isFind = 0;
+
+		for (size_t i = 0; i < gameObjects.size(); i++)
+		{
+			if (gameObjects[i].m_name == goName)
+			{
+				indexGO = i;
+				isFind++;
+			}
+			if (gameObjects[i].m_name == goChildName)
+			{
+				indexGOChild = i;
+				isFind++;
+			}
+
+			if (isFind == 2) 
+				break;
+		}
+
+		gameObjects[indexGOChild].getComponent<Physics::Transform>()->setParent(gameObjects[indexGO]);
+	}
+
 	void Scene::load(const std::string& filePath)
 	{
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
@@ -153,23 +180,46 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 
-		/*std::ifstream scnFlux(filePath);
-		if (!scnFlux)
+		std::ifstream scnStream(filePath);
+		if (!scnStream)
 		{
 			std::cout << "ERROR::LOAD_SCENE_FAILED : " << filePath << std::endl;
-			scnFlux.close();
+			scnStream.close();
 			exit(0);
 		}
 
 		std::string line;
 		std::string type;
+		std::vector<std::string> parents;
 
-		while (std::getline(scnFlux, line))
+		while (std::getline(scnStream, line))
 		{
 			if (line == "") continue;
 
 			std::istringstream iss(line);
-		}*/
+			iss >> type;
+
+			if (type == "GO")
+			{
+				std::string goName, parentName;
+				iss >> goName;
+
+				Engine::GameObject& gameObject = addGameObject(goName);
+				gameObject.parse(scnStream, parentName);
+
+				if (parentName == "" || parentName == "none")
+					continue;
+
+				parents.push_back(parentName);
+				parents.push_back(goName);
+			}
+				
+		}
+
+		for (size_t i = 0; i < parents.size(); i += 2)
+			setGameObjectParent(parents[i], parents[i + 1]);
+
+		scnStream.close();
 	}
 
 	void Scene::save()

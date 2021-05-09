@@ -38,4 +38,14 @@ namespace LowRenderer
 	{
 		return "COMP MODELRENDERER " + model.getPath() + " " + m_shaderProgram->getName();
 	}
+
+	void ModelRenderer::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		std::string modelPath, shaderProgramName;
+
+		iss >> modelPath;
+		iss >> shaderProgramName;
+
+		gameObject.addComponent<ModelRenderer>(modelPath, shaderProgramName);
+	}
 }

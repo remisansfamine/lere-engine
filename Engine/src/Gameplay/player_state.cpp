@@ -51,4 +51,31 @@ namespace Gameplay
 		if (colliderCount == 0)
 			isGrounded = false;
 	}
+
+	std::string PlayerState::toString()
+	{
+		return "COMP PLAYERSTATE " + std::to_string(isWalking) + " " + std::to_string(isRunning)
+			+ " " + std::to_string(isJumping) + " " + std::to_string(isFalling)
+			+ " " + std::to_string(isGrounded) + " " + std::to_string(horizontalMove)
+			+ " " + std::to_string(forwardMove) + " " + std::to_string(colliderCount);
+	}
+
+	void PlayerState::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		if (!gameObject.tryGetComponent<PlayerState>())
+			gameObject.addComponent<PlayerState>();
+
+		auto player = gameObject.getComponent<PlayerState>();
+
+		iss >> player->isWalking;
+		iss >> player->isRunning;
+		iss >> player->isJumping;
+		iss >> player->isFalling;
+		iss >> player->isGrounded;
+
+		iss >> player->horizontalMove;
+		iss >> player->forwardMove;
+
+		iss >> player->colliderCount;
+	}
 }

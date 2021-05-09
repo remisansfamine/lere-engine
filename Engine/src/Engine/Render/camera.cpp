@@ -122,4 +122,14 @@ namespace LowRenderer
 	{
 		return "COMP CAMERA " + std::to_string(near) + " " + std::to_string(far) + " " + std::to_string(fovY);
 	}
+
+	void Camera::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		gameObject.addComponent<Camera>();
+		auto cam = gameObject.getComponent<Camera>();
+
+		iss >> cam->near;
+		iss >> cam->far;
+		iss >> cam->fovY;
+	}
 }

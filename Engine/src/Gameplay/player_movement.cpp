@@ -45,4 +45,18 @@ namespace Gameplay
 			ImGui::TreePop();
 		}
 	}
+
+	std::string PlayerMovement::toString()
+	{
+		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
+	}
+
+	void PlayerMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		gameObject.addComponent<PlayerMovement>();
+		auto player = gameObject.getComponent<PlayerMovement>();
+
+		iss >> player->m_speed;
+		iss >> player->m_jumpForce;
+	}
 }

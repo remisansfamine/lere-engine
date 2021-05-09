@@ -38,5 +38,7 @@ namespace LowRenderer
 
 		void sendViewProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 		void sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
+
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};
 }

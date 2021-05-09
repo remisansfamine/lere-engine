@@ -14,5 +14,7 @@ namespace LowRenderer
 
 		void draw() const override;
 		//void drawImGui() override;
+
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};
 }

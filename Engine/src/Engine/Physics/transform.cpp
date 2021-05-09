@@ -82,8 +82,30 @@ namespace Physics
 
 	std::string Transform::toString()
 	{
-		return  "COMP TRASNFORM " + Utils::vecToStringParsing(m_position) + 
+		return  "COMP TRANSFORM " + Utils::vecToStringParsing(m_position) + 
 									Utils::vecToStringParsing(m_rotation) + 
-									Utils::vecToStringParsing(m_scale);
+									Utils::vecToStringParsing(m_scale) + (parent ? parent->getHost().m_name : "none");
+	}
+
+	void Transform::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName)
+	{
+		if (!gameObject.tryGetComponent<Transform>())
+			gameObject.addComponent<Transform>();
+
+		auto transform = gameObject.getComponent<Transform>();
+
+		iss >> transform->m_position.x;
+		iss >> transform->m_position.y;
+		iss >> transform->m_position.z;
+
+		iss >> transform->m_rotation.x;
+		iss >> transform->m_rotation.y;
+		iss >> transform->m_rotation.z;
+
+		iss >> transform->m_scale.x;
+		iss >> transform->m_scale.y;
+		iss >> transform->m_scale.z;
+
+		iss >> parentName;
 	}
 }

@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 #include <memory>
+#include <istream>
 
 #include "object.hpp"
 
@@ -89,6 +90,7 @@ namespace Engine
 		void drawImGui();
 
 		std::string toString();
+		void parse(std::istream& scnStream, std::string& parentName);
 
 		void destroy() override {}
 	};

@@ -56,4 +56,18 @@ namespace LowRenderer
 
 		return strParse;
 	}
+
+	void SkyBox::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		std::vector<std::string> paths;
+		std::string curPath;
+
+		for (int i = 0; i < 6; i++)
+		{
+			iss >> curPath;
+			paths.push_back(curPath);
+		}
+
+		gameObject.addComponent<SkyBox>(paths);
+	}
 }
