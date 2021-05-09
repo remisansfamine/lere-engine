@@ -6,19 +6,20 @@
 
 namespace LowRenderer
 {
-	SkyBox::SkyBox(Engine::GameObject& gameObject, const std::string& shaderPromgramName, std::shared_ptr<SkyBox> ptr)
+	SkyBox::SkyBox(Engine::GameObject& gameObject, std::shared_ptr<SkyBox> ptr)
 		: Component(gameObject, ptr)
 	{
 		cubeMesh		= Resources::ResourcesManager::getMeshByName("cube");
-		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram(shaderPromgramName);
+		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
 		LowRenderer::RenderManager::linkComponent(ptr);
 	}
 
-	SkyBox::SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths, const std::string& shaderPromgramName)
-		: SkyBox(gameObject, shaderPromgramName, std::shared_ptr<SkyBox>(this))
+	SkyBox::SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths)
+		: SkyBox(gameObject, std::shared_ptr<SkyBox>(this))
 	{
 		// Delegation block other members initialization
 		cubeMap = Resources::ResourcesManager::loadCubeMap(paths);
+		skyPaths = paths;
 	}
 
 	SkyBox::~SkyBox()
@@ -44,5 +45,15 @@ namespace LowRenderer
 		m_shaderProgram->unbind();
 
 		glDepthMask(1);
+	}
+
+	std::string SkyBox::toString()
+	{
+		std::string strParse = "COMP SKYBOX";
+
+		for (int i = 0; i < skyPaths.size(); i++)
+			strParse += " " + skyPaths[i];
+
+		return strParse;
 	}
 }

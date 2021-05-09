@@ -33,4 +33,9 @@ namespace LowRenderer
 			ImGui::TreePop();
 		}
 	}
+
+	std::string ModelRenderer::toString()
+	{
+		return "COMP MODELRENDERER " + model.getPath() + " " + m_shaderProgram->getName();
+	}
 }

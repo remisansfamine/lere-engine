@@ -74,22 +74,6 @@ namespace Resources
 		RM->setDefaultResources();
 	}
 
-	std::shared_ptr<Scene> ResourcesManager::loadScene(const std::string& scenePath)
-	{
-		ResourcesManager* RM = instance();
-		
-		const auto& sceneIt = RM->scenes.find(scenePath);
-
-		// Check if the Scene is already loaded
-		if (sceneIt != RM->scenes.end())
-		{
-			return sceneIt->second;
-		}
-
-		// TODO: Add Warn load fail
-		return RM->scenes[scenePath] = std::make_shared<Scene>(Scene(scenePath));
-	}
-
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
 	{
 		ResourcesManager* RM = instance();

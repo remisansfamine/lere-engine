@@ -82,8 +82,8 @@ namespace Physics
 
 	std::string Transform::toString()
 	{
-		return  "position = " + Utils::vecToString(m_position) +
-				"rotation = " + Utils::vecToString(m_rotation) +
-				"scale = " + Utils::vecToString(m_scale);
+		return  "COMP TRASNFORM " + Utils::vecToStringParsing(m_position) + 
+									Utils::vecToStringParsing(m_rotation) + 
+									Utils::vecToStringParsing(m_scale);
 	}
 }

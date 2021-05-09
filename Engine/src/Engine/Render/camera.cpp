@@ -117,4 +117,9 @@ namespace LowRenderer
 			ImGui::TreePop();
 		}
 	}
+
+	std::string Camera::toString()
+	{
+		return "COMP CAMERA " + std::to_string(near) + " " + std::to_string(far) + " " + std::to_string(fovY);
+	}
 }

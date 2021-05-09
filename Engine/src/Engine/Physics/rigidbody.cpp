@@ -3,6 +3,7 @@
 #include "imgui.h"
 
 #include "time.hpp"
+#include "utils.hpp"
 
 namespace Physics
 {
@@ -35,9 +36,6 @@ namespace Physics
 
 	void Rigidbody::fixedUpdate()
 	{
-		if (wasInCollision)
-			return;
-
 		// Calculate the acceleration
 		Core::Maths::vec3 dragForce = (velocity ^ abs(velocity)) * drag * 0.5f;
 		acceleration = (forceSum - dragForce) / mass + gravity;
@@ -72,5 +70,12 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
+	}
+
+	std::string Rigidbody::toString()
+	{
+		return "COMP RIGIDBODY " + Utils::vecToStringParsing(velocity) +
+								   Utils::vecToStringParsing(gravity) +
+								   std::to_string(mass) + " " + std::to_string(drag) + " " + std::to_string(isAwake);
 	}
 }

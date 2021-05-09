@@ -1,0 +1,37 @@
+GO MainCamera
+COMP CAMERA 0.001000 200.000000 60.000000
+COMP TRANSFORM 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+endGO
+
+GO MainMenu
+COMP MAINMENU
+endGO
+
+GO SkyBox
+COMP SKYBOX resources/skyboxes/p_R.png resources/skyboxes/n_L.png resources/skyboxes/p_U.png resources/skyboxes/n_D.png resources/skyboxes/p_F.png resources/skyboxes/n_B.png
+endGO
+
+GO NewGameButton
+COMP BUTTON spriteShader resources/UI/newGameText.png
+COMP TRANSFORM 0.000000 3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+COMP SPRITERENDERER spriteShader resources/UI/newGameText.png 1.000000 1.000000
+endGO
+
+GO LoadSceneButton
+COMP BUTTON spriteShader resources/UI/loadSceneText.png
+COMP TRANSFORM 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+COMP SPRITERENDERER spriteShader resources/UI/loadSceneText.png 1.000000 1.000000
+endGO
+
+GO OptionsButton
+COMP BUTTON spriteShader resources/UI/optionsText.png
+COMP TRANSFORM 0.000000 -1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+COMP SPRITERENDERER spriteShader resources/UI/optionsText.png 1.000000 1.000000
+endGO
+
+GO ExitButton
+COMP BUTTON spriteShader resources/UI/exitText.png
+COMP TRANSFORM 0.000000 -3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+COMP SPRITERENDERER spriteShader resources/UI/exitText.png 1.000000 1.000000
+endGO
+

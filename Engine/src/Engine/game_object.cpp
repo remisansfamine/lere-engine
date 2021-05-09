@@ -59,6 +59,9 @@ namespace Engine
 			component->lateUpdate();
 	}
 
+
+
+
 	void GameObject::callCollisionEnter(std::shared_ptr<Physics::Collider> other)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
@@ -75,6 +78,19 @@ namespace Engine
 	{
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onCollisionExit(other);
+	}
+
+
+
+
+	std::string GameObject::toString()
+	{
+		std::string goParse = "GO " + m_name + "\n";
+
+		for (auto& comp : m_components)
+			goParse += comp->toString() + "\n";
+
+		return goParse + "endGO\n\n";
 	}
 
 	void GameObject::drawImGui()

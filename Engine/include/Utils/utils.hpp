@@ -29,9 +29,17 @@ namespace Utils
     // Return the directory of the file from the input filepath
     std::string getDirectory(const std::string& filePath);
 
-    std::string vecToString(const Core::Maths::vec2& toWrite);
+    std::string vecToStringDebug(const Core::Maths::vec2& toWrite);
 
-    std::string vecToString(const Core::Maths::vec3& toWrite);
+    std::string vecToStringDebug(const Core::Maths::vec3& toWrite);
 
-    std::string vecToString(const Core::Maths::vec4& toWrite);
+    std::string vecToStringDebug(const Core::Maths::vec4& toWrite);
+
+    std::string vecToStringParsing(const Core::Maths::vec2& toWrite);
+
+    std::string vecToStringParsing(const Core::Maths::vec3& toWrite);
+
+    std::string vecToStringParsing(const Core::Maths::vec4& toWrite);
+
+    std::string quatToStringParsing(const Core::Maths::quat& toWrite);
 }

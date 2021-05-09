@@ -6,6 +6,7 @@
 #include "render_manager.hpp"
 
 #include "collider_renderer.hpp"
+#include "utils.hpp"
 
 namespace Physics
 {
@@ -45,5 +46,12 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
+	}
+
+	std::string SphereCollider::toString()
+	{
+		return "COMP SPHERECOLLIDER " + Utils::vecToStringParsing(sphere.center) + 
+										std::to_string(sphere.radius) + " " +
+										Utils::quatToStringParsing(sphere.quaternion);
 	}
 }

@@ -6,6 +6,7 @@
 #include "render_manager.hpp"
 
 #include "collider_renderer.hpp"
+#include "utils.hpp"
 
 namespace Physics
 {
@@ -41,5 +42,13 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
+	}
+
+	std::string BoxCollider::toString()
+	{
+		return "COMP BOXCOLLIDER " + Utils::vecToStringParsing(box.center) + 
+									 Utils::vecToStringParsing(box.size) +
+									 Utils::quatToStringParsing(box.quaternion) +
+									 std::to_string(box.offsetRounding);
 	}
 }

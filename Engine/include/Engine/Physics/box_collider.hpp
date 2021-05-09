@@ -18,5 +18,7 @@ namespace Physics
 		void updateShape() override;
 
 		void drawImGui() override;
+
+		std::string toString() override;
 	};
 }

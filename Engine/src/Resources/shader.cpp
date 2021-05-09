@@ -65,7 +65,7 @@ namespace Resources
 
 #pragma region SHADER_PROGRAM
 	ShaderProgram::ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath)
-        : programID(glCreateProgram())
+        : programID(glCreateProgram()), name(programName)
 	{
         Core::Debug::Log::info("Loading program " + programName);
 
@@ -222,5 +222,10 @@ namespace Resources
     void ShaderProgram::unbind() const
     {
         glUseProgram(0);
+    }
+
+    std::string ShaderProgram::getName()
+    {
+        return name;
     }
 }

@@ -88,6 +88,8 @@ namespace Engine
 
 		void drawImGui();
 
+		std::string toString();
+
 		void destroy() override {}
 	};
 }

@@ -16,5 +16,6 @@ namespace LowRenderer
 
 		void draw() const override;
 		void drawImGui() override;
+		std::string toString() override;
 	};
 }

@@ -14,11 +14,15 @@ namespace LowRenderer
 		std::shared_ptr<Resources::Mesh> cubeMesh;
 		std::shared_ptr<Resources::ShaderProgram> m_shaderProgram = nullptr;
 
+		std::vector<std::string> skyPaths;
+
 	public:
-		SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths, const std::string& shaderPromgramName);
-		SkyBox(Engine::GameObject& gameObject, const std::string& shaderPromgramName, std::shared_ptr<SkyBox> ptr);
+		SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths);
+		SkyBox(Engine::GameObject& gameObject, std::shared_ptr<SkyBox> ptr);
 		~SkyBox();
 
 		void draw() const;
+
+		std::string toString() override;
 	};
 }

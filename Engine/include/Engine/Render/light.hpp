@@ -40,5 +40,6 @@ namespace LowRenderer
 		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const;
 
 		void drawImGui() override;
+		std::string toString() override;
 	};
 }

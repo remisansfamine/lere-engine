@@ -7,6 +7,7 @@
 #include "time.hpp"
 
 #include "transform.hpp"
+#include "utils.hpp"
 
 namespace LowRenderer
 {
@@ -73,5 +74,18 @@ namespace LowRenderer
 
 			ImGui::TreePop();
 		}
+	}
+
+	std::string Light::toString()
+	{
+		return "COMP LIGHT " + std::to_string(position.w) + " " +
+							   Utils::vecToStringParsing(ambient.data) +
+							   Utils::vecToStringParsing(diffuse.data) +
+							   Utils::vecToStringParsing(specular.data) +
+							   Utils::vecToStringParsing(attenuation) +
+							   std::to_string(cutoff) + " " +
+							   Utils::vecToStringParsing(direction) +
+							   std::to_string(outterCutoff) + " " +
+							   std::to_string(enable);
 	}
 }

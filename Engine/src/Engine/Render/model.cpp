@@ -77,7 +77,7 @@ namespace LowRenderer
 			child.drawCollider(shaderProgram, modelCollider);
 	}
 
-	std::string& Model::getPath()
+	std::string Model::getPath()
 	{
 		return m_filePath;
 	}

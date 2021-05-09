@@ -1,5 +1,9 @@
 #include "scene.hpp"
 
+#include <sstream>
+#include <fstream>
+#include <istream>
+
 #include "imgui.h"
 
 #include "render_manager.hpp"
@@ -118,7 +122,7 @@ namespace Resources
 			};
 
 			auto& skyBox = addGameObject("SkyBox");
-			skyBox.addComponent<LowRenderer::SkyBox>(paths, "skyBox");
+			skyBox.addComponent<LowRenderer::SkyBox>(paths);
 		}
 
 		// Light creation
@@ -137,22 +141,54 @@ namespace Resources
 
 	Scene::~Scene()
 	{
+		save();
 
+		gameObjects.clear();
 	}
 
-	void Scene::load(const std::string& _name)
+	void Scene::load(const std::string& filePath)
 	{
-		// TODO: load scene from name
-
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
+
+		/*std::ifstream scnFlux(filePath);
+		if (!scnFlux)
+		{
+			std::cout << "ERROR::LOAD_SCENE_FAILED : " << filePath << std::endl;
+			scnFlux.close();
+			exit(0);
+		}
+
+		std::string line;
+		std::string type;
+
+		while (std::getline(scnFlux, line))
+		{
+			if (line == "") continue;
+
+			std::istringstream iss(line);
+		}*/
 	}
 
 	void Scene::save()
 	{
+		std::ofstream scnFlux("resources/scenes/test.scn");
 
+		if (!scnFlux)
+		{
+			std::cout << "ERROR : Can't save the scene at resources/scenes/test.scn" << std::endl;
+			scnFlux.close();
+			return;
+		}
+
+		for (auto& gameObject : gameObjects)
+		{
+			scnFlux << gameObject.toString();
+		}
+
+		scnFlux.close();
 	}
 
 	void Scene::draw() const

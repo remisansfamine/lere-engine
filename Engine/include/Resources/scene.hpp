@@ -20,7 +20,7 @@ namespace Resources
 		~Scene();
 
 		// TODO
-		void load(const std::string& _name);
+		void load(const std::string& filePath);
 		void save();
 		void draw() const;
 		void update();

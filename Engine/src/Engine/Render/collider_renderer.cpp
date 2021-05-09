@@ -17,7 +17,7 @@ namespace LowRenderer
 
 	Core::Maths::mat4 ColliderRenderer::getModelCollider() const
 	{
-		return Core::Maths::translate(collider->m_center) * 
+		return Core::Maths::translate(collider->m_center) *
 			   Core::Maths::rotateX(m_transform->m_rotation.x) *
 			   Core::Maths::rotateY(m_transform->m_rotation.y) *
 			   Core::Maths::rotateZ(m_transform->m_rotation.z) *

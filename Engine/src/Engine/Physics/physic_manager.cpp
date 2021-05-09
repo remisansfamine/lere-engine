@@ -69,8 +69,6 @@ namespace Physics
 		{
 			auto sphereCollider = *sphereColliderIt;
 
-			sphereCollider->m_rigidbody->wasInCollision = false;
-
 			for (auto& boxCollider : boxColliders)
 			{
 				sphereCollider->updateShape();
@@ -106,13 +104,11 @@ namespace Physics
 					//sphereCollider->m_transform->m_position = interPt;//+ interNormal.normalize() * sphereCollider->sphere.radius;
 
 					sphereCollider->computeCallback(true, boxCollider);
-					boxCollider->computeCallback(true, sphereCollider);
 
 					continue;
 				}
 
 				sphereCollider->computeCallback(false, boxCollider);
-				boxCollider->computeCallback(false, sphereCollider);
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();

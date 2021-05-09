@@ -96,18 +96,42 @@ namespace Utils
         return filePath.substr(0, filePath.size() - fileName.size());
     }
 
-    std::string vecToString(const Core::Maths::vec2& toWrite)
+
+
+    std::string vecToStringDebug(const Core::Maths::vec2& toWrite)
     {
         return "x = " + std::to_string(toWrite.x) + "y = " + std::to_string(toWrite.y);
     }
 
-    std::string vecToString(const Core::Maths::vec3& toWrite)
+    std::string vecToStringDebug(const Core::Maths::vec3& toWrite)
     {
-        return vecToString(toWrite.xy) + "z = " + std::to_string(toWrite.z);
+        return vecToStringDebug(toWrite.xy) + "z = " + std::to_string(toWrite.z);
     }
 
-    std::string vecToString(const Core::Maths::vec4& toWrite)
+    std::string vecToStringDebug(const Core::Maths::vec4& toWrite)
     {
-        return vecToString(toWrite.xyz) + "w = " + std::to_string(toWrite.w);
+        return vecToStringDebug(toWrite.xyz) + "w = " + std::to_string(toWrite.w);
+    }
+
+
+
+    std::string vecToStringParsing(const Core::Maths::vec2& toWrite)
+    {
+        return std::to_string(toWrite.x) + " " + std::to_string(toWrite.y) + " ";
+    }
+
+    std::string vecToStringParsing(const Core::Maths::vec3& toWrite)
+    {
+        return vecToStringParsing(toWrite.xy) + std::to_string(toWrite.z) + " ";
+    }
+
+    std::string vecToStringParsing(const Core::Maths::vec4& toWrite)
+    {
+        return vecToStringParsing(toWrite.xyz) + std::to_string(toWrite.w) + " ";
+    }
+
+    std::string quatToStringParsing(const Core::Maths::quat& toWrite)
+    {
+        return std::to_string(toWrite.x) + " " + std::to_string(toWrite.y) + " " + std::to_string(toWrite.z) + " " + std::to_string(toWrite.w) + " ";
     }
 }

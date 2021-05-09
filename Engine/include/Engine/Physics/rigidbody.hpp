@@ -28,7 +28,6 @@ namespace Physics
 		float drag = 0.5f;
 
 		bool isAwake = false;
-		bool wasInCollision = false;
 
 		Rigidbody(Engine::GameObject& gameObject);
 
@@ -38,5 +37,7 @@ namespace Physics
 		void fixedUpdate() override;
 		void computeNextPos();
 		void drawImGui() override;
+
+		std::string toString() override;
 	};
 }

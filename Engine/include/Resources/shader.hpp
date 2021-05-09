@@ -29,6 +29,7 @@ namespace Resources
 	{
 	private:
 		GLint programID = GL_INVALID_VALUE;
+		std::string name;
 
 		std::unordered_map<std::string, Uniform> uniforms;
 
@@ -37,8 +38,11 @@ namespace Resources
 	public:
 		ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath);
 
+
 		void setUniform(const std::string& target, const void* value, int count = 1, bool transpose = false) const;
 		void bind() const;
 		void unbind() const;
+
+		std::string getName();
 	};
 }
