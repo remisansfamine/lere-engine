@@ -14,18 +14,11 @@ namespace Gameplay
 		m_playerState = requireComponent<Gameplay::PlayerState>();
 	}
 
-	void PlayerMovement::update()
-	{
-
-	}
-
 	void PlayerMovement::fixedUpdate()
 	{
 		float fixedDeltaTime = Core::TimeManager::getFixedDeltaTime();
 
 		float fixedSpeed = m_speed * fixedDeltaTime;
-
-		//m_rigidbody->addForce(Core::Maths::vec3(m_playerState->horizontalMove, 0.f, m_playerState->forwardMove).normalized() * fixedSpeed);
 
 		m_rigidbody->velocity = Core::Maths::vec3(m_playerState->horizontalMove * fixedSpeed, m_rigidbody->velocity.y, m_playerState->forwardMove * fixedSpeed);
 

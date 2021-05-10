@@ -40,17 +40,17 @@ namespace Gameplay
 
 	void PlayerState::onCollisionEnter(const Physics::Collision& collision)
 	{
-		colliderCount++;
 
 		if (collision.normal.y <= 0.f)
 			return;
 
+		colliderCount++;
 		isGrounded = true;
 	}
 
 	void PlayerState::onCollisionExit(const Physics::Collision& collision)
 	{
-		colliderCount--;
+		colliderCount = std::max(0, colliderCount - 1);
 
 		if (colliderCount == 0)
 			isGrounded = false;

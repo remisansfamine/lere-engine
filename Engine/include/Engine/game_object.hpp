@@ -23,7 +23,6 @@ namespace Engine
 	{
 	private:
 
-
 	public:
 		bool isStatic = false;
 
@@ -34,20 +33,20 @@ namespace Engine
 		GameObject(const std::string& name);
 		virtual ~GameObject();
 
-		template <class C, class ...Args, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		template <class C, typename ...Args, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		void constexpr addComponent(Args... args)
 		{
 			new C(*this, args...);
 		}
 
-		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		bool tryGetComponent()
 		{
 			std::shared_ptr<C> componentToReturn;
 			return tryGetComponent(componentToReturn);
 		}
 
-		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		bool tryGetComponent(std::shared_ptr<C>& componentToReturn)
 		{
 			for (std::shared_ptr<Component>& component : m_components)
@@ -64,7 +63,7 @@ namespace Engine
 			return false;
 		}
 
-		template <class C, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
+		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		[[nodiscard]] std::shared_ptr<C> getComponent()
 		{
 			std::shared_ptr<C> componentToReturn;

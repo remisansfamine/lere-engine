@@ -38,6 +38,9 @@ namespace Physics
 		void computeNextPos();
 		void drawImGui() override;
 
+		void onCollisionEnter(const Collision& collision) override;
+		void onCollisionStay(const Collision& collision) override;
+
 		std::string toString() override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);

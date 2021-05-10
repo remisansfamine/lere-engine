@@ -7,14 +7,9 @@
 namespace Physics
 {
 	Transform::Transform(Engine::GameObject& gameObject)
-		: Transform(gameObject, std::shared_ptr<Transform>(this))
+		: Component(gameObject, std::shared_ptr<Transform>(this))
 	{
 
-	}
-
-	Transform::Transform(Engine::GameObject& gameObject, const std::shared_ptr<Transform>& ptr)
-		: Component(gameObject, ptr)
-	{
 	}
 
 	Core::Maths::mat4 Transform::getModel() const
@@ -31,7 +26,6 @@ namespace Physics
 	{
 		if (parent)
 			return getParentModel() * getModel();
-			//return getModel() * getParentModel();
 
 		return getModel();
 	}

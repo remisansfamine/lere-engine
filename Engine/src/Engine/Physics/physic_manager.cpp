@@ -58,14 +58,6 @@ namespace Physics
 	void PhysicManager::computeCollisions()
 	{
 		// Sort the part of the colliders linked to a rigidbody
-		auto boxPartition = std::partition(boxColliders.begin(), boxColliders.begin() + lastBoxRigidbodyIndex, [](auto p) { return p->isRigidbodyAwake(); });
-
-		for (auto boxColliderIt = boxColliders.begin(); boxColliderIt != boxPartition; boxColliderIt++)
-		{
-
-		}
-
-		// Sort the part of the colliders linked to a rigidbody
 		auto spherePartition = std::partition(sphereColliders.begin(), sphereColliders.begin() + lastSphereRigidbodyIndex, [](auto p) { return p->isRigidbodyAwake(); });
 
 		for (auto sphereColliderIt = sphereColliders.begin(); sphereColliderIt != spherePartition; sphereColliderIt++)
@@ -89,32 +81,7 @@ namespace Physics
 
 				Collision collision = { boxCollider };
 
-				if (IntersectSphereBox(newSphere,
-					sphereCollider->m_rigidbody->getNewPosition(),
-					newBox, collision.point, collision.normal))
-				{
-					/*// Create referential around normal intersection from velocity
-					Core::Maths::vec3 axisY = interNormal.normalized();
- 					Core::Maths::vec3 axisX = (axisY ^ sphereCollider->m_rigidbody->velocity).normalized();
-
-					//Core::Maths::vec3 axisX = (axisY ^ axisZ).normalized();
-
-					// Calculate support forces
-					Core::Maths::vec3 supportReaction = axisY * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisY));
-					Core::Maths::vec3 tangeantForce = axisX * fabsf(dot(sphereCollider->m_rigidbody->velocity, axisX));
-
-					sphereCollider->m_rigidbody->velocity += supportReaction +  tangeantForce;
-					//sphereCollider->m_transform->m_position = interPt;
-
-					Core::Debug::Log::info("Inter normal : " + Utils::vecToStringDebug(interNormal));*/
-
-					sphereCollider->m_rigidbody->velocity = sphereCollider->m_rigidbody->velocity - (collision.normal * dot(sphereCollider->m_rigidbody->velocity, collision.normal));
-					sphereCollider->computeCallback(true, collision);
-
-					continue;
-				}
-
-				sphereCollider->computeCallback(false, collision);
+				sphereCollider->computeCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(), newBox, collision.point, collision.normal), collision);
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();

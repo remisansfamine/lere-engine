@@ -72,6 +72,16 @@ namespace Physics
 		}
 	}
 
+	void Rigidbody::onCollisionEnter(const Collision& collision)
+	{
+		velocity -= collision.normal * dot(velocity, collision.normal);
+	}
+
+	void Rigidbody::onCollisionStay(const Collision& collision)
+	{
+		velocity -= collision.normal * dot(velocity, collision.normal);
+	}
+
 	std::string Rigidbody::toString()
 	{
 		return "COMP RIGIDBODY " + Utils::vecToStringParsing(velocity) +

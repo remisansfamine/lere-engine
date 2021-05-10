@@ -19,7 +19,6 @@ namespace Gameplay
 	public:
 		PlayerMovement(Engine::GameObject& gameObject);
 
-		void update() override;
 		void fixedUpdate() override;
 		void drawImGui() override;
 

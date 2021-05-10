@@ -13,7 +13,6 @@ namespace Physics
 	class Transform : public Engine::Component
 	{
 	private:
-		Transform(Engine::GameObject& gameObject, const std::shared_ptr<Transform>& ptr);
 		std::shared_ptr<Transform> parent = nullptr;
 
 	public:
