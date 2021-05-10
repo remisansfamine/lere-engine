@@ -25,9 +25,9 @@ namespace Physics
 		return hasRigidbody() && m_rigidbody->isAwake;
 	}
 
-	void Collider::computeCallback(bool hasHit, std::shared_ptr<Collider> other)
+	void Collider::computeCallback(bool hasHit, const Collision& collision)
 	{
-		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), other);
+		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), collision.collider);
 
 		bool isInVector = colliderIt != m_colliders.end();
 
@@ -36,18 +36,18 @@ namespace Physics
 			if (!hasHit)
 			{
 				m_colliders.erase(colliderIt);
-				getHost().callCollisionExit(other);
+				getHost().callCollisionExit(collision);
 				return;
 			}
 
-			getHost().callCollisionStay(other);
+			getHost().callCollisionStay(collision);
 			return;
 		}
 
 		if (hasHit)
 		{
-			m_colliders.push_back(other);
-			getHost().callCollisionEnter(other);
+			m_colliders.push_back(collision.collider);
+			getHost().callCollisionEnter(collision);
 			return;
 		}
 	}

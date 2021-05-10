@@ -97,10 +97,11 @@ namespace Core::Maths
 
         quat(vec3 axis, float angle)
         {
-            if (axis.magnitude() != 0.0f)
-                angle *= 0.5f;
+            //if (axis.squaredMagnitude() != 0.0f)
 
-            axis = axis.normalized();
+            angle *= 0.5f;
+
+            axis.normalize();
 
             float sinres = sinf(angle);
             float cosres = cosf(angle);
@@ -307,6 +308,11 @@ namespace Core::Maths
 		return lhs;
 	}
 
+    inline vec3 operator*(const vec3& lhs, const vec3& rhs)
+    {
+        return { lhs.x * rhs.x, lhs.y * rhs.y, lhs.z * rhs.z };
+    }
+
 	template<typename T>
     vec3 operator/(const vec3& lhs, const T& scale)
 	{
@@ -387,14 +393,45 @@ namespace Core::Maths
 
     inline vec3 reflect(const vec3& toReflect, const vec3& normal);
 
+    // Return the projection of the input dot product to the axis
+    inline vec3 getVectorProjection(float dot, const vec3& axis)
+    {
+        return dot / axis.squaredMagnitude() * axis;
+    }
+
+    // Return the projection of the input vector to the axis
+    inline vec3 getVectorProjection(const vec3& vector, const vec3& axis)
+    {
+        float projection = dot(vector, axis);
+        return getVectorProjection(projection, axis);
+    }
+
+    // Return the perpendicular of the input vector to the axis
+    inline vec3 getVectorPerpendicular(const vec3& vector, const vec3& axis)
+    {
+        return vector - getVectorProjection(vector, axis);
+    }
+
     inline quat operator*(const quat& lhs, const quat& rhs)
     {
-        return {
+        /*return {
             lhs.x * rhs.w + lhs.w * rhs.x + lhs.y * rhs.z - lhs.z * rhs.y,
             lhs.y * rhs.w + lhs.w * rhs.y + lhs.z * rhs.x - lhs.x * rhs.z,
             lhs.z * rhs.w + lhs.w * rhs.z + lhs.x * rhs.y - lhs.y * rhs.x,
             lhs.w * rhs.w - lhs.x * rhs.x - lhs.y * rhs.y - lhs.z * rhs.z
-        };
+        };*/
+
+        quat result = quat(0.f, 0.f, 0.f, 0.f);
+
+        float qax = lhs.x, qay = lhs.y, qaz = lhs.z, qaw = lhs.w;
+        float qbx = rhs.x, qby = rhs.y, qbz = rhs.z, qbw = rhs.w;
+
+        result.x = qax * qbw + qaw * qbx + qay * qbz - qaz * qby;
+        result.y = qay * qbw + qaw * qby + qaz * qbx - qax * qbz;
+        result.z = qaz * qbw + qaw * qbz + qax * qby - qay * qbx;
+        result.w = qaw * qbw - qax * qbx - qay * qby - qaz * qbz;
+
+        return result;
     }
 
     inline vec3 abs(const vec3& vector)
@@ -410,7 +447,7 @@ namespace Core::Maths
 
     inline quat quaternionFromEuler(float roll, float pitch, float yaw)
     {
-        float x0 = cosf(roll * 0.5f);
+        /*float x0 = cosf(roll * 0.5f);
         float x1 = sinf(roll * 0.5f);
         float y0 = cosf(pitch * 0.5f);
         float y1 = sinf(pitch * 0.5f);
@@ -422,7 +459,23 @@ namespace Core::Maths
             x0 * y1 * z0 + x1 * y0 * z1,
             x0 * y0 * z1 - x1 * y1 * z0,
             x0 * y0 * z0 + x1 * y1 * z1
-        };
+        };*/
+
+        quat q = quat(0.f, 0.f, 0.f, 0.f);
+
+        float x0 = cosf(roll * 0.5f);
+        float x1 = sinf(roll * 0.5f);
+        float y0 = cosf(pitch * 0.5f);
+        float y1 = sinf(pitch * 0.5f);
+        float z0 = cosf(yaw * 0.5f);
+        float z1 = sinf(yaw * 0.5f);
+
+        q.x = x1 * y0 * z0 - x0 * y1 * z1;
+        q.y = x0 * y1 * z0 + x1 * y0 * z1;
+        q.z = x0 * y0 * z1 - x1 * y1 * z0;
+        q.w = x0 * y0 * z0 + x1 * y1 * z1;
+
+        return q;
     }
 
     inline quat quaternionFromEuler(const vec3& rotation)

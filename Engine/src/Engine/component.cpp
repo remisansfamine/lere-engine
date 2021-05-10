@@ -35,7 +35,7 @@ namespace Engine
 		return m_gameObject;
 	}
 
-	void Component::onCollisionEnter(std::shared_ptr<Physics::Collider> other) { }
-	void Component::onCollisionStay(std::shared_ptr<Physics::Collider> other) { }
-	void Component::onCollisionExit(std::shared_ptr<Physics::Collider> other) { }
+	void Component::onCollisionEnter(const Physics::Collision& collision) { }
+	void Component::onCollisionStay(const Physics::Collision& collision) { }
+	void Component::onCollisionExit(const Physics::Collision& collision) { }
 }

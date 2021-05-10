@@ -72,22 +72,22 @@ namespace Engine
 
 
 
-	void GameObject::callCollisionEnter(std::shared_ptr<Physics::Collider> other)
+	void GameObject::callCollisionEnter(const Physics::Collision& collision)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionEnter(other);
+			component->onCollisionEnter(collision);
 	}
 	
-	void GameObject::callCollisionStay(std::shared_ptr<Physics::Collider> other)
+	void GameObject::callCollisionStay(const Physics::Collision& collision)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionStay(other);
+			component->onCollisionStay(collision);
 	}
 
-	void GameObject::callCollisionExit(std::shared_ptr<Physics::Collider> other)
+	void GameObject::callCollisionExit(const Physics::Collision& collision)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->onCollisionExit(other);
+			component->onCollisionExit(collision);
 	}
 
 

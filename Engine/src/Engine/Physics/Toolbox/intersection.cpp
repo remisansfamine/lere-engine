@@ -99,6 +99,7 @@ namespace Physics
 		vec3 i, j, k;
 		GetUnitAxesFromQuaternion(i, j, k, box.quaternion);
 
+
 		// Segment AB
 		vec3 AB = B - A;
 
@@ -167,7 +168,7 @@ namespace Physics
 		if (dot(j, AB) < 0.f)
 		{
 			Quad quad = Quad(vectorRotate({ 0,box.size.y ,0 }, box.quaternion) + box.center,
-				{ box.size.x, 0.f, box.size.z }, box.quaternion * quat({ 0,0,0 }, PI));
+				{ box.size.x, 0.f, box.size.z }, box.quaternion);
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
 			{
@@ -430,9 +431,11 @@ namespace Physics
 
 
 		// Get the plane perpendicular to the cylinder axe and get intersection point to get intersection normal
-		vec3 newInterPt;
+		/*vec3 newInterPt;
 		IntersectLinePlane(caps.ptA, caps.ptB, Plane(PQ.normalized(), interPt), newInterPt, interNormal);
-		interNormal = (interPt - newInterPt).normalized();
+		interNormal = (interPt - newInterPt).normalized();*/
+
+		interNormal = getVectorPerpendicular(interPt - caps.ptA, PQ).normalized();
 
 		return INTERSECTION;
 	}
@@ -441,13 +444,13 @@ namespace Physics
 	bool IntersectSphereBox(const Sphere& sphere, const vec3& newSpherePos, const Box& box, vec3& interPt, vec3& interNormal)
 	{
 		Box roundedBox = box;
-		roundedBox.offsetRounding = sphere.radius;				    // Set rounding as the radius to consider the sphere
+		roundedBox.offsetRounding = sphere.radius;			    // Set rounding as the radius to consider the sphere
 		roundedBox.size += vec3(sphere.radius, sphere.radius, sphere.radius);  // Set new size
 
 		// Avoid segment point A inside roundedBox OBB
-		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + box.offsetRounding);
+		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + 0.01f);
 
-		vec3 interPtCaps, interNormalCaps;
-		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPtCaps, interNormalCaps, interPt, interNormal);
+		vec3 interPtBox, interNormalBox;
+		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPtBox, interNormalBox, interPt, interNormal);
 	}
 }

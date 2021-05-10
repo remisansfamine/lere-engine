@@ -226,6 +226,7 @@
     <ClInclude Include="include\Engine\object.hpp" />
     <ClInclude Include="include\Engine\Physics\box_collider.hpp" />
     <ClInclude Include="include\Engine\Physics\collider.hpp" />
+    <ClInclude Include="include\Engine\Physics\collision.hpp" />
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp" />
     <ClInclude Include="include\Engine\Physics\rigidbody.hpp" />
     <ClInclude Include="include\Engine\Physics\sphere_collider.hpp" />

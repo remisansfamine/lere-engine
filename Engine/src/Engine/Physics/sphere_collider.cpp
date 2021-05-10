@@ -38,7 +38,7 @@ namespace Physics
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
-			ImGui::DragFloat3("Center :", &m_center.x);
+			ImGui::DragFloat3("Center :", &sphere.center.x);
 			ImGui::DragFloat("Radius :", &sphere.radius);
 			ImGui::Checkbox("IsTrigger", &isTrigger);
 			ImGui::Checkbox("IsDraw", &isDraw);

@@ -29,7 +29,7 @@ namespace Gameplay
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 
-		void onCollisionEnter(std::shared_ptr<Physics::Collider> other) override;
-		void onCollisionExit(std::shared_ptr<Physics::Collider> other) override;
+		void onCollisionEnter(const Physics::Collision& collision) override;
+		void onCollisionExit(const Physics::Collision& collision) override;
 	};
 }

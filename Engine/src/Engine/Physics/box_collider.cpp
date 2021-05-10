@@ -27,7 +27,7 @@ namespace Physics
 	{
 		Core::Maths::mat4 globalModel = m_transform->getGlobalModel();
 		m_center = Core::Maths::modelMatrixToPosition(globalModel) + box.center;
-		extensions = Core::Maths::modelMatrixToScale(globalModel * Core::Maths::scale(box.size));
+		extensions = Core::Maths::modelMatrixToScale(globalModel) * box.size;
 	}
 
 	void BoxCollider::drawImGui()

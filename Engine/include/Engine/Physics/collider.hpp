@@ -4,6 +4,7 @@
 
 #include "component.hpp"
 #include "rigidbody.hpp"
+#include "collision.hpp"
 #include "maths.hpp"
 
 namespace Physics
@@ -29,7 +30,7 @@ namespace Physics
 		bool hasRigidbody();
 		bool isRigidbodyAwake();
 
-		void computeCallback(bool hasHit, std::shared_ptr<Collider> other);
+		void computeCallback(bool hasHit, const Collision& collision);
 
 		virtual void updateShape() = 0;
 

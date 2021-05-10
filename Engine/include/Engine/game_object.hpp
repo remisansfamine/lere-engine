@@ -6,6 +6,7 @@
 #include <istream>
 
 #include "object.hpp"
+#include "collision.hpp"
 
 #include "debug.hpp"
 
@@ -83,9 +84,9 @@ namespace Engine
 		void fixedUpdateComponents();
 		void lateUpdateComponents();
 
-		void callCollisionEnter(std::shared_ptr<Physics::Collider> other);
-		void callCollisionStay(std::shared_ptr<Physics::Collider> other);
-		void callCollisionExit(std::shared_ptr<Physics::Collider> other);
+		void callCollisionEnter(const Physics::Collision& collision);
+		void callCollisionStay(const Physics::Collision& collision);
+		void callCollisionExit(const Physics::Collision& collision);
 
 		void drawImGui();
 

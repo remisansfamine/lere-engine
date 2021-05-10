@@ -37,7 +37,7 @@ namespace Physics
 	void Rigidbody::fixedUpdate()
 	{
 		// Calculate the acceleration
-		Core::Maths::vec3 dragForce = (velocity ^ abs(velocity)) * drag * 0.5f;
+		Core::Maths::vec3 dragForce = Core::Maths::vec3();//(velocity ^ abs(velocity)) * drag * 0.5f;
 		acceleration = (forceSum - dragForce) / mass + gravity;
 		forceSum = Core::Maths::vec3();
 

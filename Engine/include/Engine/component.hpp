@@ -4,8 +4,8 @@
 #include <sstream>
 
 #include "object.hpp"
-
 #include "game_object.hpp"
+#include "collision.hpp"
 
 namespace Physics
 {
@@ -53,9 +53,9 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
-		void virtual onCollisionEnter(std::shared_ptr<Physics::Collider> other);
-		void virtual onCollisionStay(std::shared_ptr<Physics::Collider> other);
-		void virtual onCollisionExit(std::shared_ptr<Physics::Collider> other);
+		void virtual onCollisionEnter(const Physics::Collision& collision);
+		void virtual onCollisionStay(const Physics::Collision& collision);
+		void virtual onCollisionExit(const Physics::Collision& collision);
 
 		GameObject& getHost();
 

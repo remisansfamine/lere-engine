@@ -100,17 +100,17 @@ namespace Utils
 
     std::string vecToStringDebug(const Core::Maths::vec2& toWrite)
     {
-        return "x = " + std::to_string(toWrite.x) + "y = " + std::to_string(toWrite.y);
+        return "x = " + std::to_string(toWrite.x) + ", y = " + std::to_string(toWrite.y);
     }
 
     std::string vecToStringDebug(const Core::Maths::vec3& toWrite)
     {
-        return vecToStringDebug(toWrite.xy) + "z = " + std::to_string(toWrite.z);
+        return vecToStringDebug(toWrite.xy) + ", z = " + std::to_string(toWrite.z);
     }
 
     std::string vecToStringDebug(const Core::Maths::vec4& toWrite)
     {
-        return vecToStringDebug(toWrite.xyz) + "w = " + std::to_string(toWrite.w);
+        return vecToStringDebug(toWrite.xyz) + ", w = " + std::to_string(toWrite.w);
     }
 
 

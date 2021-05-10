@@ -401,6 +401,9 @@
     <ClInclude Include="include\Gameplay\player_state.hpp">
       <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
     </ClInclude>
+    <ClInclude Include="include\Engine\Physics\collision.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="resources\shaders\advancedLighting.frag">

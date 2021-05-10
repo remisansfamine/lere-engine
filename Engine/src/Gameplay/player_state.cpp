@@ -38,13 +38,17 @@ namespace Gameplay
 		}
 	}
 
-	void PlayerState::onCollisionEnter(std::shared_ptr<Physics::Collider> other)
+	void PlayerState::onCollisionEnter(const Physics::Collision& collision)
 	{
-		isGrounded = true;
 		colliderCount++;
+
+		if (collision.normal.y <= 0.f)
+			return;
+
+		isGrounded = true;
 	}
 
-	void PlayerState::onCollisionExit(std::shared_ptr<Physics::Collider> other)
+	void PlayerState::onCollisionExit(const Physics::Collision& collision)
 	{
 		colliderCount--;
 
@@ -56,8 +60,7 @@ namespace Gameplay
 	{
 		return "COMP PLAYERSTATE " + std::to_string(isWalking) + " " + std::to_string(isRunning)
 			+ " " + std::to_string(isJumping) + " " + std::to_string(isFalling)
-			+ " " + std::to_string(isGrounded) + " " + std::to_string(horizontalMove)
-			+ " " + std::to_string(forwardMove) + " " + std::to_string(colliderCount);
+			+ " " + std::to_string(isGrounded);
 	}
 
 	void PlayerState::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -72,10 +75,5 @@ namespace Gameplay
 		iss >> player->isJumping;
 		iss >> player->isFalling;
 		iss >> player->isGrounded;
-
-		iss >> player->horizontalMove;
-		iss >> player->forwardMove;
-
-		iss >> player->colliderCount;
 	}
 }
