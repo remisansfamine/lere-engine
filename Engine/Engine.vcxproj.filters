@@ -433,5 +433,11 @@
     <None Include="resources\shaders\vertexCollider.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
+    <None Include="resources\shaders\spriteFragment.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\spriteVertex.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

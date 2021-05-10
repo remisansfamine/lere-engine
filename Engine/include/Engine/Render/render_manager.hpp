@@ -5,11 +5,12 @@
 #include <vector>
 #include <memory>
 
-#include "renderer.hpp"
-#include "light.hpp"
-#include "camera.hpp"
-#include "sky_box.hpp"
 #include "collider_renderer.hpp"
+#include "sprite_renderer.hpp"
+#include "model_renderer.hpp"
+#include "sky_box.hpp"
+#include "camera.hpp"
+#include "light.hpp"
 
 namespace LowRenderer
 {
@@ -22,12 +23,16 @@ namespace LowRenderer
 		~RenderManager();
 
 		std::vector<std::shared_ptr<ColliderRenderer>> colliders;
-		std::vector<std::shared_ptr<Renderer>> renderers;
+		std::vector<std::shared_ptr<ModelRenderer>> models;
+		std::vector<std::shared_ptr<SpriteRenderer>> sprites;
 		std::vector<std::shared_ptr<Light>> lights;
 		std::vector<std::shared_ptr<Camera>> cameras;
 		std::vector<std::shared_ptr<SkyBox>> skyBoxes;
 
 		void drawColliders() const;
+
+		void drawModels();
+		void drawSprites();
 
 	public:
 
@@ -37,7 +42,9 @@ namespace LowRenderer
 
 		static void linkComponent(const std::shared_ptr<Light>& compToLink);
 
-		static void linkComponent(const std::shared_ptr<Renderer>& compToLink);
+		static void linkComponent(const std::shared_ptr<ModelRenderer>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink);
 
 		static void linkComponent(const std::shared_ptr<Camera>& compToLink);
 
@@ -55,9 +62,15 @@ namespace LowRenderer
 		}
 
 		template<>
-		static void clearComponents<Renderer>()
+		static void clearComponents<SpriteRenderer>()
 		{
-			instance()->renderers.clear();
+			instance()->sprites.clear();
+		}
+
+		template<>
+		static void clearComponents<ModelRenderer>()
+		{
+			instance()->models.clear();
 		}
 
 		template<>

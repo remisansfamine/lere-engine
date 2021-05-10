@@ -29,7 +29,9 @@ namespace LowRenderer
 
 		Core::Maths::mat4 getViewMatrix() const;
 		Core::Maths::mat4 getProjection() const;
+		Core::Maths::mat4 getOrthographic() const;
 		Core::Maths::mat4 getViewProjection() const;
+		Core::Maths::mat4 getViewOrthographic() const;
 
 		void fixedUpdate() override;
 		void drawImGui() override;
@@ -38,6 +40,7 @@ namespace LowRenderer
 
 		void sendViewProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 		void sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
+		void sendViewOrthoToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};

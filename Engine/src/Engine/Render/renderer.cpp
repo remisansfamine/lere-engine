@@ -10,10 +10,6 @@ namespace LowRenderer
 	Renderer::Renderer(Engine::GameObject& gameObject, const std::shared_ptr<Renderer>& childPtr, const std::string& shaderProgramName, bool link)
 		: Component(gameObject, childPtr), m_shaderProgram(Resources::ResourcesManager::loadShaderProgram(shaderProgramName))
 	{
-		// Tell to the RenderManager to draw this component
-		if (link)
-			RenderManager::linkComponent(childPtr);
-
 		m_transform = requireComponent<Physics::Transform>();
 	}
 

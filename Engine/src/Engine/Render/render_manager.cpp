@@ -17,52 +17,84 @@ namespace LowRenderer
 
 	RenderManager::~RenderManager()
 	{
-		renderers.clear();
+		models.clear();
 		lights.clear();
+		sprites.clear();
 
 		Core::Debug::Log::info("Destroying the Render Manager");
 	}
 
-	void RenderManager::draw()
+	void RenderManager::drawModels()
 	{
-		RenderManager* RM = instance();
-
 		std::shared_ptr<Resources::ShaderProgram> program;
 
 		// TODO : sort renderers by shader
-		if (RM->skyBoxes.size() > 0)
+		if (skyBoxes.size() > 0)
 		{
-			RM->skyBoxes.back()->draw();
+			skyBoxes.back()->draw();
 		}
 
 		// Number of lights to render (8 max)
-		int lightCount = std::min((int)RM->lights.size(), 8);
+		int lightCount = std::min((int)lights.size(), 8);
 
 		for (int i = 0; i < lightCount; i++)
-			RM->lights[i]->compute();
+			lights[i]->compute();
 
 		// Draw renderers
-		for (std::shared_ptr<Renderer>& renderer : RM->renderers)
+		for (std::shared_ptr<ModelRenderer>& model : models)
 		{
 			// If the ShaderProgram has changed, bind it and send shared informations
-			if (program != renderer->getProgram())
+			if (program != model->getProgram())
 			{
-				program = renderer->getProgram();
+				program = model->getProgram();
 
 				program->bind();
 
 				getCurrentCamera()->sendViewProjToProgram(program);
 
 				for (int i = 0; i < lightCount; i++)
-					RM->lights[i]->sendToProgram(program, i);
+					lights[i]->sendToProgram(program, i);
 			}
 
-			renderer->draw();
+			model->draw();
 		}
 
 		program->unbind();
 
-		RM->drawColliders();
+		drawColliders();
+	}
+
+	void RenderManager::drawSprites()
+	{
+		std::shared_ptr<Resources::ShaderProgram> program;
+
+		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// Draw renderers
+		for (std::shared_ptr<SpriteRenderer>& sprite : sprites)
+		{
+			// If the ShaderProgram has changed, bind it and send shared informations
+			if (program != sprite->getProgram())
+			{
+				program = sprite->getProgram();
+
+				program->bind();
+
+				getCurrentCamera()->sendViewOrthoToProgram(program);
+			}
+
+			sprite->draw();
+		}
+
+		program->unbind();
+	}
+
+	void RenderManager::draw()
+	{
+		RenderManager* RM = instance();
+
+		RM->drawModels();
+		RM->drawSprites();
 	}
 
 	void RenderManager::drawColliders() const
@@ -85,6 +117,8 @@ namespace LowRenderer
 		}
 
 		program->unbind();
+
+		glEnable(GL_DEPTH_TEST);
 	}
 
 	void RenderManager::linkComponent(const std::shared_ptr<Light>& compToLink)
@@ -93,10 +127,16 @@ namespace LowRenderer
 		instance()->lights.push_back(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<Renderer>& compToLink)
+	void RenderManager::linkComponent(const std::shared_ptr<ModelRenderer>& compToLink)
 	{
 		// TODO: Insert with sorting
-		instance()->renderers.push_back(compToLink);
+		instance()->models.push_back(compToLink);
+	}
+
+	void RenderManager::linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink)
+	{
+		// TODO: Insert with sorting
+		instance()->sprites.push_back(compToLink);
 	}
 
 	void RenderManager::linkComponent(const std::shared_ptr<Camera>& compToLink)

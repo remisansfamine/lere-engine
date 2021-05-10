@@ -3,6 +3,7 @@
 #include "imgui.h"
 
 #include "resources_manager.hpp"
+#include "render_manager.hpp"
 #include "inputs_manager.hpp"
 #include "time.hpp"
 
@@ -10,9 +11,16 @@
 
 namespace LowRenderer
 {
-	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName)
-		: Renderer(gameObject, std::shared_ptr<ModelRenderer>(this), shaderPromgramName), model(filePath, m_transform)
+	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& shaderPromgramName)
+		: Renderer(gameObject, ptr, shaderPromgramName)
 	{
+		LowRenderer::RenderManager::linkComponent(ptr);
+	}
+
+	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName)
+		: ModelRenderer(gameObject, std::shared_ptr<ModelRenderer>(this), shaderPromgramName)
+	{
+		model = Model(filePath, m_transform);
 	}
 
 	ModelRenderer::~ModelRenderer()

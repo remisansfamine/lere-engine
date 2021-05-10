@@ -64,9 +64,11 @@ namespace Resources
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
 		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag");
 		loadShaderProgram("colliderShader", "resources/shaders/vertexCollider.vert", "resources/shaders/fragmentCollider.frag");
+		loadShaderProgram("spriteShader", "resources/shaders/spriteVertex.vert", "resources/shaders/spriteFragment.frag");
 
 		loadObj("resources/obj/cube.obj");
 		loadObj("resources/obj/sphere.obj");
+		loadObj("resources/obj/plane.obj");
 		loadObj("resources/obj/colliders/boxCollider.obj");
 		loadObj("resources/obj/colliders/sphereCollider.obj");
 

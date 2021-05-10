@@ -41,9 +41,20 @@ namespace LowRenderer
 		return Core::Maths::perspective(fovY * Core::Maths::DEG2RAD, aspect, near, far, false);
 	}
 
+	Core::Maths::mat4 Camera::getOrthographic() const
+	{
+		// Get the camera orthographic using the aspect ration, fov, near and far parameters
+		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, near, far);
+	}
+
 	Core::Maths::mat4 Camera::getViewProjection() const
 	{
 		return getProjection() * getViewMatrix();
+	}
+
+	Core::Maths::mat4 Camera::getViewOrthographic() const
+	{
+		return getOrthographic() * Core::Maths::translate(Core::Maths::vec3(0.f, 0.f, -1.f));
 	}
 
 	// TODO: Remove this
@@ -100,6 +111,11 @@ namespace LowRenderer
 	{
 		program->setUniform("viewProj", getViewProjection().e, 1, 1);
 		program->setUniform("viewPos", m_transform->m_position.e);
+	}
+
+	void Camera::sendViewOrthoToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
+	{
+		program->setUniform("viewOrtho", getViewOrthographic().e, 1, 1);
 	}
 
 	void Camera::sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program)

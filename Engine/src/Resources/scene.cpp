@@ -8,6 +8,7 @@
 
 #include "render_manager.hpp"
 #include "model_renderer.hpp"
+#include "sprite_renderer.hpp"
 #include "physic_manager.hpp"
 #include "inputs_manager.hpp"
 #include "debug.hpp"
@@ -26,9 +27,9 @@ namespace Resources
 
 	Scene::Scene()
 	{
-		load("resources/scenes/test.scn");
+		//load("resources/scenes/test.scn");
 		// Adding platforms
-		/*{
+		{
 			auto& platform0 = addGameObject("Platform0");
 			platform0.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
 			platform0.addComponent<Physics::BoxCollider>();
@@ -126,6 +127,12 @@ namespace Resources
 			skyBox.addComponent<LowRenderer::SkyBox>(paths);
 		}
 
+		// UI creation
+		{
+			auto& sprite = addGameObject("Sprite");
+			sprite.addComponent<LowRenderer::SpriteRenderer>("spriteShader", "resources/obj/craftsman/BLACKSMITH_TEX.jpg");
+		}
+
 		// Light creation
 		{
 			auto& light = addGameObject("Light");
@@ -137,7 +144,7 @@ namespace Resources
 
 			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
 			light.getComponent<LowRenderer::Light>()->setAsDirectionnal();
-		}*/
+		}
 	}
 
 	Scene::~Scene()
@@ -175,7 +182,8 @@ namespace Resources
 
 	void Scene::load(const std::string& filePath)
 	{
-		LowRenderer::RenderManager::clearComponents<LowRenderer::Renderer>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::SpriteRenderer>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
