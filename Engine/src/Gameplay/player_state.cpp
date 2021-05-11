@@ -4,6 +4,8 @@
 #include <imgui.h>
 
 #include "inputs_manager.hpp"
+#include "button.hpp"
+#include "graph.hpp"
 
 namespace Gameplay
 {
@@ -15,7 +17,12 @@ namespace Gameplay
 
 	void PlayerState::start()
 	{
+		Engine::GameObject* goButton = Core::Engine::Graph::findGameObjectWithName("NewGame");
 
+		std::shared_ptr<UI::Button> button = goButton->getComponent<UI::Button>();
+		button->addListener(UI::ButtonState::HIGHLIGHT, [button](){
+			button->getSprite()->m_color = Core::Maths::vec4(1.f, 0.f, 0.f, 1.f);
+		});
 	}
 
 	void PlayerState::update()
@@ -41,7 +48,6 @@ namespace Gameplay
 
 	void PlayerState::onCollisionEnter(const Physics::Collision& collision)
 	{
-
 		if (collision.normal.y <= 0.f)
 			return;
 

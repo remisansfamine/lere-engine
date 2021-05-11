@@ -32,6 +32,11 @@ namespace Core::Engine
 		Graph* graph = instance();
 	}
 
+	Resources::Scene& Graph::getCurScene()
+	{
+		return instance()->curScene;
+	}
+
 	void Graph::draw()
 	{
 		// Draw the scene
@@ -59,5 +64,10 @@ namespace Core::Engine
 			instance()->curScene.drawImGui();
 
 		ImGui::End();
+	}
+
+	::Engine::GameObject* Graph::findGameObjectWithName(const std::string& gameObjectName)
+	{
+		return instance()->curScene.findGameObjectWithName(gameObjectName);
 	}
 }

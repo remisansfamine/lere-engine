@@ -163,6 +163,7 @@
     <ClCompile Include="src\Core\inputs_manager.cpp" />
     <ClCompile Include="src\Core\key_axis.cpp" />
     <ClCompile Include="src\Core\key_button.cpp" />
+    <ClCompile Include="src\Core\mouse_button.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
@@ -218,6 +219,7 @@
     <ClInclude Include="include\Core\input.hpp" />
     <ClInclude Include="include\Core\inputs_manager.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
+    <ClInclude Include="include\Core\mouse_button.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />
     <ClInclude Include="include\Engine\engine_master.hpp" />

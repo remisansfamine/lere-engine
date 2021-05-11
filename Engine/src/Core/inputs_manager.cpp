@@ -10,7 +10,7 @@ namespace Core::Input
 
 		IM->window = _window;
 
-		// Add default axes and buttons
+		// Add default axes
 		addAxis("Horizontal", GLFW_KEY_A, GLFW_KEY_D);
 		addAxis("Vertical", GLFW_KEY_S, GLFW_KEY_W);
 		addAxis("Forward", GLFW_KEY_W, GLFW_KEY_S);
@@ -18,8 +18,15 @@ namespace Core::Input
 		addAxis("MoveObjectVertical", GLFW_KEY_KP_7, GLFW_KEY_KP_9);
 		addAxis("MoveObjectForward", GLFW_KEY_KP_5, GLFW_KEY_KP_8);
 		addAxis("UpDown", GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE);
+
+		// Add default buttons
 		addButton("LockCursor", GLFW_KEY_C);
 		addButton("Jump", GLFW_KEY_SPACE);
+
+		// Add default mouse buttons
+		addMouseButton("RightClick", GLFW_MOUSE_BUTTON_RIGHT);
+		addMouseButton("LeftClick", GLFW_MOUSE_BUTTON_LEFT);
+		addMouseButton("MiddleClick", GLFW_MOUSE_BUTTON_MIDDLE);
 	}
 
 	void InputManager::compute()
@@ -59,6 +66,18 @@ namespace Core::Input
 		return keyIt->second;
 	}
 
+	MouseButton& InputManager::getMouseButtonByName(const std::string& name)
+	{
+		InputManager* IM = instance();
+
+		auto keyIt = IM->mouseButtons.find(name);
+
+		// Assert if the key does not exist
+		Core::Debug::Assertion::out(keyIt != IM->mouseButtons.end(), "Mouse button " + name + " does not exist");
+
+		return keyIt->second;
+	}
+
 	KeyAxis& InputManager::getAxisByName(const std::string& name)
 	{
 		InputManager* IM = instance();
@@ -86,6 +105,21 @@ namespace Core::Input
 		return getButtonByName(name).isButtonReleased();
 	}
 
+	bool InputManager::getMouseButtonDown(const std::string& name)
+	{
+		return getMouseButtonByName(name).isButtonPressed();
+	}
+
+	bool InputManager::getMouseButton(const std::string& name)
+	{
+		return getMouseButtonByName(name).isButtonDown();
+	}
+
+	bool InputManager::getMouseButtonUp(const std::string& name)
+	{
+		return getMouseButtonByName(name).isButtonReleased();
+	}
+
 	float InputManager::getAxis(const std::string& name)
 	{
 		return getAxisByName(name).getValue();
@@ -94,6 +128,11 @@ namespace Core::Input
 	void InputManager::addButton(const std::string& name, int keyID)
 	{
 		instance()->keyButtons.insert(std::make_pair(name, KeyButton(keyID)));
+	}
+
+	void InputManager::addMouseButton(const std::string& name, int keyID)
+	{
+		instance()->mouseButtons.insert(std::make_pair(name, MouseButton(keyID)));
 	}
 
 	void InputManager::addAxis(const std::string& name, int negativeKeyID, int positiveKeyID)

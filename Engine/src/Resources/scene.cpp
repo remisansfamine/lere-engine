@@ -28,88 +28,20 @@ namespace Resources
 
 	Scene::Scene()
 	{
-		//load("resources/scenes/test.scn");
+		//load("resources/scenes/mainMenu.scn");
+
 		// Adding platforms
 		{
-			auto& platform0 = addGameObject("Platform0");
-			platform0.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
-			platform0.addComponent<Physics::BoxCollider>();
-
-			auto transform0 = platform0.getComponent<Physics::Transform>();
-			transform0->m_scale.x = 4.f;
-			transform0->m_scale.z = 3.f;
-
-			// -----------------------------------------------------------------------------------
-
-			auto& platform1 = addGameObject("Platform1");
-			platform1.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform1.obj", "shader");
-			platform1.addComponent<Physics::BoxCollider>();
-
-			auto transform1 = platform1.getComponent<Physics::Transform>();
-			transform1->m_position.x = 15.f;
-			transform1->m_scale.x = 10.f;
-			transform1->m_scale.z = 4.f;
-
-			// -----------------------------------------------------------------------------------
-
-			auto& platform2 = addGameObject("Platform2");
-			platform2.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform0.obj", "shader");
-			platform2.addComponent<Physics::BoxCollider>();
-
-			auto transform2 = platform2.getComponent<Physics::Transform>();
-			transform2->m_position.x = 13.f;
-			transform2->m_position.y = 4.f;
-			transform2->m_scale.x = 3.f;
-			transform2->m_scale.z = 4.f;
-			transform2->m_scale.y = 0.5f;
-
-			// -----------------------------------------------------------------------------------
-
-			auto& platform3 = addGameObject("Platform3");
-			platform3.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform0.obj", "shader");
-			platform3.addComponent<Physics::BoxCollider>();
-
-			auto transform3 = platform3.getComponent<Physics::Transform>();
-			transform3->m_position.x = 18.f;
-			transform3->m_position.y = 7.f;
-			transform3->m_scale.x = 3.f;
-			transform3->m_scale.z = 4.f;
-			transform3->m_scale.y = 0.5f;
-
-			// -----------------------------------------------------------------------------------
-
-			auto& platform4 = addGameObject("Platform4");
-			platform4.addComponent<LowRenderer::ModelRenderer>("resources/obj/platforms/platform2.obj", "shader");
-			platform4.addComponent<Physics::BoxCollider>();
-
-			auto transform4 = platform4.getComponent<Physics::Transform>();
-			transform4->m_position.x = 6.f;
-			transform4->m_position.y = 9.f;
-			transform4->m_scale.x = 5.f;
-			transform4->m_scale.z = 4.f;
-			transform4->m_scale.y = 0.8f;
+			
 		}
 
 		// Adding player and camera attached
 		{
-			auto& player = addGameObject("Player");
-			player.addComponent<LowRenderer::ModelRenderer>("resources/obj/player/among_us.obj", "shader");
-			player.addComponent<Gameplay::PlayerMovement>();
-			player.addComponent<Physics::SphereCollider>();
-
-			player.getComponent<Physics::Rigidbody>()->isAwake = true;
-
-			auto transform = player.getComponent<Physics::Transform>();
-			transform->m_position.y = 4.f;
-
-			// Player creation
 			auto& camera = addGameObject("MainCamera");
 			camera.addComponent<LowRenderer::Camera>();
+			camera.addComponent<Gameplay::PlayerState>();
 
 			auto camTransform = camera.getComponent<Physics::Transform>();
-			camTransform->setParent(player);
-			camTransform->m_position.z = 20.f;
-			camTransform->m_position.y = 2.f;
 		}
 
 		// SkyBox creation
@@ -136,21 +68,8 @@ namespace Resources
 
 		// UI creation
 		{
-			auto& button = addGameObject("Button");
-			button.addComponent<UI::Button>("spriteShader", "");//"resources/obj/craftsman/BLACKSMITH_TEX.jpg");
-		}
-
-		// Light creation
-		{
-			auto& light = addGameObject("Light");
-
-			light.addComponent<LowRenderer::Light>();
-
-			auto transform = light.getComponent<Physics::Transform>();
-			transform->m_position.y = 1.f;
-
-			//light.getComponent<LowRenderer::Light>()->diffuse = LowRenderer::Color(0.f, 0.f, 1.f, 1.f);
-			light.getComponent<LowRenderer::Light>()->setAsDirectionnal();
+			auto& buttonNewGame = addGameObject("NewGame");
+			buttonNewGame.addComponent<UI::Button>("spriteShader", "");//"resources/obj/craftsman/BLACKSMITH_TEX.jpg");
 		}
 	}
 
@@ -187,7 +106,7 @@ namespace Resources
 		gameObjects[indexGOChild].getComponent<Physics::Transform>()->setParent(gameObjects[indexGO]);
 	}
 
-	void Scene::load(const std::string& filePath)
+	void Scene::load(const std::string& _filePath)
 	{
 		LowRenderer::RenderManager::clearComponents<LowRenderer::SpriteRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
@@ -195,13 +114,15 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 
-		std::ifstream scnStream(filePath);
+		std::ifstream scnStream(_filePath);
 		if (!scnStream)
 		{
-			std::cout << "ERROR::LOAD_SCENE_FAILED : " << filePath << std::endl;
+			std::cout << "ERROR::LOAD_SCENE_FAILED : " << _filePath << std::endl;
 			scnStream.close();
 			exit(0);
 		}
+
+		filePath = _filePath;
 
 		std::string line;
 		std::string type;
@@ -239,7 +160,7 @@ namespace Resources
 
 	void Scene::save()
 	{
-		std::ofstream scnFlux("resources/scenes/test.scn");
+		std::ofstream scnFlux(filePath);
 
 		if (!scnFlux)
 		{
@@ -297,8 +218,19 @@ namespace Resources
 			go.fixedUpdateComponents();
 	}
 
-	Engine::GameObject& Scene::addGameObject(std::string gameObjectName)
+	Engine::GameObject& Scene::addGameObject(const std::string& gameObjectName)
 	{
 		return *gameObjects.insert(gameObjects.end(), Engine::GameObject(gameObjectName));
+	}
+
+	Engine::GameObject* Scene::findGameObjectWithName(const std::string& gameObjectName)
+	{
+		for (auto& gameObject : gameObjects)
+		{
+			if (gameObjectName.compare(gameObject.m_name) == 0)
+				return &gameObject;
+		}
+
+		return nullptr;
 	}
 }

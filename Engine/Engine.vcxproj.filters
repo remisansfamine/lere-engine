@@ -246,11 +246,14 @@
     <ClCompile Include="src\Gameplay\player_movement.cpp">
       <Filter>Fichiers sources\Gameplay\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gameplay\player_state.cpp">
-      <Filter>Fichiers sources\Gameplay\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\UI\button.cpp">
       <Filter>Fichiers sources\Engine\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\mouse_button.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gameplay\player_state.cpp">
+      <Filter>Fichiers sources\Gameplay\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -407,9 +410,6 @@
     <ClInclude Include="include\Gameplay\player_movement.hpp">
       <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
     </ClInclude>
-    <ClInclude Include="include\Gameplay\player_state.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
     <ClInclude Include="include\Engine\Physics\collision.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
@@ -418,6 +418,12 @@
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\Toolbox\rect2D.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\mouse_button.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Gameplay\player_state.hpp">
+      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

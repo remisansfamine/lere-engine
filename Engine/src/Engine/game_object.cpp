@@ -54,7 +54,15 @@ namespace Engine
 	{
 		// Call the update function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
+		{
+			if (!component->hasStarted)
+			{
+				component->start();
+				component->hasStarted = true;
+			}
+
 			component->update();
+		}
 	}
 
 	void GameObject::fixedUpdateComponents()

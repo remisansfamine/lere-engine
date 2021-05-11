@@ -22,13 +22,65 @@ namespace UI
 		Core::Maths::vec2 mousePos = Core::Input::InputManager::getMousePos();
 
 		mousePos.x = Utils::remap(mousePos.x, 0.f, 1440.f, -10.f, 10.f);
-		mousePos.y = Utils::remap(mousePos.y, 0.f, 900.f, -10.f, 10.f);
+		mousePos.y = Utils::remap(mousePos.y, 0.f, 900.f, 10.f, -10.f);
 
 		m_image->m_color = Core::Maths::vec4(1.f, 1.f, 1.f, 1.f);
 
-		if (Physics::IntersectPointRect(mousePos, buttonRect))
+		if (!Physics::IntersectPointRect(mousePos, buttonRect))
+			return;
+		
+		onHighlight();
+
+		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
+			onClick();
+		if (Core::Input::InputManager::getMouseButton("LeftClick"))
+			onClickStay();
+		if (Core::Input::InputManager::getMouseButtonUp("LeftClick"))
+			onClickRelease();
+	}
+
+#pragma region FUNCTIONS_CALL
+	void Button::onClick()
+	{
+		for (auto& function : functions[ButtonState::DOWN])
 		{
-			m_image->m_color = Core::Maths::vec4(1.f, 0.f, 0.f, 1.f);
+			function();
 		}
+	}
+
+	void Button::onClickRelease()
+	{
+		for (auto& function : functions[ButtonState::UP])
+		{
+			function();
+		}
+	}
+
+	void Button::onHighlight()
+	{
+		for (auto& function : functions[ButtonState::HIGHLIGHT])
+		{
+			function();
+		}
+	}
+
+	void Button::onClickStay()
+	{
+		for (auto& function : functions[ButtonState::STAY])
+		{
+			function();
+		}
+	}
+#pragma endregion
+
+
+	void Button::addListener(ButtonState state, std::function<void()> function)
+	{
+		functions[state].push_back(function);
+	}
+
+	std::shared_ptr<LowRenderer::SpriteRenderer> Button::getSprite()
+	{
+		return m_image;
 	}
 }

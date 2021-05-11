@@ -14,7 +14,7 @@ namespace Resources
 
 		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
 	public:
-		std::string name;
+		std::string filePath;
 		std::deque<Engine::GameObject> gameObjects;
 
 		Scene(const std::string& path);
@@ -28,8 +28,10 @@ namespace Resources
 		void update();
 		void fixedUpdate();
 
+		Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+
 		void drawImGui();
 
-		Engine::GameObject& addGameObject(std::string gameObjectName);
+		Engine::GameObject& addGameObject(const std::string& gameObjectName);
 	};
 }

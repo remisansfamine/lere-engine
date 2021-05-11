@@ -38,6 +38,8 @@ namespace Engine
 		}
 
 	public:
+		bool hasStarted = false;
+
 		void setActive(bool value) override;
 		void destroy() override;
 
@@ -53,9 +55,9 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
-		void virtual onCollisionEnter(const Physics::Collision& collision);
-		void virtual onCollisionStay(const Physics::Collision& collision);
-		void virtual onCollisionExit(const Physics::Collision& collision);
+		void virtual onCollisionEnter(const Physics::Collision& collision) {}
+		void virtual onCollisionStay(const Physics::Collision& collision) {}
+		void virtual onCollisionExit(const Physics::Collision& collision) {}
 
 		GameObject& getHost();
 

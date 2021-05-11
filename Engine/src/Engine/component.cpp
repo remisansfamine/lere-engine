@@ -34,8 +34,4 @@ namespace Engine
 	{
 		return m_gameObject;
 	}
-
-	void Component::onCollisionEnter(const Physics::Collision& collision) { }
-	void Component::onCollisionStay(const Physics::Collision& collision) { }
-	void Component::onCollisionExit(const Physics::Collision& collision) { }
 }
