@@ -76,7 +76,7 @@ namespace LowRenderer
 		}
 	}
 
-	std::string Light::toString()
+	std::string Light::toString() const
 	{
 		return "COMP LIGHT " + std::to_string(position.w) + " " +
 							   Utils::vecToStringParsing(ambient.data) +

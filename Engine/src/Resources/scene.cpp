@@ -24,12 +24,12 @@ namespace Resources
 	Scene::Scene(const std::string& path)
 	{
 		Core::Debug::Log::info("Loading " + path);
+
+		load(path);
 	}
 
 	Scene::Scene()
 	{
-		//load("resources/scenes/mainMenu.scn");
-
 		// Adding platforms
 		{
 			

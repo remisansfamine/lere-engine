@@ -25,7 +25,7 @@ namespace Gameplay
 		void update() override;
 		void drawImGui() override;
 
-		std::string toString();
+		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 

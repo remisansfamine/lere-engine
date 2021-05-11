@@ -134,7 +134,7 @@ namespace LowRenderer
 		}
 	}
 
-	std::string Camera::toString()
+	std::string Camera::toString() const
 	{
 		return "COMP CAMERA " + std::to_string(near) + " " + std::to_string(far) + " " + std::to_string(fovY);
 	}

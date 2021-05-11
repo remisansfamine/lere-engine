@@ -44,7 +44,7 @@ namespace Physics
 		}
 	}
 
-	std::string BoxCollider::toString()
+	std::string BoxCollider::toString() const
 	{
 		return "COMP BOXCOLLIDER " + Utils::vecToStringParsing(box.center) + 
 									 Utils::vecToStringParsing(box.size) +

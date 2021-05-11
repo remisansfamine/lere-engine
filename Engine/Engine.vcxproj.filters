@@ -186,9 +186,6 @@
     <ClCompile Include="src\Core\key_button.cpp">
       <Filter>Fichiers sources\Core\Input</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\input.cpp">
-      <Filter>Fichiers sources\Core\Input</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\application.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
@@ -427,10 +424,34 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <None Include="include\Core\maths.inl">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </None>
+    <None Include="resources\shaders\fragmentCollider.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\spriteFragment.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\spriteVertex.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\vertexCollider.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
     <None Include="resources\shaders\advancedLighting.frag">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="resources\shaders\advancedLighting.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\fragmentShader.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\skyBox.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\skyBox.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="resources\shaders\testShader.frag">
@@ -439,25 +460,7 @@
     <None Include="resources\shaders\testShader.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
-    <None Include="resources\shaders\fragmentShader.frag">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
     <None Include="resources\shaders\vertexShader.vert">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="include\Core\maths.inl">
-      <Filter>Fichiers d%27en-tête\Core</Filter>
-    </None>
-    <None Include="resources\shaders\fragmentCollider.frag">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\vertexCollider.vert">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\spriteFragment.frag">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\spriteVertex.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>

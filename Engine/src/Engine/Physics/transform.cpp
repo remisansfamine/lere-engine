@@ -74,7 +74,7 @@ namespace Physics
 		}
 	}
 
-	std::string Transform::toString()
+	std::string Transform::toString() const
 	{
 		return  "COMP TRANSFORM " + Utils::vecToStringParsing(m_position) + 
 									Utils::vecToStringParsing(m_rotation) + 

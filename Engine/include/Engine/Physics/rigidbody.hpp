@@ -41,7 +41,7 @@ namespace Physics
 		void onCollisionEnter(const Collision& collision) override;
 		void onCollisionStay(const Collision& collision) override;
 
-		std::string toString() override;
+		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};

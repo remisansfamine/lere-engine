@@ -82,7 +82,7 @@ namespace Physics
 		velocity -= collision.normal * dot(velocity, collision.normal);
 	}
 
-	std::string Rigidbody::toString()
+	std::string Rigidbody::toString() const
 	{
 		return "COMP RIGIDBODY " + Utils::vecToStringParsing(velocity) +
 								   Utils::vecToStringParsing(gravity) +

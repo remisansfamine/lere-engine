@@ -20,8 +20,8 @@ namespace Gameplay
 		Engine::GameObject* goButton = Core::Engine::Graph::findGameObjectWithName("NewGame");
 
 		std::shared_ptr<UI::Button> button = goButton->getComponent<UI::Button>();
-		button->addListener(UI::ButtonState::HIGHLIGHT, [button](){
-			button->getSprite()->m_color = Core::Maths::vec4(1.f, 0.f, 0.f, 1.f);
+		button->addListener(UI::ButtonState::DOWN, [*this](){
+			Core::Debug::Log::info(toString());
 		});
 	}
 
@@ -63,7 +63,7 @@ namespace Gameplay
 			isGrounded = false;
 	}
 
-	std::string PlayerState::toString()
+	std::string PlayerState::toString() const
 	{
 		return "COMP PLAYERSTATE " + std::to_string(isWalking) + " " + std::to_string(isRunning)
 			+ " " + std::to_string(isJumping) + " " + std::to_string(isFalling)

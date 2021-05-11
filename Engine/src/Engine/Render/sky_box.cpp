@@ -47,7 +47,7 @@ namespace LowRenderer
 		glDepthMask(1);
 	}
 
-	std::string SkyBox::toString()
+	std::string SkyBox::toString() const
 	{
 		std::string strParse = "COMP SKYBOX";
 

@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
+#include <vector>
 #include <functional>
 #include <unordered_map>
-#include <vector>
 
 #include "sprite_renderer.hpp"
 

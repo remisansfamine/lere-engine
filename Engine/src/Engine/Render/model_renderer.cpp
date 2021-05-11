@@ -42,7 +42,7 @@ namespace LowRenderer
 		}
 	}
 
-	std::string ModelRenderer::toString()
+	std::string ModelRenderer::toString() const
 	{
 		return "COMP MODELRENDERER " + model.getPath() + " " + m_shaderProgram->getName();
 	}

@@ -159,7 +159,6 @@
     <ClCompile Include="src\Core\application.cpp" />
     <ClCompile Include="src\Core\color.cpp" />
     <ClCompile Include="src\Core\debug.cpp" />
-    <ClCompile Include="src\Core\input.cpp" />
     <ClCompile Include="src\Core\inputs_manager.cpp" />
     <ClCompile Include="src\Core\key_axis.cpp" />
     <ClCompile Include="src\Core\key_button.cpp" />
@@ -273,6 +272,8 @@
     <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\fragmentCollider.frag" />
     <None Include="resources\shaders\fragmentShader.frag" />
+    <None Include="resources\shaders\skyBox.frag" />
+    <None Include="resources\shaders\skyBox.vert" />
     <None Include="resources\shaders\spriteFragment.frag" />
     <None Include="resources\shaders\spriteVertex.vert" />
     <None Include="resources\shaders\testShader.frag" />

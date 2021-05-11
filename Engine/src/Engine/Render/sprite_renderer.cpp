@@ -33,19 +33,19 @@ namespace LowRenderer
 
 	void SpriteRenderer::draw() const
 	{
-		if (mesh)
-		{
-			m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
-			m_shaderProgram->setUniform("color", m_color.e);
+		if (!mesh)
+			return;
 
-			int i = 0;
-			m_shaderProgram->setUniform("diffuseTex", &i);
+		m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
+		m_shaderProgram->setUniform("color", m_color.e);
 
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->getID());
+		int i = 0;
+		m_shaderProgram->setUniform("diffuseTex", &i);
 
-			mesh->draw();
-		}
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, texture->getID());
+
+		mesh->draw();
 	}
 
 	void SpriteRenderer::drawImGui()
@@ -56,7 +56,7 @@ namespace LowRenderer
 		}
 	}
 
-	std::string SpriteRenderer::toString()
+	std::string SpriteRenderer::toString() const
 	{
 		return "COMP SPRITERENDERER " + m_shaderProgram->m_name + " " + texture->getPath();
 	}

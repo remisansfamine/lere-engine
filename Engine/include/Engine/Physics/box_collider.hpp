@@ -19,7 +19,7 @@ namespace Physics
 
 		void drawImGui() override;
 
-		std::string toString() override;
+		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};

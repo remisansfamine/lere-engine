@@ -41,6 +41,6 @@ namespace LowRenderer
 
 		void setDiffuseTexture(const std::string& difTexName);
 
-		std::string getPath();
+		std::string getPath() const;
 	};
 }

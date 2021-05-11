@@ -40,7 +40,7 @@ namespace LowRenderer
 		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const;
 
 		void drawImGui() override;
-		std::string toString() override;
+		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 	};

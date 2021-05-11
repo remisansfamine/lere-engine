@@ -63,6 +63,6 @@ namespace Engine
 
 		// TODO: Add collision and trigger functions
 		//void virtual onCollisions()
-		virtual std::string toString() { return ""; }
+		virtual std::string toString() const { return ""; }
 	};
 }

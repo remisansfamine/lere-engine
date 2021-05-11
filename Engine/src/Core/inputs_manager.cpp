@@ -41,6 +41,10 @@ namespace Core::Input
 		for (auto axisIt = IM->keyAxes.begin(); axisIt != IM->keyAxes.end(); axisIt++)
 			axisIt->second.compute(IM->window);
 
+		// Compute mouse buttons
+		for (auto mouseIt = IM->mouseButtons.begin(); mouseIt != IM->mouseButtons.end(); mouseIt++)
+			mouseIt->second.compute(IM->window);
+
 		// Compute mouse motion
 		{
 			double newMouseX, newMouseY;

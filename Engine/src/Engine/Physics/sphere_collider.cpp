@@ -48,7 +48,7 @@ namespace Physics
 		}
 	}
 
-	std::string SphereCollider::toString()
+	std::string SphereCollider::toString() const
 	{
 		return "COMP SPHERECOLLIDER " + Utils::vecToStringParsing(sphere.center) + 
 										std::to_string(sphere.radius) + " " +

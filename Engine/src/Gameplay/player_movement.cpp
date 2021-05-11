@@ -39,7 +39,7 @@ namespace Gameplay
 		}
 	}
 
-	std::string PlayerMovement::toString()
+	std::string PlayerMovement::toString() const
 	{
 		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
 	}
