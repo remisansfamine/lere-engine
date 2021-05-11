@@ -7,6 +7,7 @@
 #include "quad.h"
 #include "box.h"
 #include "disk.h"
+#include "rect2D.hpp"
 
 namespace Physics
 {
@@ -26,4 +27,6 @@ namespace Physics
 
 	// Intersections from a point
 	bool IntersectPointBox(const vec3& point, const Box& box);
+
+	bool IntersectPointRect(const vec2& point, const Rect2D& rect);
 }

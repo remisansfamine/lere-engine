@@ -38,13 +38,13 @@ namespace LowRenderer
 	Core::Maths::mat4 Camera::getProjection() const
 	{
 		// Get the camera projection using the aspect ration, fov, near and far parameters
-		return Core::Maths::perspective(fovY * Core::Maths::DEG2RAD, aspect, near, far, false);
+		return Core::Maths::perspective(fovY * Core::Maths::DEG2RAD, aspect, near, far);
 	}
 
 	Core::Maths::mat4 Camera::getOrthographic() const
 	{
 		// Get the camera orthographic using the aspect ration, fov, near and far parameters
-		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, near, far);
+		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, -1.f, 10.f);
 	}
 
 	Core::Maths::mat4 Camera::getViewProjection() const
@@ -54,7 +54,7 @@ namespace LowRenderer
 
 	Core::Maths::mat4 Camera::getViewOrthographic() const
 	{
-		return getOrthographic() * Core::Maths::translate(Core::Maths::vec3(0.f, 0.f, -1.f));
+		return getOrthographic(); //* Core::Maths::translate(-Core::Maths::vec3(0.f, 0.f, 1.f));
 	}
 
 	// TODO: Remove this

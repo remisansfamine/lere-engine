@@ -96,7 +96,10 @@ namespace Utils
         return filePath.substr(0, filePath.size() - fileName.size());
     }
 
-
+    float remap(float value, float from_min, float from_max, float to_min, float to_max)
+    {
+        return (value - from_min) * (to_max - to_min) / (from_max - from_min) + to_min;
+    }
 
     std::string vecToStringDebug(const Core::Maths::vec2& toWrite)
     {

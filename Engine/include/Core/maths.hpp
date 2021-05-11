@@ -214,28 +214,19 @@ namespace Core::Maths
     {
         // Pre-compute divisions
         float OneOverTopMinusBottom = 1.f / (top - bottom);
-        float OneOverFarMinusNear = 1.f / (near - far);
+        float OneOverFarMinusNear = 1.f / (far - near);
         float OneOverRightMinusLeft = 1.f / (right - left);
 
         return {
             2.f * OneOverRightMinusLeft, 0.f, 0.f, -(right + left) * OneOverRightMinusLeft,
             0.f, 2.f * OneOverTopMinusBottom, 0.f, -(top + bottom) * OneOverTopMinusBottom,
-            0.f, 0.f, 2.f * OneOverFarMinusNear, (far + near) * OneOverFarMinusNear,
+            0.f, 0.f, -2.f * OneOverFarMinusNear, -(far + near) * OneOverFarMinusNear,
             0.f, 0.f, 0.f, 1.f
         };
     }
 
-    inline mat4 perspective(float fovY, float aspect, float near, float far, bool isOrtho)
+    inline mat4 perspective(float fovY, float aspect, float near, float far)
     {
-        if (isOrtho)
-        {
-            // If the camera is orthographic, call this function
-            float top = tanf(fovY * 0.5f);
-            float right = top * aspect;
-
-            return orthographic(-right, right, -top, top, near, far);
-        }
-
         // Else call this one
         float top = near * tanf(fovY * 0.5f);
         float right = top * aspect;
@@ -447,20 +438,6 @@ namespace Core::Maths
 
     inline quat quaternionFromEuler(float roll, float pitch, float yaw)
     {
-        /*float x0 = cosf(roll * 0.5f);
-        float x1 = sinf(roll * 0.5f);
-        float y0 = cosf(pitch * 0.5f);
-        float y1 = sinf(pitch * 0.5f);
-        float z0 = cosf(yaw * 0.5f);
-        float z1 = sinf(yaw * 0.5f);
-
-        return {
-            x1 * y0 * z0 - x0 * y1 * z1,
-            x0 * y1 * z0 + x1 * y0 * z1,
-            x0 * y0 * z1 - x1 * y1 * z0,
-            x0 * y0 * z0 + x1 * y1 * z1
-        };*/
-
         quat q = quat(0.f, 0.f, 0.f, 0.f);
 
         float x0 = cosf(roll * 0.5f);

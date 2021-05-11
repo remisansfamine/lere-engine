@@ -9,6 +9,6 @@ uniform mat4 model;
 
 void main()
 {
-   gl_Position = viewOrtho * model * vec4(aPos.xy, 0.0, 1.0);
    TexCoords = aTexCoords;
+   gl_Position = viewOrtho * model * vec4(aPos, 1.0);
 }

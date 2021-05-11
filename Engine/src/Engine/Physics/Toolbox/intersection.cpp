@@ -93,6 +93,11 @@ namespace Physics
 		return INTERSECTION;
 	}
 
+	bool IntersectPointRect(const vec2& point, const Rect2D& rect)
+	{
+		return (fabsf(point.x - rect.center.x) < rect.halfWidth && fabsf(point.y - rect.center.y) < rect.halfHeight);
+	}
+
 	bool IntersectSegmentBox(const vec3& A, const vec3& B, const Box& box, vec3& interPtBox, vec3& interNormalBox, vec3& interPtCapsule, vec3& interNormalCapsule)
 	{
 		// Box referential

@@ -1,6 +1,7 @@
 #include "player_state.hpp"
 
-#include "imgui.h"
+#include <algorithm> 
+#include <imgui.h>
 
 #include "inputs_manager.hpp"
 

@@ -47,5 +47,6 @@ namespace Core::Input
 		static void editAxis(const std::string& name, int newPositiveKeyID, int newNegativeKeyID);
 
 		static Core::Maths::vec2 getDeltasMouse();
+		static Core::Maths::vec2 getMousePos();
 	};
 }

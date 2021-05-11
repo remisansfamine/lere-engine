@@ -118,4 +118,9 @@ namespace Core::Input
 	{
 		return instance()->deltasMouse;
 	}
+
+	Core::Maths::vec2 InputManager::getMousePos()
+	{
+		return instance()->mousePosition;
+	}
 }

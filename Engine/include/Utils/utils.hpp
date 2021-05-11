@@ -23,6 +23,8 @@ namespace Utils
     void splitString(const std::string& input, const std::string& delimiter,
         std::string& output, const std::function<void()>& lambda);
 
+    float remap(float value, float from_min, float from_max, float to_min, float to_max);
+
     // Return the name of the file from the input filepath
     std::string getFileNameFromPath(const std::string& filePath);
 

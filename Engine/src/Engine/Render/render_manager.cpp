@@ -68,8 +68,6 @@ namespace LowRenderer
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
-		//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		// Draw renderers
 		for (std::shared_ptr<SpriteRenderer>& sprite : sprites)
 		{

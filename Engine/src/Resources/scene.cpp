@@ -16,6 +16,7 @@
 #include "player_movement.hpp"
 #include "transform.hpp"
 #include "sky_box.hpp"
+#include "button.hpp"
 #include "light.hpp"
 
 namespace Resources
@@ -127,10 +128,16 @@ namespace Resources
 			skyBox.addComponent<LowRenderer::SkyBox>(paths);
 		}
 
+		//// UI creation
+		//{
+		//	auto& sprite = addGameObject("Sprite");
+		//	sprite.addComponent<LowRenderer::SpriteRenderer>("spriteShader", "resources/obj/craftsman/BLACKSMITH_TEX.jpg");
+		//}
+
 		// UI creation
 		{
-			auto& sprite = addGameObject("Sprite");
-			sprite.addComponent<LowRenderer::SpriteRenderer>("spriteShader", "resources/obj/craftsman/BLACKSMITH_TEX.jpg");
+			auto& button = addGameObject("Button");
+			button.addComponent<UI::Button>("spriteShader", "");//"resources/obj/craftsman/BLACKSMITH_TEX.jpg");
 		}
 
 		// Light creation

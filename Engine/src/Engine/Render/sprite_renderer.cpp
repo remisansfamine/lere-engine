@@ -35,7 +35,8 @@ namespace LowRenderer
 	{
 		if (mesh)
 		{
-			m_shaderProgram->setUniform("model", m_transform->getModel().e);
+			m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
+			m_shaderProgram->setUniform("color", m_color.e);
 
 			int i = 0;
 			m_shaderProgram->setUniform("diffuseTex", &i);
