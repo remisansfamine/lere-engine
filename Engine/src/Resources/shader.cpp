@@ -74,8 +74,6 @@ namespace Resources
         std::shared_ptr<Shader> vert = Resources::ResourcesManager::loadShader(vertPath);
         std::shared_ptr<Shader> frag = Resources::ResourcesManager::loadShader(fragPath);
 
-        // TODO: Check if the shaders are valid
-
         // Attach the two shaders and link them
         glAttachShader(programID, vert->shaderID);
         glAttachShader(programID, frag->shaderID);

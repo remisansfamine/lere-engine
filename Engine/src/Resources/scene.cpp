@@ -9,11 +9,13 @@
 #include "render_manager.hpp"
 #include "model_renderer.hpp"
 #include "sprite_renderer.hpp"
+#include "resources_manager.hpp"
 #include "physic_manager.hpp"
 #include "inputs_manager.hpp"
 #include "debug.hpp"
 
 #include "player_movement.hpp"
+#include "main_menu.hpp"
 #include "transform.hpp"
 #include "sky_box.hpp"
 #include "button.hpp"
@@ -28,55 +30,8 @@ namespace Resources
 		load(path);
 	}
 
-	Scene::Scene()
-	{
-		// Adding platforms
-		{
-			
-		}
-
-		// Adding player and camera attached
-		{
-			auto& camera = addGameObject("MainCamera");
-			camera.addComponent<LowRenderer::Camera>();
-			camera.addComponent<Gameplay::PlayerState>();
-
-			auto camTransform = camera.getComponent<Physics::Transform>();
-		}
-
-		// SkyBox creation
-		{
-			std::string dir = "resources/skyboxes/";
-			std::vector<std::string> paths = {
-				dir + "right.jpg",
-				dir + "left.jpg",
-				dir + "top.jpg",
-				dir + "bottom.jpg",
-				dir + "front.jpg",
-				dir + "back.jpg"
-			};
-
-			auto& skyBox = addGameObject("SkyBox");
-			skyBox.addComponent<LowRenderer::SkyBox>(paths);
-		}
-
-		//// UI creation
-		//{
-		//	auto& sprite = addGameObject("Sprite");
-		//	sprite.addComponent<LowRenderer::SpriteRenderer>("spriteShader", "resources/obj/craftsman/BLACKSMITH_TEX.jpg");
-		//}
-
-		// UI creation
-		{
-			auto& buttonNewGame = addGameObject("NewGame");
-			buttonNewGame.addComponent<UI::Button>("spriteShader", "");//"resources/obj/craftsman/BLACKSMITH_TEX.jpg");
-		}
-	}
-
 	Scene::~Scene()
 	{
-		save();
-
 		gameObjects.clear();
 	}
 
@@ -113,14 +68,15 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
 		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
+		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
+		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
+
+		gameObjects.clear();
+		curGameObjectIndex = 0;
 
 		std::ifstream scnStream(_filePath);
-		if (!scnStream)
-		{
-			std::cout << "ERROR::LOAD_SCENE_FAILED : " << _filePath << std::endl;
-			scnStream.close();
-			exit(0);
-		}
+
+		Core::Debug::Assertion::out(scnStream.is_open(), "Can not find scene at " + _filePath);
 
 		filePath = _filePath;
 
@@ -156,15 +112,17 @@ namespace Resources
 			setGameObjectParent(parents[i], parents[i + 1]);
 
 		scnStream.close();
+
+		//Resources::ResourcesManager::clearResources();
 	}
 
 	void Scene::save()
 	{
-		std::ofstream scnFlux(filePath);
+		std::ofstream scnFlux("resources/scenes/savedScene.scn");
 
 		if (!scnFlux)
 		{
-			std::cout << "ERROR : Can't save the scene at resources/scenes/test.scn" << std::endl;
+			std::cout << "ERROR : Can't save the scene at resources/scenes/savedScene.scn" << std::endl;
 			scnFlux.close();
 			return;
 		}

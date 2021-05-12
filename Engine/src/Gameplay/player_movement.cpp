@@ -3,6 +3,7 @@
 #include "imgui.h"
 
 #include "inputs_manager.hpp"
+#include "graph.hpp"
 #include "time.hpp"
 
 namespace Gameplay
@@ -14,13 +15,19 @@ namespace Gameplay
 		m_playerState = requireComponent<Gameplay::PlayerState>();
 	}
 
+	void PlayerMovement::start()
+	{
+		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
+	}
+
 	void PlayerMovement::fixedUpdate()
 	{
-		float fixedDeltaTime = Core::TimeManager::getFixedDeltaTime();
+		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
+		float horizontal = m_playerState->horizontalMove * fixedSpeed;
+		float vertical = -m_playerState->forwardMove * fixedSpeed;
 
-		float fixedSpeed = m_speed * fixedDeltaTime;
-
-		m_rigidbody->velocity = Core::Maths::vec3(m_playerState->horizontalMove * fixedSpeed, m_rigidbody->velocity.y, m_playerState->forwardMove * fixedSpeed);
+		m_rigidbody->velocity.x = horizontal * cos(m_cameraTransform->m_rotation.y) + vertical * sin(m_cameraTransform->m_rotation.y);
+		m_rigidbody->velocity.z = -vertical * cos(m_cameraTransform->m_rotation.y) + horizontal * sin(m_cameraTransform->m_rotation.y);
 
 		if (m_playerState->isGrounded && m_playerState->isJumping)
 		{

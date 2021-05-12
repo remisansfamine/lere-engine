@@ -74,6 +74,20 @@ namespace Resources
 
 		// Set default textures and materials
 		RM->setDefaultResources();
+
+		std::shared_ptr<float> test;
+	}
+
+	void ResourcesManager::clearResources()
+	{
+		ResourcesManager* RM = instance();
+
+		RM->clearMap(RM->textures);
+		RM->clearMap(RM->cubeMaps);
+		RM->clearMap(RM->meshes);
+		RM->clearMap(RM->materials);
+		RM->clearMap(RM->shaders);
+		RM->clearMap(RM->shaderPrograms);
 	}
 
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
@@ -88,7 +102,6 @@ namespace Resources
 			return shaderIt->second;
 		}
 
-		// TODO: Add Warn load fail
 		return RM->shaders[shaderPath] = std::make_shared<Shader>(Shader(shaderPath));
 	}
 
@@ -102,7 +115,6 @@ namespace Resources
 		if (programIt != RM->shaderPrograms.end())
 			return programIt->second;
 
-		// TODO: Add Warn load fail
 		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(ShaderProgram(programName, vertPath, fragPath));
 	}
 
@@ -118,7 +130,6 @@ namespace Resources
 			return textureIt->second;
 		}
 
-		// TODO: Add Warn load fail
 		return RM->textures[texturePath] = std::make_shared<Texture>(Texture(texturePath));
 	}
 
@@ -134,7 +145,6 @@ namespace Resources
 			return textureIt->second;
 		}
 
-		// TODO: Add Warn load fail
 		return RM->textures[name] = std::make_shared<Texture>(Texture(width, height, data));
 	}
 
@@ -155,7 +165,6 @@ namespace Resources
 			return cubeMapIt->second;
 		}
 
-		// TODO: Add Warn load fail
 		return RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(CubeMap(cubeMapPaths));
 	}
 
@@ -171,7 +180,6 @@ namespace Resources
 			return materialIt->second;
 		}
 
-		// TODO: Add Warn load fail
 		return RM->materials[materialPath] = std::make_shared<Material>(Material());
 	}
 

@@ -18,6 +18,8 @@ namespace LowRenderer
 		SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const std::string& texturePath);
 		SpriteRenderer(Engine::GameObject& gameObject, const std::shared_ptr<SpriteRenderer>& ptr, const std::string& shaderPromgramName);
 
+		std::string getTexturePath();
+
 		void draw() const override;
 		void drawImGui() override;
 		std::string toString() const override;

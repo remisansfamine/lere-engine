@@ -49,12 +49,14 @@ namespace Physics
 		static void clearComponents<SphereCollider>()
 		{
 			instance()->sphereColliders.clear();
+			instance()->lastSphereRigidbodyIndex = 0;
 		}
 
 		template<>
 		static void clearComponents<BoxCollider>()
 		{
 			instance()->boxColliders.clear();
+			instance()->lastBoxRigidbodyIndex = 0;
 		}
 
 		static void update();

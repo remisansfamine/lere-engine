@@ -15,10 +15,12 @@ namespace Gameplay
 
 		std::shared_ptr<Physics::Rigidbody> m_rigidbody;
 		std::shared_ptr<Gameplay::PlayerState> m_playerState;
+		std::shared_ptr<Physics::Transform> m_cameraTransform;
 
 	public:
 		PlayerMovement(Engine::GameObject& gameObject);
 
+		void start() override;
 		void fixedUpdate() override;
 		void drawImGui() override;
 

@@ -18,10 +18,8 @@ namespace Resources
 		std::deque<Engine::GameObject> gameObjects;
 
 		Scene(const std::string& path);
-		Scene();
 		~Scene();
 
-		// TODO
 		void load(const std::string& filePath);
 		void save();
 		void draw() const;

@@ -12,6 +12,11 @@ namespace Physics
 
 	}
 
+	Engine::GameObject& Transform::getGOParent()
+	{
+		return parent->getHost();
+	}
+
 	Core::Maths::mat4 Transform::getModel() const
 	{
 		// Return the model matrix (TRS where R = ZXY like Unity)

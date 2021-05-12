@@ -1,5 +1,7 @@
 #include "button.hpp"
 
+#include <imgui.h>
+
 #include "inputs_manager.hpp"
 
 #include "intersection.h"
@@ -33,9 +35,9 @@ namespace UI
 
 		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
 			onClick();
-		if (Core::Input::InputManager::getMouseButton("LeftClick"))
+		else if (Core::Input::InputManager::getMouseButton("LeftClick"))
 			onClickStay();
-		if (Core::Input::InputManager::getMouseButtonUp("LeftClick"))
+		else if (Core::Input::InputManager::getMouseButtonUp("LeftClick"))
 			onClickRelease();
 	}
 
@@ -82,5 +84,30 @@ namespace UI
 	std::shared_ptr<LowRenderer::SpriteRenderer> Button::getSprite()
 	{
 		return m_image;
+	}
+
+
+
+	void Button::drawImGui()
+	{
+		if (ImGui::TreeNode("Sprite renderer"))
+		{
+			ImGui::TreePop();
+		}
+	}
+
+	std::string Button::toString() const
+	{
+		return "COMP BUTTON " + m_image->getProgram()->getName() + " " + m_image->getTexturePath();
+	}
+
+	void Button::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	{
+		std::string shaderProgramName, texturePath;
+
+		iss >> shaderProgramName;
+		iss >> texturePath;
+
+		gameObject.addComponent<Button>(shaderProgramName, texturePath);
 	}
 }

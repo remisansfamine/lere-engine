@@ -107,7 +107,6 @@ namespace Core
 		Resources::ResourcesManager::init();
 
 		Input::InputManager::init(AP->window);
-		Input::InputManager::addButton("Return", GLFW_KEY_ESCAPE);
 	}
 
 	void Application::update()
@@ -122,9 +121,6 @@ namespace Core
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
-
-			// Tell to glfw to close the window when the "Return" key is pressed
-			glfwSetWindowShouldClose(AP->window, Input::InputManager::getButton("Return"));
 
 			// Compute managers
 			TimeManager::computeTime();
@@ -141,6 +137,12 @@ namespace Core
 			glfwSwapBuffers(AP->window);
 			glfwPollEvents();
 		}
+	}
+
+	void Application::closeApplication()
+	{
+		// Tell to glfw to close the window 
+		glfwSetWindowShouldClose(instance()->window, true);
 	}
 
 	float Application::getAspect()

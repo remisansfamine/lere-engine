@@ -22,6 +22,7 @@ namespace Physics
 		Core::Maths::vec3 m_rotation	= Core::Maths::vec3(0.f, 0.f, 0.f);
 		Core::Maths::vec3 m_scale		= Core::Maths::vec3(1.f, 1.f, 1.f);
 
+		Engine::GameObject& getGOParent();
 		Core::Maths::mat4 getModel() const;
 		Core::Maths::mat4 getGlobalModel() const;
 		Core::Maths::mat4 getParentModel() const;

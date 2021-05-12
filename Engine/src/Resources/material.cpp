@@ -25,7 +25,6 @@ namespace Resources
 
 	void Material::bindTextures() const
 	{
-		// TODO : set textures with uniform
 		if (alphaTex)
 			alphaTex->bind(0);
 

@@ -19,12 +19,27 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath)
 	{
-		// TODO
+		curScene.load(scenePath);
+	}
+
+	void Graph::loadSaveGame()
+	{
+		instance()->isLoadingSavedScene = true;
+	}
+
+	void Graph::loadNewGame()
+	{
+		instance()->isStartingNewGame = true;
+	}
+
+	void Graph::loadMainMenu()
+	{
+		instance()->isLoadingMainMenu = true;
 	}
 
 	void Graph::saveCurrentScene()
 	{
-		// TODO
+		instance()->curScene.save();
 	}
 
 	void Graph::init()
@@ -45,8 +60,27 @@ namespace Core::Engine
 
 	void Graph::update()
 	{
+		Graph* graph = instance();
+
+		if (graph->isStartingNewGame)
+		{
+			graph->loadScene("resources/scenes/defaultScene.scn");
+			saveCurrentScene();
+			graph->isStartingNewGame = false;
+		}
+		else if (graph->isLoadingSavedScene)
+		{
+			graph->loadScene("resources/scenes/savedScene.scn");
+			graph->isLoadingSavedScene = false;
+		}
+		else if (graph->isLoadingMainMenu)
+		{
+			graph->loadScene("resources/scenes/mainMenu.scn");
+			graph->isLoadingMainMenu = false;
+		}
+
 		// Update the scene
-		instance()->curScene.update();
+		graph->curScene.update();
 
 		// Update rigidbodies and colliders
 		Physics::PhysicManager::update();

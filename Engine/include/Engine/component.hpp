@@ -61,8 +61,6 @@ namespace Engine
 
 		GameObject& getHost();
 
-		// TODO: Add collision and trigger functions
-		//void virtual onCollisions()
 		virtual std::string toString() const { return ""; }
 	};
 }

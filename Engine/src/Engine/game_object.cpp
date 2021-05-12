@@ -8,14 +8,18 @@
 
 #include "sprite_renderer.hpp"
 #include "player_movement.hpp"
+#include "camera_movement.hpp"
 #include "sphere_collider.hpp"
 #include "model_renderer.hpp"
 #include "player_state.hpp"
 #include "box_collider.hpp"
+#include "game_master.hpp"
+#include "main_menu.hpp"
 #include "component.hpp"
 #include "transform.hpp"
 #include "rigidbody.hpp"
 #include "sky_box.hpp"
+#include "button.hpp"
 #include "camera.hpp"
 #include "light.hpp"
 
@@ -34,7 +38,6 @@ namespace Engine
 
 
 
-	// TODO: CALL AWAKE AT THE CORRECT TIME
 	void GameObject::awakeComponents()
 	{
 		// Call the awake function for all the components
@@ -42,7 +45,6 @@ namespace Engine
 			component->awake();
 	}
 
-	// TODO: CALL START AT THE CORRECT TIME
 	void GameObject::startComponents()
 	{
 		// Call the start function for all the components
@@ -158,6 +160,14 @@ namespace Engine
 					Gameplay::PlayerMovement::parseComponent(*this, iss);
 				else if (comp == "PLAYERSTATE")
 					Gameplay::PlayerState::parseComponent(*this, iss);
+				else if (comp == "MAINMENU")
+					Gameplay::MainMenu::parseComponent(*this, iss);
+				else if (comp == "GAMEMASTER")
+					Gameplay::GameMaster::parseComponent(*this, iss);
+				else if (comp == "CAMERAMOVEMENT")
+					Gameplay::CameraMovement::parseComponent(*this, iss);
+				else if (comp == "BUTTON")
+					UI::Button::parseComponent(*this, iss);
 			}
 			else if (type == "endGO")
 				break;

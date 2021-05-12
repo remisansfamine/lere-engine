@@ -86,7 +86,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Gameplay;$(ProjectDir)include\Gameplay\Player;$(ProjectDir)include\Engine\Physics\Toolbox;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Gameplay;$(ProjectDir)include\Gameplay\Player;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI\;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -188,6 +188,9 @@
     <ClCompile Include="src\Engine\Render\sky_box.cpp" />
     <ClCompile Include="src\Engine\Render\sprite_renderer.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
+    <ClCompile Include="src\Gameplay\camera_movement.cpp" />
+    <ClCompile Include="src\Gameplay\game_master.cpp" />
+    <ClCompile Include="src\Gameplay\main_menu.cpp" />
     <ClCompile Include="src\Gameplay\player_movement.cpp" />
     <ClCompile Include="src\Gameplay\player_state.cpp" />
     <ClCompile Include="src\Resources\cube_map.cpp" />
@@ -251,6 +254,9 @@
     <ClInclude Include="include\Engine\Render\render_manager.hpp" />
     <ClInclude Include="include\Engine\Render\sky_box.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
+    <ClInclude Include="include\Gameplay\camera_movement.hpp" />
+    <ClInclude Include="include\Gameplay\game_master.hpp" />
+    <ClInclude Include="include\Gameplay\main_menu.hpp" />
     <ClInclude Include="include\Gameplay\player_movement.hpp" />
     <ClInclude Include="include\Gameplay\player_state.hpp" />
     <ClInclude Include="include\Resources\cube_map.hpp" />

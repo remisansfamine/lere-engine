@@ -28,7 +28,6 @@ namespace LowRenderer
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
-		// TODO : sort renderers by shader
 		if (skyBoxes.size() > 0)
 		{
 			skyBoxes.back()->draw();
@@ -129,13 +128,13 @@ namespace LowRenderer
 
 	void RenderManager::linkComponent(const std::shared_ptr<ModelRenderer>& compToLink)
 	{
-		// TODO: Insert with sorting
+		// Insert model to renderer
 		instance()->models.push_back(compToLink);
 	}
 
 	void RenderManager::linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink)
 	{
-		// TODO: Insert with sorting
+		// Insert sprite to renderer
 		instance()->sprites.push_back(compToLink);
 	}
 
@@ -161,7 +160,6 @@ namespace LowRenderer
 	{
 		RenderManager* RM = instance();
 
-		// TODO: Get a real current camera
 		if (RM->cameras.size() > 0)
 			return RM->cameras.back();
 

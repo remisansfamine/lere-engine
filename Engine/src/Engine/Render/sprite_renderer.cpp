@@ -7,6 +7,7 @@
 #include "inputs_manager.hpp"
 
 #include "transform.hpp"
+#include "utils.hpp"
 #include "texture.hpp"
 
 namespace LowRenderer
@@ -29,6 +30,11 @@ namespace LowRenderer
 	{
 		texture = texturePath == "" ? Resources::Texture::defaultDiffuse : Resources::ResourcesManager::loadTexture(texturePath);
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
+	}
+
+	std::string SpriteRenderer::getTexturePath()
+	{
+		return texture->getPath();
 	}
 
 	void SpriteRenderer::draw() const
@@ -58,7 +64,7 @@ namespace LowRenderer
 
 	std::string SpriteRenderer::toString() const
 	{
-		return "COMP SPRITERENDERER " + m_shaderProgram->m_name + " " + texture->getPath();
+		return "COMP SPRITERENDERER " +  m_shaderProgram->getName() + " " + texture->getPath();
 	}
 
 	void SpriteRenderer::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)

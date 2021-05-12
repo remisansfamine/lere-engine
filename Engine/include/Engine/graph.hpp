@@ -14,12 +14,21 @@ namespace Core::Engine
 	private:
 		Graph();
 		~Graph();
+		
+		bool isStartingNewGame = false;
+		bool isLoadingSavedScene = false;
+		bool isLoadingMainMenu = false;
 
-		Resources::Scene curScene;
+		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
 	public:
 		void loadScene(const std::string& scenePath);
-		void saveCurrentScene();
+
+		static void saveCurrentScene();
+		static void loadNewGame();
+		static void loadSaveGame();
+		static void loadMainMenu();
+
 		static void init();
 
 		static Resources::Scene& getCurScene();

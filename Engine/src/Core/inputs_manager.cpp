@@ -14,14 +14,14 @@ namespace Core::Input
 		addAxis("Horizontal", GLFW_KEY_A, GLFW_KEY_D);
 		addAxis("Vertical", GLFW_KEY_S, GLFW_KEY_W);
 		addAxis("Forward", GLFW_KEY_W, GLFW_KEY_S);
-		addAxis("MoveObjectHorizontal", GLFW_KEY_KP_4, GLFW_KEY_KP_6);
-		addAxis("MoveObjectVertical", GLFW_KEY_KP_7, GLFW_KEY_KP_9);
-		addAxis("MoveObjectForward", GLFW_KEY_KP_5, GLFW_KEY_KP_8);
-		addAxis("UpDown", GLFW_KEY_LEFT_SHIFT, GLFW_KEY_SPACE);
+		addAxis("MoveCamUpDown", GLFW_KEY_DOWN, GLFW_KEY_UP);
+		addAxis("MoveCamSides", GLFW_KEY_LEFT, GLFW_KEY_RIGHT);
 
 		// Add default buttons
 		addButton("LockCursor", GLFW_KEY_C);
 		addButton("Jump", GLFW_KEY_SPACE);
+		addButton("Return", GLFW_KEY_ESCAPE);
+		addButton("Save", GLFW_KEY_F5);
 
 		// Add default mouse buttons
 		addMouseButton("RightClick", GLFW_MOUSE_BUTTON_RIGHT);

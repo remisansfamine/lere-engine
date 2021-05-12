@@ -279,6 +279,40 @@ namespace Core::Maths
         return result;
     }
 
+    // Returns a quaternion for a given rotation matrix
+    inline quat QuaternionFromMatrix(const mat4& mat)
+    {
+        quat result = { 0.f, 0.f, 0.f, 1.f };
+
+        if ((mat.e[0] > mat.e[5]) && (mat.e[0] > mat.e[10]))
+        {
+            float s = sqrtf(1.0f + mat.e[0] - mat.e[5] - mat.e[10]) * 2;
+
+            result.x = 0.25f * s;
+            result.y = (mat.e[4] + mat.e[1]) / s;
+            result.z = (mat.e[2] + mat.e[8]) / s;
+            result.w = (mat.e[9] - mat.e[6]) / s;
+        }
+        else if (mat.e[5] > mat.e[10])
+        {
+            float s = sqrtf(1.0f + mat.e[5] - mat.e[0] - mat.e[10]) * 2;
+            result.x = (mat.e[4] + mat.e[1]) / s;
+            result.y = 0.25f * s;
+            result.z = (mat.e[9] + mat.e[6]) / s;
+            result.w = (mat.e[2] - mat.e[8]) / s;
+        }
+        else
+        {
+            float s = sqrtf(1.0f + mat.e[10] - mat.e[0] - mat.e[5]) * 2;
+            result.x = (mat.e[2] + mat.e[8]) / s;
+            result.y = (mat.e[9] + mat.e[6]) / s;
+            result.z = 0.25f * s;
+            result.w = (mat.e[4] - mat.e[1]) / s;
+        }
+
+        return result;
+    }
+
     inline vec3 vectorRotate(const vec3& v, const quat& q);
 
     inline vec3 modelMatrixToPosition(const mat4& matrix)
@@ -288,7 +322,30 @@ namespace Core::Maths
 
     inline vec3 modelMatrixToScale(const mat4& matrix)
     {
-        return vec3(matrix.e[0], matrix.e[5], matrix.e[10]);
+        return vec3(vec3(matrix.e[0], matrix.e[4], matrix.e[8]).magnitude(), 
+                    vec3(matrix.e[1], matrix.e[5], matrix.e[9]).magnitude(), 
+                    vec3(matrix.e[2], matrix.e[6], matrix.e[10]).magnitude());
+    }
+
+    inline vec3 modelMatrixToRotation(mat4 matrix)
+    {
+        matrix.e[3] = 0.f;
+        matrix.e[7] = 0.f;
+        matrix.e[11] = 0.f;
+
+        vec3 scale = modelMatrixToScale(matrix);
+
+        matrix.e[0] /= scale.x;
+        matrix.e[4] /= scale.x;
+        matrix.e[8] /= scale.x;
+        matrix.e[1] /= scale.y;
+        matrix.e[5] /= scale.y;
+        matrix.e[9] /= scale.y;
+        matrix.e[2] /= scale.z;
+        matrix.e[6] /= scale.z;
+        matrix.e[10] /= scale.z;
+
+        return vectorRotate(Core::Maths::vec3(1.f, 0.f, 0.f), QuaternionFromMatrix(matrix));
     }
 
 	template<typename T>
@@ -458,6 +515,21 @@ namespace Core::Maths
     inline quat quaternionFromEuler(const vec3& rotation)
     {
         return quaternionFromEuler(rotation.x, rotation.y, rotation.z);
+    }
+
+    inline mat4 lookAt(const vec3& eye, const vec3& center, const vec3& up)
+    {
+        // Create new coordinate system
+        vec3 newZ = (eye - center).normalized();
+        vec3 newX = (up ^ newZ).normalized();
+        vec3 newY = (newZ ^ newX).normalized();
+
+        return {
+            newX.x, newY.x, newZ.x, 0.f,
+            newX.y, newY.y, newZ.y, 0.f,
+            newX.z, newY.z, newZ.z, 0.f,
+            -dot(newX, eye), -dot(newY, eye), -dot(newZ, eye),         1.f
+        };
     }
 }
 

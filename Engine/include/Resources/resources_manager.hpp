@@ -38,11 +38,25 @@ namespace Resources
 
 		void setDefaultResources();
 
+		template <class C>
+		void clearMap(std::unordered_map<std::string, std::shared_ptr<C>>& map)
+		{
+			for (auto it = map.begin(); it != map.end();)
+			{
+				if (it->second.use_count() == 1)
+					it = map.erase(it);
+				else
+					it++;
+			}
+		}
+
 	public:
 		static void init();
 
 		static void loadObj(const std::string& filePath);
 		static void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
+
+		static void clearResources();
 
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);

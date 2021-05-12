@@ -41,6 +41,11 @@ namespace UI
 
 		void addListener(ButtonState state, std::function<void()> function);
 
+		void drawImGui() override;
+		std::string toString() const override;
+
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+
 		std::shared_ptr<LowRenderer::SpriteRenderer> getSprite();
 	};
 }

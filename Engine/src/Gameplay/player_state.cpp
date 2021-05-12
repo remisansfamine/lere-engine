@@ -17,12 +17,7 @@ namespace Gameplay
 
 	void PlayerState::start()
 	{
-		Engine::GameObject* goButton = Core::Engine::Graph::findGameObjectWithName("NewGame");
-
-		std::shared_ptr<UI::Button> button = goButton->getComponent<UI::Button>();
-		button->addListener(UI::ButtonState::DOWN, [*this](){
-			Core::Debug::Log::info(toString());
-		});
+		
 	}
 
 	void PlayerState::update()

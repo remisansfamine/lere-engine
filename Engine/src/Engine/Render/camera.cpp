@@ -57,7 +57,6 @@ namespace LowRenderer
 		return getOrthographic(); //* Core::Maths::translate(-Core::Maths::vec3(0.f, 0.f, 1.f));
 	}
 
-	// TODO: Remove this
 	bool setCursor(Core::Maths::vec2& deltaMouse)
 	{
 		static bool isCursorLock = false;
@@ -80,18 +79,7 @@ namespace LowRenderer
 
 	void Camera::fixedUpdate()
 	{
-		float deltaTime = Core::TimeManager::getFixedDeltaTime();
-		float sensivity = 0.3f * deltaTime;
-
 		aspect = Core::Application::getAspect();
-
-		Core::Maths::vec2 deltaMouse = Core::Input::InputManager::getDeltasMouse();
-
-		if (!setCursor(deltaMouse))
-			return;
-
-		m_transform->m_rotation.x += deltaMouse.y * sensivity;
-		m_transform->m_rotation.y += deltaMouse.x * sensivity;
 
 		/*float translationSpeed = 2.f * deltaTime;
 
