@@ -189,8 +189,8 @@
     <ClCompile Include="src\Engine\Render\sprite_renderer.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
     <ClCompile Include="src\Gameplay\camera_movement.cpp" />
-    <ClCompile Include="src\Gameplay\enemies_movement.cpp" />
-    <ClCompile Include="src\Gameplay\enemies_state.cpp" />
+    <ClCompile Include="src\Gameplay\enemy_movement.cpp" />
+    <ClCompile Include="src\Gameplay\enemy_state.cpp" />
     <ClCompile Include="src\Gameplay\game_master.cpp" />
     <ClCompile Include="src\Gameplay\main_menu.cpp" />
     <ClCompile Include="src\Gameplay\player_movement.cpp" />
@@ -257,8 +257,8 @@
     <ClInclude Include="include\Engine\Render\sky_box.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
     <ClInclude Include="include\Gameplay\camera_movement.hpp" />
-    <ClInclude Include="include\Gameplay\enemies_movement.hpp" />
-    <ClInclude Include="include\Gameplay\enemies_state.hpp" />
+    <ClInclude Include="include\Gameplay\enemy_movement.hpp" />
+    <ClInclude Include="include\Gameplay\enemy_state.hpp" />
     <ClInclude Include="include\Gameplay\game_master.hpp" />
     <ClInclude Include="include\Gameplay\main_menu.hpp" />
     <ClInclude Include="include\Gameplay\player_movement.hpp" />

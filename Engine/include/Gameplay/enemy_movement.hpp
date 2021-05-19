@@ -2,23 +2,20 @@
 
 #include "component.hpp"
 #include "rigidbody.hpp"
-#include "enemies_state.hpp"
+#include "enemy_state.hpp"
 
 namespace Gameplay
 {
-	class EnemiesMovement : public Engine::Component
+	class EnemyMovement : public Engine::Component
 	{
-
 	private:
-		float m_speed = 350.f;
-		float m_jumpForce = 500.f;
+		float m_speed = 2.f;
 
 		std::shared_ptr<Physics::Rigidbody> m_rigidbody;
-		std::shared_ptr<Gameplay::EnemiesState> m_enemiesState;
-		std::shared_ptr<Physics::Transform> m_cameraTransform;
+		std::shared_ptr<Gameplay::EnemyState> m_enemyState;
 
 	public:
-		EnemiesMovement(Engine::GameObject& gameObject);
+		EnemyMovement(Engine::GameObject& gameObject);
 
 		void start() override;
 		void fixedUpdate() override;
