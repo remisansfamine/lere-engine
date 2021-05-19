@@ -12,30 +12,30 @@ namespace Gameplay
 	CameraMovement::CameraMovement(Engine::GameObject& gameObject)
 		: Component(gameObject, std::shared_ptr<CameraMovement>(this))
 	{
+		camera = requireComponent<LowRenderer::Camera>();
+		transform = requireComponent<Physics::Transform>();
 	}
 
 	void CameraMovement::start()
 	{
-		camera = getHost().getComponent<LowRenderer::Camera>();
-		transform = getHost().getComponent<Physics::Transform>();
 		playerTransform = transform->getGOParent().getComponent<Physics::Transform>();
 	}
 
-	void CameraMovement::update()
+	void CameraMovement::fixedUpdate()
 	{
-        yaw = Core::Input::InputManager::getAxis("MoveCamSides") * m_horizontalSpeed * Core::TimeManager::getDeltaTime();
-		pitch = -Core::Input::InputManager::getAxis("MoveCamUpDown") * m_verticalSpeed * Core::TimeManager::getDeltaTime();
+		Core::Maths::vec2 mouseMovement = m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse();
 
-		transform->m_rotation -= Core::Maths::vec3(pitch, yaw, 0.f);
-		transform->m_position = Core::Maths::vectorRotate(transform->m_position, Core::Maths::quaternionFromEuler(pitch * cos(transform->m_rotation.y), yaw, pitch * sin(transform->m_rotation.y)));
+		transform->m_rotation += Core::Maths::vec3(mouseMovement.y, mouseMovement.x, 0.f);
+		transform->m_rotation.x = std::clamp(transform->m_rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
+
+		transform->m_position = Core::Maths::vectorRotate(transform->m_position, Core::Maths::quaternionFromEuler(mouseMovement.y * cos(transform->m_rotation.y), mouseMovement.x, mouseMovement.y * sin(transform->m_rotation.y)));
 	}
 
 	void CameraMovement::drawImGui()
 	{
 		if (ImGui::TreeNode("CameraMovement"))
 		{
-			ImGui::DragFloat("Horizontal rotation speed : ", &m_horizontalSpeed);
-			ImGui::DragFloat("Vertical rotation speed : ", &m_verticalSpeed);
+			ImGui::DragFloat("Sensitivity : ", &m_sensitivity);
 			ImGui::Text("Arrows Left/Right : rotate horizontaly");
 			ImGui::Text("Arrows  Down/Up   : rotate vertically");
 			ImGui::TreePop();
@@ -44,7 +44,7 @@ namespace Gameplay
 
 	std::string CameraMovement::toString() const
 	{
-		return "COMP CAMERAMOVEMENT " + std::to_string(m_horizontalSpeed) + " " + std::to_string(m_verticalSpeed);
+		return "COMP CAMERAMOVEMENT " + std::to_string(m_sensitivity);
 	}
 
 	void CameraMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -52,7 +52,6 @@ namespace Gameplay
 		gameObject.addComponent<CameraMovement>();
 		auto player = gameObject.getComponent<CameraMovement>();
 
-		iss >> player->m_horizontalSpeed;
-		iss >> player->m_verticalSpeed;
+		iss >> player->m_sensitivity;
 	}
 }

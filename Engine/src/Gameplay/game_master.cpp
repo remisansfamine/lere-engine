@@ -14,6 +14,11 @@ namespace Gameplay
 
 	}
 
+	void GameMaster::start()
+	{
+		Core::Engine::Graph::setCursorState(false);
+	}
+
 	void GameMaster::update()
 	{
 		if (Core::Input::InputManager::getButtonDown("Return"))

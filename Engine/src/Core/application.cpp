@@ -116,7 +116,6 @@ namespace Core
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
-
 			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
@@ -153,12 +152,12 @@ namespace Core
 		return (float)width / (float)height;
 	}
 
-	void Application::setCursor(bool isCursorLock)
+	void Application::setCursor(bool isCursorFree)
 	{
 		Application* AP = instance();
 
 		// Toggle the cursor visibility
-		if (isCursorLock)
+		if (!isCursorFree)
 		{
 			glfwSetInputMode(AP->window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 			return;

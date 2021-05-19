@@ -12,6 +12,10 @@ namespace Core::Engine
 		EngineMaster();
 		~EngineMaster();
 		
+		bool editMode = false;
+
+		void toggleEditMode();
+
 	public:
 		static void update();
 	};

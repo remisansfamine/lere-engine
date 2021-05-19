@@ -19,6 +19,8 @@ namespace Gameplay
 
 	void MainMenu::start()
 	{
+		Core::Engine::Graph::setCursorState(true);
+
 		Engine::GameObject* goButtonNewGame = Core::Engine::Graph::findGameObjectWithName("NewGameButton");
 		std::shared_ptr<UI::Button> buttonNewGame = goButtonNewGame->getComponent<UI::Button>();
 		UI::Button* newGameptr = buttonNewGame.get();
