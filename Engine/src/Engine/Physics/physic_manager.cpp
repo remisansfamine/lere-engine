@@ -81,7 +81,7 @@ namespace Physics
 
 				Collision collision = { boxCollider };
 
-				sphereCollider->computeCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(), newBox, collision.point, collision.normal), collision);
+				sphereCollider->computeCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, collision.point, collision.normal), collision);
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();

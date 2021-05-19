@@ -24,14 +24,14 @@ namespace Physics
 		forceSum += force;
 	}
 
-	Core::Maths::vec3 Rigidbody::getNewPosition() const
+	Core::Maths::vec3 Rigidbody::getNewPosition(const Core::Maths::vec3& center) const
 	{
-		return m_transform->m_position + velocity * Core::TimeManager::getFixedDeltaTime();
+		return center + velocity * Core::TimeManager::getFixedDeltaTime();
 	}
 
 	void Rigidbody::computeNextPos()
 	{
-		m_transform->m_position = getNewPosition();
+		m_transform->m_position = getNewPosition(m_transform->m_position);
 	}
 
 	void Rigidbody::fixedUpdate()

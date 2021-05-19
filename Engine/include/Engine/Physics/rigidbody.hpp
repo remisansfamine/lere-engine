@@ -32,7 +32,7 @@ namespace Physics
 		Rigidbody(Engine::GameObject& gameObject);
 
 		void addForce(const Core::Maths::vec3& force);
-		Core::Maths::vec3 getNewPosition() const;
+		Core::Maths::vec3 getNewPosition(const Core::Maths::vec3& center) const;
 
 		void fixedUpdate() override;
 		void computeNextPos();
