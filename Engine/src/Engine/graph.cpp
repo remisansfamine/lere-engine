@@ -4,6 +4,7 @@
 
 #include "debug.hpp"
 #include "physic_manager.hpp"
+#include "application.hpp"
 
 namespace Core::Engine
 {
@@ -103,5 +104,17 @@ namespace Core::Engine
 	::Engine::GameObject* Graph::findGameObjectWithName(const std::string& gameObjectName)
 	{
 		return instance()->curScene.findGameObjectWithName(gameObjectName);
+	}
+
+	bool Graph::getCursorState()
+	{
+		return instance()->curScene.cursorState;
+	}
+
+	void Graph::setCursorState(bool state)
+	{
+		instance()->curScene.cursorState = state;
+
+		Core::Application::setCursor(state);
 	}
 }

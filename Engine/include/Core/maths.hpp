@@ -427,6 +427,18 @@ namespace Core::Maths
 		};
 	}
         
+    template<typename T>
+    vec2 operator*(const vec2& vec, const T& scale)
+    {
+        return { vec.x * scale, vec.y * scale };
+    }
+
+    template<typename T>
+    vec2 operator*(const T& scale, const vec2& vec)
+    {
+        return vec * scale;
+    }
+
 	template<typename T>
 	vec3 operator*(const vec3& vec, const T& scale)
 	{
