@@ -109,21 +109,14 @@ namespace Physics
 		vec3 AB = B - A;
 
 		// Is collide with front face
-		if (dot(k, AB) < 0.f)
+		if (dot(k, AB) <= 0.f)
 		{
 			// Front quad
 			Quad quad = Quad(vectorRotate({ 0,0,box.size.z }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				// If the box is rounded, check voronoi regions
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				// Else return intersect box
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 		// Is collide with back face
 		else
@@ -132,27 +125,17 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, -PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 
 		// Is collide with right face
-		if (dot(i, AB) < 0.f)
+		if (dot(i, AB) <= 0.f)
 		{
 			Quad quad = Quad(vectorRotate({ box.size.x  ,0,0 }, box.quaternion) + box.center,
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, -PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 		// Is collide with left face
 		else
@@ -161,27 +144,17 @@ namespace Physics
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 
 		// Is collide with up face
-		if (dot(j, AB) < 0.f)
+		if (dot(j, AB) <= 0.f)
 		{
 			Quad quad = Quad(vectorRotate({ 0,box.size.y ,0 }, box.quaternion) + box.center,
 				{ box.size.x, 0.f, box.size.z }, box.quaternion);
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 		// Is collide with down face
 		else
@@ -190,12 +163,7 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.z }, box.quaternion * quat({ 1,0,0 }, PI));
 
 			if (IntersectSegmentQuad(A, B, quad, interPtBox, interNormalBox))
-			{
-				if (box.offsetRounding > 0.f)
-					return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
-
-				return INTERSECTION;
-			}
+				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, interPtCapsule, interNormalCapsule);
 		}
 
 		return NO_INTERSECTION;
@@ -453,7 +421,7 @@ namespace Physics
 		roundedBox.size += vec3(sphere.radius, sphere.radius, sphere.radius);  // Set new size
 
 		// Avoid segment point A inside roundedBox OBB
-		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + 0.01f);
+		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + 0.1f);
 
 		vec3 interPtBox, interNormalBox;
 		return IntersectSegmentBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, interPtBox, interNormalBox, interPt, interNormal);
