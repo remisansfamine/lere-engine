@@ -116,12 +116,52 @@ namespace Engine
 		return goParse + "endGO\n\n";
 	}
 
-	void GameObject::drawImGui()
+	void GameObject::drawImGuiInspector()
 	{
 		ImGui::InputText(": Name", &m_name[0], 50);
 
 		for (auto& component : m_components)
 			component->drawImGui();
+	}
+
+	void GameObject::drawImGuiHierarchy(std::string& curDrawGoName)
+	{
+		ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+		int i = 0;
+		std::shared_ptr<Physics::Transform> transform;
+		if (tryGetComponent<Physics::Transform>(transform) && transform->hasParent())
+		{
+			static int selection_mask = (1 << 2);
+			int node_clicked = -1;
+
+			ImGuiTreeNodeFlags node_flags = base_flags;
+			const bool is_selected = (selection_mask & (1 << i)) != 0;
+			if (is_selected)
+				node_flags |= ImGuiTreeNodeFlags_Selected;
+
+			bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, m_name.c_str(), i);
+
+			if (ImGui::IsItemClicked())
+			{
+				curDrawGoName = m_name;
+
+				//selection_mask = (1 << i);           // Click to single-select
+			}
+
+			if (node_open)
+			{
+				transform->getGOParent().drawImGuiHierarchy(curDrawGoName);
+				ImGui::TreePop();
+			}
+
+			i++;
+		}
+		else
+		{
+			if (ImGui::Selectable(m_name.c_str()))
+				curDrawGoName = m_name;
+		}
 	}
 
 	void GameObject::parseComponents(std::istringstream& goStream, std::string& parentName)

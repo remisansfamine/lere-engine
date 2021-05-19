@@ -37,7 +37,8 @@ namespace Resources
 
 	void Scene::setGameObjectParent(const std::string& goName, const std::string& goChildName)
 	{
-		size_t indexGO = 0;
+		gameObjects[goChildName].getComponent<Physics::Transform>()->setParent(gameObjects[goName]);
+		/*size_t indexGO = 0;
 		size_t indexGOChild = 0;
 		int isFind = 0;
 
@@ -58,7 +59,7 @@ namespace Resources
 				break;
 		}
 
-		gameObjects[indexGOChild].getComponent<Physics::Transform>()->setParent(gameObjects[indexGO]);
+		gameObjects[indexGOChild].getComponent<Physics::Transform>()->setParent(gameObjects[indexGO]);*/
 	}
 
 	void Scene::load(const std::string& _filePath)
@@ -72,7 +73,7 @@ namespace Resources
 		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
 
 		gameObjects.clear();
-		curGameObjectIndex = 0;
+		curGoName = "";
 
 		std::ifstream scnStream(_filePath);
 
@@ -129,7 +130,7 @@ namespace Resources
 
 		for (auto& gameObject : gameObjects)
 		{
-			scnFlux << gameObject.toString();
+			scnFlux << gameObject.second.toString();
 		}
 
 		scnFlux.close();
@@ -149,46 +150,54 @@ namespace Resources
 		LowRenderer::RenderManager::draw();
 	}
 
-	void Scene::drawImGui()
+	void Scene::drawHierarchy()
 	{
-		int goSize = (int)(gameObjects.size());
+		for (auto& gameObject : gameObjects)
+			gameObject.second.drawImGuiHierarchy(curGoName);
+	}
 
-		if (goSize == 0)
+	void Scene::drawInspector()
+	{
+		if (curGoName == "")
 			return;
 
-		ImGui::SliderInt("Index current GameObject", &curGameObjectIndex, 0, goSize - 1);
-
-		gameObjects[curGameObjectIndex].drawImGui();
+		gameObjects[curGoName].drawImGuiInspector();
 	}
 
 	void Scene::update()
 	{
-		for (Engine::GameObject& go : gameObjects)
-			go.updateComponents();
+		for (auto& go : gameObjects)
+			go.second.updateComponents();
 
-		for (Engine::GameObject& go : gameObjects)
-			go.lateUpdateComponents();
+		for (auto& go : gameObjects)
+			go.second.lateUpdateComponents();
 	}
 
 	void Scene::fixedUpdate()
 	{
-		for (Engine::GameObject& go : gameObjects)
-			go.fixedUpdateComponents();
+		for (auto& go : gameObjects)
+			go.second.fixedUpdateComponents();
 	}
 
 	Engine::GameObject& Scene::addGameObject(const std::string& gameObjectName)
 	{
-		return *gameObjects.insert(gameObjects.end(), Engine::GameObject(gameObjectName));
+		//return *gameObjects.insert(gameObjects.end(), Engine::GameObject(gameObjectName));
+		gameObjects[gameObjectName] = Engine::GameObject(gameObjectName);
+
+		return gameObjects[gameObjectName];
 	}
 
 	Engine::GameObject* Scene::findGameObjectWithName(const std::string& gameObjectName)
 	{
-		for (auto& gameObject : gameObjects)
+		/*for (auto& gameObject : gameObjects)
 		{
-			if (gameObjectName.compare(gameObject.m_name) == 0)
+			if (gameObjectName.compare(gameObject.second.m_name) == 0)
 				return &gameObject;
-		}
+		}*/
 
-		return nullptr;
+		if (gameObjects.find(gameObjectName) == gameObjects.end())
+			return nullptr;
+
+		return &gameObjects[gameObjectName];
 	}
 }

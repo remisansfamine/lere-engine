@@ -95,9 +95,23 @@ namespace Core::Engine
 
 	void Graph::drawImGui()
 	{
-		if (ImGui::Begin("Inspector"))
-			instance()->curScene.drawImGui();
+		Graph* graph = instance();
 
+		if (ImGui::Begin("Graph"))
+		{
+			if (ImGui::Button("Show demo window"))
+				graph->showDemoWindowImGui = !graph->showDemoWindowImGui;
+
+			if (graph->showDemoWindowImGui)
+				ImGui::ShowDemoWindow();
+
+			if (ImGui::CollapsingHeader("Hierarchy"))
+				graph->curScene.drawHierarchy();
+		}
+		ImGui::End();
+
+		if (ImGui::Begin("Inspector"))
+			graph->curScene.drawInspector();
 		ImGui::End();
 	}
 

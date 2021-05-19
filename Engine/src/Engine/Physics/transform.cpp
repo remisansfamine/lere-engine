@@ -12,6 +12,11 @@ namespace Physics
 
 	}
 
+	bool Transform::hasParent()
+	{
+		return parent != nullptr;
+	}
+
 	Engine::GameObject& Transform::getGOParent()
 	{
 		return parent->getHost();
