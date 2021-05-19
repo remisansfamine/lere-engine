@@ -267,14 +267,11 @@
     <ClCompile Include="src\Gameplay\camera_movement.cpp">
       <Filter>Fichiers sources\Gameplay\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gameplay\enemies_state.cpp">
+    <ClCompile Include="src\Gameplay\enemy_state.cpp">
       <Filter>Fichiers sources\Gameplay\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gameplay\enemies_movement.cpp">
+    <ClCompile Include="src\Gameplay\enemy_movement.cpp">
       <Filter>Fichiers sources\Gameplay\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Resources\recipe.cpp">
-      <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -455,14 +452,11 @@
     <ClInclude Include="include\Gameplay\camera_movement.hpp">
       <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
     </ClInclude>
-    <ClInclude Include="include\Gameplay\enemies_state.hpp">
+    <ClInclude Include="include\Gameplay\enemy_movement.hpp">
       <Filter>Fichiers d%27en-tête\Gameplay\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="include\Gameplay\enemies_movement.hpp">
+    <ClInclude Include="include\Gameplay\enemy_state.hpp">
       <Filter>Fichiers d%27en-tête\Gameplay\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Resources\recipe.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

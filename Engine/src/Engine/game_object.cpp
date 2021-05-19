@@ -12,8 +12,10 @@
 #include "camera_movement.hpp"
 #include "sphere_collider.hpp"
 #include "model_renderer.hpp"
+#include "enemy_movement.hpp"
 #include "player_state.hpp"
 #include "box_collider.hpp"
+#include "enemy_state.hpp"
 #include "game_master.hpp"
 #include "main_menu.hpp"
 #include "component.hpp"
@@ -188,10 +190,45 @@ namespace Engine
 				parseComponents(iss, parentName);
 			else if (type == "RECIPE")
 			{
-				std::string filePath;
-				iss >> filePath;
-				std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
-				parseRecipe(recipeStream, parentName);
+				std::string comp;
+				iss >> comp;
+
+				if (comp == "TRANSFORM")
+				{
+					Physics::Transform::parseComponent(*this, iss, parentName);
+				}
+				else if (comp == "RIGIDBODY")
+					Physics::Rigidbody::parseComponent(*this, iss);
+				else if (comp == "BOXCOLLIDER")
+					Physics::BoxCollider::parseComponent(*this, iss);
+				else if (comp == "SPHERECOLLIDER")
+					Physics::SphereCollider::parseComponent(*this, iss);
+				else if (comp == "MODELRENDERER")
+					LowRenderer::ModelRenderer::parseComponent(*this, iss);
+				else if (comp == "CAMERA")
+					LowRenderer::Camera::parseComponent(*this, iss);
+				else if (comp == "LIGHT")
+					LowRenderer::Light::parseComponent(*this, iss);
+				else if (comp == "SKYBOX")
+					LowRenderer::SkyBox::parseComponent(*this, iss);
+				else if (comp == "SPRITERENDERER")
+					LowRenderer::SpriteRenderer::parseComponent(*this, iss);
+				else if (comp == "PLAYERMOVEMENT")
+					Gameplay::PlayerMovement::parseComponent(*this, iss);
+				else if (comp == "ENEMYMOVEMENT")
+					Gameplay::EnemyMovement::parseComponent(*this, iss);
+				else if (comp == "PLAYERSTATE")
+					Gameplay::PlayerState::parseComponent(*this, iss);
+				else if (comp == "ENEMYSTATE")
+					Gameplay::EnemyState::parseComponent(*this, iss);
+				else if (comp == "MAINMENU")
+					Gameplay::MainMenu::parseComponent(*this, iss);
+				else if (comp == "GAMEMASTER")
+					Gameplay::GameMaster::parseComponent(*this, iss);
+				else if (comp == "CAMERAMOVEMENT")
+					Gameplay::CameraMovement::parseComponent(*this, iss);
+				else if (comp == "BUTTON")
+					UI::Button::parseComponent(*this, iss);
 			}
 			else if (type == "endGO")
 				break;
