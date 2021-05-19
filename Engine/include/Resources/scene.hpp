@@ -13,7 +13,10 @@ namespace Resources
 		int curGameObjectIndex = 0;
 
 		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
+
 	public:
+		bool cursorState = true;
+
 		std::string filePath;
 		std::deque<Engine::GameObject> gameObjects;
 

@@ -9,8 +9,8 @@ namespace Gameplay
 	class CameraMovement : public Engine::Component
 	{
 	private:
-		float m_horizontalSpeed = 1.f;
-		float m_verticalSpeed = 1.f;
+		float m_sensitivity = 1.f;
+
 		float yaw = 0.f;
 		float pitch = 0.f;
 
@@ -22,7 +22,7 @@ namespace Gameplay
 		CameraMovement(Engine::GameObject& gameObject);
 
 		void start() override;
-		void update() override;
+		void fixedUpdate() override;
 		void drawImGui() override;
 
 		std::string toString() const override;

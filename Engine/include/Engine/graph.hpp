@@ -38,5 +38,8 @@ namespace Core::Engine
 		static void update();
 		static void fixedUpdate();
 		static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+
+		static bool getCursorState();
+		static void setCursorState(bool state);
 	};
 }
