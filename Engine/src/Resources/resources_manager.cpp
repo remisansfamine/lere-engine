@@ -29,12 +29,13 @@ namespace Resources
 		float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
 
 		// Purple and black grid
-		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
+		//float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
+		float noDiffuseBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
 
 		// Load the default textures
 		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
 		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
-		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 1, 1, noDiffuseBuffer);
 
 		// Set the default textures
 		Texture::defaultAlpha = whiteTex;
