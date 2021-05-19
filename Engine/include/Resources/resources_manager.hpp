@@ -10,6 +10,7 @@
 #include "material.hpp"
 #include "texture.hpp"
 #include "shader.hpp"
+#include "recipe.hpp"
 #include "scene.hpp"
 #include "mesh.hpp"
 
@@ -35,6 +36,8 @@ namespace Resources
 
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
+
+		std::unordered_map<std::string, std::shared_ptr<Recipe>> recipes;
 
 		void setDefaultResources();
 
@@ -62,6 +65,7 @@ namespace Resources
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
 		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
 		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
+		static std::shared_ptr<Recipe> loadRecipe(const std::string& recipePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
 		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "");
 

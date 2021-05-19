@@ -183,6 +183,19 @@ namespace Resources
 		return RM->materials[materialPath] = std::make_shared<Material>(Material());
 	}
 
+	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
+	{
+		ResourcesManager* RM = instance();
+
+		const auto& recipeIt = RM->recipes.find(recipePath);
+
+		// Check if the Material is already loaded
+		if (recipeIt != RM->recipes.end())
+			return recipeIt->second;
+
+		return RM->recipes[recipePath] = std::make_shared<Recipe>(Recipe(recipePath));
+	}
+
 	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
 	{
 		// Get a 3D Vector data form string stream

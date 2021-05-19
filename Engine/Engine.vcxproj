@@ -198,6 +198,7 @@
     <ClCompile Include="src\Resources\cube_map.cpp" />
     <ClCompile Include="src\Resources\material.cpp" />
     <ClCompile Include="src\Resources\mesh.cpp" />
+    <ClCompile Include="src\Resources\recipe.cpp" />
     <ClCompile Include="src\Resources\resource.cpp" />
     <ClCompile Include="src\Resources\scene.cpp" />
     <ClCompile Include="src\glad.c" />
@@ -275,6 +276,7 @@
     <ClInclude Include="include\Utils\singleton.hpp" />
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />
+    <ClInclude Include="include\Resources\recipe.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl" />

@@ -28,6 +28,8 @@ namespace Engine
 
 		std::string m_name = "GameObject";
 
+		std::string m_recipe = "";
+
 		std::vector<std::shared_ptr<Component>> m_components;
 
 		GameObject(const std::string& name);
@@ -90,6 +92,9 @@ namespace Engine
 		void drawImGui();
 
 		std::string toString();
+
+		void parseComponents(std::istringstream& parseComponent, std::string& parentName);
+		void parseRecipe(std::istringstream& recipeStream, std::string& parentName);
 		void parse(std::istream& scnStream, std::string& parentName);
 
 		void destroy() override {}

@@ -5,6 +5,7 @@
 
 #include "debug.hpp"
 #include "render_manager.hpp"
+#include "resources_manager.hpp"
 
 #include "sprite_renderer.hpp"
 #include "player_movement.hpp"
@@ -121,6 +122,58 @@ namespace Engine
 			component->drawImGui();
 	}
 
+	void GameObject::parseComponents(std::istringstream& goStream, std::string& parentName)
+	{
+		std::string comp;
+		goStream >> comp;
+
+		if (comp == "TRANSFORM")
+			Physics::Transform::parseComponent(*this, goStream, parentName);
+		else if (comp == "RIGIDBODY")
+			Physics::Rigidbody::parseComponent(*this, goStream);
+		else if (comp == "BOXCOLLIDER")
+			Physics::BoxCollider::parseComponent(*this, goStream);
+		else if (comp == "SPHERECOLLIDER")
+			Physics::SphereCollider::parseComponent(*this, goStream);
+		else if (comp == "MODELRENDERER")
+			LowRenderer::ModelRenderer::parseComponent(*this, goStream);
+		else if (comp == "CAMERA")
+			LowRenderer::Camera::parseComponent(*this, goStream);
+		else if (comp == "LIGHT")
+			LowRenderer::Light::parseComponent(*this, goStream);
+		else if (comp == "SKYBOX")
+			LowRenderer::SkyBox::parseComponent(*this, goStream);
+		else if (comp == "SPRITERENDERER")
+			LowRenderer::SpriteRenderer::parseComponent(*this, goStream);
+		else if (comp == "PLAYERMOVEMENT")
+			Gameplay::PlayerMovement::parseComponent(*this, goStream);
+		else if (comp == "PLAYERSTATE")
+			Gameplay::PlayerState::parseComponent(*this, goStream);
+		else if (comp == "MAINMENU")
+			Gameplay::MainMenu::parseComponent(*this, goStream);
+		else if (comp == "GAMEMASTER")
+			Gameplay::GameMaster::parseComponent(*this, goStream);
+		else if (comp == "CAMERAMOVEMENT")
+			Gameplay::CameraMovement::parseComponent(*this, goStream);
+		else if (comp == "BUTTON")
+			UI::Button::parseComponent(*this, goStream);
+	}
+
+	void GameObject::parseRecipe(std::istringstream& recipeStream, std::string& parentName)
+	{
+		std::string line;
+		std::string type;
+
+		while (std::getline(recipeStream, line))
+		{
+			std::istringstream iss(line);
+			iss >> type;
+
+			if (type == "COMP")
+				parseComponents(iss, parentName);
+		}
+	}
+
 	void GameObject::parse(std::istream& scnStream, std::string& parentName)
 	{
 		std::string line;
@@ -132,42 +185,13 @@ namespace Engine
 			iss >> type;
 
 			if (type == "COMP")
+				parseComponents(iss, parentName);
+			else if (type == "RECIPE")
 			{
-				std::string comp;
-				iss >> comp;
-
-				if (comp == "TRANSFORM")
-				{
-					Physics::Transform::parseComponent(*this, iss, parentName);
-				}
-				else if (comp == "RIGIDBODY")
-					Physics::Rigidbody::parseComponent(*this, iss);
-				else if (comp == "BOXCOLLIDER")
-					Physics::BoxCollider::parseComponent(*this, iss);
-				else if (comp == "SPHERECOLLIDER")
-					Physics::SphereCollider::parseComponent(*this, iss);
-				else if (comp == "MODELRENDERER")
-					LowRenderer::ModelRenderer::parseComponent(*this, iss);
-				else if (comp == "CAMERA")
-					LowRenderer::Camera::parseComponent(*this, iss);
-				else if (comp == "LIGHT")
-					LowRenderer::Light::parseComponent(*this, iss);
-				else if (comp == "SKYBOX")
-					LowRenderer::SkyBox::parseComponent(*this, iss);
-				else if (comp == "SPRITERENDERER")
-					LowRenderer::SpriteRenderer::parseComponent(*this, iss);
-				else if (comp == "PLAYERMOVEMENT")
-					Gameplay::PlayerMovement::parseComponent(*this, iss);
-				else if (comp == "PLAYERSTATE")
-					Gameplay::PlayerState::parseComponent(*this, iss);
-				else if (comp == "MAINMENU")
-					Gameplay::MainMenu::parseComponent(*this, iss);
-				else if (comp == "GAMEMASTER")
-					Gameplay::GameMaster::parseComponent(*this, iss);
-				else if (comp == "CAMERAMOVEMENT")
-					Gameplay::CameraMovement::parseComponent(*this, iss);
-				else if (comp == "BUTTON")
-					UI::Button::parseComponent(*this, iss);
+				std::string filePath;
+				iss >> filePath;
+				std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
+				parseRecipe(recipeStream, parentName);
 			}
 			else if (type == "endGO")
 				break;
