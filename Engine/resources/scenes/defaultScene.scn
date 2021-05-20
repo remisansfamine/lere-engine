@@ -52,6 +52,12 @@ COMP TRANSFORM 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.
 COMP CAMERAMOVEMENT 1.500000 1.000000
 endGO
 
+GO Weapon
+COMP MODELRENDERER resources/obj/weapon/Handgun_obj.obj shader
+COMP TRANSFORM -0.5000000 -0.2500000 0.5000000 0.000000 -90.000000 0.000000 0.500000 0.500000 0.500000 MainCamera
+
+endGO
+
 GO SkyBox
 COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
 endGO
