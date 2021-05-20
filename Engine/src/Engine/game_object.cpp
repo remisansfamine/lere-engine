@@ -125,55 +125,44 @@ namespace Engine
 			component->drawImGui();
 	}
 
-	void GameObject::drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene)
+	void GameObject::drawImGuiHierarchy(std::string& curDrawGoName)
 	{
 		ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
 
-		bool drawSelectable = true;
-
+		int i = 0;
 		std::shared_ptr<Physics::Transform> transform;
-		if (tryGetComponent<Physics::Transform>(transform))
+		if (tryGetComponent<Physics::Transform>(transform) && transform->hasParent())
 		{
-			bool canDraw = !(transform->hasParent() && isDrawFromScene);
-			bool drawTree = transform->hasChild() && canDraw;
-			drawSelectable = !transform->hasChild() && canDraw;
+			static int selection_mask = (1 << 2);
+			int node_clicked = -1;
 
-			if (drawTree)
+			ImGuiTreeNodeFlags node_flags = base_flags;
+			const bool is_selected = (selection_mask & (1 << i)) != 0;
+			if (is_selected)
+				node_flags |= ImGuiTreeNodeFlags_Selected;
+
+			bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, m_name.c_str(), i);
+
+			if (ImGui::IsItemClicked())
 			{
-				int i = 0;
-				static int selection_mask = (1 << 2);
-				int node_clicked = -1;
+				curDrawGoName = m_name;
 
-				ImGuiTreeNodeFlags node_flags = base_flags;
-				const bool is_selected = (selection_mask & (1 << i)) != 0;
-				if (is_selected)
-					node_flags |= ImGuiTreeNodeFlags_Selected;
-
-				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, m_name.c_str(), i);
-
-				if (ImGui::IsItemClicked())
-					curDrawGoName = m_name;
-
-				if (m_name.compare(curDrawGoName) == 0)
-				{
-					ImGui::SameLine();
-					ImGui::Text("   Selected");
-				}
-
-				if (node_open)
-				{
-					for (int index = 0; index < transform->getChildrenCount(); index++)
-					{
-						transform->getGOChild(index).drawImGuiHierarchy(curDrawGoName, false);
-					}
-
-					ImGui::TreePop();
-				}
+				//selection_mask = (1 << i);           // Click to single-select
 			}
-		}
 
-		if (drawSelectable)
-			Utils::selectImGuiString(m_name, curDrawGoName);
+			if (node_open)
+			{
+				transform->getGOParent().drawImGuiHierarchy(curDrawGoName);
+				ImGui::TreePop();
+			}
+
+			i++;
+		}
+		else
+		{
+			if (ImGui::Selectable(m_name.c_str()))
+				curDrawGoName = m_name;
+		}
 	}
 
 	void GameObject::parseComponents(std::istringstream& goStream, std::string& parentName)

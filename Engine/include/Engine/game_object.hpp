@@ -91,7 +91,7 @@ namespace Engine
 		void callCollisionExit(const Physics::Collision& collision);
 
 		void drawImGuiInspector();
-		void drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene);
+		void drawImGuiHierarchy(std::string& curDrawGoName);
 
 		std::string toString();
 

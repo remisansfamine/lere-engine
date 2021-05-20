@@ -17,21 +17,6 @@ namespace Physics
 		return parent != nullptr;
 	}
 
-	bool Transform::hasChild()
-	{
-		return children.size() > 0;
-	}
-
-	Engine::GameObject& Transform::getGOChild(int childIndex)
-	{
-		return children[childIndex]->getHost();
-	}
-
-	int Transform::getChildrenCount()
-	{
-		return (int)(children.size());
-	}
-
 	Engine::GameObject& Transform::getGOParent()
 	{
 		return parent->getHost();
