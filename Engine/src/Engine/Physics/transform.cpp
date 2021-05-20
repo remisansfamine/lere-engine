@@ -48,6 +48,13 @@ namespace Physics
 		return Core::Maths::identity();
 	}
 
+	Core::Maths::vec3 Transform::getForward() const
+	{
+		auto model = getGlobalModel();
+
+		return -model.c[2].xyz;
+	}
+
 	void Transform::setParent(std::shared_ptr<Physics::Transform> _parent)
 	{
 		parent = _parent;

@@ -96,7 +96,7 @@ namespace Engine
 		std::string toString();
 
 		void parseComponents(std::istringstream& parseComponent, std::string& parentName);
-		void parseRecipe(std::istringstream& recipeStream, std::string& parentName);
+		void parseRecipe(const std::string& filePath, std::string& parentName);
 		void parse(std::istream& scnStream, std::string& parentName);
 
 		void destroy() override {}

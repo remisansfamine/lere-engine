@@ -27,6 +27,8 @@ namespace Physics
 		Core::Maths::mat4 getGlobalModel() const;
 		Core::Maths::mat4 getParentModel() const;
 
+		Core::Maths::vec3 getForward() const;
+
 		bool hasParent();
 		void setParent(std::shared_ptr<Physics::Transform> _parent);
 		void setParent(Engine::GameObject& gameObject);
