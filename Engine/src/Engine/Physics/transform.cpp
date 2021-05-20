@@ -12,6 +12,26 @@ namespace Physics
 
 	}
 
+	bool Transform::hasParent()
+	{
+		return parent != nullptr;
+	}
+
+	bool Transform::hasChild()
+	{
+		return children.size() > 0;
+	}
+
+	Engine::GameObject& Transform::getGOChild(int childIndex)
+	{
+		return children[childIndex]->getHost();
+	}
+
+	int Transform::getChildrenCount()
+	{
+		return (int)(children.size());
+	}
+
 	Engine::GameObject& Transform::getGOParent()
 	{
 		return parent->getHost();
@@ -55,6 +75,20 @@ namespace Physics
 			return;
 
 		parent = newParent;
+	}
+
+	void Transform::setChild(Physics::Transform* child)
+	{
+		children.push_back(child);
+	}
+
+	void Transform::setChild(Engine::GameObject& gameObject)
+	{
+		std::shared_ptr<Transform> newParent;
+		if (!gameObject.tryGetComponent<Transform>(newParent))
+			return;
+
+		children.push_back(newParent.get());
 	}
 
 	void Transform::drawImGui()

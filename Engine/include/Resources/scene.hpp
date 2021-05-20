@@ -10,7 +10,7 @@ namespace Resources
 	class Scene
 	{
 	private:
-		int curGameObjectIndex = 0;
+		std::string curGoName = "";
 
 		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
 
@@ -18,7 +18,7 @@ namespace Resources
 		bool cursorState = true;
 
 		std::string filePath;
-		std::deque<Engine::GameObject> gameObjects;
+		std::unordered_map<std::string, Engine::GameObject> gameObjects;
 
 		Scene(const std::string& path);
 		~Scene();
@@ -31,7 +31,8 @@ namespace Resources
 
 		Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
 
-		void drawImGui();
+		void drawHierarchy();
+		void drawInspector();
 
 		Engine::GameObject& addGameObject(const std::string& gameObjectName);
 	};

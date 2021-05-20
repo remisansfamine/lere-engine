@@ -32,6 +32,7 @@ namespace Engine
 
 		std::vector<std::shared_ptr<Component>> m_components;
 
+		GameObject() = default;
 		GameObject(const std::string& name);
 		virtual ~GameObject();
 
@@ -89,7 +90,8 @@ namespace Engine
 		void callCollisionStay(const Physics::Collision& collision);
 		void callCollisionExit(const Physics::Collision& collision);
 
-		void drawImGui();
+		void drawImGuiInspector();
+		void drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene);
 
 		std::string toString();
 
