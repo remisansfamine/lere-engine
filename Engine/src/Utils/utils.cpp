@@ -1,5 +1,6 @@
 #include "utils.hpp"
 
+#include <imgui.h>
 #include <iostream>
 #include <algorithm>
 
@@ -136,5 +137,20 @@ namespace Utils
     std::string quatToStringParsing(const Core::Maths::quat& toWrite)
     {
         return std::to_string(toWrite.x) + " " + std::to_string(toWrite.y) + " " + std::to_string(toWrite.z) + " " + std::to_string(toWrite.w) + " ";
+    }
+
+    void selectImGuiString(std::string selectableLabel, std::string& strRef)
+    {
+        std::string _label = "   " + selectableLabel;
+        const char* label = _label.c_str();
+
+        if (ImGui::Selectable(label))
+            strRef = selectableLabel;
+
+        if (selectableLabel.compare(strRef) == 0)
+        {
+            ImGui::SameLine();
+            ImGui::Text("   Selected");
+        }
     }
 }
