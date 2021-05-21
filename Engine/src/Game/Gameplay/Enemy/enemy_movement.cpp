@@ -3,6 +3,7 @@
 #include "imgui.h"
 
 #include "inputs_manager.hpp"
+#include "debug.hpp"
 #include "graph.hpp"
 #include "time.hpp"
 
@@ -24,6 +25,17 @@ namespace Gameplay
 	{
 		m_rigidbody->velocity.x = m_enemyState->horizontalMove * m_speed;
 		m_rigidbody->velocity.z = m_enemyState->forwardMove * m_speed;
+
+		if (Core::Input::InputManager::getButtonDown("Damage"))
+		{
+			m_enemyState->life -= 1;
+			Core::Debug::Log::info(std::to_string(m_enemyState->life));
+
+			if (m_enemyState->life <= 0)
+			{
+				Core::Debug::Log::info("Kill");
+			}
+		}
 	}
 
 	void EnemyMovement::drawImGui()

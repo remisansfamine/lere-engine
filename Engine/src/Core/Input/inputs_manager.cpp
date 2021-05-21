@@ -22,6 +22,7 @@ namespace Core::Input
 		addButton("Jump", GLFW_KEY_SPACE);
 		addButton("Return", GLFW_KEY_ESCAPE);
 		addButton("Save", GLFW_KEY_F5);
+		addButton("Damage", GLFW_KEY_H);
 
 		// Add default mouse buttons
 		addMouseButton("RightClick", GLFW_MOUSE_BUTTON_RIGHT);
