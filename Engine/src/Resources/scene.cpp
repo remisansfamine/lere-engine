@@ -11,7 +11,7 @@
 #include "sprite_renderer.hpp"
 #include "resources_manager.hpp"
 #include "physic_manager.hpp"
-#include "inputs_manager.hpp"
+#include "Input/inputs_manager.hpp"
 #include "debug.hpp"
 
 #include "player_movement.hpp"

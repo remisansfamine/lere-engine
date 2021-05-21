@@ -2,7 +2,6 @@
 
 #include "resources_manager.hpp"
 #include "render_manager.hpp"
-#include "render_manager.hpp"
 
 namespace LowRenderer
 {

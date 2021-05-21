@@ -25,7 +25,7 @@ namespace Gameplay
 		int colliderCount = 0;
 
 		std::shared_ptr<Physics::Transform> transform = nullptr;
-		Core::Maths::vec3 direction;
+		Core::Maths::vec3 direction = {0.f, 0.f, 0.f};
 
 		void start() override;
 		void update() override;
