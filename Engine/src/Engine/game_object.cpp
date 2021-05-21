@@ -24,6 +24,7 @@
 #include "sky_box.hpp"
 #include "button.hpp"
 #include "camera.hpp"
+#include "utils.hpp"
 #include "light.hpp"
 
 namespace Engine
@@ -116,12 +117,63 @@ namespace Engine
 		return goParse + "endGO\n\n";
 	}
 
-	void GameObject::drawImGui()
+	void GameObject::drawImGuiInspector()
 	{
 		ImGui::InputText(": Name", &m_name[0], 50);
 
 		for (auto& component : m_components)
 			component->drawImGui();
+	}
+
+	void GameObject::drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene)
+	{
+		ImGuiTreeNodeFlags base_flags = ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_SpanAvailWidth;
+
+		bool drawSelectable = true;
+
+		std::shared_ptr<Physics::Transform> transform;
+		if (tryGetComponent<Physics::Transform>(transform))
+		{
+			bool canDraw = !(transform->hasParent() && isDrawFromScene);
+			bool drawTree = transform->hasChild() && canDraw;
+			drawSelectable = !transform->hasChild() && canDraw;
+
+			if (drawTree)
+			{
+				int i = 0;
+				static int selection_mask = (1 << 2);
+				int node_clicked = -1;
+
+				ImGuiTreeNodeFlags node_flags = base_flags;
+				const bool is_selected = (selection_mask & (1 << i)) != 0;
+				if (is_selected)
+					node_flags |= ImGuiTreeNodeFlags_Selected;
+
+				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)i, node_flags, m_name.c_str(), i);
+
+				if (ImGui::IsItemClicked())
+					curDrawGoName = m_name;
+
+				if (m_name.compare(curDrawGoName) == 0)
+				{
+					ImGui::SameLine();
+					ImGui::Text("   Selected");
+				}
+
+				if (node_open)
+				{
+					for (int index = 0; index < transform->getChildrenCount(); index++)
+					{
+						transform->getGOChild(index).drawImGuiHierarchy(curDrawGoName, false);
+					}
+
+					ImGui::TreePop();
+				}
+			}
+		}
+
+		if (drawSelectable)
+			Utils::selectImGuiString(m_name, curDrawGoName);
 	}
 
 	void GameObject::parseComponents(std::istringstream& goStream, std::string& parentName)
@@ -165,14 +217,17 @@ namespace Engine
 			UI::Button::parseComponent(*this, goStream);
 	}
 
-	void GameObject::parseRecipe(std::istringstream& recipeStream, std::string& parentName)
+	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)
 	{
+		std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
+
 		std::string line;
-		std::string type;
 
 		while (std::getline(recipeStream, line))
 		{
 			std::istringstream iss(line);
+
+			std::string type;
 			iss >> type;
 
 			if (type == "COMP")
@@ -183,56 +238,20 @@ namespace Engine
 	void GameObject::parse(std::istream& scnStream, std::string& parentName)
 	{
 		std::string line;
-		std::string type;
 
 		while (std::getline(scnStream, line))
 		{
 			std::istringstream iss(line);
+			std::string type;
 			iss >> type;
 
 			if (type == "COMP")
 				parseComponents(iss, parentName);
 			else if (type == "RECIPE")
 			{
-				std::string comp;
-				iss >> comp;
-
-				if (comp == "TRANSFORM")
-				{
-					Physics::Transform::parseComponent(*this, iss, parentName);
-				}
-				else if (comp == "RIGIDBODY")
-					Physics::Rigidbody::parseComponent(*this, iss);
-				else if (comp == "BOXCOLLIDER")
-					Physics::BoxCollider::parseComponent(*this, iss);
-				else if (comp == "SPHERECOLLIDER")
-					Physics::SphereCollider::parseComponent(*this, iss);
-				else if (comp == "MODELRENDERER")
-					LowRenderer::ModelRenderer::parseComponent(*this, iss);
-				else if (comp == "CAMERA")
-					LowRenderer::Camera::parseComponent(*this, iss);
-				else if (comp == "LIGHT")
-					LowRenderer::Light::parseComponent(*this, iss);
-				else if (comp == "SKYBOX")
-					LowRenderer::SkyBox::parseComponent(*this, iss);
-				else if (comp == "SPRITERENDERER")
-					LowRenderer::SpriteRenderer::parseComponent(*this, iss);
-				else if (comp == "PLAYERMOVEMENT")
-					Gameplay::PlayerMovement::parseComponent(*this, iss);
-				else if (comp == "ENEMYMOVEMENT")
-					Gameplay::EnemyMovement::parseComponent(*this, iss);
-				else if (comp == "PLAYERSTATE")
-					Gameplay::PlayerState::parseComponent(*this, iss);
-				else if (comp == "ENEMYSTATE")
-					Gameplay::EnemyState::parseComponent(*this, iss);
-				else if (comp == "MAINMENU")
-					Gameplay::MainMenu::parseComponent(*this, iss);
-				else if (comp == "GAMEMASTER")
-					Gameplay::GameMaster::parseComponent(*this, iss);
-				else if (comp == "CAMERAMOVEMENT")
-					Gameplay::CameraMovement::parseComponent(*this, iss);
-				else if (comp == "BUTTON")
-					UI::Button::parseComponent(*this, iss);
+				std::string filePath;
+				iss >> filePath;
+				parseRecipe(filePath, parentName);
 			}
 			else if (type == "endGO")
 				break;

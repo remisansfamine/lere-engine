@@ -19,6 +19,8 @@ namespace Core::Engine
 		bool isLoadingSavedScene = false;
 		bool isLoadingMainMenu = false;
 
+		bool showDemoWindowImGui = false;
+
 		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
 	public:

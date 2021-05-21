@@ -22,6 +22,7 @@ namespace Core
 		~Application();
 
 		[[nodiscard]] static GLFWwindow* createWindow(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
+		void setImGuiColorsEditor();
 
 	public:
 		static void init(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);

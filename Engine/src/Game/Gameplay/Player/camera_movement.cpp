@@ -7,6 +7,8 @@
 #include "time.hpp"
 #include "maths.hpp"
 
+#include "utils.hpp"
+
 namespace Gameplay
 {
 	CameraMovement::CameraMovement(Engine::GameObject& gameObject)
@@ -23,12 +25,8 @@ namespace Gameplay
 
 	void CameraMovement::fixedUpdate()
 	{
-		Core::Maths::vec2 mouseMovement = m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse();
-
-		transform->m_rotation += Core::Maths::vec3(mouseMovement.y, mouseMovement.x, 0.f);
+		transform->m_rotation.x -= m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().y;
 		transform->m_rotation.x = std::clamp(transform->m_rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
-
-		transform->m_position = Core::Maths::vectorRotate(transform->m_position, Core::Maths::quaternionFromEuler(mouseMovement.y * cos(transform->m_rotation.y), mouseMovement.x, mouseMovement.y * sin(transform->m_rotation.y)));
 	}
 
 	void CameraMovement::drawImGui()

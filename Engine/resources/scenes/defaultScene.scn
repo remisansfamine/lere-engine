@@ -49,11 +49,21 @@ endGO
 GO MainCamera
 COMP CAMERA 0.001000 200.000000 60.000000
 COMP TRANSFORM 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 Player
-COMP CAMERAMOVEMENT 1.500000 1.000000
+COMP CAMERAMOVEMENT 0.200000 1.000000
+endGO
+
+GO Weapon
+COMP MODELRENDERER resources/obj/weapon/Handgun_obj.obj shader
+COMP TRANSFORM 0.5000000 -0.2500000 -0.5000000 0.000000 1.570796 0.000000 0.500000 0.500000 0.500000 MainCamera
 endGO
 
 GO SkyBox
 COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
+endGO
+
+GO AimCross
+COMP SPRITERENDERER spriteShader resources/UI/AimCross.png
+COMP TRANSFORM 0.0000000 0.0000000 0.0000000 0.000000 0.000000 0.000000 0.500000 0.750000 0.000000 none
 endGO
 
 GO Light
