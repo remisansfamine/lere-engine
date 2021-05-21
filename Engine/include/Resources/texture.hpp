@@ -7,13 +7,15 @@
 
 #include "resource.hpp"
 
+#include "maths.hpp"
+
 namespace Resources
 {
 	class Texture : public Resource
 	{
 	private:
 		GLuint textureID = 0;
-
+		
 		void generateID(int width, int height, float* colorBuffer);
 
 	public:

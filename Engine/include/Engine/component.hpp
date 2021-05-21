@@ -14,6 +14,22 @@ namespace Physics
 
 namespace Engine
 {
+	/*enum class ComponentType
+	{
+		SPRITE_RENDERER,
+		SPHERE_COLLIDER,
+		MODEL_RENDERER,
+		BOX_COLLIDER,
+		RIGIDBODY,
+		TRANSFORM,
+		SKYBOX,
+		BUTTON,
+		CAMERA,
+		LIGHT,
+		
+		COUNT
+	};*/
+
 	class Component : public Object
 	{
 	private:
