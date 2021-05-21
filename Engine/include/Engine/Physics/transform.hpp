@@ -27,6 +27,11 @@ namespace Physics
 		Core::Maths::mat4 getGlobalModel() const;
 		Core::Maths::mat4 getParentModel() const;
 
+		Core::Maths::vec3 getGlobalRotation() const;
+		Core::Maths::vec3 getGlobalPosition() const;
+		Core::Maths::vec3 getParentRotation() const;
+		Core::Maths::vec3 getParentPosition() const;
+
 		Core::Maths::vec3 getForward() const;
 
 		bool hasParent();

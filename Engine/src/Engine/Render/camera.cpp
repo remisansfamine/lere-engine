@@ -25,14 +25,12 @@ namespace LowRenderer
 
 	Core::Maths::mat4 Camera::getViewMatrix() const
 	{
-		auto viewModel = m_transform->getParentModel();
-		viewModel.e[3] = -viewModel.e[3];
-		viewModel.e[7] = -viewModel.e[7];
-		viewModel.e[11] = -viewModel.e[11];
+		auto globalPosition = -m_transform->getGlobalPosition();
+		auto globalRotation = -m_transform->getGlobalRotation();
 
 		// Get the camera view matrix
-		return Core::Maths::rotateZ(m_transform->m_rotation.z) * Core::Maths::rotateX(m_transform->m_rotation.x) *
-			Core::Maths::rotateY(m_transform->m_rotation.y) * Core::Maths::translate(-m_transform->m_position) * viewModel;
+		return Core::Maths::rotateZ(globalRotation.z) * Core::Maths::rotateX(globalRotation.x) *
+			Core::Maths::rotateY(globalRotation.y) * Core::Maths::translate(globalPosition);
 	}
 
 	Core::Maths::mat4 Camera::getProjection() const

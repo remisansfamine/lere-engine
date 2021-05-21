@@ -48,6 +48,32 @@ namespace Physics
 		return Core::Maths::identity();
 	}
 
+	Core::Maths::vec3 Transform::getGlobalRotation() const
+	{
+		return m_rotation + getParentRotation();
+	}
+
+	Core::Maths::vec3 Transform::getGlobalPosition() const
+	{
+		return m_position + getParentPosition();
+	}
+
+	Core::Maths::vec3 Transform::getParentRotation() const
+	{
+		if (parent)
+			return parent->getGlobalRotation();
+
+		return Core::Maths::vec3(0.f, 0.f, 0.f);
+	}
+
+	Core::Maths::vec3 Transform::getParentPosition() const
+	{
+		if (parent)
+			return parent->getGlobalPosition();
+
+		return Core::Maths::vec3(0.f, 0.f, 0.f);
+	}
+
 	Core::Maths::vec3 Transform::getForward() const
 	{
 		auto model = getGlobalModel();
