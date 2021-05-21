@@ -46,8 +46,8 @@ namespace Engine
 
 			if (!m_gameObject.tryGetComponent<C>(tempPtr))
 			{
-				m_gameObject.addComponent<C>(args...);
-				return m_gameObject.getComponent<C>();
+				return m_gameObject.addComponent<C>(args...);
+				//return m_gameObject.getComponent<C>();
 			}
 
 			return tempPtr;

@@ -42,7 +42,7 @@ namespace Gameplay
 
 	void EnemyState::onCollisionEnter(const Physics::Collision& collision)
 	{
-		if (collision.normal.y <= 0.f)
+		if (collision.hit.normal.y <= 0.f)
 			return;
 
 		colliderCount++;

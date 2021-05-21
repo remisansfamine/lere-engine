@@ -37,11 +37,11 @@ namespace Engine
 		virtual ~GameObject();
 
 		template <class C, typename ...Args, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		std::shared_ptr<Component> addComponent(Args... args)
+		std::shared_ptr<C> addComponent(Args... args)
 		{
 			new C(*this, args...);
 
-			return m_components.back();
+			return std::dynamic_pointer_cast<C>(m_components.back());
 		}
 
 		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
