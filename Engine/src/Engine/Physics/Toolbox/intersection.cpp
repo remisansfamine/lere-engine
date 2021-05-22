@@ -1,6 +1,9 @@
 ﻿#include <cfloat>
+#include <algorithm>
 
 #include "intersection.h"
+#include "referential.h"
+#include "utils.hpp"
 
 #define ZERO			0.000001f
 #define INTERSECTION	true
@@ -52,25 +55,31 @@ namespace Physics
 		vec3 vectInterPtQuadPos = hit.point - quad.center;
 		float IdotInterPtQuad = dot(i, vectInterPtQuadPos);
 		float KdotInterPtQuad = dot(k, vectInterPtQuadPos);
+
+		bool isOnXAxis = (quad.size.x - fabsf(IdotInterPtQuad)) < (quad.size.z - fabsf(KdotInterPtQuad));
+		// Determine which capsule is concern by the potential intersection
+		if (isOnXAxis)   // --> Horizontal capsule or vertical capsule (then side determine by the sign of the dotProduct)
 		{
-			// Determine which capsule is concern by the potential intersection
-			if (fabsf(IdotInterPtQuad) > fabsf(KdotInterPtQuad))   // --> Horizontal capsule or vertical capsule (then side determine by the sign of the dot)
-			{
-				// Left or right capsule
-				float sign = IdotInterPtQuad > 0.f ? 1.f : -1.f;
-				capsule = Capsule(quad.center - j * roundingOffset + i * quad.size.x * sign, quad.size.z * 2.f, roundingOffset,
-								  quad.quaternion * quat({ 1,0,0 }, PI * 0.5f));
-			}
-			else
-			{
-				// Up or down capsule
-				float sign = KdotInterPtQuad > 0.f ? 1.f : -1.f;
-				capsule = Capsule(quad.center - j * roundingOffset + k * quad.size.z * sign, quad.size.x * 2.f, roundingOffset,
-					quad.quaternion * quat({ 0,0,1 }, PI * 0.5f));
-			}
+			// Left or right capsule
+			capsule = Capsule(quad.center - j * roundingOffset + i * quad.size.x * Utils::sign(dot(i, vectInterPtQuadPos)), quad.size.z * 2.f, roundingOffset,
+				quad.quaternion * quat({ 1,0,0 }, PI * 0.5f));
+		}
+		else
+		{
+			// Up or down capsule
+			capsule = Capsule(quad.center - j * roundingOffset + k * quad.size.z * Utils::sign(dot(k, vectInterPtQuadPos)), quad.size.x * 2.f, roundingOffset,
+				quad.quaternion * quat({ 0,0,1 }, PI * 0.5f));
 		}
 
-		// Check if intersect on voronoi capsule
+		/*Capsule capsuleA = Capsule(quad.center - j * roundingOffset + i * quad.size.x * Utils::sign(dot(i, vectInterPtQuadPos)), quad.size.z * 2.f, roundingOffset,
+			quad.quaternion * quat({ 1,0,0 }, PI * 0.5f));
+		Capsule capsuleB = Capsule(quad.center - j * roundingOffset + k * quad.size.z * Utils::sign(dot(k, vectInterPtQuadPos)), quad.size.x * 2.f, roundingOffset,
+			quad.quaternion * quat({ 0,0,1 }, PI * 0.5f));
+
+		if (IntersectSegmentCapsule(capsuleA, A, B, hit) ||
+			IntersectSegmentCapsule(capsuleB, A, B, hit))
+			return INTERSECTION;*/
+
 		if (IntersectSegmentCapsule(capsule, A, B, hit))
 			return INTERSECTION;
 
@@ -83,7 +92,6 @@ namespace Physics
 		vec3 i, j, k;
 		GetUnitAxesFromQuaternion(i, j, k, box.quaternion);
 
-
 		// Segment AB
 		vec3 AB = B - A;
 
@@ -95,7 +103,10 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 		// Is collide with back face
 		else
@@ -104,7 +115,10 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.y }, box.quaternion * quat({ 1,0,0 }, -PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 
 		// Is collide with right face
@@ -114,7 +128,10 @@ namespace Physics
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, -PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 		// Is collide with left face
 		else
@@ -123,7 +140,10 @@ namespace Physics
 				{ box.size.y, 0.f, box.size.z }, box.quaternion * quat({ 0,0,1 }, PI * 0.5f));
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 
 		// Is collide with up face
@@ -133,7 +153,10 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.z }, box.quaternion);
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 		// Is collide with down face
 		else
@@ -142,7 +165,10 @@ namespace Physics
 				{ box.size.x, 0.f, box.size.z }, box.quaternion * quat({ 1,0,0 }, PI));
 
 			if (IntersectSegmentQuad(A, B, quad, hit))
-				return IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit);
+			{
+				if (IntersectSegmentVoronoiRegion(A, B, quad, box.offsetRounding, hit))
+					return INTERSECTION;
+			}
 		}
 
 		return NO_INTERSECTION;
@@ -174,7 +200,6 @@ namespace Physics
 		// Box referential
 		vec3 i, j, k;
 		GetUnitAxesFromQuaternion(i, j, k, box.quaternion);
-
 
 		// Segment AB
 		vec3 AB = B - A;
@@ -319,6 +344,42 @@ namespace Physics
 		hit.normal = (hit.point - sphere.center).normalized();
 
 		return INTERSECTION;
+	}
+
+	bool IntersectSpheres(const Sphere& sphereA, const vec3& newSphereAPos, const Sphere& sphereB, Hit& hit)
+	{
+		Sphere newSphereB = sphereB;
+		newSphereB.radius += sphereA.radius;
+
+		// Avoid segment point A inside sphereB
+		vec3 offsetSphereOrigin = (newSphereAPos - sphereA.center).normalized() * sphereA.radius;
+
+		return IntersectSegmentSphere(sphereA.center - offsetSphereOrigin, newSphereAPos, newSphereB, hit);
+	}
+
+	bool TriggerSpheres(const Sphere& sphereA, const Sphere& sphereB)
+	{
+		float sumRadius = sphereA.radius + sphereB.radius;
+		return (sphereA.center - sphereB.center).squaredMagnitude() <= (sumRadius * sumRadius);
+	}
+
+	bool TriggerSphereBox(const Sphere& sphere, const Box& box)
+	{
+		Referential3D boxRef = Referential3D(box.center, box.quaternion);
+
+		vec3 sphereOriginInBoxRef = boxRef.globalToLocalRef(sphere.center);
+		vec3 distances = box.size + sphere.radius;
+
+		// Check if box AABB and sphere AABB triggered
+		if (sphereOriginInBoxRef.x > distances.x || sphereOriginInBoxRef.y > distances.y || sphereOriginInBoxRef.z > distances.z)
+			return NO_INTERSECTION;
+
+		vec3 closestPointFromSphere;
+		closestPointFromSphere.x = std::clamp(sphereOriginInBoxRef.x, -box.size.x, box.size.x);
+		closestPointFromSphere.y = std::clamp(sphereOriginInBoxRef.y, -box.size.y, box.size.y);
+		closestPointFromSphere.z = std::clamp(sphereOriginInBoxRef.z, -box.size.z, box.size.z);
+
+		return (sphereOriginInBoxRef - closestPointFromSphere).squaredMagnitude() < (sphere.radius * sphere.radius);
 	}
 
 	// Return intersection between a segment and a cylinder infinite
@@ -466,7 +527,7 @@ namespace Physics
 			return IntersectSegmentSphere(ptA, ptB, Sphere(caps.ptA, caps.radius, caps.quaternion), hit);
 		if (PIdotPQ > PQdotPQ)
 			return IntersectSegmentSphere(ptA, ptB, Sphere(caps.ptB, caps.radius, caps.quaternion), hit);
-
+		
 
 		hit.normal = getVectorPerpendicular(hit.point - caps.ptA, PQ).normalized();
 
@@ -483,7 +544,6 @@ namespace Physics
 		// Avoid segment point A inside roundedBox OBB
 		vec3 offsetSphereOrigin = (newSpherePos - sphere.center).normalized() * (sphere.radius + 0.1f);
 
-		vec3 interPtBox, interNormalBox;
 		return IntersectSegmentRoundedBox(sphere.center - offsetSphereOrigin, newSpherePos, roundedBox, hit);
 	}
 
