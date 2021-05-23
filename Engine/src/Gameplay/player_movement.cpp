@@ -13,6 +13,7 @@ namespace Gameplay
 	{
 		m_rigidbody = requireComponent<Physics::Rigidbody>();
 		m_playerState = requireComponent<Gameplay::PlayerState>();
+		m_transform = requireComponent<Physics::Transform>();
 	}
 
 	void PlayerMovement::start()
@@ -24,10 +25,13 @@ namespace Gameplay
 	{
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
 		float horizontal = m_playerState->horizontalMove * fixedSpeed;
-		float vertical = -m_playerState->forwardMove * fixedSpeed;
+		float vertical = m_playerState->forwardMove * fixedSpeed;
 
-		m_rigidbody->velocity.x = horizontal * cos(m_cameraTransform->m_rotation.y) + vertical * sin(m_cameraTransform->m_rotation.y);
-		m_rigidbody->velocity.z = -vertical * cos(m_cameraTransform->m_rotation.y) + horizontal * sin(m_cameraTransform->m_rotation.y);
+		m_transform->m_rotation.y -= 0.5f * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
+
+		float cos = cosf(m_transform->m_rotation.y), sin = sinf(m_transform->m_rotation.y);
+		m_rigidbody->velocity.x = horizontal * cos + vertical * sin;
+		m_rigidbody->velocity.z = vertical * cos - horizontal * sin;
 
 		if (m_playerState->isGrounded && m_playerState->isJumping)
 		{

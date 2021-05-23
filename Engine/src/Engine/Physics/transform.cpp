@@ -17,6 +17,21 @@ namespace Physics
 		return parent != nullptr;
 	}
 
+	bool Transform::hasChild()
+	{
+		return children.size() > 0;
+	}
+
+	Engine::GameObject& Transform::getGOChild(int childIndex)
+	{
+		return children[childIndex]->getHost();
+	}
+
+	int Transform::getChildrenCount()
+	{
+		return (int)(children.size());
+	}
+
 	Engine::GameObject& Transform::getGOParent()
 	{
 		return parent->getHost();
@@ -46,6 +61,32 @@ namespace Physics
 			return parent->getGlobalModel();
 
 		return Core::Maths::identity();
+	}
+
+	Core::Maths::vec3 Transform::getGlobalRotation() const
+	{
+		return m_rotation + getParentRotation();
+	}
+
+	Core::Maths::vec3 Transform::getGlobalPosition() const
+	{
+		return m_position + getParentPosition();
+	}
+
+	Core::Maths::vec3 Transform::getParentRotation() const
+	{
+		if (parent)
+			return parent->getGlobalRotation();
+
+		return Core::Maths::vec3(0.f, 0.f, 0.f);
+	}
+
+	Core::Maths::vec3 Transform::getParentPosition() const
+	{
+		if (parent)
+			return parent->getGlobalPosition();
+
+		return Core::Maths::vec3(0.f, 0.f, 0.f);
 	}
 
 	Core::Maths::vec3 Transform::getForward() const

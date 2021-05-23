@@ -46,10 +46,4 @@ namespace Utils
     std::string quatToStringParsing(const Core::Maths::quat& toWrite);
 
     void selectImGuiString(std::string selectableLabel, std::string& strRef);
-
-    template <typename T>
-    T sign(T value)
-    {
-        return (T(0) < value) - (value < T(0));
-    }
 }
