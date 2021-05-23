@@ -83,9 +83,6 @@ namespace Engine
 			component->lateUpdate();
 	}
 
-
-
-
 	void GameObject::callCollisionEnter(const Physics::Collision& collision)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
@@ -103,9 +100,6 @@ namespace Engine
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onCollisionExit(collision);
 	}
-
-
-
 
 	std::string GameObject::toString()
 	{
