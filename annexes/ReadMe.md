@@ -1,4 +1,4 @@
-Platformer 3D
+FPS
 ===
 
 3D Platformer made from scratch using Physic and Render Engines made from scratch too (using OpenGL 4.5, stb, GLFW, Glad and ImGui).
@@ -29,7 +29,7 @@ Controls
 ***Annexes***
 ===
 - Link to the UML:
-https://miro.com/app/board/o9J_lIRYkLw=/
+https://miro.com/welcomeonboard/lOMYMf0qwZh91frzycgVN5734rGQn5auxxdjySUvD567BnYCpg9ax7DVqhvT4jLA
 
 ***Exemples***
 ===

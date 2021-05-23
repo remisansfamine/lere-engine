@@ -36,6 +36,8 @@ namespace Physics
 
 		if (isInVector)
 		{
+			//Core::Debug::Log::info("Normal : " + Utils::vecToStringDebug(collision.normal));
+
 			if (!hasHit)
 			{
 				m_colliders.erase(colliderIt);
@@ -49,6 +51,8 @@ namespace Physics
 
 		if (hasHit)
 		{
+			//Core::Debug::Log::info("Normal : " + Utils::vecToStringDebug(collision.normal));
+
 			m_colliders.push_back(collision.collider);
 			getHost().callCollisionEnter(collision);
 			return;

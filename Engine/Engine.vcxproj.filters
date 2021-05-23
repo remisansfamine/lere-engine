@@ -52,35 +52,11 @@
     <Filter Include="Fichiers sources\Engine\Physics">
       <UniqueIdentifier>{1fd4e3f9-dd20-41a5-a9e8-a36aa0102e88}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Engine\Render">
-      <UniqueIdentifier>{b3322f59-d3ae-46d3-b7d4-f637955fc1aa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Engine\Render">
-      <UniqueIdentifier>{c8b3f9c5-d759-4dd6-8f6e-d909fbfd1555}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Engine\Render\LowRenderer">
-      <UniqueIdentifier>{f9886134-10d1-460f-8678-4315b04edf5c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Engine\Render\LowRenderer">
-      <UniqueIdentifier>{1abba2a0-9545-4e39-981b-209b6f3a037f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\Core\Input">
       <UniqueIdentifier>{5619c947-b597-4c83-99b9-82c85c0c321e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers d%27en-tête\Core\Input">
       <UniqueIdentifier>{97898d89-cd9f-44c9-9320-de52f541853f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Gameplay">
-      <UniqueIdentifier>{e6d461f0-2a83-4f65-a8e4-f4dd7a4644d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Gameplay">
-      <UniqueIdentifier>{be3bdb28-1ca7-41ee-adce-aaf3b4c44ef9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\Gameplay\Player">
-      <UniqueIdentifier>{3a8653ae-70f8-4c13-b735-6cad18e1c3ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\Gameplay\Player">
-      <UniqueIdentifier>{aa32bb03-6492-427c-a79b-0ca4788bb486}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers de ressources\Shaders">
       <UniqueIdentifier>{47a8c70e-8faa-41eb-80b9-8e8e879d4285}</UniqueIdentifier>
@@ -97,11 +73,35 @@
     <Filter Include="Fichiers sources\Engine\UI">
       <UniqueIdentifier>{8996f4a7-4dcc-4c04-86b9-7586adb084c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers d%27en-tête\Gameplay\Enemies">
-      <UniqueIdentifier>{b71c4fd2-0925-4521-afd2-f9ede5b12b54}</UniqueIdentifier>
+    <Filter Include="Fichiers d%27en-tête\Game">
+      <UniqueIdentifier>{8ead12f8-7214-443b-998c-8195ab1cebba}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\Gameplay\Enemies">
+    <Filter Include="Fichiers d%27en-tête\Game\Gameplay">
+      <UniqueIdentifier>{be3bdb28-1ca7-41ee-adce-aaf3b4c44ef9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Gameplay\Player">
+      <UniqueIdentifier>{aa32bb03-6492-427c-a79b-0ca4788bb486}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game">
+      <UniqueIdentifier>{51be28bb-4782-4cdb-9df9-e88e02a53152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Gameplay">
+      <UniqueIdentifier>{e6d461f0-2a83-4f65-a8e4-f4dd7a4644d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Gameplay\Player">
+      <UniqueIdentifier>{3a8653ae-70f8-4c13-b735-6cad18e1c3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Gameplay\Enemies">
       <UniqueIdentifier>{6c32ad78-bfda-40c8-903e-24544531d65d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Engine\LowRenderer">
+      <UniqueIdentifier>{c8b3f9c5-d759-4dd6-8f6e-d909fbfd1555}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Engine\LowRenderer">
+      <UniqueIdentifier>{b3322f59-d3ae-46d3-b7d4-f637955fc1aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Gameplay\Enemy">
+      <UniqueIdentifier>{b71c4fd2-0925-4521-afd2-f9ede5b12b54}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,17 +144,11 @@
     <ClCompile Include="src\Engine\engine_master.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\render_manager.cpp">
-      <Filter>Fichiers sources\Engine\Render</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Physics\physic_manager.cpp">
       <Filter>Fichiers sources\Engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\time.cpp">
       <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\sprite_renderer.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\object.cpp">
       <Filter>Fichiers sources\Engine</Filter>
@@ -165,32 +159,11 @@
     <ClCompile Include="src\Engine\component.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\renderer.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\model_renderer.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\graph.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Resources\scene.cpp">
       <Filter>Fichiers sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\color.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\light.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\inputs_manager.cpp">
-      <Filter>Fichiers sources\Core\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\key_axis.cpp">
-      <Filter>Fichiers sources\Core\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\key_button.cpp">
-      <Filter>Fichiers sources\Core\Input</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\application.cpp">
       <Filter>Fichiers sources\Core</Filter>
@@ -204,17 +177,11 @@
     <ClCompile Include="src\Engine\Physics\transform.cpp">
       <Filter>Fichiers sources\Engine\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\model.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Resources\material.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
     <ClCompile Include="src\Resources\texture.cpp">
       <Filter>Fichiers sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Render\camera.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Physics\rigidbody.cpp">
       <Filter>Fichiers sources\Engine\Physics</Filter>
@@ -231,50 +198,83 @@
     <ClCompile Include="src\Resources\cube_map.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\sky_box.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
     <ClCompile Include="src\Core\stb_image.cpp">
       <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\Physics\Toolbox\shape.cpp">
-      <Filter>Fichiers sources\Engine\Physics</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp">
       <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\Render\collider_renderer.cpp">
-      <Filter>Fichiers sources\Engine\Render\LowRenderer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gameplay\player_movement.cpp">
-      <Filter>Fichiers sources\Gameplay\Player</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\UI\button.cpp">
       <Filter>Fichiers sources\Engine\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Core\mouse_button.cpp">
-      <Filter>Fichiers sources\Core\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gameplay\player_state.cpp">
-      <Filter>Fichiers sources\Gameplay\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gameplay\main_menu.cpp">
-      <Filter>Fichiers sources\Gameplay\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gameplay\game_master.cpp">
-      <Filter>Fichiers sources\Gameplay</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Gameplay\camera_movement.cpp">
-      <Filter>Fichiers sources\Gameplay\Player</Filter>
     </ClCompile>
     <ClCompile Include="src\Resources\recipe.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gameplay\enemy_movement.cpp">
-      <Filter>Fichiers sources\Gameplay\Enemies</Filter>
+    <ClCompile Include="src\Core\Input\inputs_manager.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
     </ClCompile>
-    <ClCompile Include="src\Gameplay\enemy_state.cpp">
-      <Filter>Fichiers sources\Gameplay\Enemies</Filter>
+    <ClCompile Include="src\Core\Input\key_axis.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Input\key_button.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Input\mouse_button.cpp">
+      <Filter>Fichiers sources\Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Physics\shape.cpp">
+      <Filter>Fichiers sources\Engine\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\camera.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\collider_renderer.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\light.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\model.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\model_renderer.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\render_manager.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\renderer.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\sky_box.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\sprite_renderer.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\color.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\game_master.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\main_menu.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Enemy\enemy_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp">
       <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
@@ -308,9 +308,6 @@
     <ClInclude Include="include\Engine\Physics\physic_manager.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\Render\render_manager.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render</Filter>
-    </ClInclude>
     <ClInclude Include="include\Core\time.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
@@ -323,23 +320,11 @@
     <ClInclude Include="include\Engine\component.hpp">
       <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\renderer.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\model_renderer.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\sprite_renderer.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="include\Engine\graph.hpp">
       <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
     <ClInclude Include="include\Resources\scene.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\Render\light.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\maths.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
@@ -347,29 +332,11 @@
     <ClInclude Include="include\Utils\type_at.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Core\inputs_manager.hpp">
-      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\input.hpp">
-      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\key_button.hpp">
-      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\key_axis.hpp">
-      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
-    </ClInclude>
     <ClInclude Include="include\Resources\mesh.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\Render\model.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
-    </ClInclude>
     <ClInclude Include="include\Resources\material.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Core\color.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Resources\texture.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
@@ -379,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\transform.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\Render\camera.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\rigidbody.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
@@ -397,9 +361,6 @@
     </ClInclude>
     <ClInclude Include="include\Resources\cube_map.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\Render\sky_box.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\Physics\Toolbox\box.h">
       <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
@@ -428,12 +389,6 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\shape.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\Render\collider_renderer.hpp">
-      <Filter>Fichiers d%27en-tête\Engine\Render\LowRenderer</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\player_movement.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
     <ClInclude Include="include\Engine\Physics\collision.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics</Filter>
     </ClInclude>
@@ -443,32 +398,74 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\rect2D.hpp">
       <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
     </ClInclude>
-    <ClInclude Include="include\Core\mouse_button.hpp">
-      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\player_state.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\main_menu.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\game_master.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\camera_movement.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\enemies_state.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Gameplay\enemies_movement.hpp">
-      <Filter>Fichiers d%27en-tête\Gameplay\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="include\Resources\recipe.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\Physics\Toolbox\referential.h">
-      <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
+    <ClInclude Include="include\Core\Input\input.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Input\inputs_manager.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Input\key_axis.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Input\key_button.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\Input\mouse_button.hpp">
+      <Filter>Fichiers d%27en-tête\Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\camera.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\collider_renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\light.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\model.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\model_renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\render_manager.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\sky_box.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\sprite_renderer.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\color.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\game_master.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\main_menu.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
