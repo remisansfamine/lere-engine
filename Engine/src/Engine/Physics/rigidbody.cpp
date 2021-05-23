@@ -74,12 +74,12 @@ namespace Physics
 
 	void Rigidbody::onCollisionEnter(const Collision& collision)
 	{
-		velocity -= collision.normal * dot(velocity, collision.normal);
+		velocity -= collision.hit.normal * dot(velocity, collision.hit.normal);
 	}
 
 	void Rigidbody::onCollisionStay(const Collision& collision)
 	{
-		velocity -= collision.normal * dot(velocity, collision.normal);
+		velocity -= collision.hit.normal * dot(velocity, collision.hit.normal);
 	}
 
 	std::string Rigidbody::toString() const

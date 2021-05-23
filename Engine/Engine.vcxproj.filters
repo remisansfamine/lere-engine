@@ -276,6 +276,9 @@
     <ClCompile Include="src\Gameplay\enemy_state.cpp">
       <Filter>Fichiers sources\Gameplay\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp">
+      <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="include\Resources\recipe.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Physics\Toolbox\referential.h">
+      <Filter>Fichiers d%27en-tête\Engine\Physics\Toolbox</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -90,7 +90,7 @@ namespace UI
 
 	void Button::drawImGui()
 	{
-		if (ImGui::TreeNode("Sprite renderer"))
+		if (ImGui::TreeNode("Button"))
 		{
 			ImGui::TreePop();
 		}

@@ -5,6 +5,7 @@ in vec3 Normal;
 in vec3 FragPos;
 
 uniform vec3 viewPos;
+uniform vec2 tilling;
 
 out vec4 FragColor;
 
@@ -120,6 +121,11 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular)
 	}
 }
 
+vec2 getTilledTexCoords()
+{	
+	return TexCoord.st * tilling.x + tilling.y;
+}
+
 void main()
 {
 	parseLights();
@@ -128,17 +134,19 @@ void main()
 
 	getLightColor(ambient, diffuse, specular);
 
-	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, TexCoord.st));
+	vec2 tilledTexCoords = getTilledTexCoords();
+
+	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, tilledTexCoords));
 
 	vec4 diffuseColor = material.diffuse * diffuse;
 
-	vec4 specularColor = specular * (material.specular + texture(material.specularTexture, TexCoord.st));
+	vec4 specularColor = specular * (material.specular + texture(material.specularTexture, tilledTexCoords));
 
-	vec4 emissiveColor = material.emissive + texture(material.emissiveTexture, TexCoord.st);
+	vec4 emissiveColor = material.emissive + texture(material.emissiveTexture, tilledTexCoords);
 
 	// Get texture color applied to the light
-	vec4 shadedColor = (ambientColor + diffuseColor) * texture(material.diffuseTexture, TexCoord.st) + emissiveColor + specularColor;
+	vec4 shadedColor = (ambientColor + diffuseColor) * texture(material.diffuseTexture, tilledTexCoords) + emissiveColor + specularColor;
 	FragColor = shadedColor;
 
-	FragColor.a = texture(material.alphaTexture, TexCoord.st).r;
+	FragColor.a = texture(material.alphaTexture, tilledTexCoords).r;
 }

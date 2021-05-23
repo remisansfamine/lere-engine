@@ -14,6 +14,22 @@ namespace Physics
 
 namespace Engine
 {
+	/*enum class ComponentType
+	{
+		SPRITE_RENDERER,
+		SPHERE_COLLIDER,
+		MODEL_RENDERER,
+		BOX_COLLIDER,
+		RIGIDBODY,
+		TRANSFORM,
+		SKYBOX,
+		BUTTON,
+		CAMERA,
+		LIGHT,
+		
+		COUNT
+	};*/
+
 	class Component : public Object
 	{
 	private:
@@ -30,8 +46,8 @@ namespace Engine
 
 			if (!m_gameObject.tryGetComponent<C>(tempPtr))
 			{
-				m_gameObject.addComponent<C>(args...);
-				return m_gameObject.getComponent<C>();
+				return m_gameObject.addComponent<C>(args...);
+				//return m_gameObject.getComponent<C>();
 			}
 
 			return tempPtr;

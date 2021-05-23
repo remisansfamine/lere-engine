@@ -24,6 +24,7 @@
 #include "sky_box.hpp"
 #include "button.hpp"
 #include "camera.hpp"
+#include "utils.hpp"
 #include "light.hpp"
 
 namespace Engine
@@ -122,6 +123,24 @@ namespace Engine
 
 		for (auto& component : m_components)
 			component->drawImGui();
+
+		static const char* curComboLabel = "None";
+		const char* items[] = { "SPRITE_RENDERER", "SPHERE_COLLIDER", "MODEL_RENDERER", "BOX_COLLIDER", "RIGIDBODY", "TRANSFORM", "SKYBOX", "BUTTON", "CAMERA", "LIGHT" };
+
+		if (ImGui::BeginCombo("Add component", curComboLabel))
+		{
+			for (int i = 0; i < IM_ARRAYSIZE(items); i++)
+			{
+				if (ImGui::Selectable(items[i]))
+				{
+					curComboLabel = items[i];
+				}
+			}
+
+			ImGui::EndCombo();
+		}
+
+		ImGui::Text("\n");
 	}
 
 	void GameObject::drawImGuiHierarchy(std::string& curDrawGoName)

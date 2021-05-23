@@ -14,24 +14,24 @@ endGO
 GO NewGameButton
 COMP BUTTON spriteShader resources/UI/newGameText.png
 COMP TRANSFORM 0.000000 3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
-COMP SPRITERENDERER spriteShader resources/UI/newGameText.png
+COMP SPRITERENDERER spriteShader resources/UI/newGameText.png 1.0000 1.0000
 endGO
 
 GO LoadSceneButton
 COMP BUTTON spriteShader resources/UI/loadSceneText.png
 COMP TRANSFORM 0.000000 1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
-COMP SPRITERENDERER spriteShader resources/UI/loadSceneText.png
+COMP SPRITERENDERER spriteShader resources/UI/loadSceneText.png 1.0000 1.0000
 endGO
 
 GO OptionsButton
 COMP BUTTON spriteShader resources/UI/optionsText.png
 COMP TRANSFORM 0.000000 -1.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
-COMP SPRITERENDERER spriteShader resources/UI/optionsText.png
+COMP SPRITERENDERER spriteShader resources/UI/optionsText.png 1.0000 1.0000
 endGO
 
 GO ExitButton
 COMP BUTTON spriteShader resources/UI/exitText.png
 COMP TRANSFORM 0.000000 -3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
-COMP SPRITERENDERER spriteShader resources/UI/exitText.png
+COMP SPRITERENDERER spriteShader resources/UI/exitText.png 1.0000 1.0000
 endGO
 

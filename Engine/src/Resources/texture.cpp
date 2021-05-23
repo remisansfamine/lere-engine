@@ -1,5 +1,7 @@
 #include "texture.hpp"
 
+#include <imgui.h>
+
 #include "stb_image.h"
 
 #include "debug.hpp"

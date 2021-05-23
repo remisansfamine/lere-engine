@@ -69,6 +69,20 @@ namespace Physics
 		parent = newParent;
 	}
 
+	void Transform::setChild(Physics::Transform* child)
+	{
+		children.push_back(child);
+	}
+
+	void Transform::setChild(Engine::GameObject& gameObject)
+	{
+		std::shared_ptr<Transform> newParent;
+		if (!gameObject.tryGetComponent<Transform>(newParent))
+			return;
+
+		children.push_back(newParent.get());
+	}
+
 	void Transform::drawImGui()
 	{
 		if (ImGui::TreeNode("Transform"))
