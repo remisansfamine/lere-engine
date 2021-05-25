@@ -276,6 +276,9 @@
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\life_bar.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -463,6 +466,9 @@
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\life_bar.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
