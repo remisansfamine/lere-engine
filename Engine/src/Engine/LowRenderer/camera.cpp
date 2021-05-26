@@ -116,6 +116,9 @@ namespace LowRenderer
 			ImGui::DragFloat("Near plane :", &near);
 			ImGui::DragFloat("Far plane :", &far);
 			ImGui::DragFloat("FOV Y :", &fovY);
+
+			Component::drawImGui();
+
 			ImGui::TreePop();
 		}
 	}

@@ -35,9 +35,12 @@ namespace Engine
 	private:
 		GameObject& m_gameObject;
 
+
 	protected:
 		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
 		virtual ~Component();
+
+		void onDestroy() override;
 
 		template <class C, class ...Crest, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
 		std::shared_ptr<C> requireComponent(Crest... args)
@@ -57,10 +60,9 @@ namespace Engine
 		bool hasStarted = false;
 
 		void setActive(bool value) override;
-		void destroy() override;
 
 		void virtual draw() const { }
-		void virtual drawImGui() {}
+		void virtual drawImGui();
 
 		void virtual awake() { }
 		void virtual start() { }
@@ -70,6 +72,8 @@ namespace Engine
 		void virtual lateUpdate() { }
 		void virtual onEnable() { }
 		void virtual onDisable() { }
+
+		void destroy() override;
 
 		void virtual onCollisionEnter(const Physics::Collision& collision) {}
 		void virtual onCollisionStay(const Physics::Collision& collision) {}

@@ -99,7 +99,7 @@ namespace Engine
 		void parseRecipe(const std::string& filePath, std::string& parentName);
 		void parse(std::istream& scnStream, std::string& parentName);
 
-		void destroy() override {}
+		void destroy() override;
 	};
 
 }

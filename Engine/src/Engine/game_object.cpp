@@ -251,4 +251,12 @@ namespace Engine
 				break;
 		}
 	}
+
+	void GameObject::destroy()
+	{
+		for (auto& comp : m_components)
+		{
+			comp->destroy();
+		}
+	}
 }

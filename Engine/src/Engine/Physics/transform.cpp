@@ -142,6 +142,8 @@ namespace Physics
 				ImGui::Text(parentName.c_str());
 			}
 
+			Component::drawImGui();
+
 			ImGui::TreePop();
 		}
 	}

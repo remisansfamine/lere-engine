@@ -31,6 +31,13 @@ namespace LowRenderer
 		Core::Debug::Log::info("Unload model " + model.getPath());
 	}
 
+	void ModelRenderer::onDestroy()
+	{
+		Component::onDestroy();
+
+		LowRenderer::RenderManager::removeComponent(this);
+	}
+
 	void ModelRenderer::draw() const
 	{
 		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e);
@@ -48,6 +55,8 @@ namespace LowRenderer
 			ImGui::DragFloat("TillingOffset", &tillingOffset, 0.01f, 0.f, 1.f);
 
 			model.drawImGui();
+			Component::drawImGui();
+
 			ImGui::TreePop();
 		}
 	}

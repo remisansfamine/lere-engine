@@ -115,7 +115,7 @@ namespace Resources
 
 		scnStream.close();
 
-		//Resources::ResourcesManager::clearResources();
+		Resources::ResourcesManager::clearResources();
 	}
 
 	void Scene::save()
@@ -162,6 +162,21 @@ namespace Resources
 			return;
 
 		gameObjects[curGoName].drawImGuiInspector();
+	}
+
+	void Scene::addToDestroyQueue(Engine::Object* objToDestroy)
+	{
+		objectsToDestroy.push_back(objToDestroy);
+	}
+
+	void Scene::cleanObjects()
+	{
+		for (Engine::Object* obj : objectsToDestroy)
+		{
+			obj->onDestroy();
+		}
+
+		objectsToDestroy.clear();
 	}
 
 	void Scene::update()

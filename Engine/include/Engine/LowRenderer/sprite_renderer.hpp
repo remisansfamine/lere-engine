@@ -15,6 +15,8 @@ namespace LowRenderer
 		float tillingMultiplier = 1.f;
 		float tillingOffset = 0.f;
 
+		void onDestroy() override;
+
 	public:
 		Core::Maths::vec4 m_color = Core::Maths::vec4(1.f, 1.f, 1.f, 1.f);
 

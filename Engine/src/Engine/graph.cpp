@@ -93,6 +93,11 @@ namespace Core::Engine
 		instance()->curScene.fixedUpdate();
 	}
 
+	void Graph::clean()
+	{
+		instance()->curScene.cleanObjects();
+	}
+
 	void Graph::drawImGui()
 	{
 		Graph* graph = instance();
@@ -118,6 +123,11 @@ namespace Core::Engine
 	::Engine::GameObject* Graph::findGameObjectWithName(const std::string& gameObjectName)
 	{
 		return instance()->curScene.findGameObjectWithName(gameObjectName);
+	}
+
+	void Graph::addToDestroyQueue(::Engine::Object* obj)
+	{
+		instance()->curScene.addToDestroyQueue(obj);
 	}
 
 	bool Graph::getCursorState()

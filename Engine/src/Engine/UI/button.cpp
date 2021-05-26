@@ -92,6 +92,7 @@ namespace UI
 	{
 		if (ImGui::TreeNode("Button"))
 		{
+			Component::drawImGui();
 			ImGui::TreePop();
 		}
 	}
