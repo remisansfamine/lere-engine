@@ -33,6 +33,8 @@ namespace LowRenderer
 			skyBoxes.back()->draw();
 		}
 
+		glEnable(GL_FRAMEBUFFER_SRGB);
+
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
 
@@ -86,6 +88,8 @@ namespace LowRenderer
 		}
 
 		program->unbind();
+
+		glDisable(GL_FRAMEBUFFER_SRGB);
 	}
 
 	void RenderManager::draw()
