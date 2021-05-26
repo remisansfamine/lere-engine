@@ -8,7 +8,7 @@ COMP MAINMENU
 endGO
 
 GO SkyBox
-RECIPE resources/recipes/skybox.recipe
+COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
 endGO
 
 GO NewGameButton
