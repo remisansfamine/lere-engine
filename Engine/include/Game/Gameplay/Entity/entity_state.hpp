@@ -1,28 +1,28 @@
 #pragma once
 
 #include <memory>
-#include <algorithm> 
-#include <imgui.h>
 
 #include "component.hpp"
-#include "rigidbody.hpp"
-#include "maths.hpp"
 
-#include "inputs_manager.hpp"
-#include "button.hpp"
-#include "graph.hpp"
+namespace Physics
+{
+	class Transform;
+}
 
 namespace Gameplay
 {
 	class EntityState : public Engine::Component
 	{
-	public:
+	protected:
 		EntityState(Engine::GameObject& gameObject, std::shared_ptr<EntityState> ptr);
 
+	public:
 		std::shared_ptr<Physics::Transform> transform = nullptr;
 
 		bool isIdle = false;
 		bool isWalking = false;
+		bool isRunning = false;
+		bool isJumping = false;
 		bool isFalling = false;
 		bool isGrounded = false;
 

@@ -1,5 +1,13 @@
 #include "player_state.hpp"
 
+#include <imgui.h>
+#include <algorithm>
+
+#include "rigidbody.hpp"
+#include "maths.hpp"
+
+#include "inputs_manager.hpp"
+
 namespace Gameplay
 {
 	PlayerState::PlayerState(Engine::GameObject& gameObject)

@@ -2,6 +2,8 @@
 
 #include "entity_state.hpp"
 
+#include <memory>
+
 namespace Gameplay
 {
 	class EnemyState : public EntityState

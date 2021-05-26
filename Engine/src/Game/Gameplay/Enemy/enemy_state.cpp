@@ -1,5 +1,14 @@
 #include "enemy_state.hpp"
 
+#include <imgui.h>
+#include <algorithm>
+
+#include "rigidbody.hpp"
+#include "maths.hpp"
+
+#include "inputs_manager.hpp"
+#include "graph.hpp"
+
 namespace Gameplay
 {
 	EnemyState::EnemyState(Engine::GameObject& gameObject)
