@@ -431,7 +431,17 @@ namespace Core::Maths
             lhs.x * rhs.y - lhs.y * rhs.x
 		};
 	}
-        
+
+    inline float squaredDistance(const vec3& vecA, const vec3& vecB)
+    {
+        return (vecB - vecA).squaredMagnitude();
+    }
+
+    inline float distance(const vec3& vecA, const vec3& vecB)
+    {
+        return sqrtf(squaredDistance(vecA, vecB));
+    }
+
     template<typename T>
     vec2 operator*(const vec2& vec, const T& scale)
     {

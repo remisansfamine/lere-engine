@@ -22,6 +22,70 @@ namespace Physics
 		Core::Debug::Log::info("Destroying the Physic Manager");
 	}
 
+	std::vector<RaycastHit> PhysicManager::raycastAll(const Ray& ray)
+	{
+		PhysicManager* PM = instance();
+
+		std::vector<RaycastHit> raycastHits;
+
+		vec3 segmentOrigin = ray.origin;
+		vec3 segmentEnding = ray.origin + ray.direction.normalized() * ray.distance;
+
+		for (auto& boxCollider : PM->boxColliders)
+		{
+			boxCollider->updateShape();
+
+			RaycastHit rayHit { boxCollider };
+
+			Box newBox = boxCollider->box;
+			newBox.center = boxCollider->m_center;
+			newBox.size = boxCollider->extensions;
+			newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->m_rotation);
+
+			if (IntersectSegmentBox(segmentOrigin, segmentEnding, newBox, rayHit.hit))
+			{
+				rayHit.distance = squaredDistance(ray.origin, rayHit.hit.point);
+				raycastHits.push_back(rayHit);
+			}
+		}
+
+		for (auto& sphereCollider : PM->sphereColliders)
+		{
+			sphereCollider->updateShape();
+
+			RaycastHit rayHit { sphereCollider };
+
+			Sphere newSphere = sphereCollider->sphere;
+			newSphere.center = sphereCollider->m_center;
+			newSphere.radius = sphereCollider->extensions.x;
+			newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->m_rotation);
+
+			if (IntersectSegmentSphere(segmentOrigin, segmentEnding, newSphere, rayHit.hit))
+			{
+				rayHit.distance = squaredDistance(ray.origin, rayHit.hit.point);
+				raycastHits.push_back(rayHit);
+			}
+		}
+
+		return raycastHits;
+	}
+
+	bool PhysicManager::raycast(const Ray& ray, RaycastHit& raycastHit)
+	{
+		std::vector<RaycastHit> raycastHits = raycastAll(ray);
+
+		if (raycastHits.empty())
+			return false;
+
+		raycastHit = raycastHits[0];
+
+		for (int i = 1; i < raycastHits.size(); i++)
+			if (raycastHits[i].distance < raycastHit.distance)
+				raycastHit = raycastHits[i];
+
+		return true;
+	}
+
 	void PhysicManager::linkComponent(const std::shared_ptr<Rigidbody> compToLink)
 	{
 		instance()->rigidbodies.push_back(compToLink);

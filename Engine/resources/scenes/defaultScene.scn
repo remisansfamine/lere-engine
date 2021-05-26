@@ -57,11 +57,6 @@ COMP MODELRENDERER resources/obj/weapon/Handgun_obj.obj shader 1.000000
 COMP TRANSFORM 0.5000000 -0.2500000 -0.5000000 0.000000 1.570796 0.000000 0.500000 0.500000 0.500000 MainCamera
 endGO
 
-GO Weapon
-COMP MODELRENDERER resources/obj/weapon/Handgun_obj.obj shader 1.000000
-COMP TRANSFORM 0.5000000 -0.2500000 -0.5000000 0.000000 1.570796 0.000000 0.500000 0.500000 0.500000 MainCamera
-endGO
-
 GO SkyBox
 COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
 endGO
@@ -79,3 +74,8 @@ endGO
 GO Enemy0
 RECIPE resources/recipes/enemy.recipe
 endGO
+
+GO SphereHit
+COMP TRANSFORM
+COMP MODELRENDERER resources/obj/sphere.obj shader 1.000000
+engGO
