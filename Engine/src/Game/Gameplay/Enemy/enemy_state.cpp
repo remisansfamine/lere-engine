@@ -1,23 +1,11 @@
 #include "enemy_state.hpp"
 
-#include <algorithm> 
-#include <imgui.h>
-
-#include "button.hpp"
-#include "graph.hpp"
-
 namespace Gameplay
 {
 	EnemyState::EnemyState(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<EnemyState>(this)) 
+		: EntityState(gameObject, std::shared_ptr<EnemyState>(this)) 
 	{
-		transform = requireComponent<Physics::Transform>();
 		playerTransform = Core::Engine::Graph::findGameObjectWithName("Player")->getComponent<Physics::Transform>();
-	}
-
-	void EnemyState::start()
-	{
-
 	}
 
 	void EnemyState::update()

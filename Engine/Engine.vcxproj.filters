@@ -103,6 +103,12 @@
     <Filter Include="Fichiers d%27en-tête\Game\Gameplay\Enemy">
       <UniqueIdentifier>{b71c4fd2-0925-4521-afd2-f9ede5b12b54}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Game\Gameplay\Entity">
+      <UniqueIdentifier>{c7e52b44-0449-4d27-b080-661b7ebf6fae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Game\Gameplay\Entity">
+      <UniqueIdentifier>{5a779689-c7cd-4fe8-9b58-84fc944c899d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -275,6 +281,21 @@
     </ClCompile>
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_state.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +484,21 @@
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

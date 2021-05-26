@@ -1,22 +1,17 @@
 #pragma once
 
-#include "component.hpp"
-#include "rigidbody.hpp"
-#include "player_state.hpp"
+#include "player_state.hpp" 
+#include "entity_movement.hpp"
 
 namespace Gameplay
 {
-	class PlayerMovement : public Engine::Component
+	class PlayerMovement : public EntityMovement
 	{
-
 	private:
-		float m_speed = 350.f;
 		float m_jumpForce = 500.f;
 
-		std::shared_ptr<Physics::Rigidbody> m_rigidbody;
 		std::shared_ptr<Gameplay::PlayerState> m_playerState;
 		std::shared_ptr<Physics::Transform> m_cameraTransform;
-		std::shared_ptr<Physics::Transform> m_transform;
 
 	public:
 		PlayerMovement(Engine::GameObject& gameObject);

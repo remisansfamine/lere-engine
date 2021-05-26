@@ -80,13 +80,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -188,9 +188,14 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_life.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_movement.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_state.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp" />
     <ClCompile Include="src\Game\game_master.cpp" />
@@ -258,9 +263,14 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_life.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp" />
     <ClInclude Include="include\Game\game_master.hpp" />
