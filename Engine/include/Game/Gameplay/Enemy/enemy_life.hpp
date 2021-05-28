@@ -9,13 +9,12 @@ namespace Gameplay
 	class EnemyLife : public EntityLife
 	{
 	private:
-		int life = 0;
+		void kill() override;
 
 	public:
 		EnemyLife(Engine::GameObject& gameObject);
 
 		void start() override {}
-		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
@@ -24,5 +23,7 @@ namespace Gameplay
 
 		void onCollisionEnter(const Physics::Collision& collision) override {}
 		void onCollisionExit(const Physics::Collision& collision) override {}
+
+		void hurt(int damage = 1) override;
 	};
 }

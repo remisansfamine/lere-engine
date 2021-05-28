@@ -8,6 +8,7 @@
 #include "resources_manager.hpp"
 
 #include "sprite_renderer.hpp"
+#include "player_shooting.hpp"
 #include "player_movement.hpp"
 #include "camera_movement.hpp"
 #include "sphere_collider.hpp"
@@ -216,6 +217,8 @@ namespace Engine
 			Gameplay::PlayerMovement::parseComponent(*this, goStream);
 		else if (comp == "PLAYERSTATE")
 			Gameplay::PlayerState::parseComponent(*this, goStream);
+		else if (comp == "PLAYERSHOOTING")
+			Gameplay::PlayerShooting::parseComponent(*this, goStream);
 		else if (comp == "ENEMYMOVEMENT")
 			Gameplay::EnemyMovement::parseComponent(*this, goStream);
 		else if (comp == "ENEMYSTATE")

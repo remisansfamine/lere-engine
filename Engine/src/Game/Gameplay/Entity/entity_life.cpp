@@ -7,4 +7,17 @@ namespace Gameplay
 	{
 
 	}
+
+	void EntityLife::hurt(int damage)
+	{
+		life -= damage;
+
+		if (life <= 0)
+			kill();
+	}
+
+	void EntityLife::kill()
+	{
+		Core::Debug::Log::info("Ah tabarnak je suis archi dead lo !");
+	}
 }

@@ -298,7 +298,10 @@
       <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp">
-      <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
+      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +490,27 @@
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Physics\Toolbox\referential.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

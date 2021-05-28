@@ -8,18 +8,6 @@ namespace Gameplay
 
 	}
 
-	void EnemyLife::update()
-	{
-		if (Core::Input::InputManager::getButtonDown("Damage"))
-		{
-			life -= 1;
-			Core::Debug::Log::info(std::to_string(life));
-
-			if (life <= 0)
-				Core::Debug::Log::info("Kill");
-		}
-	}
-
 	void EnemyLife::drawImGui()
 	{
 		if (ImGui::TreeNode("EnemyLife"))
@@ -40,5 +28,15 @@ namespace Gameplay
 		auto enemy = gameObject.getComponent<EnemyLife>();
 
 		iss >> enemy->life;
+	}
+
+	void EnemyLife::hurt(int damage)
+	{
+		EntityLife::hurt(damage);
+	}
+
+	void EnemyLife::kill()
+	{
+		EntityLife::kill();
 	}
 }

@@ -198,6 +198,7 @@
     <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_movement.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp" />
     <ClCompile Include="src\Game\game_master.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
@@ -274,6 +275,7 @@
     <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_movement.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp" />
     <ClInclude Include="include\Game\game_master.hpp" />
     <ClInclude Include="include\Game\main_menu.hpp" />
