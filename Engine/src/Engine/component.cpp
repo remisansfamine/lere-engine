@@ -1,7 +1,11 @@
 #include "component.hpp"
 
-#include "transform.hpp"
+#include <algorithm>
+#include <imgui.h>
 
+#include "graph.hpp"
+
+#include "transform.hpp"
 #include "collider.hpp"
 
 namespace Engine
@@ -26,8 +30,42 @@ namespace Engine
 		Object::setActive(value);
 	}
 
+	void Component::drawImGui()
+	{
+		if (ImGui::Button("Destroy"))
+			destroy();
+	}
+
+	void Component::onDestroy()
+	{
+		std::vector<std::shared_ptr<Component>>::iterator it;
+
+		for (it = m_gameObject.m_components.begin(); it != m_gameObject.m_components.end(); it++)
+		{
+			if (it->get() == this)
+				break;
+		}
+
+		std::shared_ptr<Component>* compPtr = &(*it);
+
+		int test = it->use_count();
+
+		auto ptr = compPtr->get();
+
+
+		while (compPtr->use_count() > 0)
+		{
+			Core::Debug::Log::info("bonjour");
+
+			compPtr->reset();
+		}
+
+		m_gameObject.m_components.erase(it);
+	}
+
 	void Component::destroy()
 	{
+		Core::Engine::Graph::addToDestroyQueue(this);
 	}
 
 	GameObject& Component::getHost()

@@ -30,6 +30,13 @@ namespace Physics
 		extensions = Core::Maths::modelMatrixToScale(globalModel) * box.size;
 	}
 
+	void BoxCollider::onDestroy()
+	{
+		Component::onDestroy();
+
+		PhysicManager::removeComponent(this);
+	}
+
 	void BoxCollider::drawImGui()
 	{
 		if (ImGui::TreeNode("Box Collider"))
@@ -40,6 +47,8 @@ namespace Physics
 			ImGui::Checkbox("IsDraw", &isDraw);
 			//ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
 
+			Collider::drawImGui();
+
 			ImGui::TreePop();
 		}
 	}
@@ -49,7 +58,7 @@ namespace Physics
 		return "COMP BOXCOLLIDER " + Utils::vecToStringParsing(box.center) + 
 									 Utils::vecToStringParsing(box.size) +
 									 Utils::quatToStringParsing(box.quaternion) +
-									 std::to_string(box.offsetRounding);
+									 std::to_string(box.offsetRounding) + std::to_string(isTrigger);
 	}
 
 	void BoxCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -71,5 +80,6 @@ namespace Physics
 		iss >> collider->box.quaternion.w;
 
 		iss >> collider->box.offsetRounding;
+		iss >> collider->isTrigger;
 	}
 }

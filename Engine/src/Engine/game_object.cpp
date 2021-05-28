@@ -102,6 +102,24 @@ namespace Engine
 			component->onCollisionExit(collision);
 	}
 
+	void GameObject::callTriggerEnter(std::shared_ptr<Physics::Collider> collider)
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onTriggerEnter(collider);
+	}
+
+	void GameObject::callTriggerStay(std::shared_ptr<Physics::Collider> collider)
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onTriggerStay(collider);
+	}
+
+	void GameObject::callTriggerExit(std::shared_ptr<Physics::Collider> collider)
+	{
+		for (std::shared_ptr<Component>& component : m_components)
+			component->onTriggerExit(collider);
+	}
+
 	std::string GameObject::toString()
 	{
 		std::string goParse = "GO " + m_name + "\n";
@@ -252,6 +270,14 @@ namespace Engine
 			}
 			else if (type == "endGO")
 				break;
+		}
+	}
+
+	void GameObject::destroy()
+	{
+		for (auto& comp : m_components)
+		{
+			comp->destroy();
 		}
 	}
 }

@@ -69,7 +69,7 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
-		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
+		//Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
 		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
 
@@ -162,6 +162,21 @@ namespace Resources
 			return;
 
 		gameObjects[curGoName].drawImGuiInspector();
+	}
+
+	void Scene::addToDestroyQueue(Engine::Object* objToDestroy)
+	{
+		objectsToDestroy.push_back(objToDestroy);
+	}
+
+	void Scene::cleanObjects()
+	{
+		for (Engine::Object* obj : objectsToDestroy)
+		{
+			obj->onDestroy();
+		}
+
+		objectsToDestroy.clear();
 	}
 
 	void Scene::update()

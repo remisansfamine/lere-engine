@@ -38,6 +38,13 @@ namespace LowRenderer
 		tillingOffset = tilling.y;
 	}
 
+	void SpriteRenderer::onDestroy()
+	{
+		Component::onDestroy();
+
+		LowRenderer::RenderManager::removeComponent(this);
+	}
+
 	std::string SpriteRenderer::getTexturePath()
 	{
 		return texture->getPath();
@@ -75,6 +82,8 @@ namespace LowRenderer
 			ImGui::DragFloat("TillingMultiplier", &tillingMultiplier, 0.1f, 0.f, 200.f);
 			ImGui::DragFloat("TillingOffset", &tillingOffset, 0.01f, 0.f, 1.f);
 			ImGui::Image((void*)(intptr_t)texture->getID(), { 128, 128 }, ImVec2(0, 1), ImVec2(1, 0));
+
+			Component::drawImGui();
 
 			ImGui::TreePop();
 		}

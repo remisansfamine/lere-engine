@@ -39,7 +39,7 @@ namespace Physics
 
 	Core::Maths::mat4 Transform::getModel() const
 	{
-		// Return the model matrix (TRS where R = ZXY like Unity)
+		// Return the model matrix (TRS where R = ZYX like Unity)
 		return Core::Maths::translate(m_position) *
 			   Core::Maths::rotateZ(m_rotation.z) *
 			   Core::Maths::rotateY(m_rotation.y) *
@@ -141,6 +141,8 @@ namespace Physics
 				std::string parentName = "Parent: " + parent->getHost().m_name;
 				ImGui::Text(parentName.c_str());
 			}
+
+			Component::drawImGui();
 
 			ImGui::TreePop();
 		}

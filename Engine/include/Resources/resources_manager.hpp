@@ -46,7 +46,7 @@ namespace Resources
 		{
 			for (auto it = map.begin(); it != map.end();)
 			{
-				if (it->second.use_count() == 1)
+				if (it->second.use_count() <= 1)
 					it = map.erase(it);
 				else
 					it++;

@@ -9,6 +9,8 @@ namespace Physics
 	{
 	private:
 		SphereCollider(Engine::GameObject& gameObject, std::shared_ptr<SphereCollider> ptr);
+
+		void onDestroy() override;
 	public:
 		SphereCollider(Engine::GameObject& gameObject);
 
