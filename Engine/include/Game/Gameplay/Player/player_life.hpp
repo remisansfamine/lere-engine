@@ -11,8 +11,6 @@ namespace Gameplay
 	public:
 		PlayerLife(Engine::GameObject& gameObject);
 
-		void hurt(int damage);
-
 		void start() override {}
 		void update() override;
 		void drawImGui() override {}

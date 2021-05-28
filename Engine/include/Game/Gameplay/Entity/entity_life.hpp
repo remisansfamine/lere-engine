@@ -18,7 +18,12 @@ namespace Gameplay
 	{
 	protected:
 		EntityLife(Engine::GameObject& gameObject, std::shared_ptr<EntityLife> ptr);
+		
+		virtual void kill();
 
-		int life;
+		int life = 10;
+
+	public:
+		virtual void hurt(int damage = 1);
 	};
 }
