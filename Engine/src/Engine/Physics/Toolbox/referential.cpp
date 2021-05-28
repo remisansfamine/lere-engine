@@ -24,9 +24,9 @@ Referential3D::Referential3D(const vec3& ptA, const vec3& ptB)
 Referential3D::Referential3D(const vec3& _origin, const quat& quaternion)
 	: origin(_origin)
 {
-	i = vectorRotate({ 1,0,0 }, quaternion).normalize();
-	j = vectorRotate({ 0,1,0 }, quaternion).normalize();
-	k = vectorRotate({ 0,0,1 }, quaternion).normalize();
+	i = vectorRotate({ 1,0,0 }, quaternion).normalized();
+	j = vectorRotate({ 0,1,0 }, quaternion).normalized();
+	k = vectorRotate({ 0,0,1 }, quaternion).normalized();
 }
 
 // Normalize referential vectors

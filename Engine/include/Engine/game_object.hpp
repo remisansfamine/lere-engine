@@ -37,11 +37,9 @@ namespace Engine
 		virtual ~GameObject();
 
 		template <class C, typename ...Args, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		std::shared_ptr<C> addComponent(Args... args)
+		void constexpr addComponent(Args... args)
 		{
 			new C(*this, args...);
-
-			return std::dynamic_pointer_cast<C>(m_components.back());
 		}
 
 		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
@@ -93,7 +91,7 @@ namespace Engine
 		void callCollisionExit(const Physics::Collision& collision);
 
 		void drawImGuiInspector();
-		void drawImGuiHierarchy(std::string& curDrawGoName);
+		void drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene);
 
 		std::string toString();
 
@@ -103,4 +101,5 @@ namespace Engine
 
 		void destroy() override {}
 	};
+
 }

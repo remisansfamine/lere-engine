@@ -187,7 +187,6 @@
     <ClCompile Include="src\Engine\Physics\sphere_collider.cpp" />
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp" />
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp" />
-    <ClCompile Include="src\Engine\Physics\Toolbox\shape.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />

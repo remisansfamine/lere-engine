@@ -29,6 +29,8 @@ namespace Physics
 
 	public:
 
+		static bool raycast(const Ray& ray, RaycastHit& raycastHit);
+		static std::vector<RaycastHit> raycastAll(const Ray& ray);
 
 		static void linkComponent(const std::shared_ptr<Rigidbody> compToLink);
 

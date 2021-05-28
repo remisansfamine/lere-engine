@@ -25,7 +25,7 @@ namespace LowRenderer
 		texture = Resources::Texture::defaultDiffuse;
 
 		tillingMultiplier = tilling.x;
-		tillingMultiplier = tilling.y;
+		tillingOffset = tilling.y;
 	}
 
 	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
@@ -35,7 +35,7 @@ namespace LowRenderer
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
 
 		tillingMultiplier = tilling.x;
-		tillingMultiplier = tilling.y;
+		tillingOffset = tilling.y;
 	}
 
 	std::string SpriteRenderer::getTexturePath()

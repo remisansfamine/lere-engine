@@ -8,9 +8,12 @@ class Referential3D
 {
 public:
 	Referential3D();
+
 	Referential3D(const vec3& axe0, const vec3& axe1);
+
 	Referential3D(const vec3& _origin, const vec3& _i, const vec3& _j, const vec3& _k)
 		: origin(_origin), i(_i), j(_j), k(_k) {}
+
 	Referential3D(const vec3& _origin, const quat& quaternion);
 
 	void normalize();

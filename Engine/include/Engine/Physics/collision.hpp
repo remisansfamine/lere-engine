@@ -24,6 +24,13 @@ namespace Physics
 		Core::Maths::vec3 normal;
 	};
 
+	struct RaycastHit
+	{
+		std::shared_ptr<Collider> collider;
+		Hit hit;
+		float distance = 0.f;
+	};
+
 	struct Collision
 	{
 		std::shared_ptr<Collider> collider;

@@ -23,7 +23,7 @@ namespace LowRenderer
 		model = Model(filePath, m_transform);
 
 		tillingMultiplier = tilling.x;
-		tillingMultiplier = tilling.y;
+		tillingOffset = tilling.y;
 	}
 
 	ModelRenderer::~ModelRenderer()
