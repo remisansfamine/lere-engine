@@ -32,20 +32,35 @@ namespace Engine
 
 	void Component::drawImGui()
 	{
-		if (ImGui::Button("Destroy test"))
+		if (ImGui::Button("Destroy"))
 			destroy();
 	}
 
 	void Component::onDestroy()
 	{
-		for (auto it = m_gameObject.m_components.begin(); it != m_gameObject.m_components.end(); it++)
+		std::vector<std::shared_ptr<Component>>::iterator it;
+
+		for (it = m_gameObject.m_components.begin(); it != m_gameObject.m_components.end(); it++)
 		{
 			if (it->get() == this)
-			{
-				m_gameObject.m_components.erase(it);
 				break;
-			}
 		}
+
+		std::shared_ptr<Component>* compPtr = &(*it);
+
+		int test = it->use_count();
+
+		auto ptr = compPtr->get();
+
+
+		while (compPtr->use_count() > 0)
+		{
+			Core::Debug::Log::info("bonjour");
+
+			compPtr->reset();
+		}
+
+		m_gameObject.m_components.erase(it);
 	}
 
 	void Component::destroy()

@@ -10,6 +10,7 @@ namespace Physics
 	private:
 		BoxCollider(Engine::GameObject& gameObject, std::shared_ptr<BoxCollider> ptr);
 
+		void onDestroy() override;
 	public:
 		BoxCollider(Engine::GameObject& gameObject);
 

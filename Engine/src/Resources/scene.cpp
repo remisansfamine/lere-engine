@@ -69,7 +69,7 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
-		Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
+		//Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
 		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
 
@@ -115,7 +115,7 @@ namespace Resources
 
 		scnStream.close();
 
-		Resources::ResourcesManager::clearResources();
+		//Resources::ResourcesManager::clearResources();
 	}
 
 	void Scene::save()

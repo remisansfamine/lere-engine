@@ -79,6 +79,10 @@ namespace Engine
 		void virtual onCollisionStay(const Physics::Collision& collision) {}
 		void virtual onCollisionExit(const Physics::Collision& collision) {}
 
+		void virtual onTriggerEnter(std::shared_ptr<Physics::Collider> collider) {}
+		void virtual onTriggerStay(std::shared_ptr<Physics::Collider> collider) {}
+		void virtual onTriggerExit(std::shared_ptr<Physics::Collider> collider) {}
+
 		GameObject& getHost();
 
 		virtual std::string toString() const { return ""; }

@@ -27,7 +27,7 @@ namespace Physics
 		return hasRigidbody() && m_rigidbody->isAwake;
 	}
 
-	void Collider::computeCallback(bool hasHit, const Collision& collision)
+	void Collider::computeCollisionCallback(bool hasHit, const Collision& collision)
 	{
 		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), collision.collider);
 
@@ -55,7 +55,31 @@ namespace Physics
 		}
 	}
 
-	void Collider::drawImGui()
+	void Collider::computeTriggerCallback(bool hasHit, std::shared_ptr<Collider> collider)
 	{
+		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), collider);
+
+		bool isInVector = colliderIt != m_colliders.end();
+
+
+		if (isInVector)
+		{
+			if (!hasHit)
+			{
+				m_colliders.erase(colliderIt);
+				getHost().callTriggerExit(collider);
+				return;
+			}
+
+			getHost().callTriggerStay(collider);
+			return;
+		}
+
+		if (hasHit)
+		{
+			m_colliders.push_back(collider);
+			getHost().callTriggerEnter(collider);
+			return;
+		}
 	}
 }

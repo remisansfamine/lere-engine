@@ -1,1 +1,1 @@
-COMP SKYBOX resources/skyboxes/p_R.png resources/skyboxes/n_L.png resources/skyboxes/p_U.png resources/skyboxes/n_D.png resources/skyboxes/p_F.png resources/skyboxes/n_B.png
+COMP SKYBOX resources/skyboxes/right.png resources/skyboxes/left.png resources/skyboxes/top.png resources/skyboxes/bottom.png resources/skyboxes/front.png resources/skyboxes/back.png
