@@ -38,7 +38,6 @@ namespace Resources
 	void Scene::setGameObjectParent(const std::string& goName, const std::string& goChildName)
 	{
 		gameObjects[goChildName].getComponent<Physics::Transform>()->setParent(gameObjects[goName]);
-		gameObjects[goName].getComponent<Physics::Transform>()->setChild(gameObjects[goChildName]);
 		/*size_t indexGO = 0;
 		size_t indexGOChild = 0;
 		int isFind = 0;
@@ -115,12 +114,14 @@ namespace Resources
 
 		scnStream.close();
 
+		save();
+
 		//Resources::ResourcesManager::clearResources();
 	}
 
 	void Scene::save()
 	{
-		std::ofstream scnFlux("resources/scenes/savedScene.scn");
+		std::ofstream scnFlux("resources/scenes/test.scn");
 
 		if (!scnFlux)
 		{
@@ -143,7 +144,6 @@ namespace Resources
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_FRAMEBUFFER_SRGB);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_BLEND);
@@ -154,7 +154,7 @@ namespace Resources
 	void Scene::drawHierarchy()
 	{
 		for (auto& gameObject : gameObjects)
-			gameObject.second.drawImGuiHierarchy(curGoName, true);
+			gameObject.second.drawImGuiHierarchy(curGoName);
 	}
 
 	void Scene::drawInspector()

@@ -6,6 +6,7 @@
 #include "inputs_manager.hpp"
 #include "time.hpp"
 #include "maths.hpp"
+#include "utils.hpp"
 
 #include "utils.hpp"
 
@@ -25,7 +26,11 @@ namespace Gameplay
 
 	void CameraMovement::fixedUpdate()
 	{
-		transform->m_rotation.x -= m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().y;
+		Core::Maths::vec2 mouseMovement = m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse();
+
+		Core::Debug::Log::info("Deltamouse : " + Utils::vecToStringDebug(mouseMovement));
+
+		transform->m_rotation += Core::Maths::vec3(mouseMovement.y, mouseMovement.x, 0.f);
 		transform->m_rotation.x = std::clamp(transform->m_rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
 	}
 
