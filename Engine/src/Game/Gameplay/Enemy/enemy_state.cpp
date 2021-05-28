@@ -56,7 +56,8 @@ namespace Gameplay
 
 	std::string EnemyState::toString() const
 	{
-		return "COMP ENEMYSTATE " + std::to_string(isIdle) + " " + std::to_string(isWalking)
+		return "COMP ENEMYSTATE " + std::to_string(isIdle) 
+			+ " " + std::to_string(isWalking)
 			+ " " + std::to_string(isFalling)
 			+ " " + std::to_string(isGrounded);
 	}
