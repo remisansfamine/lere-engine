@@ -20,7 +20,7 @@ namespace Resources
 			if (data)
 			{
 				Core::Debug::Log::info("Loading of " + paths[i] + " done with success");
-				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+				glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 			}
 			else
 				Core::Debug::Log::error("Cannot find the texture file at " + paths[i]);

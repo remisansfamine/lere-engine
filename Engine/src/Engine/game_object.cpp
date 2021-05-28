@@ -102,19 +102,19 @@ namespace Engine
 			component->onCollisionExit(collision);
 	}
 
-	void GameObject::callTriggerEnter(std::shared_ptr<Physics::Collider> collider)
+	void GameObject::callTriggerEnter(Physics::Collider* collider)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onTriggerEnter(collider);
 	}
 
-	void GameObject::callTriggerStay(std::shared_ptr<Physics::Collider> collider)
+	void GameObject::callTriggerStay(Physics::Collider* collider)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onTriggerStay(collider);
 	}
 
-	void GameObject::callTriggerExit(std::shared_ptr<Physics::Collider> collider)
+	void GameObject::callTriggerExit(Physics::Collider* collider)
 	{
 		for (std::shared_ptr<Component>& component : m_components)
 			component->onTriggerExit(collider);

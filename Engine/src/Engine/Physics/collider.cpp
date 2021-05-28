@@ -33,7 +33,6 @@ namespace Physics
 
 		bool isInVector = colliderIt != m_colliders.end();
 
-
 		if (isInVector)
 		{
 			if (!hasHit)
@@ -55,18 +54,17 @@ namespace Physics
 		}
 	}
 
-	void Collider::computeTriggerCallback(bool hasHit, std::shared_ptr<Collider> collider)
+	void Collider::computeTriggerCallback(bool hasHit, Collider* collider)
 	{
-		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), collider);
+		auto colliderIt = std::find(m_triggers.begin(), m_triggers.end(), collider);
 
-		bool isInVector = colliderIt != m_colliders.end();
-
+		bool isInVector = colliderIt != m_triggers.end();
 
 		if (isInVector)
 		{
 			if (!hasHit)
 			{
-				m_colliders.erase(colliderIt);
+				m_triggers.erase(colliderIt);
 				getHost().callTriggerExit(collider);
 				return;
 			}
@@ -77,7 +75,7 @@ namespace Physics
 
 		if (hasHit)
 		{
-			m_colliders.push_back(collider);
+			m_triggers.push_back(collider);
 			getHost().callTriggerEnter(collider);
 			return;
 		}

@@ -48,7 +48,7 @@ namespace Gameplay
 		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
 	}
 
-	void PlayerMovement::onTriggerEnter(std::shared_ptr<Physics::Collider> collider)
+	void PlayerMovement::onTriggerEnter(Physics::Collider* collider)
 	{
 		int test = 0;
 	}

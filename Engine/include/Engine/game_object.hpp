@@ -90,9 +90,9 @@ namespace Engine
 		void callCollisionStay(const Physics::Collision& collision);
 		void callCollisionExit(const Physics::Collision& collision);
 
-		void callTriggerEnter(std::shared_ptr<Physics::Collider> collider);
-		void callTriggerStay(std::shared_ptr<Physics::Collider> collider);
-		void callTriggerExit(std::shared_ptr<Physics::Collider> collider);
+		void callTriggerEnter(Physics::Collider* collider);
+		void callTriggerStay(Physics::Collider* collider);
+		void callTriggerExit(Physics::Collider* collider);
 
 		void drawImGuiInspector();
 		void drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene);

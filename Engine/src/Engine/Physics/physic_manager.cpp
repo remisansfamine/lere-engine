@@ -193,7 +193,8 @@ namespace Physics
 
 				if (sphereCollider->isTrigger || sphereToCheck->isTrigger)
 				{
-					sphereCollider->computeTriggerCallback(TriggerSpheres(newSphere, newSphereToCheck), sphereToCheck);
+					sphereCollider->computeTriggerCallback(TriggerSpheres(newSphere, newSphereToCheck), sphereToCheck.get());
+					sphereToCheck->computeTriggerCallback(TriggerSpheres(newSphere, newSphereToCheck), sphereCollider.get());
 					continue;
 				}
 
@@ -219,7 +220,8 @@ namespace Physics
 
 				if (sphereCollider->isTrigger || boxCollider->isTrigger)
 				{
-					sphereCollider->computeTriggerCallback(TriggerSphereBox(newSphere, newBox), boxCollider);
+					sphereCollider->computeTriggerCallback(TriggerSphereBox(newSphere, newBox), boxCollider.get());
+					boxCollider->computeTriggerCallback(TriggerSphereBox(newSphere, newBox), sphereCollider.get());
 					continue;
 				}
 

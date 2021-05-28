@@ -19,9 +19,7 @@ namespace Gameplay
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 
-		//void onTriggerEnter(const Physics::Collision& collision) override;
-		//void onTriggerExit(const Physics::Collision& collision) override;		
-		void onCollisionEnter(const Physics::Collision& collision) override;
-		void onCollisionExit(const Physics::Collision& collision) override;
+		void onTriggerStay(Physics::Collider* collider) override;
+		void onTriggerExit(Physics::Collider* collider) override;
 	};
 }
