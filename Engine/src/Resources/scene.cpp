@@ -172,9 +172,7 @@ namespace Resources
 	void Scene::cleanObjects()
 	{
 		for (Engine::Object* obj : objectsToDestroy)
-		{
 			obj->onDestroy();
-		}
 
 		objectsToDestroy.clear();
 	}

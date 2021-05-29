@@ -135,6 +135,9 @@ namespace Engine
 	{
 		ImGui::InputText(": Name", &m_name[0], 50);
 
+		if (ImGui::Button("Destroy"))
+			destroy();
+
 		for (auto& component : m_components)
 			component->drawImGui();
 	}
@@ -279,8 +282,13 @@ namespace Engine
 	void GameObject::destroy()
 	{
 		for (auto& comp : m_components)
-		{
 			comp->destroy();
-		}
+
+		Core::Engine::Graph::addToDestroyQueue(this);
+	}
+
+	void GameObject::onDestroy()
+	{
+
 	}
 }

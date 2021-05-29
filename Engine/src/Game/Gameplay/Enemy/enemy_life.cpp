@@ -38,5 +38,7 @@ namespace Gameplay
 	void EnemyLife::kill()
 	{
 		EntityLife::kill();
+
+		getHost().destroy();
 	}
 }

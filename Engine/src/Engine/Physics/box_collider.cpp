@@ -41,13 +41,10 @@ namespace Physics
 	{
 		if (ImGui::TreeNode("Box Collider"))
 		{
+			Collider::drawImGui();
+
 			ImGui::DragFloat3("Center :", &box.center.x);
 			ImGui::DragFloat3("Size :", &box.size.x);
-			ImGui::Checkbox("IsTrigger", &isTrigger);
-			ImGui::Checkbox("IsDraw", &isDraw);
-			//ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
-
-			Collider::drawImGui();
 
 			ImGui::TreePop();
 		}

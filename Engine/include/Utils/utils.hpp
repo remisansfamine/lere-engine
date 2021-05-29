@@ -48,7 +48,7 @@ namespace Utils
     void selectImGuiString(std::string selectableLabel, std::string& strRef);
 
     template <typename T>
-    T sign(T value)
+    int sign(T value)
     {
         return (T(0) < value) - (value < T(0));
     }

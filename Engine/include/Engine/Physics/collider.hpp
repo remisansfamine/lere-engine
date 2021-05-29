@@ -34,6 +34,8 @@ namespace Physics
 		void computeCollisionCallback(bool hasHit, const Collision& collision);
 		void computeTriggerCallback(bool hasHit, Collider* collider);
 
+		void drawImGui() override;
+
 		virtual void updateShape() = 0;
 	};
 }

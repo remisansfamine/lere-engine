@@ -46,20 +46,6 @@ namespace Engine
 				break;
 		}
 
-		std::shared_ptr<Component>* compPtr = &(*it);
-
-		int test = it->use_count();
-
-		auto ptr = compPtr->get();
-
-
-		while (compPtr->use_count() > 0)
-		{
-			Core::Debug::Log::info("bonjour");
-
-			compPtr->reset();
-		}
-
 		m_gameObject.m_components.erase(it);
 	}
 

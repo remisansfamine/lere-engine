@@ -80,4 +80,12 @@ namespace Physics
 			return;
 		}
 	}
+
+	void Collider::drawImGui()
+	{
+		Component::drawImGui();
+
+		ImGui::Checkbox("IsTrigger", &isTrigger);
+		ImGui::Checkbox("IsDraw", &isDraw);
+	}
 }
