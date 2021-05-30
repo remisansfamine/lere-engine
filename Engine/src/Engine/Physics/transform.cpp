@@ -9,7 +9,6 @@ namespace Physics
 	Transform::Transform(Engine::GameObject& gameObject)
 		: Component(gameObject, std::shared_ptr<Transform>(this))
 	{
-
 	}
 
 	bool Transform::hasParent()
@@ -37,17 +36,23 @@ namespace Physics
 		return parent->getHost();
 	}
 
-	Core::Maths::mat4 Transform::getModel() const
+	Core::Maths::mat4 Transform::getModel()
 	{
-		// Return the model matrix (TRS where R = ZYX like Unity)
-		return Core::Maths::translate(m_position) *
-			   Core::Maths::rotateZ(m_rotation.z) *
-			   Core::Maths::rotateY(m_rotation.y) *
-			   Core::Maths::rotateX(m_rotation.x) *
-			   Core::Maths::scale(m_scale);
+		if (!m_hasBeenUpdated)
+		{
+			m_model = Core::Maths::translate(m_position) *
+					  Core::Maths::rotateZ(m_rotation.z) *
+					  Core::Maths::rotateY(m_rotation.y) *
+					  Core::Maths::rotateX(m_rotation.x) *
+					  Core::Maths::scale(m_scale);
+
+			m_hasBeenUpdated = true;
+		}
+
+		return m_model;
 	}
 
-	Core::Maths::mat4 Transform::getGlobalModel() const
+	Core::Maths::mat4 Transform::getGlobalModel()
 	{
 		if (parent)
 			return getParentModel() * getModel();
@@ -89,7 +94,7 @@ namespace Physics
 		return Core::Maths::vec3(0.f, 0.f, 0.f);
 	}
 
-	Core::Maths::vec3 Transform::getForward() const
+	Core::Maths::vec3 Transform::getForward()
 	{
 		auto model = getGlobalModel();
 
@@ -124,6 +129,11 @@ namespace Physics
 		children.push_back(newParent.get());
 	}
 
+	void Transform::update()
+	{
+		m_hasBeenUpdated = false;
+	}
+
 	void Transform::drawImGui()
 	{
 		if (ImGui::TreeNode("Transform"))
@@ -146,6 +156,8 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
+
+		m_hasBeenUpdated = false;
 	}
 
 	std::string Transform::toString() const

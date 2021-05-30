@@ -34,6 +34,8 @@ namespace Resources
 		void cleanObjects();
 		Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
 
+		void deleteGameObject(const std::string& goName);
+
 		void drawHierarchy();
 		void drawInspector();
 

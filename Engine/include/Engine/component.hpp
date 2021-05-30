@@ -73,6 +73,8 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
+
+		bool isActive() override;
 		void destroy() override;
 
 		void virtual onCollisionEnter(const Physics::Collision& collision) {}

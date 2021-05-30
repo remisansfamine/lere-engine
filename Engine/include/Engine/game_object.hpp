@@ -81,9 +81,7 @@ namespace Engine
 			return componentToReturn;
 		}
 
-		//void callColisions(Collider);
 		void awakeComponents();
-		void startComponents();
 		void updateComponents();
 		void fixedUpdateComponents();
 		void lateUpdateComponents();

@@ -39,33 +39,12 @@ namespace Resources
 	{
 		gameObjects[goChildName].getComponent<Physics::Transform>()->setParent(gameObjects[goName]);
 		gameObjects[goName].getComponent<Physics::Transform>()->setChild(gameObjects[goChildName]);
-		/*size_t indexGO = 0;
-		size_t indexGOChild = 0;
-		int isFind = 0;
-
-		for (size_t i = 0; i < gameObjects.size(); i++)
-		{
-			if (gameObjects[i].m_name == goName)
-			{
-				indexGO = i;
-				isFind++;
-			}
-			if (gameObjects[i].m_name == goChildName)
-			{
-				indexGOChild = i;
-				isFind++;
-			}
-
-			if (isFind == 2) 
-				break;
-		}
-
-		gameObjects[indexGOChild].getComponent<Physics::Transform>()->setParent(gameObjects[indexGO]);*/
 	}
 
 	void Scene::load(const std::string& _filePath)
 	{
 		LowRenderer::RenderManager::clearComponents<LowRenderer::SpriteRenderer>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::ColliderRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
@@ -177,19 +156,43 @@ namespace Resources
 		objectsToDestroy.clear();
 	}
 
+	void Scene::deleteGameObject(const std::string& goName)
+	{
+		auto objIt = gameObjects.find(goName);
+
+		if (objIt == gameObjects.end())
+		{
+			Core::Debug::Log::error("Game object " + goName + " not found");
+			return;
+		}
+
+		gameObjects.erase(objIt);
+
+		curGoName = "";
+	}
+
 	void Scene::update()
 	{
 		for (auto& go : gameObjects)
-			go.second.updateComponents();
+		{
+			if (go.second.isActive())
+				go.second.updateComponents();
+		}
 
 		for (auto& go : gameObjects)
-			go.second.lateUpdateComponents();
+		{
+			if (go.second.isActive())
+				go.second.lateUpdateComponents();
+		}
 	}
 
 	void Scene::fixedUpdate()
 	{
 		for (auto& go : gameObjects)
-			go.second.fixedUpdateComponents();
+		{
+			if (go.second.isActive())
+				go.second.fixedUpdateComponents();
+		}
 	}
 
 	Engine::GameObject& Scene::addGameObject(const std::string& gameObjectName)

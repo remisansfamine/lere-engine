@@ -30,7 +30,8 @@ namespace LowRenderer
 
 		if (skyBoxes.size() > 0)
 		{
-			skyBoxes.back()->draw();
+			if (skyBoxes.back()->isActive())
+				skyBoxes.back()->draw();
 		}
 
 		glEnable(GL_FRAMEBUFFER_SRGB);
@@ -44,6 +45,9 @@ namespace LowRenderer
 		// Draw renderers
 		for (std::shared_ptr<ModelRenderer>& model : models)
 		{
+			if (!model->isActive())
+				continue;
+
 			// If the ShaderProgram has changed, bind it and send shared informations
 			if (program != model->getProgram())
 			{
@@ -74,6 +78,9 @@ namespace LowRenderer
 		// Draw renderers
 		for (std::shared_ptr<SpriteRenderer>& sprite : sprites)
 		{
+			if (!sprite->isActive())
+				continue;
+
 			// If the ShaderProgram has changed, bind it and send shared informations
 			if (program != sprite->getProgram())
 			{
