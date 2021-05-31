@@ -59,6 +59,22 @@ namespace LowRenderer
 			child.draw(shaderProgram);
 	}
 
+	void Model::simpleDraw(std::shared_ptr<Resources::ShaderProgram> shaderProgram) const
+	{
+		if (m_mesh)
+		{
+			// Send model matrix to program
+			shaderProgram->setUniform("model", m_transform->getGlobalModel().e, 1, 1);
+
+			// Draw the mesh
+			m_mesh->draw();
+		}
+
+		// Draw children
+		for (const Model& child : m_children)
+			child.simpleDraw(shaderProgram);
+	}
+
 	void Model::drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider) const
 	{
 		if (m_mesh)

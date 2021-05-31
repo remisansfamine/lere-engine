@@ -45,6 +45,11 @@ namespace LowRenderer
 		model.draw(m_shaderProgram);
 	}
 
+	void ModelRenderer::simpleDraw(std::shared_ptr<Resources::ShaderProgram> program) const
+	{
+		model.simpleDraw(m_shaderProgram);
+	}
+
 	void ModelRenderer::drawImGui()
 	{
 		if (ImGui::TreeNode("Model renderer"))

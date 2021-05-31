@@ -8,8 +8,8 @@ namespace Resources
 {
 	CubeMap::CubeMap(const std::vector<std::string>& paths)
 	{
-		glGenTextures(1, &cubeMapID);
-		glBindTexture(GL_TEXTURE_2D, cubeMapID);
+		glGenTextures(1, &ID);
+		glBindTexture(GL_TEXTURE_2D, ID);
 
 		stbi_set_flip_vertically_on_load(false);
 
@@ -36,13 +36,18 @@ namespace Resources
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 	}
 
+	CubeMap::~CubeMap()
+	{
+		glDeleteTextures(1, &ID);
+	}
+
 	GLuint CubeMap::getID() const
 	{
-		return cubeMapID;
+		return ID;
 	}
 
 	void CubeMap::bind() const
 	{
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
 	}
 }

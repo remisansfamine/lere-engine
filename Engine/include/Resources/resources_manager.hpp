@@ -67,7 +67,7 @@ namespace Resources
 		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
 		static std::shared_ptr<Recipe> loadRecipe(const std::string& recipePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
-		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "");
+		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
 
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);

@@ -21,6 +21,7 @@ namespace Resources
 	public:
 		Texture(const std::string& filePath);
 		Texture(int width, int height, float* colorBuffer);
+		~Texture();
 
 		GLuint getID() const;
 

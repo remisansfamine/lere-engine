@@ -66,6 +66,8 @@ namespace Resources
 		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag");
 		loadShaderProgram("colliderShader", "resources/shaders/vertexCollider.vert", "resources/shaders/fragmentCollider.frag");
 		loadShaderProgram("spriteShader", "resources/shaders/spriteVertex.vert", "resources/shaders/spriteFragment.frag");
+		loadShaderProgram("depthShader", "resources/shaders/depthShader.vert", "resources/shaders/depthShader.frag");
+		loadShaderProgram("depthCubeShader", "resources/shaders/depthCubeShader.vert", "resources/shaders/depthShader.frag", "resources/shaders/depthCubeShader.geom");
 
 		loadObj("resources/obj/cube.obj");
 		loadObj("resources/obj/sphere.obj");
@@ -103,10 +105,10 @@ namespace Resources
 			return shaderIt->second;
 		}
 
-		return RM->shaders[shaderPath] = std::make_shared<Shader>(Shader(shaderPath));
+		return RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
 	}
 
-	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath)
+	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -116,7 +118,7 @@ namespace Resources
 		if (programIt != RM->shaderPrograms.end())
 			return programIt->second;
 
-		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(ShaderProgram(programName, vertPath, fragPath));
+		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
@@ -131,7 +133,7 @@ namespace Resources
 			return textureIt->second;
 		}
 
-		return RM->textures[texturePath] = std::make_shared<Texture>(Texture(texturePath));
+		return RM->textures[texturePath] = std::make_shared<Texture>(texturePath);
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
@@ -146,7 +148,7 @@ namespace Resources
 			return textureIt->second;
 		}
 
-		return RM->textures[name] = std::make_shared<Texture>(Texture(width, height, data));
+		return RM->textures[name] = std::make_shared<Texture>(width, height, data);
 	}
 
 	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
@@ -166,7 +168,7 @@ namespace Resources
 			return cubeMapIt->second;
 		}
 
-		return RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(CubeMap(cubeMapPaths));
+		return RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(cubeMapPaths);
 	}
 
 	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
@@ -181,7 +183,7 @@ namespace Resources
 			return materialIt->second;
 		}
 
-		return RM->materials[materialPath] = std::make_shared<Material>(Material());
+		return RM->materials[materialPath] = std::make_shared<Material>();
 	}
 
 	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
@@ -194,7 +196,7 @@ namespace Resources
 		if (recipeIt != RM->recipes.end())
 			return recipeIt->second;
 
-		return RM->recipes[recipePath] = std::make_shared<Recipe>(Recipe(recipePath));
+		return RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
 	}
 
 	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)

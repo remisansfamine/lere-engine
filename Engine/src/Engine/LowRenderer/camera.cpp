@@ -45,6 +45,12 @@ namespace LowRenderer
 		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, -1.f, 10.f);
 	}
 
+	Core::Maths::mat4 Camera::getShadowOrtho() const
+	{
+		// Get the camera orthographic using the aspect ration, fov, near and far parameters
+		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, -1.f, 10.f);
+	}
+
 	Core::Maths::mat4 Camera::getViewProjection() const
 	{
 		return getProjection() * getViewMatrix();

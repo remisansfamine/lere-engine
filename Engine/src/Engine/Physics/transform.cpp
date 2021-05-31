@@ -38,7 +38,12 @@ namespace Physics
 
 	Core::Maths::mat4 Transform::getModel()
 	{
-		if (!m_hasBeenUpdated)
+		return Core::Maths::translate(m_position) *
+			Core::Maths::rotateZ(m_rotation.z) *
+			Core::Maths::rotateY(m_rotation.y) *
+			Core::Maths::rotateX(m_rotation.x) *
+			Core::Maths::scale(m_scale);
+		/*if (!m_hasBeenUpdated)
 		{
 			m_model = Core::Maths::translate(m_position) *
 					  Core::Maths::rotateZ(m_rotation.z) *
@@ -49,7 +54,7 @@ namespace Physics
 			m_hasBeenUpdated = true;
 		}
 
-		return m_model;
+		return m_model;*/
 	}
 
 	Core::Maths::mat4 Transform::getGlobalModel()

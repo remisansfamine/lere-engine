@@ -3,10 +3,13 @@
 #include "imgui.h"
 
 #include "render_manager.hpp"
+#include "resources_manager.hpp"
 #include "inputs_manager.hpp"
 #include "time.hpp"
 
 #include "transform.hpp"
+#include "shadow_point.hpp"
+#include "shadow_map.hpp"
 #include "utils.hpp"
 
 namespace LowRenderer
@@ -15,6 +18,7 @@ namespace LowRenderer
 		: Light(gameObject, std::shared_ptr<Light>(this))
 	{
 		m_transform = requireComponent<Physics::Transform>();
+		shadow = std::make_unique<ShadowMap>();
 	}
 
 	Light::Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr)
@@ -47,10 +51,34 @@ namespace LowRenderer
 		outterCutoff = 50.f * Core::Maths::DEG2RAD;
 	}
 
+	void Light::setShadows(bool isShadow)
+	{
+		if (isShadow)
+		{
+			bool isShadowMap = dynamic_cast<ShadowMap*>(shadow.get()) != nullptr;
+
+			if (!isShadowMap && position.w == 0.0)
+				shadow = std::make_unique<ShadowMap>();
+			else if (!isShadowMap && dynamic_cast<ShadowPoint*>(shadow.get()) == nullptr)
+				shadow = std::make_unique<ShadowPoint>();
+
+			return;
+		}
+
+		shadow = nullptr;
+	}
+
 	void Light::compute()
 	{
 		enable = (float)isActive();
 		position.xyz = m_transform->m_position;
+		hasShadow = shadow != nullptr;
+
+		if (hasShadow == false || position.w != 0.0)
+			return;
+
+		Core::Maths::mat4 lightView = Core::Maths::lookAt(position.xyz, Core::Maths::vec3(50.f, 0.f, 0.f), Core::Maths::vec3(0.f, 1.f, 0.f));
+		spaceMatrix = LowRenderer::RenderManager::getCurrentCamera()->getShadowOrtho() * lightView;
 	}
 
 	void Light::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const
@@ -58,6 +86,32 @@ namespace LowRenderer
 		// Send light parameters to the ShaderProgram packed into matrices
 		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position);
 		program->setUniform("lightAttribs2[" + std::to_string(index) + "][0]", &attenuation);
+
+		if (shadow != nullptr)
+		{
+			if (position.w == 0.0)
+			{
+				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e);
+				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &index);
+
+				glActiveTexture(GL_TEXTURE5 + index);
+				glBindTexture(GL_TEXTURE_2D, shadow->ID);
+			}
+			else
+			{
+				int farPlane = 25.f;
+				program->setUniform("farPlane", &farPlane);
+				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &index);
+
+				glActiveTexture(GL_TEXTURE13 + index);
+				glBindTexture(GL_TEXTURE_CUBE_MAP, shadow->ID);
+			}
+		}
+	}
+
+	const Core::Maths::mat4& Light::getSpaceMatrix() const
+	{
+		return spaceMatrix;
 	}
 
 	void Light::drawImGui()
@@ -86,7 +140,7 @@ namespace LowRenderer
 							   std::to_string(cutoff) + " " +
 							   Utils::vecToStringParsing(direction) +
 							   std::to_string(outterCutoff) + " " +
-							   std::to_string(enable);
+							   std::to_string(enable) + " " + std::to_string(shadow == nullptr);
 	}
 
 	void Light::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -124,5 +178,9 @@ namespace LowRenderer
 		iss >> light->outterCutoff;
 
 		iss >> light->enable;
+
+		bool hasShadow = false;
+		iss >> hasShadow;
+		light->setShadows(hasShadow);
 	}
 }

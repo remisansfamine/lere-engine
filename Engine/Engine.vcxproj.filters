@@ -109,6 +109,9 @@
     <Filter Include="Fichiers sources\Game\Gameplay\Entity">
       <UniqueIdentifier>{5a779689-c7cd-4fe8-9b58-84fc944c899d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Shaders\Shadows">
+      <UniqueIdentifier>{da4c1b03-75fa-46fc-b7f5-fe6f74320f53}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -302,6 +305,15 @@
     </ClCompile>
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
       <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\shadow_map.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\shadow_point.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\shadow.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -512,6 +524,15 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\shadow_map.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\shadow_point.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\shadow.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl">
@@ -552,6 +573,21 @@
     </None>
     <None Include="resources\shaders\vertexShader.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.geom">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
     </None>
   </ItemGroup>
 </Project>
