@@ -10,6 +10,7 @@
 #include "enemy_life.hpp"
 #include "graph.hpp"
 #include "time.hpp"
+#include "timer.hpp"
 
 namespace Gameplay
 {
@@ -33,17 +34,18 @@ namespace Gameplay
 	{
 		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
 		{
-			Physics::RaycastHit raycastHit;
-			Physics::Ray ray{ m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), 50.f };
-			if (Physics::PhysicManager::raycast(ray, raycastHit))
+			if (Core::Timer::TimerOn(10))
 			{
-				std::shared_ptr<EnemyLife> life;
-				if (raycastHit.collider->getHost().tryGetComponent(life))
+				Core::Debug::Log::info("Pan!");
+				Physics::RaycastHit raycastHit;
+				Physics::Ray ray{ m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), 50.f };
+				if (Physics::PhysicManager::raycast(ray, raycastHit))
 				{
-					life->hurt();
+					std::shared_ptr<EnemyLife> life;
+					if (raycastHit.collider->getHost().tryGetComponent(life))
+						life->hurt();
 				}
 			}
-
 		}
 	}
 

@@ -164,6 +164,7 @@
     <ClCompile Include="src\Core\Input\mouse_button.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
+    <ClCompile Include="src\Core\timer.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
     <ClCompile Include="src\Engine\engine_master.cpp" />
     <ClCompile Include="src\Engine\game_object.cpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="include\Core\debug.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
+    <ClInclude Include="include\Core\timer.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />
     <ClInclude Include="include\Engine\engine_master.hpp" />
     <ClInclude Include="include\Engine\game_object.hpp" />
