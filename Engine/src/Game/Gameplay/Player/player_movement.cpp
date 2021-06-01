@@ -1,7 +1,5 @@
 #include "player_movement.hpp"
 
-#include "graph.hpp"
-
 namespace Gameplay
 {
 	PlayerMovement::PlayerMovement(Engine::GameObject& gameObject)
@@ -18,11 +16,6 @@ namespace Gameplay
 
 	void PlayerMovement::fixedUpdate()
 	{
-		if (Core::Input::InputManager::getMouseButtonDown("RightClick"))
-		Core::Engine::Graph::instantiate("agrou", "resources/recipes/enemy.recipe");
-
-
-
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
 		float horizontal = m_playerState->horizontalMove * fixedSpeed;
 		float vertical = m_playerState->forwardMove * fixedSpeed;
