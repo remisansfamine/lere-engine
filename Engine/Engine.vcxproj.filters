@@ -301,7 +301,10 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\pause_menu.cpp">
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -510,7 +513,10 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\pause_menu.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
