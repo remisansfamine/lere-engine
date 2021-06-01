@@ -31,9 +31,6 @@ namespace Physics
 		static bool raycast(const Ray& ray, RaycastHit& raycastHit);
 		static std::vector<RaycastHit> raycastAll(const Ray& ray);
 
-		/*static void linkComponent(const std::shared_ptr<Rigidbody> compToLink);
-		static void removeComponent(const std::shared_ptr<Rigidbody> compToLink);*/
-
 		static void linkComponent(const std::shared_ptr<SphereCollider> compToLink);
 		static void removeComponent(SphereCollider* compToRemove);
 

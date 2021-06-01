@@ -125,6 +125,9 @@ namespace Engine
 	{
 		std::string goParse = "GO " + m_name + "\n";
 
+		if (m_recipe != "")
+			goParse += "RECIPE " + m_recipe + '\n';
+
 		for (auto& comp : m_components)
 			goParse += comp->toString() + "\n";
 
@@ -245,6 +248,8 @@ namespace Engine
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)
 	{
+		m_recipe = filePath;
+
 		std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
 
 		std::string line;

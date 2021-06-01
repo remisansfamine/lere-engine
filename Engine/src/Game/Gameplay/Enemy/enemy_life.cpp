@@ -24,10 +24,11 @@ namespace Gameplay
 
 	void EnemyLife::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<EnemyLife>();
-		auto enemy = gameObject.getComponent<EnemyLife>();
+		std::shared_ptr<EnemyLife> el;
+		if (!gameObject.tryGetComponent(el))
+			el = gameObject.addComponent<EnemyLife>();
 
-		iss >> enemy->life;
+		iss >> el->life;
 	}
 
 	void EnemyLife::hurt(int damage)

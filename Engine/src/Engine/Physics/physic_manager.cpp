@@ -92,16 +92,6 @@ namespace Physics
 		return true;
 	}
 
-	/*void PhysicManager::linkComponent(const std::shared_ptr<Rigidbody> compToLink)
-	{
-		instance()->rigidbodies.push_back(compToLink);
-	}
-
-	void PhysicManager::removeComponent(const std::shared_ptr<Rigidbody> compToLink)
-	{
-		instance()->rigidbodies.push_back(compToLink);
-	}*/
-
 	void PhysicManager::linkComponent(const std::shared_ptr<BoxCollider> compToLink)
 	{
 		PhysicManager* PM = instance();

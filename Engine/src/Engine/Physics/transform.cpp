@@ -174,10 +174,9 @@ namespace Physics
 
 	void Transform::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName)
 	{
-		if (!gameObject.tryGetComponent<Transform>())
-			gameObject.addComponent<Transform>();
-
-		auto transform = gameObject.getComponent<Transform>();
+		std::shared_ptr<Transform> transform;
+		if (!gameObject.tryGetComponent(transform))
+			transform = gameObject.addComponent<Transform>();
 
 		iss >> transform->m_position.x;
 		iss >> transform->m_position.y;

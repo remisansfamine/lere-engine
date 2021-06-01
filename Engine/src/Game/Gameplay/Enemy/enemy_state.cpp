@@ -52,14 +52,13 @@ namespace Gameplay
 
 	void EnemyState::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<EnemyState>())
-			gameObject.addComponent<EnemyState>();
+		std::shared_ptr<EnemyState> es;
+		if (!gameObject.tryGetComponent(es))
+			es = gameObject.addComponent<EnemyState>();
 
-		auto enemy = gameObject.getComponent<EnemyState>();
-
-		iss >> enemy->isIdle;
-		iss >> enemy->isWalking;
-		iss >> enemy->isFalling;
-		iss >> enemy->isGrounded;
+		iss >> es->isIdle;
+		iss >> es->isWalking;
+		iss >> es->isFalling;
+		iss >> es->isGrounded;
 	}
 }

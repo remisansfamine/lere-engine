@@ -63,8 +63,9 @@ namespace Physics
 
 	void SphereCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<SphereCollider>();
-		auto collider = gameObject.getComponent<SphereCollider>();
+		std::shared_ptr<SphereCollider> collider;
+		if (!gameObject.tryGetComponent(collider))
+			collider = gameObject.addComponent<SphereCollider>();
 
 		iss >> collider->sphere.center.x;
 		iss >> collider->sphere.center.y;
