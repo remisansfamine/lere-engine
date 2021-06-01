@@ -41,9 +41,6 @@ namespace Engine
 	{
 	}
 
-
-
-
 	void GameObject::awakeComponents()
 	{
 		// Call the awake function for all the components
@@ -51,18 +48,14 @@ namespace Engine
 			component->awake();
 	}
 
-	void GameObject::startComponents()
-	{
-		// Call the start function for all the components
-		for (std::shared_ptr<Component>& component : m_components)
-			component->start();
-	}
-
 	void GameObject::updateComponents()
 	{
 		// Call the update function for all the components
 		for (std::shared_ptr<Component>& component : m_components)
 		{
+			if (!component->isActive())
+				continue;
+
 			if (!component->hasStarted)
 			{
 				component->start();
@@ -76,13 +69,20 @@ namespace Engine
 	void GameObject::fixedUpdateComponents()
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->fixedUpdate();
+		{
+			if (component->isActive())
+				component->fixedUpdate();
+		}
+			
 	}
 
 	void GameObject::lateUpdateComponents()
 	{
 		for (std::shared_ptr<Component>& component : m_components)
-			component->lateUpdate();
+		{
+			if (component->isActive())
+				component->lateUpdate();
+		}
 	}
 
 	void GameObject::callCollisionEnter(const Physics::Collision& collision)
@@ -134,6 +134,11 @@ namespace Engine
 	void GameObject::drawImGuiInspector()
 	{
 		ImGui::InputText(": Name", &m_name[0], 50);
+
+		bool activated = isActive();
+
+		if (ImGui::Checkbox("Enable", &activated))
+			setActive(activated);
 
 		if (ImGui::Button("Destroy"))
 			destroy();
@@ -281,6 +286,13 @@ namespace Engine
 
 	void GameObject::destroy()
 	{
+		std::shared_ptr<Physics::Transform> transform;
+		if (tryGetComponent<Physics::Transform>(transform))
+		{
+			for (int i = 0; i < transform->getChildrenCount(); i++)
+				transform->getGOChild(i).destroy();
+		}
+
 		for (auto& comp : m_components)
 			comp->destroy();
 
@@ -289,6 +301,6 @@ namespace Engine
 
 	void GameObject::onDestroy()
 	{
-
+		Core::Engine::Graph::deleteGameObject(m_name);
 	}
 }

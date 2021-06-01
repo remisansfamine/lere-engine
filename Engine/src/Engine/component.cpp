@@ -32,6 +32,11 @@ namespace Engine
 
 	void Component::drawImGui()
 	{
+		bool activated = Object::isActive();
+
+		if (ImGui::Checkbox("Enable", &activated))
+			setActive(activated);
+
 		if (ImGui::Button("Destroy"))
 			destroy();
 	}
@@ -47,6 +52,11 @@ namespace Engine
 		}
 
 		m_gameObject.m_components.erase(it);
+	}
+
+	bool Component::isActive()
+	{
+		return getHost().isActive() && Object::isActive();
 	}
 
 	void Component::destroy()

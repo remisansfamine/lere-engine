@@ -33,6 +33,9 @@ namespace Physics
 
 		for (auto& boxCollider : PM->boxColliders)
 		{
+			if (!boxCollider->isActive())
+				continue;
+
 			boxCollider->updateShape();
 
 			RaycastHit rayHit { boxCollider };
@@ -51,6 +54,9 @@ namespace Physics
 
 		for (auto& sphereCollider : PM->sphereColliders)
 		{
+			if (!sphereCollider->isActive())
+				continue;
+
 			sphereCollider->updateShape();
 
 			RaycastHit rayHit { sphereCollider };
@@ -170,10 +176,13 @@ namespace Physics
 		{
 			auto sphereCollider = *sphereColliderIt;
 
+			if (!sphereCollider->isActive())
+				continue;
+
 			for (auto sphereToCheckIt = sphereColliders.begin(); sphereToCheckIt != sphereColliders.end(); sphereToCheckIt++)
 			{
 				// Avoid sphere colliding with itself
-				if (sphereToCheckIt == sphereColliderIt)
+				if (!sphereCollider->isActive() || sphereToCheckIt == sphereColliderIt)
 					continue;
 
 				auto sphereToCheck = *sphereToCheckIt;
@@ -205,6 +214,9 @@ namespace Physics
 
 			for (auto& boxCollider : boxColliders)
 			{
+				if (!boxCollider->isActive())
+					continue;
+
 				sphereCollider->updateShape();
 				boxCollider->updateShape();
 

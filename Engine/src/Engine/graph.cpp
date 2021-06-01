@@ -98,6 +98,11 @@ namespace Core::Engine
 		instance()->curScene.cleanObjects();
 	}
 
+	void Graph::deleteGameObject(const std::string& goName)
+	{
+		instance()->curScene.deleteGameObject(goName);
+	}
+
 	void Graph::drawImGui()
 	{
 		Graph* graph = instance();

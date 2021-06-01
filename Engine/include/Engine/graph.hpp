@@ -40,6 +40,7 @@ namespace Core::Engine
 		static void drawImGui();
 		static void fixedUpdate();
 		static void clean();
+		static void deleteGameObject(const std::string& goName);
 
 		static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
 
