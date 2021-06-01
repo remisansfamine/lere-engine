@@ -1,5 +1,7 @@
 #include "player_movement.hpp"
 
+#include "graph.hpp"
+
 namespace Gameplay
 {
 	PlayerMovement::PlayerMovement(Engine::GameObject& gameObject)

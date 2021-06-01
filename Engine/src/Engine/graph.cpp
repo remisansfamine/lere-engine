@@ -146,4 +146,14 @@ namespace Core::Engine
 
 		Core::Application::setCursor(state);
 	}
+
+	void Graph::instantiate(const std::string& GOname)
+	{
+		instance()->curScene.instantiate(GOname);
+	}
+
+	void Graph::instantiate(const std::string& GOname, const std::string& recipePath)
+	{
+		instance()->curScene.instantiate(GOname, recipePath);
+	}
 }

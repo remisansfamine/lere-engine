@@ -48,5 +48,8 @@ namespace Core::Engine
 
 		static bool getCursorState();
 		static void setCursorState(bool state);
+
+		static void instantiate(const std::string& GOname);
+		static void instantiate(const std::string& GOname, const std::string& recipePath);
 	};
 }

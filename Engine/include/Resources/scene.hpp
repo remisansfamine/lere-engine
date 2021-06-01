@@ -41,6 +41,8 @@ namespace Resources
 
 		void addToDestroyQueue(Engine::Object* objToDestroy);
 
-		Engine::GameObject& addGameObject(const std::string& gameObjectName);
+		std::string getUniqueGOName(const std::string& gameObjectName);
+		Engine::GameObject& instantiate(const std::string& gameObjectName = "GameObject");
+		Engine::GameObject& instantiate(const std::string& gameObjectName, const std::string& recipePath);
 	};
 }
