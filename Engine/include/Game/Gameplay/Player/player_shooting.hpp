@@ -17,10 +17,12 @@ namespace Gameplay
 	private:
 		std::shared_ptr<Physics::Transform> m_cameraTransform;
 
+		int ammo = 5;
 	public:
 		PlayerShooting(Engine::GameObject& gameObject);
 
 		void shooting();
+		void reloading();
 
 		void start() override;
 		void update() override;

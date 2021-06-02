@@ -13,6 +13,8 @@ namespace Core
 
 		currentTime -= deltaTime;
 		isPass = currentTime <= 0.f;
+
+		Debug::Log::info(std::to_string(currentTime));
 	}
 
 	void Timer::setDelay(float myTime)
