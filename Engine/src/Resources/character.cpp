@@ -100,7 +100,7 @@ namespace Resources
 
 	std::string Text::toString() const
 	{
-		
+		return "";
 	}
 
 	void Text::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)

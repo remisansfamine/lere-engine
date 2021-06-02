@@ -32,6 +32,11 @@ namespace Core
 		TM->lastTime = TM->time;
 	}
 
+	void TimeManager::resetTime()
+	{
+		computeTime();
+	}
+
 	float TimeManager::getTime()
 	{
 		return instance()->time;

@@ -126,14 +126,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,15 +146,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -223,6 +227,27 @@
     <ClCompile Include="src\Utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\irrklang\ik_ESoundEngineOptions.h" />
+    <ClInclude Include="header\irrklang\ik_ESoundOutputDrivers.h" />
+    <ClInclude Include="header\irrklang\ik_EStreamModes.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioRecorder.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioStream.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioStreamLoader.h" />
+    <ClInclude Include="header\irrklang\ik_IFileFactory.h" />
+    <ClInclude Include="header\irrklang\ik_IFileReader.h" />
+    <ClInclude Include="header\irrklang\ik_IRefCounted.h" />
+    <ClInclude Include="header\irrklang\ik_irrKlangTypes.h" />
+    <ClInclude Include="header\irrklang\ik_ISound.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundDeviceList.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundEffectControl.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundEngine.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundMixedOutputReceiver.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundSource.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundStopEventReceiver.h" />
+    <ClInclude Include="header\irrklang\ik_IVirtualRefCounted.h" />
+    <ClInclude Include="header\irrklang\ik_SAudioStreamFormat.h" />
+    <ClInclude Include="header\irrklang\ik_vec3d.h" />
+    <ClInclude Include="header\irrklang\irrKlang.h" />
     <ClInclude Include="header\stb_image.h" />
     <ClInclude Include="include\Core\application.hpp" />
     <ClInclude Include="include\Core\Input\input.hpp" />

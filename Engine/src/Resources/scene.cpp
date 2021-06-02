@@ -166,13 +166,6 @@ namespace Resources
 			return;
 		}
 
-		std::shared_ptr<Physics::Transform> transform;
-		if (objIt->second.tryGetComponent<Physics::Transform>(transform))
-		{
-			if (transform->hasParent())
-				transform->getParent()->deleteChildFromTransform(transform.get());
-		}
-
 		gameObjects.erase(objIt);
 
 		curGoName = "";

@@ -11,6 +11,12 @@ namespace Physics
 	{
 	}
 
+	void Transform::onDestroy()
+	{
+		if (hasParent())
+			getParent()->deleteChildFromTransform(this);
+	}
+
 	bool Transform::hasParent()
 	{
 		return parent != nullptr;

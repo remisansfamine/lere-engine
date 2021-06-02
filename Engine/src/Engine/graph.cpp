@@ -2,9 +2,10 @@
 
 #include "imgui.h"
 
-#include "debug.hpp"
 #include "physic_manager.hpp"
 #include "application.hpp"
+#include "debug.hpp"
+#include "time.hpp"
 
 namespace Core::Engine
 {
@@ -21,6 +22,7 @@ namespace Core::Engine
 	void Graph::loadScene(const std::string& scenePath)
 	{
 		curScene.load(scenePath);
+		Core::TimeManager::resetTime();
 	}
 
 	void Graph::loadSaveGame()

@@ -126,6 +126,10 @@ namespace Core
 	{
 		Application* AP = instance();
 
+		// Precompute time
+		// Avoid big deltatime while loading resources
+		Core::TimeManager::computeTime();
+
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
