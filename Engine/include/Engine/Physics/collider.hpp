@@ -13,6 +13,7 @@ namespace Physics
 	{
 	protected:
 		std::vector<std::shared_ptr<Collider>> m_colliders;
+		std::vector<Collider*> m_triggers;
 		Core::Maths::vec3 m_positionOffset;
 
 		Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr);
@@ -30,10 +31,11 @@ namespace Physics
 		bool hasRigidbody();
 		bool isRigidbodyAwake();
 
-		void computeCallback(bool hasHit, const Collision& collision);
-
-		virtual void updateShape() = 0;
+		void computeCollisionCallback(bool hasHit, const Collision& collision);
+		void computeTriggerCallback(bool hasHit, Collider* collider);
 
 		void drawImGui() override;
+
+		virtual void updateShape() = 0;
 	};
 }

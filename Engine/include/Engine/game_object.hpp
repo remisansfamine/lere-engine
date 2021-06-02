@@ -37,9 +37,11 @@ namespace Engine
 		virtual ~GameObject();
 
 		template <class C, typename ...Args, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		void constexpr addComponent(Args... args)
+		std::shared_ptr<C> addComponent(Args... args)
 		{
 			new C(*this, args...);
+
+			return std::dynamic_pointer_cast<C>(m_components.back());
 		}
 
 		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
@@ -79,9 +81,7 @@ namespace Engine
 			return componentToReturn;
 		}
 
-		//void callColisions(Collider);
 		void awakeComponents();
-		void startComponents();
 		void updateComponents();
 		void fixedUpdateComponents();
 		void lateUpdateComponents();
@@ -89,6 +89,10 @@ namespace Engine
 		void callCollisionEnter(const Physics::Collision& collision);
 		void callCollisionStay(const Physics::Collision& collision);
 		void callCollisionExit(const Physics::Collision& collision);
+
+		void callTriggerEnter(Physics::Collider* collider);
+		void callTriggerStay(Physics::Collider* collider);
+		void callTriggerExit(Physics::Collider* collider);
 
 		void drawImGuiInspector();
 		void drawImGuiHierarchy(std::string& curDrawGoName, bool isDrawFromScene);
@@ -99,6 +103,8 @@ namespace Engine
 		void parseRecipe(const std::string& filePath, std::string& parentName);
 		void parse(std::istream& scnStream, std::string& parentName);
 
-		void destroy() override {}
+		void destroy() override;
+		void onDestroy() override;
 	};
+
 }

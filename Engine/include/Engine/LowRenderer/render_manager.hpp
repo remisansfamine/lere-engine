@@ -52,6 +52,9 @@ namespace LowRenderer
 
 		static void linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink);
 
+		static void removeComponent(SpriteRenderer* compToRemove);
+		static void removeComponent(ModelRenderer* compToRemove);
+
 		template <class C>
 		static void clearComponents();
 

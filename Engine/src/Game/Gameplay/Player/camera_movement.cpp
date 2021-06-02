@@ -5,7 +5,9 @@
 
 #include "inputs_manager.hpp"
 #include "time.hpp"
+#include "graph.hpp"
 #include "maths.hpp"
+#include "physic_manager.hpp"
 
 #include "utils.hpp"
 

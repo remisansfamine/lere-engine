@@ -16,6 +16,9 @@ namespace Physics
 		std::shared_ptr<Transform> parent = nullptr;
 		std::vector<Transform*> children;
 
+		bool m_hasBeenUpdated = false;
+		Core::Maths::mat4 m_model = Core::Maths::identity();
+
 	public:
 		Transform(Engine::GameObject& gameObject);
 
@@ -26,8 +29,8 @@ namespace Physics
 		Engine::GameObject& getGOParent();
 		Engine::GameObject& getGOChild(int childIndex);
 		int getChildrenCount();
-		Core::Maths::mat4 getModel() const;
-		Core::Maths::mat4 getGlobalModel() const;
+		Core::Maths::mat4 getModel();
+		Core::Maths::mat4 getGlobalModel();
 		Core::Maths::mat4 getParentModel() const;
 
 		Core::Maths::vec3 getGlobalRotation() const;
@@ -35,7 +38,7 @@ namespace Physics
 		Core::Maths::vec3 getParentRotation() const;
 		Core::Maths::vec3 getParentPosition() const;
 
-		Core::Maths::vec3 getForward() const;
+		Core::Maths::vec3 getForward();
 
 		bool hasParent();
 		bool hasChild();
@@ -43,6 +46,8 @@ namespace Physics
 		void setParent(Engine::GameObject& gameObject);
 		void setChild(Physics::Transform* child);
 		void setChild(Engine::GameObject& gameObject);
+
+		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;

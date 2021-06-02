@@ -3,6 +3,7 @@
 #include <imgui.h>
 
 #include "inputs_manager.hpp"
+#include "application.hpp"
 
 #include "intersection.h"
 #include "transform.hpp"
@@ -23,8 +24,9 @@ namespace UI
 		Physics::Rect2D buttonRect = Physics::Rect2D(m_transform->m_position.xy, m_transform->m_scale.x, m_transform->m_scale.y);	
 		Core::Maths::vec2 mousePos = Core::Input::InputManager::getMousePos();
 
-		mousePos.x = Utils::remap(mousePos.x, 0.f, 1440.f, -10.f, 10.f);
-		mousePos.y = Utils::remap(mousePos.y, 0.f, 900.f, 10.f, -10.f);
+		Core::Maths::vec2 windowSize = Core::Application::getWindowSize();
+		mousePos.x = Utils::remap(mousePos.x, 0.f, windowSize.x, -10.f, 10.f);
+		mousePos.y = Utils::remap(mousePos.y, 0.f, windowSize.y, 10.f, -10.f);
 
 		m_image->m_color = Core::Maths::vec4(1.f, 1.f, 1.f, 1.f);
 
@@ -90,8 +92,9 @@ namespace UI
 
 	void Button::drawImGui()
 	{
-		if (ImGui::TreeNode("Sprite renderer"))
+		if (ImGui::TreeNode("Button"))
 		{
+			Component::drawImGui();
 			ImGui::TreePop();
 		}
 	}

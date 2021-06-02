@@ -11,13 +11,13 @@ namespace Resources
 		shaderProgram->setUniform("material.diffuse", &diffuse);
 		shaderProgram->setUniform("material.specular", &specular);
 		shaderProgram->setUniform("material.emissive", &emissive);
-
+		
 		shaderProgram->setUniform("material.shininess", &shininess);
 
 		// Set the textures' location of the shader program
 		std::vector<std::string> shaderName =
 		{ "material.alphaTexture", "material.ambientTexture", "material.diffuseTexture",
-			"material.emissiveTexture", "material.specularTexture" };
+			"material.emissiveTexture", "material.specularTexture"};
 
 		for (int i = 0; i < 5; i++)
 			shaderProgram->setUniform(shaderName[i], &i);

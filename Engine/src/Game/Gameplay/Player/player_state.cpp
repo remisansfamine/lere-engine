@@ -1,5 +1,13 @@
 #include "player_state.hpp"
 
+#include <imgui.h>
+#include <algorithm>
+
+#include "rigidbody.hpp"
+#include "maths.hpp"
+
+#include "inputs_manager.hpp"
+
 namespace Gameplay
 {
 	PlayerState::PlayerState(Engine::GameObject& gameObject)
@@ -30,7 +38,7 @@ namespace Gameplay
 
 	void PlayerState::onCollisionEnter(const Physics::Collision& collision)
 	{
-		if (collision.normal.y <= 0.f)
+		if (collision.hit.normal.y <= 0.f)
 			return;
 
 		colliderCount++;

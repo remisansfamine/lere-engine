@@ -18,7 +18,6 @@ namespace Physics
 		PhysicManager();
 		~PhysicManager();
 
-		std::vector<std::shared_ptr<Rigidbody>> rigidbodies;
 		std::vector<std::shared_ptr<BoxCollider>> boxColliders;
 		std::vector<std::shared_ptr<SphereCollider>> sphereColliders;
 
@@ -29,21 +28,27 @@ namespace Physics
 
 	public:
 
+		static bool raycast(const Ray& ray, RaycastHit& raycastHit);
+		static std::vector<RaycastHit> raycastAll(const Ray& ray);
 
-		static void linkComponent(const std::shared_ptr<Rigidbody> compToLink);
+		/*static void linkComponent(const std::shared_ptr<Rigidbody> compToLink);
+		static void removeComponent(const std::shared_ptr<Rigidbody> compToLink);*/
 
 		static void linkComponent(const std::shared_ptr<SphereCollider> compToLink);
+		static void removeComponent(SphereCollider* compToRemove);
 
 		static void linkComponent(const std::shared_ptr<BoxCollider> compToLink);
+		static void removeComponent(BoxCollider* compToRemove);
+
 
 		template <class C>
 		static void clearComponents();
 
-		template<>
+		/*template<>
 		static void clearComponents<Rigidbody>()
 		{
 			instance()->rigidbodies.clear();
-		}
+		}*/
 
 		template<>
 		static void clearComponents<SphereCollider>()

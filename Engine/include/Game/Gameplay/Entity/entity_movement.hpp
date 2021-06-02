@@ -13,8 +13,6 @@
 #include "graph.hpp"
 #include "time.hpp"
 
-#include "enemy_state.hpp"
-
 namespace Gameplay
 {
 	class EntityMovement : public Engine::Component

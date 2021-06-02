@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "entity_state.hpp"
 
 namespace Gameplay
@@ -8,9 +10,6 @@ namespace Gameplay
 	{
 	public:
 		PlayerState(Engine::GameObject& gameObject);
-
-		bool isRunning = false;
-		bool isJumping = false;
 
 		void update() override;
 		void drawImGui() override;

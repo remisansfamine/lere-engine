@@ -36,10 +36,15 @@ namespace Core::Engine
 		static Resources::Scene& getCurScene();
 
 		static void draw();
-		static void drawImGui();
 		static void update();
+		static void drawImGui();
 		static void fixedUpdate();
+		static void clean();
+		static void deleteGameObject(const std::string& goName);
+
 		static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+
+		static void addToDestroyQueue(::Engine::Object* obj);
 
 		static bool getCursorState();
 		static void setCursorState(bool state);

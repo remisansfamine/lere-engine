@@ -49,5 +49,7 @@ namespace Core::Engine
 			Graph::drawImGui();
 		else 
 			Graph::update();
+
+		Graph::clean();
 	}
 }	

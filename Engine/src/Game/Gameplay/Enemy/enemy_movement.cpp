@@ -1,5 +1,7 @@
 #include "enemy_movement.hpp"
 
+#include "collider.hpp"
+
 namespace Gameplay
 {
 	EnemyMovement::EnemyMovement(Engine::GameObject& gameObject)
@@ -11,8 +13,31 @@ namespace Gameplay
 
 	void EnemyMovement::fixedUpdate()
 	{
-		m_rigidbody->velocity.x = m_enemyState->horizontalMove * m_speed;
-		m_rigidbody->velocity.z = m_enemyState->forwardMove * m_speed;
+		if (m_target)
+		{
+			auto direction = (m_target->m_position - m_transform->m_position).normalized();
+
+			m_rigidbody->velocity.x = direction.x * m_speed;
+			m_rigidbody->velocity.z = direction.z * m_speed;
+
+			m_enemyState->isWalking = true;
+		}
+	}
+
+	void EnemyMovement::onTriggerEnter(Physics::Collider* collider)
+	{
+		if (collider->getHost().m_name == "Player")
+			m_target = collider->getHost().getComponent<Physics::Transform>();
+	}
+
+	void EnemyMovement::onTriggerExit(Physics::Collider* collider)
+	{
+		if (collider->getHost().m_name == "Player")
+		{
+			m_target = nullptr;
+			m_rigidbody->velocity = {0, 0, 0};
+			m_enemyState->isWalking = false;
+		}
 	}
 
 	void EnemyMovement::drawImGui()

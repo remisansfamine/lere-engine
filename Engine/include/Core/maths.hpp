@@ -416,6 +416,11 @@ namespace Core::Maths
         lhs = lhs - rhs;
     }
 
+    inline bool operator==(vec3& lhs, const vec3& rhs)
+    {
+        return (lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z);
+    }
+
 	// Cross product
     inline vec3 operator^(const vec3& lhs, const vec3& rhs)
 	{
@@ -426,7 +431,17 @@ namespace Core::Maths
             lhs.x * rhs.y - lhs.y * rhs.x
 		};
 	}
-        
+
+    inline float squaredDistance(const vec3& vecA, const vec3& vecB)
+    {
+        return (vecB - vecA).squaredMagnitude();
+    }
+
+    inline float distance(const vec3& vecA, const vec3& vecB)
+    {
+        return sqrtf(squaredDistance(vecA, vecB));
+    }
+
     template<typename T>
     vec2 operator*(const vec2& vec, const T& scale)
     {

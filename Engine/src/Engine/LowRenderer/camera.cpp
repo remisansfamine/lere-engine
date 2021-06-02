@@ -52,7 +52,7 @@ namespace LowRenderer
 
 	Core::Maths::mat4 Camera::getViewOrthographic() const
 	{
-		return getOrthographic(); //* Core::Maths::translate(-Core::Maths::vec3(0.f, 0.f, 1.f));
+		return getOrthographic();
 	}
 
 	bool setCursor(Core::Maths::vec2& deltaMouse)
@@ -116,6 +116,9 @@ namespace LowRenderer
 			ImGui::DragFloat("Near plane :", &near);
 			ImGui::DragFloat("Far plane :", &far);
 			ImGui::DragFloat("FOV Y :", &fovY);
+
+			Component::drawImGui();
+
 			ImGui::TreePop();
 		}
 	}

@@ -30,8 +30,11 @@ namespace LowRenderer
 
 		if (skyBoxes.size() > 0)
 		{
-			skyBoxes.back()->draw();
+			if (skyBoxes.back()->isActive())
+				skyBoxes.back()->draw();
 		}
+
+		glEnable(GL_FRAMEBUFFER_SRGB);
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
@@ -42,6 +45,9 @@ namespace LowRenderer
 		// Draw renderers
 		for (std::shared_ptr<ModelRenderer>& model : models)
 		{
+			if (!model->isActive())
+				continue;
+
 			// If the ShaderProgram has changed, bind it and send shared informations
 			if (program != model->getProgram())
 			{
@@ -72,6 +78,9 @@ namespace LowRenderer
 		// Draw renderers
 		for (std::shared_ptr<SpriteRenderer>& sprite : sprites)
 		{
+			if (!sprite->isActive())
+				continue;
+
 			// If the ShaderProgram has changed, bind it and send shared informations
 			if (program != sprite->getProgram())
 			{
@@ -86,6 +95,8 @@ namespace LowRenderer
 		}
 
 		program->unbind();
+
+		glDisable(GL_FRAMEBUFFER_SRGB);
 	}
 
 	void RenderManager::draw()
@@ -154,6 +165,34 @@ namespace LowRenderer
 	{
 		// Insert camera to render
 		instance()->colliders.push_back(compToLink);
+	}
+
+	void RenderManager::removeComponent(SpriteRenderer* compToRemove)
+	{
+		RenderManager* RM = instance();
+
+		for (auto it = RM->sprites.begin(); it != RM->sprites.end(); it++)
+		{
+			if (it->get() == compToRemove)
+			{
+				RM->sprites.erase(it);
+				break;
+			}
+		}
+	}
+
+	void RenderManager::removeComponent(ModelRenderer* compToRemove)
+	{
+		RenderManager* RM = instance();
+
+		for (auto it = RM->models.begin(); it != RM->models.end(); it++)
+		{
+			if (it->get() == compToRemove)
+			{
+				RM->models.erase(it);
+				break;
+			}
+		}
 	}
 
 	std::shared_ptr<Camera> RenderManager::getCurrentCamera()

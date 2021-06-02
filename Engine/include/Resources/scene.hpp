@@ -14,6 +14,8 @@ namespace Resources
 
 		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
 
+		std::vector<Engine::Object*> objectsToDestroy;
+
 	public:
 		bool cursorState = true;
 
@@ -29,10 +31,15 @@ namespace Resources
 		void update();
 		void fixedUpdate();
 
+		void cleanObjects();
 		Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+
+		void deleteGameObject(const std::string& goName);
 
 		void drawHierarchy();
 		void drawInspector();
+
+		void addToDestroyQueue(Engine::Object* objToDestroy);
 
 		Engine::GameObject& addGameObject(const std::string& gameObjectName);
 	};

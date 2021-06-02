@@ -34,15 +34,21 @@ namespace Physics
 		extensions = Core::Maths::vec3(sphere.radius, sphere.radius, sphere.radius);
 	}
 
+	void SphereCollider::onDestroy()
+	{
+		Component::onDestroy();
+
+		PhysicManager::removeComponent(this);
+	}
+
 	void SphereCollider::drawImGui()
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
 			ImGui::DragFloat3("Center :", &sphere.center.x);
 			ImGui::DragFloat("Radius :", &sphere.radius);
-			ImGui::Checkbox("IsTrigger", &isTrigger);
-			ImGui::Checkbox("IsDraw", &isDraw);
-			//ImGui::DragFloat3("Position offset :", &m_positionOffset.x);
+
+			Component::drawImGui();
 
 			ImGui::TreePop();
 		}
@@ -52,7 +58,7 @@ namespace Physics
 	{
 		return "COMP SPHERECOLLIDER " + Utils::vecToStringParsing(sphere.center) + 
 										std::to_string(sphere.radius) + " " +
-										Utils::quatToStringParsing(sphere.quaternion);
+										Utils::quatToStringParsing(sphere.quaternion) + std::to_string(isTrigger);
 	}
 
 	void SphereCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -70,5 +76,7 @@ namespace Physics
 		iss >> collider->sphere.quaternion.y;
 		iss >> collider->sphere.quaternion.z;
 		iss >> collider->sphere.quaternion.w;
+
+		iss >> collider->isTrigger;
 	}
 }

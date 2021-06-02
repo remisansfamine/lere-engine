@@ -87,6 +87,11 @@ namespace Core
 		return newWindow;
 	}
 
+	void windowResizeCallback(GLFWwindow* window, int width, int height)
+	{
+		Application::updateWindowSize(width, height);
+	}
+
 	void Application::init(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
 	{
 		Application* AP = instance();
@@ -102,6 +107,12 @@ namespace Core
 		AP->window = createWindow(screenWidth, screenHeight, title, monitor, share);
 		AP->initialized = true;
  		Debug::Log::info("Application initialized");
+
+		glfwSetWindowSizeCallback(AP->window, windowResizeCallback);
+
+		int width, height;
+		glfwGetWindowSize(AP->window, &width, &height);
+		updateWindowSize(width, height);
 
 		// Init Managers
 		Resources::ResourcesManager::init();
@@ -149,9 +160,7 @@ namespace Core
 	float Application::getAspect()
 	{
 		// Return the aspect of the Window
-		int width, height;
-		glfwGetWindowSize(instance()->window, &width, &height);
-		return (float)width / (float)height;
+		return instance()->aspect;
 	}
 
 	void Application::setCursor(bool isCursorFree)
@@ -166,6 +175,19 @@ namespace Core
 		}
 
 		glfwSetInputMode(AP->window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+	}
+
+	Core::Maths::vec2 Application::getWindowSize()
+	{
+		return instance()->windowSize;
+	}
+
+	void Application::updateWindowSize(int width, int height)
+	{
+		Application* AP = instance();
+
+		AP->windowSize = { (float)width, (float)height };
+		AP->aspect = AP->windowSize.x / AP->windowSize.y;
 	}
 
 	void Application::setImGuiColorsEditor()

@@ -48,6 +48,11 @@ namespace Gameplay
 		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
 	}
 
+	void PlayerMovement::onTriggerEnter(Physics::Collider* collider)
+	{
+		int test = 0;
+	}
+
 	void PlayerMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
 		gameObject.addComponent<PlayerMovement>();

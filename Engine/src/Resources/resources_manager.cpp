@@ -88,7 +88,7 @@ namespace Resources
 		RM->clearMap(RM->meshes);
 		RM->clearMap(RM->materials);
 		RM->clearMap(RM->shaders);
-		RM->clearMap(RM->shaderPrograms);
+		//RM->clearMap(RM->shaderPrograms);
 	}
 
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)

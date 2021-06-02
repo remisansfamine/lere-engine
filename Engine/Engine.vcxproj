@@ -186,6 +186,7 @@
     <ClCompile Include="src\Engine\Physics\shape.cpp" />
     <ClCompile Include="src\Engine\Physics\sphere_collider.cpp" />
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp" />
+    <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />
@@ -197,6 +198,7 @@
     <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_movement.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp" />
     <ClCompile Include="src\Game\game_master.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
@@ -258,6 +260,7 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\intersection.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\plane.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\rect2D.hpp" />
+    <ClInclude Include="include\Engine\Physics\Toolbox\referential.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\shape.hpp" />
     <ClInclude Include="include\Engine\Physics\Toolbox\quad.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
@@ -272,6 +275,7 @@
     <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_movement.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp" />
     <ClInclude Include="include\Game\game_master.hpp" />
     <ClInclude Include="include\Game\main_menu.hpp" />
