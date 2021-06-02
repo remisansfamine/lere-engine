@@ -4,18 +4,31 @@
 
 namespace Core
 {
-	bool Timer::TimerOn(float timer)
+	void Timer::update()
 	{
-		float currentTime = timer;
+		if (isPass)
+			return;
+
 		float deltaTime = TimeManager::getDeltaTime();
 
-		for (currentTime = timer; currentTime >= 0; currentTime -= deltaTime)
-		{
-			if (currentTime <= 0)
-			{
-				currentTime = timer;
-				return true;
-			}
-		}
+		currentTime -= deltaTime;
+		isPass = currentTime <= 0.f;
+	}
+
+	void Timer::setDelay(float myTime)
+	{
+		delay = myTime;
+		reset();
+	}
+
+	bool Timer::timerOn()
+	{
+		return isPass;
+	}
+
+	void Timer::reset()
+	{
+		isPass = false;
+		currentTime = delay;
 	}
 }

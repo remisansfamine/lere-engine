@@ -23,19 +23,23 @@ namespace Gameplay
 	void PlayerShooting::start()
 	{
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
+		timer.setDelay(0.2f);
 	}
 
 	void PlayerShooting::update()
 	{
 		shooting();
+		timer.update();
 	}
 
 	void PlayerShooting::shooting()
 	{
 		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
 		{
-			if (Core::Timer::TimerOn(10))
+			if (timer.timerOn())
 			{
+				timer.reset();
+
 				Core::Debug::Log::info("Pan!");
 				Physics::RaycastHit raycastHit;
 				Physics::Ray ray{ m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), 50.f };

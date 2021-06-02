@@ -13,14 +13,14 @@ namespace Core
 {
 	class Timer
 	{
-	public:
-		static bool TimerOn(float timer);
-
-		bool finish = false;
-
-		float time = 0.f;
+	private:
 		float currentTime = 0.f;
-		bool test = false;
-
+		float delay = 0.f;
+		bool isPass = false;
+	public:
+		bool timerOn();
+		void setDelay(float myTime);
+		void reset();
+		void update();
 	};
 }

@@ -8,6 +8,7 @@
 #include "rigidbody.hpp"
 #include "button.hpp"
 #include "maths.hpp"
+#include "timer.hpp"
 
 namespace Gameplay
 {
@@ -26,6 +27,8 @@ namespace Gameplay
 		void drawImGui() override {}
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+
+		Core::Timer timer;
 	};
 }
 
