@@ -16,8 +16,15 @@ namespace Gameplay
 	{
 	private:
 		std::shared_ptr<Physics::Transform> m_cameraTransform;
+		std::shared_ptr<Physics::Transform> m_weaponTransform;
+		Core::Maths::vec3 initRotation;
 
 		int ammo = 5;
+		float deltaTime = 0.f;
+
+		bool isReloading = false;
+		bool reload = false;
+
 	public:
 		PlayerShooting(Engine::GameObject& gameObject);
 
