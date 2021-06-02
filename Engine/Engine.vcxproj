@@ -132,7 +132,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -202,6 +202,7 @@
     <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp" />
     <ClCompile Include="src\Game\game_master.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
+    <ClCompile Include="src\Resources\character.cpp" />
     <ClCompile Include="src\Resources\cube_map.cpp" />
     <ClCompile Include="src\Resources\material.cpp" />
     <ClCompile Include="src\Resources\mesh.cpp" />
@@ -279,6 +280,7 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp" />
     <ClInclude Include="include\Game\game_master.hpp" />
     <ClInclude Include="include\Game\main_menu.hpp" />
+    <ClInclude Include="include\Resources\character.hpp" />
     <ClInclude Include="include\Resources\cube_map.hpp" />
     <ClInclude Include="include\Resources\material.hpp" />
     <ClInclude Include="include\Resources\mesh.hpp" />
@@ -304,6 +306,8 @@
     <None Include="resources\shaders\spriteVertex.vert" />
     <None Include="resources\shaders\testShader.frag" />
     <None Include="resources\shaders\testShader.vert" />
+    <None Include="resources\shaders\textShader.frag" />
+    <None Include="resources\shaders\textShader.vert" />
     <None Include="resources\shaders\vertexCollider.vert" />
     <None Include="resources\shaders\vertexShader.vert" />
   </ItemGroup>

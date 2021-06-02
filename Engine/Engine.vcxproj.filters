@@ -303,6 +303,9 @@
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Resources\character.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -512,6 +515,9 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="include\Resources\character.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl">
@@ -551,6 +557,12 @@
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="resources\shaders\vertexShader.vert">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\textShader.frag">
+      <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\textShader.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
   </ItemGroup>

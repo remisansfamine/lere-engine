@@ -36,6 +36,11 @@ namespace Physics
 		return parent->getHost();
 	}
 
+	std::shared_ptr<Physics::Transform> Transform::getParent()
+	{
+		return parent;
+	}
+
 	Core::Maths::mat4 Transform::getModel()
 	{
 		return Core::Maths::translate(m_position) *
@@ -43,18 +48,6 @@ namespace Physics
 			Core::Maths::rotateY(m_rotation.y) *
 			Core::Maths::rotateX(m_rotation.x) *
 			Core::Maths::scale(m_scale);
-		/*if (!m_hasBeenUpdated)
-		{
-			m_model = Core::Maths::translate(m_position) *
-					  Core::Maths::rotateZ(m_rotation.z) *
-					  Core::Maths::rotateY(m_rotation.y) *
-					  Core::Maths::rotateX(m_rotation.x) *
-					  Core::Maths::scale(m_scale);
-
-			m_hasBeenUpdated = true;
-		}
-
-		return m_model;*/
 	}
 
 	Core::Maths::mat4 Transform::getGlobalModel()
@@ -71,6 +64,20 @@ namespace Physics
 			return parent->getGlobalModel();
 
 		return Core::Maths::identity();
+	}
+
+	void Transform::deleteChildFromTransform(Transform* transform)
+	{
+		for (size_t i = 0; i < children.size(); i++)
+		{
+			if (children[i] == transform)
+			{
+				children[i] = children.back();
+				children.pop_back();
+
+				return;
+			}
+		}
 	}
 
 	Core::Maths::vec3 Transform::getGlobalRotation() const

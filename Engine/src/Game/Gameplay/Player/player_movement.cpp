@@ -20,7 +20,7 @@ namespace Gameplay
 		float horizontal = m_playerState->horizontalMove * fixedSpeed;
 		float vertical = m_playerState->forwardMove * fixedSpeed;
 
-		m_transform->m_rotation.y -= 0.5f * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
+		m_transform->m_rotation.y -= m_sensivityY * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
 
 		float cos = cosf(m_transform->m_rotation.y), sin = sinf(m_transform->m_rotation.y);
 		m_rigidbody->velocity.x = horizontal * cos + vertical * sin;
@@ -37,6 +37,7 @@ namespace Gameplay
 	{
 		if (ImGui::TreeNode("PlayerMovement"))
 		{
+			ImGui::DragFloat("Sensivity Y : ", &m_sensivityY);
 			ImGui::DragFloat("MoveSpeed : ", &m_speed);
 			ImGui::DragFloat("JumpForce : ", &m_jumpForce);
 			ImGui::TreePop();
@@ -45,7 +46,7 @@ namespace Gameplay
 
 	std::string PlayerMovement::toString() const
 	{
-		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
+		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce) + " " + std::to_string(m_sensivityY);
 	}
 
 	void PlayerMovement::onTriggerEnter(Physics::Collider* collider)
@@ -60,5 +61,6 @@ namespace Gameplay
 
 		iss >> player->m_speed;
 		iss >> player->m_jumpForce;
+		iss >> player->m_sensivityY;
 	}
 }

@@ -27,11 +27,14 @@ namespace Physics
 		Core::Maths::vec3 m_scale = Core::Maths::vec3(1.f, 1.f, 1.f);
 
 		Engine::GameObject& getGOParent();
+		std::shared_ptr<Physics::Transform> getParent();
 		Engine::GameObject& getGOChild(int childIndex);
 		int getChildrenCount();
 		Core::Maths::mat4 getModel();
 		Core::Maths::mat4 getGlobalModel();
 		Core::Maths::mat4 getParentModel() const;
+
+		void deleteChildFromTransform(Transform* transform);
 
 		Core::Maths::vec3 getGlobalRotation() const;
 		Core::Maths::vec3 getGlobalPosition() const;

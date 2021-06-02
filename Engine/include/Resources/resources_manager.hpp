@@ -6,6 +6,7 @@
 
 #include "singleton.hpp"
 
+#include "character.hpp"
 #include "cube_map.hpp"
 #include "material.hpp"
 #include "texture.hpp"
@@ -33,6 +34,7 @@ namespace Resources
 		std::unordered_map<std::string, std::shared_ptr<CubeMap>>		cubeMaps;
 		std::unordered_map<std::string, std::shared_ptr<Mesh>>			meshes;
 		std::unordered_map<std::string, std::shared_ptr<Material>>		materials;
+		std::unordered_map<std::string, std::shared_ptr<Font>>			fonts;
 
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
@@ -61,6 +63,7 @@ namespace Resources
 
 		static void clearResources();
 
+		static std::shared_ptr<Font> loadFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
 		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);

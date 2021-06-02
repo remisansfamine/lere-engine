@@ -119,6 +119,21 @@ namespace Resources
 		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(ShaderProgram(programName, vertPath, fragPath));
 	}
 
+	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
+	{
+		ResourcesManager* RM = instance();
+
+		const auto& fontIt = RM->fonts.find(fontPath);
+
+		// Check if the Texture is already loaded
+		if (fontIt != RM->fonts.end())
+		{
+			return fontIt->second;
+		}
+
+		return RM->fonts[fontPath] = std::make_shared<Font>(Font(fontPath));
+	}
+
 	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();

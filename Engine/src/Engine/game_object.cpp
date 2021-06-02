@@ -293,10 +293,10 @@ namespace Engine
 				transform->getGOChild(i).destroy();
 		}
 
+		Core::Engine::Graph::addToDestroyQueue(this);
+
 		for (auto& comp : m_components)
 			comp->destroy();
-
-		Core::Engine::Graph::addToDestroyQueue(this);
 	}
 
 	void GameObject::onDestroy()
