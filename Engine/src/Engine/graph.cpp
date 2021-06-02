@@ -38,11 +38,6 @@ namespace Core::Engine
 		instance()->isLoadingMainMenu = true;
 	}
 
-	void Graph::loadPauseScreen()
-	{
-		instance()->isLoadingPauseScreen = true;
-	}
-
 	void Graph::saveCurrentScene()
 	{
 		instance()->curScene.save();
@@ -83,11 +78,6 @@ namespace Core::Engine
 		{
 			graph->loadScene("resources/scenes/mainMenu.scn");
 			graph->isLoadingMainMenu = false;
-		}
-		else if (graph->isLoadingPauseScreen)
-		{
-			graph->loadScene("resources/scenes/pauseScreen.scn");
-			graph->isLoadingPauseScreen = false;
 		}
 
 		// Update the scene

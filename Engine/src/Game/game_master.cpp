@@ -24,7 +24,6 @@ namespace Gameplay
 		if (Core::Input::InputManager::getButtonDown("Pause"))
 		{
 			Core::TimeManager::setTimeScale(0.f);
-			Core::Engine::Graph::loadPauseScreen();
 		}
 
 		if (Core::Input::InputManager::getButtonDown("Save"))

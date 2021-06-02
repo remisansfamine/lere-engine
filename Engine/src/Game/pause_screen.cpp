@@ -35,14 +35,14 @@ namespace Gameplay
 			});
 
 
-		Engine::GameObject* goButtonMainScreen = Core::Engine::Graph::findGameObjectWithName("MainScreenButton");
-		std::shared_ptr<UI::Button> buttonMainScreen = goButtonMainScreen->getComponent<UI::Button>();
-		UI::Button* mainScreenptr = buttonMainScreen.get();
-		mainScreenptr->addListener(UI::ButtonState::DOWN, []() {
+		Engine::GameObject* goButtonMainMenu = Core::Engine::Graph::findGameObjectWithName("MainMenuButton");
+		std::shared_ptr<UI::Button> buttonMainMenu = goButtonMainMenu->getComponent<UI::Button>();
+		UI::Button* mainMenuptr = buttonMainMenu.get();
+		mainMenuptr->addListener(UI::ButtonState::DOWN, []() {
 			Core::Engine::Graph::loadMainMenu();
 			});
-		mainScreenptr->addListener(UI::ButtonState::HIGHLIGHT, [mainScreenptr]() {
-			mainScreenptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
+		mainMenuptr->addListener(UI::ButtonState::HIGHLIGHT, [mainMenuptr]() {
+			mainMenuptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
 			});
 
 
