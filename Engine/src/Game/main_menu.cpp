@@ -41,7 +41,7 @@ namespace Gameplay
 			loadScenePtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
 		});
 
-		Engine::GameObject* goButtonOptions = Core::Engine::Graph::findGameObjectWithName("OptionsButton");
+		/*Engine::GameObject* goButtonOptions = Core::Engine::Graph::findGameObjectWithName("OptionsButton");
 		std::shared_ptr<UI::Button> buttonOptions = goButtonOptions->getComponent<UI::Button>();
 		UI::Button* optionsPtr = buttonOptions.get();
 		optionsPtr->addListener(UI::ButtonState::DOWN, [](){
@@ -49,7 +49,7 @@ namespace Gameplay
 		});
 		optionsPtr->addListener(UI::ButtonState::HIGHLIGHT, [optionsPtr]() {
 			optionsPtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});
+		});*/
 
 		Engine::GameObject* goButtonExit = Core::Engine::Graph::findGameObjectWithName("ExitButton");
 		std::shared_ptr<UI::Button> buttonExit = goButtonExit->getComponent<UI::Button>();

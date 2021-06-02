@@ -20,7 +20,7 @@ namespace Core::Input
 		// Add default buttons
 		addButton("LockCursor", GLFW_KEY_C);
 		addButton("Jump", GLFW_KEY_SPACE);
-		addButton("Return", GLFW_KEY_ESCAPE);
+		addButton("Pause", GLFW_KEY_ESCAPE);
 		addButton("Save", GLFW_KEY_F5);
 		addButton("Damage", GLFW_KEY_H);
 

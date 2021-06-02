@@ -7,6 +7,7 @@ namespace Gameplay
 	class GameMaster : public Engine::Component
 	{
 	private:
+
 	public:
 		GameMaster(Engine::GameObject& gameObject);
 

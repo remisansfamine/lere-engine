@@ -18,6 +18,7 @@ namespace Core::Engine
 		bool isStartingNewGame = false;
 		bool isLoadingSavedScene = false;
 		bool isLoadingMainMenu = false;
+		bool isLoadingPauseScreen = false;
 
 		bool showDemoWindowImGui = false;
 
@@ -30,6 +31,7 @@ namespace Core::Engine
 		static void loadNewGame();
 		static void loadSaveGame();
 		static void loadMainMenu();
+		static void loadPauseScreen();
 
 		static void init();
 

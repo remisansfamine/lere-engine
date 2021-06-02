@@ -4,12 +4,13 @@
 
 namespace Gameplay
 {
-	class PauseMenu : public Engine::Component
+	class PauseScreen : public Engine::Component
 	{
 	public:
-		PauseMenu(Engine::GameObject& gameObject);
+		PauseScreen(Engine::GameObject& gameObject);
 
 		void start() override;
+		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
