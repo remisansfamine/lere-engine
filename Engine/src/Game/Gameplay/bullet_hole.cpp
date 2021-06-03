@@ -10,7 +10,7 @@ namespace Gameplay
 
 	void BulletHole::start()
 	{
-		lifeTime.setDelay(5.f);
+		lifeTime.setDelay(1.f);
 	}
 
 	void BulletHole::update()

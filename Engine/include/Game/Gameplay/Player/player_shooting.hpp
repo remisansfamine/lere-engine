@@ -19,10 +19,16 @@ namespace Gameplay
 		std::shared_ptr<Physics::Transform> m_weaponTransform;
 		Core::Maths::vec3 initRotation;
 
-		int ammo = 5;
+		int ammo = 10;
+
+		int maxAmmo = 10;
+
+		float maxShootDistance = 250.f;
 
 		bool isReloading = false;
 		bool reload = false;
+
+		void shoot();
 
 	public:
 		PlayerShooting(Engine::GameObject& gameObject);
@@ -32,7 +38,7 @@ namespace Gameplay
 
 		void start() override;
 		void update() override;
-		void drawImGui() override {}
+		void drawImGui() override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 

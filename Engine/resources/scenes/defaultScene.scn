@@ -73,6 +73,22 @@ GO SkyBox
 COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
 endGO
 
+GO Enemy
+RECIPE resources/recipes/enemy.recipe
+COMP TRANSFORM 25.00 3.000 25.000 0.000 0.000 0.000 0.150000 0.150000 0.150000 none
+endGO
+
+GO Enemy
+RECIPE resources/recipes/enemy.recipe
+COMP TRANSFORM -25.00 3.000 -25.000 0.000 0.000 0.000 0.150000 0.150000 0.150000 none
+endGO
+
+GO Enemy
+RECIPE resources/recipes/enemy.recipe
+COMP TRANSFORM 25.00 3.000 -25.000 0.000 0.000 0.000 0.150000 0.150000 0.150000 none
+endGO
+
+
 GO Light
 COMP LIGHT 0.000000 0.019608 0.019608 0.019608 1.000000 0.960784 0.770040 0.579296 1.000000 0.000000 0.000000 0.000000 1.000000 1.000000 0.000000 0.000000 3.141593 0.000000 0.000000 -1.000000 3.141593 1.000000
 COMP TRANSFORM -2.500000 2.000000 3.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none

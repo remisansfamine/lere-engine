@@ -1,20 +1,16 @@
 #include "player_shooting.hpp"
 
 #include <imgui.h>
-#include <irrklang/irrklang.h>
 
 #include "inputs_manager.hpp"
+#include "sound_manager.hpp"
 #include "physic_manager.hpp"
-#include "player_movement.hpp"
-#include "game_object.hpp"
-#include "entity_life.hpp"
-#include "enemy_life.hpp"
 #include "graph.hpp"
 #include "time.hpp"
-#include "timer.hpp"
-#include <cmath>
 
-irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
+#include "player_movement.hpp"
+#include "enemy_life.hpp"
+#include "timer.hpp"
 
 namespace Gameplay
 {
@@ -42,13 +38,33 @@ namespace Gameplay
 
 		if (reload)
 		{
-			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * 2);
+			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * 3.5f);
 
 			if (m_weaponTransform->m_rotation.z >= Core::Maths::DEG2RAD * 90.f - 0.1f)
 				reload = false;
 		}
 		else
-			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, 0.0f, deltaTime * 2);
+			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, 0.f, deltaTime * 3.5f);
+	}
+	
+	void PlayerShooting::shoot()
+	{
+		Physics::RaycastHit raycastHit;
+		Physics::Ray ray(m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), maxShootDistance);
+
+		ammo--;
+
+		Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/shoot.wav");
+
+		if (Physics::PhysicManager::raycast(ray, raycastHit))
+		{
+			auto& hole = Core::Engine::Graph::instantiate("BulletHole", "resources/recipes/bulletHole.recipe");
+			hole.getComponent<Physics::Transform>()->m_position = raycastHit.hit.point;
+
+			std::shared_ptr<EnemyLife> life;
+			if (raycastHit.collider->getHost().tryGetComponent(life))
+				life->hurt();
+		}
 	}
 
 	void PlayerShooting::shooting()
@@ -57,7 +73,7 @@ namespace Gameplay
 		{
 			if (ammo <= 0)
 			{
-				Core::Debug::Log::info("No more ammo, please reload.");
+				Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/no_ammo.wav");
 				return;
 			}
 
@@ -70,37 +86,33 @@ namespace Gameplay
 			if (timer.timerOn())
 			{
 				timer.setDelay(0.2f);
-
-				Physics::RaycastHit raycastHit;
-				Physics::Ray ray{ m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), 50.f };
-
-				ammo--;
-
-				soundEngine->play2D("resources/sounds/shoot.wav");
-
-				if (Physics::PhysicManager::raycast(ray, raycastHit))
-				{
-					auto& hole = Core::Engine::Graph::instantiate("BulletHole", "resources/recipes/bulletHole.recipe");
-					hole.getComponent<Physics::Transform>()->m_position = raycastHit.hit.point;
-
-					std::shared_ptr<EnemyLife> life;
-					if (raycastHit.collider->getHost().tryGetComponent(life))
-						life->hurt();
-				}
+				shoot();
 			}
 		}
 	}
 
 	void PlayerShooting::reloading()
 	{
-		if (Core::Input::InputManager::getButtonDown("Reload") && ammo < 5)
+		if (Core::Input::InputManager::getButtonDown("Reload") && ammo < maxAmmo)
 		{
 			if (timer.timerOn())
 			{
-				timer.setDelay(3.f);
-				ammo = 5;
+				Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/reload.wav");
+				timer.setDelay(2.f);
+				ammo = maxAmmo;
 				reload = true;
 			}
+		}
+	}
+
+	void PlayerShooting::drawImGui()
+	{
+		if (ImGui::TreeNode("Player Shooting"))
+		{
+			ImGui::DragFloat("MaxShootDistance", &maxShootDistance, 1.f, 0.f, 500.f);
+			Component::drawImGui();
+
+			ImGui::TreePop();
 		}
 	}
 

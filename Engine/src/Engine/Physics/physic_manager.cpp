@@ -33,7 +33,7 @@ namespace Physics
 
 		for (auto& boxCollider : PM->boxColliders)
 		{
-			if (!boxCollider->isActive())
+			if (!boxCollider->isActive() || boxCollider->isTrigger)
 				continue;
 
 			boxCollider->updateShape();
