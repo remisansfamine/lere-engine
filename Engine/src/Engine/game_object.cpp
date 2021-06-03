@@ -19,7 +19,6 @@
 #include "enemy_state.hpp"
 #include "game_master.hpp"
 #include "enemy_life.hpp"
-#include "pause_screen.hpp"
 #include "main_menu.hpp"
 #include "component.hpp"
 #include "transform.hpp"
@@ -234,8 +233,6 @@ namespace Engine
 			Gameplay::EnemyState::parseComponent(*this, goStream);
 		else if (comp == "ENEMYLIFE")
 			Gameplay::EnemyLife::parseComponent(*this, goStream);
-		else if (comp == "PAUSESCREEN")
-			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "MAINMENU")
 			Gameplay::MainMenu::parseComponent(*this, goStream);
 		else if (comp == "GAMEMASTER")

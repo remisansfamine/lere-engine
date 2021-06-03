@@ -20,10 +20,7 @@ namespace Gameplay
 	void PauseScreen::start()
 	{
 		Core::Engine::Graph::setCursorState(true);
-	}
-	
-	void PauseScreen::update()
-	{
+
 		Engine::GameObject* goButtonResumeGame = Core::Engine::Graph::findGameObjectWithName("ResumeGameButton");
 		std::shared_ptr<UI::Button> buttonResumeGame = goButtonResumeGame->getComponent<UI::Button>();
 		UI::Button* resumeGameptr = buttonResumeGame.get();
@@ -67,6 +64,11 @@ namespace Gameplay
 		exitPtr->addListener(UI::ButtonState::HIGHLIGHT, [exitPtr]() {
 			exitPtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
 			});
+
+		goButtonResumeGame->setActive(false);
+		goButtonMainMenu->setActive(false);
+		goButtonSaveScene->setActive(false);
+		goButtonExit->setActive(false);
 	}
 
 	void PauseScreen::drawImGui()

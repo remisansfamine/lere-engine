@@ -10,7 +10,6 @@ namespace Gameplay
 		PauseScreen(Engine::GameObject& gameObject);
 
 		void start() override;
-		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
