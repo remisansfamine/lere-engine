@@ -208,6 +208,7 @@
     <ClCompile Include="src\Game\game_master.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
     <ClCompile Include="src\Game\pause_screen.cpp" />
+    <ClCompile Include="src\Resources\character.cpp" />
     <ClCompile Include="src\Resources\cube_map.cpp" />
     <ClCompile Include="src\Resources\material.cpp" />
     <ClCompile Include="src\Resources\mesh.cpp" />
