@@ -9,12 +9,8 @@ namespace Core
 		if (isPass)
 			return;
 
-		float deltaTime = TimeManager::getDeltaTime();
-
-		currentTime -= deltaTime;
+		currentTime -= TimeManager::getDeltaTime();
 		isPass = currentTime <= 0.f;
-
-		Debug::Log::info(std::to_string(currentTime));
 	}
 
 	void Timer::setDelay(float myTime)

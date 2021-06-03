@@ -1,6 +1,7 @@
 #include "player_shooting.hpp"
 
-#include "imgui.h"
+#include <imgui.h>
+#include <irrklang/irrklang.h>
 
 #include "inputs_manager.hpp"
 #include "physic_manager.hpp"
@@ -12,6 +13,8 @@
 #include "time.hpp"
 #include "timer.hpp"
 #include <cmath>
+
+irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
 
 namespace Gameplay
 {
@@ -68,13 +71,12 @@ namespace Gameplay
 			{
 				timer.setDelay(0.2f);
 
-				Core::Debug::Log::info("Pan!");
 				Physics::RaycastHit raycastHit;
 				Physics::Ray ray{ m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), 50.f };
 
 				ammo--;
 
-				Core::Debug::Log::info(std::to_string(ammo));
+				soundEngine->play2D("resources/sounds/shoot.wav");
 
 				if (Physics::PhysicManager::raycast(ray, raycastHit))
 				{
@@ -101,9 +103,8 @@ namespace Gameplay
 
 	void PlayerShooting::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<PlayerShooting>())
-			gameObject.addComponent<PlayerShooting>();
-
-		auto player = gameObject.getComponent<PlayerShooting>();
+		std::shared_ptr<PlayerShooting> ps;
+		if (!gameObject.tryGetComponent(ps))
+			ps = gameObject.addComponent<PlayerShooting>();
 	}
 }
