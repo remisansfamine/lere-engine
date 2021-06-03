@@ -4,12 +4,12 @@
 #include <algorithm>
 
 #include "inputs_manager.hpp"
-#include "physic_manager.hpp"
+#include "sound_manager.hpp"
 
+#include "rigidbody.hpp"
 #include "rigidbody.hpp"
 #include "maths.hpp"
 
-#include "utils.hpp"
 
 namespace Gameplay
 {
@@ -28,11 +28,8 @@ namespace Gameplay
 		forwardMove = Core::Input::InputManager::getAxis("Forward");
 	}
 
-	void PlayerState::fixedUpdate()
-	{
-		Physics::RaycastHit hit;
-		Physics::Ray ray(m_transform->m_position, Core::Maths::vec3(0.f, -1.f, 0.f), 1.1f);
-		isGrounded = Physics::PhysicManager::raycast(ray, hit);
+		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
+			Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/shoot.wav");
 	}
 
 	void PlayerState::drawImGui()

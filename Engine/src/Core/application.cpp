@@ -7,6 +7,7 @@
 #include "resources_manager.hpp"
 #include "inputs_manager.hpp"
 #include "engine_master.hpp"
+#include "sound_manager.hpp"
 #include "debug.hpp"
 #include "time.hpp"
 
@@ -116,6 +117,8 @@ namespace Core
 
 		// Init Managers
 		Resources::ResourcesManager::init();
+
+		Engine::SoundManager::init();
 
 		Input::InputManager::init(AP->window);
 
