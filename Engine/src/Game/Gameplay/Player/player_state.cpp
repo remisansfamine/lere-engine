@@ -2,14 +2,14 @@
 
 #include <imgui.h>
 #include <algorithm>
-#include <irrklang/irrklang.h>
 
+#include "inputs_manager.hpp"
+#include "sound_manager.hpp"
+
+#include "rigidbody.hpp"
 #include "rigidbody.hpp"
 #include "maths.hpp"
 
-#include "inputs_manager.hpp"
-
-irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
 
 namespace Gameplay
 {
@@ -27,7 +27,7 @@ namespace Gameplay
 		forwardMove = Core::Input::InputManager::getAxis("Forward");
 
 		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
-			soundEngine->play2D("resources/sounds/shoot.wav");
+			Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/shoot.wav");
 	}
 
 	void PlayerState::drawImGui()

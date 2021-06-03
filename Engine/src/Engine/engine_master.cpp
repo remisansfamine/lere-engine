@@ -4,6 +4,7 @@
 #include "application.hpp"
 #include "physic_manager.hpp"
 #include "render_manager.hpp"
+#include "sound_manager.hpp"
 #include "debug.hpp"
 #include "graph.hpp"
 #include "time.hpp"
@@ -22,11 +23,11 @@ namespace Core::Engine
 	{
 		Core::Debug::Log::info("Destroying the Engine");
 
-
 		// Kill managers
 		Graph::kill();
 		Physics::PhysicManager::kill();
 		LowRenderer::RenderManager::kill();
+		SoundManager::kill();
 	}
 
 	void EngineMaster::toggleEditMode()

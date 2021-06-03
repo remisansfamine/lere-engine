@@ -166,6 +166,7 @@
     <ClCompile Include="src\Core\Input\key_axis.cpp" />
     <ClCompile Include="src\Core\Input\key_button.cpp" />
     <ClCompile Include="src\Core\Input\mouse_button.cpp" />
+    <ClCompile Include="src\Core\sound_manager.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
     <ClCompile Include="src\Core\timer.cpp" />
@@ -260,6 +261,7 @@
     <ClInclude Include="include\Core\Input\mouse_button.hpp" />
     <ClInclude Include="include\Core\debug.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
+    <ClInclude Include="include\Core\sound_manager.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
     <ClInclude Include="include\Core\timer.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />
