@@ -330,6 +330,12 @@
     <ClCompile Include="src\Core\sound_manager.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\life_bar.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -550,6 +556,12 @@
     </ClInclude>
     <ClInclude Include="include\Core\sound_manager.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\life_bar.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

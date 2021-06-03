@@ -14,7 +14,9 @@
 #include "sphere_collider.hpp"
 #include "model_renderer.hpp"
 #include "enemy_movement.hpp"
+#include "ammo_counter.hpp"
 #include "player_state.hpp"
+#include "player_life.hpp"
 #include "box_collider.hpp"
 #include "pause_screen.hpp"
 #include "bullet_hole.hpp"
@@ -25,6 +27,7 @@
 #include "component.hpp"
 #include "transform.hpp"
 #include "rigidbody.hpp"
+#include "life_bar.hpp"
 #include "sky_box.hpp"
 #include "button.hpp"
 #include "camera.hpp"
@@ -230,6 +233,8 @@ namespace Engine
 			Gameplay::PlayerMovement::parseComponent(*this, goStream);
 		else if (comp == "PLAYERSTATE")
 			Gameplay::PlayerState::parseComponent(*this, goStream);
+		else if (comp == "PLAYERLIFE")
+			Gameplay::PlayerLife::parseComponent(*this, goStream);
 		else if (comp == "PLAYERSHOOTING")
 			Gameplay::PlayerShooting::parseComponent(*this, goStream);
 		else if (comp == "ENEMYMOVEMENT")
@@ -238,6 +243,10 @@ namespace Engine
 			Gameplay::EnemyState::parseComponent(*this, goStream);
 		else if (comp == "ENEMYLIFE")
 			Gameplay::EnemyLife::parseComponent(*this, goStream);
+		else if (comp == "LIFEBAR")
+			Gameplay::LifeBar::parseComponent(*this, goStream);
+		else if (comp == "AMMOCOUNTER")
+			Gameplay::AmmoCounter::parseComponent(*this, goStream);
 		else if (comp == "PAUSESCREEN")
 			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "MAINMENU")

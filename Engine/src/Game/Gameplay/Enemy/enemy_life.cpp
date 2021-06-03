@@ -18,7 +18,7 @@ namespace Gameplay
 
 	std::string EnemyLife::toString() const
 	{
-		return "COMP LIFE " + std::to_string(life);
+		return "COMP ENEMYLIFE " + EntityLife::toString();
 	}
 
 	void EnemyLife::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -28,6 +28,7 @@ namespace Gameplay
 			el = gameObject.addComponent<EnemyLife>();
 
 		iss >> el->life;
+		iss >> el->maxLife;
 	}
 
 	void EnemyLife::hurt(int damage)

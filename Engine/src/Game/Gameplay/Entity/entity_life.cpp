@@ -10,17 +10,42 @@ namespace Gameplay
 
 	}
 
+	void EntityLife::start()
+	{
+	}
+
 	void EntityLife::hurt(int damage)
 	{
-		life -= damage;
+		if (setLife(life - damage))
+			Core::Engine::SoundManager::getSoundEngine()->play2D(hurtSound.c_str());
+	}
 
-		if (life <= 0)
-		{
+	void EntityLife::heal(int heal)
+	{
+		setLife(life + heal);
+		//Core::Engine::SoundManager::getSoundEngine()->play2D(hurtSound.c_str());
+	}
+
+	bool EntityLife::setLife(int _life)
+	{
+		life = _life;
+
+		if (lifeBar)
+			lifeBar->updateSprite(life, maxLife);
+
+		bool isDead = life <= 0;
+		if (isDead)
 			kill();
-			return;
-		}
 
-		Core::Engine::SoundManager::getSoundEngine()->play2D(hurtSound.c_str());
+		return isDead;
+	}
+
+	void EntityLife::drawImGui()
+	{
+		Component::drawImGui();
+
+		ImGui::DragInt("Current life", &life);
+		ImGui::DragInt("Max life", &maxLife);
 	}
 
 	void EntityLife::kill()
@@ -28,5 +53,10 @@ namespace Gameplay
 		Core::Debug::Log::info("Ah tabarnak je suis archi dead lo !");
 
 		Core::Engine::SoundManager::getSoundEngine()->play2D(deathSound.c_str());
+	}
+
+	std::string EntityLife::toString() const
+	{
+		return std::to_string(life) + " " + std::to_string(maxLife);
 	}
 }

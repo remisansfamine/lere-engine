@@ -219,6 +219,10 @@ namespace Resources
 
 		std::string parentName;
 		go.parseRecipe(recipePath, parentName);
+
+		if (parentName != "" && parentName != "none")
+			setGameObjectParent(parentName, go.m_name);
+
 		return go;
 	}
 

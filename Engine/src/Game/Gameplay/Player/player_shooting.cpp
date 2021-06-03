@@ -26,6 +26,13 @@ namespace Gameplay
 		m_weaponTransform = Core::Engine::Graph::findGameObjectWithName("Weapon")->getComponent<Physics::Transform>();
 		initRotation = m_weaponTransform->m_rotation;
 		initPosition = m_weaponTransform->m_position;
+
+		m_ammoCounter = Core::Engine::Graph::findGameObjectWithName("AmmoCounter")->getComponent<AmmoCounter>();
+	}
+
+	int PlayerShooting::getMaxAmmoCount()
+	{
+		return maxAmmo;
 	}
 
 	void PlayerShooting::update()
@@ -42,7 +49,10 @@ namespace Gameplay
 			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * speedLerpReload);
 
 			if (m_weaponTransform->m_rotation.z >= Core::Maths::DEG2RAD * 90.f - 0.1f)
+			{
 				reload = false;
+				m_ammoCounter->reload();
+			}
 		}
 		else
 			m_weaponTransform->m_rotation = Core::Maths::lerp(m_weaponTransform->m_rotation, initRotation, deltaTime * speedLerpShoot);
@@ -55,10 +65,13 @@ namespace Gameplay
 		m_weaponTransform->m_position.z += recoil;
 		m_weaponTransform->m_rotation.x -= recoil;
 
+		ammo--;
+
+		m_ammoCounter->updateHud(ammo);
+
 		Physics::RaycastHit raycastHit;
 		Physics::Ray ray(m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), maxShootDistance);
 
-		ammo--;
 
 		Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/shoot.wav");
 

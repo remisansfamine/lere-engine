@@ -31,6 +31,7 @@ namespace Physics
 
 		Engine::GameObject& getGOParent();
 		std::shared_ptr<Physics::Transform> getParent();
+		Transform* getChild(int childIndex);
 		Engine::GameObject& getGOChild(int childIndex);
 		int getChildrenCount();
 		Core::Maths::mat4 getModel();

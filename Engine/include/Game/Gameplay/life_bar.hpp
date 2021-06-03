@@ -1,20 +1,25 @@
 #pragma once
 
-//#include <glad/glad.h>
+#include <memory>
 
-//#include "entity.hpp"
+#include "component.hpp"
+#include "transform.hpp"
 
-class LifeBar
+namespace Gameplay
 {
-private:
-    int m_lifeMax;
-    int m_currentLength;
-    int m_lengthMax;
+    class LifeBar : public Engine::Component
+    {
+    private:
+        Physics::Transform* pivot = nullptr;
 
-public:
-    LifeBar() = default;
-    LifeBar(enemy* enemy); // entity* entity
-    ~LifeBar() {}
+    public:
+        LifeBar(Engine::GameObject& gameObject);
 
-    void drawBar(enemy* enemy); // entity* entity
-};
+        void start() override;
+        void updateSprite(int life, int maxLife);
+
+        std::string toString() const;
+
+        static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+    };
+}
