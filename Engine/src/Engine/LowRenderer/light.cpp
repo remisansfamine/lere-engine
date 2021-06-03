@@ -74,7 +74,7 @@ namespace LowRenderer
 		position.xyz = m_transform->m_position;
 		hasShadow = shadow != nullptr;
 
-		if (hasShadow == false || position.w != 0.0)
+		if (hasShadow == 0.f || position.w != 0.f)
 			return;
 
 		Core::Maths::mat4 lightView = Core::Maths::lookAt(position.xyz, Core::Maths::vec3(50.f, 0.f, 0.f), Core::Maths::vec3(0.f, 1.f, 0.f));
@@ -89,7 +89,7 @@ namespace LowRenderer
 
 		if (shadow != nullptr)
 		{
-			if (position.w == 0.0)
+			if (position.w == 0.f)
 			{
 				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e);
 				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &index);
@@ -99,7 +99,7 @@ namespace LowRenderer
 			}
 			else
 			{
-				int farPlane = 25.f;
+				float farPlane = 25.f;
 				program->setUniform("farPlane", &farPlane);
 				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &index);
 

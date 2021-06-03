@@ -64,9 +64,9 @@ namespace Resources
             // now store character for later use
             Character character = {
                 texture,
-                Core::Maths::vec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-                Core::Maths::vec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                face->glyph->advance.x
+                Core::Maths::vec2((float)face->glyph->bitmap.width, (float)face->glyph->bitmap.rows),
+                Core::Maths::vec2((float)face->glyph->bitmap_left, (float)face->glyph->bitmap_top),
+				(unsigned int)face->glyph->advance.x
             };
 
             charMap.insert(std::pair<char, Character>(c, character));

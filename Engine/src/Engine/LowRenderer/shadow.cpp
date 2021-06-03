@@ -37,6 +37,6 @@ namespace LowRenderer
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
 		Core::Maths::vec2 windowSize = Core::Application::getWindowSize();
-		glViewport(0, 0, windowSize.x, windowSize.y);
+		glViewport(0, 0, (GLsizei)windowSize.x, (GLsizei)windowSize.y);
 	}
 }
