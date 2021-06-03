@@ -3,7 +3,7 @@
 namespace Gameplay
 {
 	PlayerLife::PlayerLife(Engine::GameObject& gameObject)
-		: EntityLife(gameObject, std::shared_ptr<PlayerLife>(this))
+		: EntityLife(gameObject, std::shared_ptr<PlayerLife>(this), "resources/sounds/enemyDamage.ogg", "resources/sounds/enemyDeath.wav")
 	{
 
 	}

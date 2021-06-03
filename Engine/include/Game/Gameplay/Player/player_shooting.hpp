@@ -18,12 +18,19 @@ namespace Gameplay
 		std::shared_ptr<Physics::Transform> m_cameraTransform;
 		std::shared_ptr<Physics::Transform> m_weaponTransform;
 		Core::Maths::vec3 initRotation;
+		Core::Maths::vec3 initPosition;
 
 		int ammo = 10;
 
 		int maxAmmo = 10;
 
+		float speedLerpReload = 3.5f;
+		float speedLerpShoot = 10.f;
+
 		float maxShootDistance = 250.f;
+		float recoil = 0.2f;
+
+		float fireRate = 0.2f;
 
 		bool isReloading = false;
 		bool reload = false;

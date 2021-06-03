@@ -3,9 +3,8 @@
 namespace Gameplay
 {
 	EnemyLife::EnemyLife(Engine::GameObject& gameObject)
-		: EntityLife(gameObject, std::shared_ptr<EnemyLife>(this))
+		: EntityLife(gameObject, std::shared_ptr<EnemyLife>(this), "resources/sounds/enemyDamage.ogg", "resources/sounds/enemyDeath.wav")
 	{
-
 	}
 
 	void EnemyLife::drawImGui()

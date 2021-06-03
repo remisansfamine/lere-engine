@@ -25,6 +25,7 @@ namespace Gameplay
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
 		m_weaponTransform = Core::Engine::Graph::findGameObjectWithName("Weapon")->getComponent<Physics::Transform>();
 		initRotation = m_weaponTransform->m_rotation;
+		initPosition = m_weaponTransform->m_position;
 	}
 
 	void PlayerShooting::update()
@@ -38,17 +39,22 @@ namespace Gameplay
 
 		if (reload)
 		{
-			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * 3.5f);
+			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * speedLerpReload);
 
 			if (m_weaponTransform->m_rotation.z >= Core::Maths::DEG2RAD * 90.f - 0.1f)
 				reload = false;
 		}
 		else
-			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, 0.f, deltaTime * 3.5f);
+			m_weaponTransform->m_rotation = Core::Maths::lerp(m_weaponTransform->m_rotation, initRotation, deltaTime * speedLerpShoot);
+
+		m_weaponTransform->m_position = Core::Maths::lerp(m_weaponTransform->m_position, initPosition, deltaTime * speedLerpShoot);
 	}
 	
 	void PlayerShooting::shoot()
 	{
+		m_weaponTransform->m_position.z += recoil;
+		m_weaponTransform->m_rotation.x -= recoil;
+
 		Physics::RaycastHit raycastHit;
 		Physics::Ray ray(m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), maxShootDistance);
 
@@ -85,7 +91,7 @@ namespace Gameplay
 
 			if (timer.timerOn())
 			{
-				timer.setDelay(0.2f);
+				timer.setDelay(fireRate);
 				shoot();
 			}
 		}
@@ -109,7 +115,10 @@ namespace Gameplay
 	{
 		if (ImGui::TreeNode("Player Shooting"))
 		{
-			ImGui::DragFloat("MaxShootDistance", &maxShootDistance, 1.f, 0.f, 500.f);
+			ImGui::DragFloat("Max shoot distance", &maxShootDistance, 1.f, 0.f, 500.f);
+			ImGui::DragFloat("Speed lerp reload", &speedLerpReload, 0.1f, 0.f, 50.f);
+			ImGui::DragFloat("Speed lerp shooting", &speedLerpShoot, 0.1f, 0.f, 50.f);
+			ImGui::DragFloat("Firerate", &fireRate, 0.01f, 0.f, 5.f);
 			Component::drawImGui();
 
 			ImGui::TreePop();

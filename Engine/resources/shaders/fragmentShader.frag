@@ -96,6 +96,10 @@ float getDirectionalShadow(int indexLight)
 	// Apply Percentage-Closer filtering to avoid "stair" shadows
 	// Use to soft shadow boders
 
+	// Avoid shadow out of the frustum
+	if (projCoords.z > 1.0)
+		return 0.0;
+
 	// Calculate the texel size from the depth texture size
 	vec2 texelSize = 1.0 / textureSize(shadowMaps[indexLight][0], 0);
 
@@ -110,13 +114,7 @@ float getDirectionalShadow(int indexLight)
 		}
 	}
 
-	shadow /= 9.0;
-
-	// Avoid shadow out of the frustum
-	if (projCoords.z > 1.0)
-		shadow = 0.0;
-
-	return shadow;
+	return shadow / 9;
 }
 
 vec3 sampleOffsetDirections[20] = vec3[]
@@ -245,14 +243,14 @@ void main()
 
 	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, tilledTexCoords));
 
-	vec4 diffuseColor = material.diffuse * diffuse;
+	vec4 diffuseColor = material.diffuse * diffuse * shadow;
 
-	vec4 specularColor = specular * (material.specular + texture(material.specularTexture, tilledTexCoords));
+	vec4 specularColor = specular * shadow * (material.specular + texture(material.specularTexture, tilledTexCoords));
 
 	vec4 emissiveColor = material.emissive + texture(material.emissiveTexture, tilledTexCoords);
 
 	// Get texture color applied to the light
-	vec4 shadedColor = (ambientColor + diffuseColor * shadow) * texture(material.diffuseTexture, tilledTexCoords) + emissiveColor + specularColor;
+	vec4 shadedColor = (ambientColor + diffuseColor) * texture(material.diffuseTexture, tilledTexCoords) + emissiveColor + specularColor;
 	FragColor = shadedColor;
 
 	FragColor.a = texture(material.alphaTexture, tilledTexCoords).r;

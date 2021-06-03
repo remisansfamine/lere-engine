@@ -53,6 +53,8 @@ namespace LowRenderer
 
 	void Light::setShadows(bool isShadow)
 	{
+		hasShadow = (float)isShadow;
+
 		if (isShadow)
 		{
 			bool isShadowMap = dynamic_cast<ShadowMap*>(shadow.get()) != nullptr;
@@ -71,13 +73,13 @@ namespace LowRenderer
 	void Light::compute()
 	{
 		enable = (float)isActive();
+		hasShadow = (float)(shadow != nullptr);
 		position.xyz = m_transform->m_position;
-		hasShadow = shadow != nullptr;
 
 		if (hasShadow == 0.f || position.w != 0.f)
 			return;
 
-		Core::Maths::mat4 lightView = Core::Maths::lookAt(position.xyz, Core::Maths::vec3(50.f, 0.f, 0.f), Core::Maths::vec3(0.f, 1.f, 0.f));
+		Core::Maths::mat4 lightView = Core::Maths::lookAt(position.xyz, Core::Maths::vec3(), Core::Maths::vec3(0.f, 1.f, 0.f));
 		spaceMatrix = LowRenderer::RenderManager::getCurrentCamera()->getShadowOrtho() * lightView;
 	}
 
@@ -89,19 +91,22 @@ namespace LowRenderer
 
 		if (shadow != nullptr)
 		{
+			int test = 0;
 			if (position.w == 0.f)
 			{
-				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e);
-				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &index);
+				test = 5 + index;
+				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e, 1, 1);
+				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &test);
 
 				glActiveTexture(GL_TEXTURE5 + index);
 				glBindTexture(GL_TEXTURE_2D, shadow->ID);
 			}
 			else
 			{
+				test = 13 + index;
 				float farPlane = 25.f;
 				program->setUniform("farPlane", &farPlane);
-				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &index);
+				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &test);
 
 				glActiveTexture(GL_TEXTURE13 + index);
 				glBindTexture(GL_TEXTURE_CUBE_MAP, shadow->ID);
@@ -125,6 +130,8 @@ namespace LowRenderer
 			ImGui::DragFloat3("Direction: ", &direction.x);
 			ImGui::DragFloat("Cutoff: ", &cutoff);
 			ImGui::DragFloat("Outer cutoff: ", &outterCutoff);
+
+			Component::drawImGui();
 
 			ImGui::TreePop();
 		}

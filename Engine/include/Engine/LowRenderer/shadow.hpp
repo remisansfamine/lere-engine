@@ -15,7 +15,7 @@ namespace LowRenderer
 
 		unsigned int shadowWidth = 2048;
 		unsigned int shadowHeight = 2048;
-		float superSample = 2.f;
+		float superSample = 4.f;
 		float aspect = 0.f;
 
 		GLuint FBO = 0;

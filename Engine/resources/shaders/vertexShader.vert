@@ -12,10 +12,10 @@ uniform mat4 model;
 
 void main()
 {
-	gl_Position = viewProj * model * vec4(VertPos, 1.f);
-	FragPos = vec3(model * vec4(VertPos, 1.f));
+	gl_Position = viewProj * model * vec4(VertPos, 1.0);
+	FragPos = vec3(model * vec4(VertPos, 1.0));
 	
 	TexCoord = VertTexCoords;
 
-	Normal = mat3(model) * VertNormal;
+	Normal = transpose(inverse(mat3(model))) * VertNormal;
 }

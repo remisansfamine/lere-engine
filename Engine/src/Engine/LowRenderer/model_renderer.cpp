@@ -47,7 +47,7 @@ namespace LowRenderer
 
 	void ModelRenderer::simpleDraw(std::shared_ptr<Resources::ShaderProgram> program) const
 	{
-		model.simpleDraw(m_shaderProgram);
+		model.simpleDraw(program);
 	}
 
 	void ModelRenderer::drawImGui()

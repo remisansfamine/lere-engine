@@ -17,14 +17,15 @@ namespace Gameplay
 	void PlayerMovement::fixedUpdate()
 	{
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
-		float horizontal = m_playerState->horizontalMove * fixedSpeed;
-		float vertical = m_playerState->forwardMove * fixedSpeed;
+		float horizontal = m_playerState->horizontalMove;
+		float vertical = m_playerState->forwardMove;
 
 		m_transform->m_rotation.y -= m_sensivityY * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
 
 		float cos = cosf(m_transform->m_rotation.y), sin = sinf(m_transform->m_rotation.y);
-		m_rigidbody->velocity.x = horizontal * cos + vertical * sin;
-		m_rigidbody->velocity.z = vertical * cos - horizontal * sin;
+		Core::Maths::vec3 newVelocity = Core::Maths::vec3(horizontal * cos + vertical * sin, 0.f, vertical * cos - horizontal * sin).normalized() * fixedSpeed;
+		newVelocity.y = m_rigidbody->velocity.y;
+		m_rigidbody->velocity = newVelocity;
 
 		if (m_playerState->isGrounded && m_playerState->isJumping)
 		{
