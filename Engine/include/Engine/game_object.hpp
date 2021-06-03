@@ -41,7 +41,7 @@ namespace Engine
 		{
 			new C(*this, args...);
 
-			return std::dynamic_pointer_cast<C>(m_components.back());
+			return getComponent<C>();
 		}
 
 		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>

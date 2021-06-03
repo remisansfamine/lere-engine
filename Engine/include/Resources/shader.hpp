@@ -23,6 +23,7 @@ namespace Resources
 		GLint shaderID = GL_INVALID_VALUE;
 
 		Shader(const std::string& shaderPath);
+		~Shader();
 	};
 
 	class ShaderProgram : public Resource
@@ -36,8 +37,8 @@ namespace Resources
 		void loadLocations();
 
 	public:
-		ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath);
-
+		ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath);
+		~ShaderProgram();
 
 		void setUniform(const std::string& target, const void* value, int count = 1, bool transpose = false) const;
 		void bind() const;

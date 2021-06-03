@@ -91,10 +91,9 @@ namespace Physics
 
 	void Rigidbody::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<Rigidbody>())
-			gameObject.addComponent<Rigidbody>();
-
-		auto rb = gameObject.getComponent<Rigidbody>();
+		std::shared_ptr<Rigidbody> rb;
+		if (!gameObject.tryGetComponent(rb))
+			rb = gameObject.addComponent<Rigidbody>();
 
 		iss >> rb->velocity.x;
 		iss >> rb->velocity.y;

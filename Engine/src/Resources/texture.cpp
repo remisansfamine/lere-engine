@@ -44,6 +44,11 @@ namespace Resources
 		generateID(width, height, colorBuffer);
 	}
 
+	Texture::~Texture()
+	{
+		glDeleteTextures(1, &textureID);
+	}
+
 	void Texture::generateID(int width, int height, float* colorBuffer)
 	{
 		// Set the texture parameters

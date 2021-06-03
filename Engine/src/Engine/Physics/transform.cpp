@@ -54,6 +54,18 @@ namespace Physics
 			Core::Maths::rotateY(m_rotation.y) *
 			Core::Maths::rotateX(m_rotation.x) *
 			Core::Maths::scale(m_scale);
+		/*if (!m_hasBeenUpdated)
+		{
+			m_model = Core::Maths::translate(m_position) *
+					  Core::Maths::rotateZ(m_rotation.z) *
+					  Core::Maths::rotateY(m_rotation.y) *
+					  Core::Maths::rotateX(m_rotation.x) *
+					  Core::Maths::scale(m_scale);
+
+			m_hasBeenUpdated = true;
+		}
+
+		return m_model;*/
 	}
 
 	Core::Maths::mat4 Transform::getGlobalModel()
@@ -187,10 +199,9 @@ namespace Physics
 
 	void Transform::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName)
 	{
-		if (!gameObject.tryGetComponent<Transform>())
-			gameObject.addComponent<Transform>();
-
-		auto transform = gameObject.getComponent<Transform>();
+		std::shared_ptr<Transform> transform;
+		if (!gameObject.tryGetComponent(transform))
+			transform = gameObject.addComponent<Transform>();
 
 		iss >> transform->m_position.x;
 		iss >> transform->m_position.y;

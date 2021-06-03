@@ -48,7 +48,6 @@ namespace Resources
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
-		//Physics::PhysicManager::clearComponents<Physics::Rigidbody>();
 		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
 		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
 
@@ -77,7 +76,7 @@ namespace Resources
 				std::string goName, parentName;
 				iss >> goName;
 
-				Engine::GameObject& gameObject = addGameObject(goName);
+				Engine::GameObject& gameObject = instantiate(goName);
 				gameObject.parse(scnStream, parentName);
 
 				if (parentName == "" || parentName == "none")
@@ -195,12 +194,32 @@ namespace Resources
 		}
 	}
 
-	Engine::GameObject& Scene::addGameObject(const std::string& gameObjectName)
+	std::string Scene::getUniqueGOName(const std::string& gameObjectName)
 	{
-		//return *gameObjects.insert(gameObjects.end(), Engine::GameObject(gameObjectName));
-		gameObjects[gameObjectName] = Engine::GameObject(gameObjectName);
+		std::string modifiedName = gameObjectName;
 
-		return gameObjects[gameObjectName];
+		auto goIt = gameObjects.find(modifiedName);
+		for (int count = 1; goIt != gameObjects.end(); count++, goIt = gameObjects.find(modifiedName))
+			modifiedName = gameObjectName + " (" + std::to_string(count) + ")";
+
+		return modifiedName;
+	}
+
+	Engine::GameObject& Scene::instantiate(const std::string& gameObjectName)
+	{
+		std::string finalName = getUniqueGOName(gameObjectName);
+
+		gameObjects[finalName] = Engine::GameObject(finalName);
+		return gameObjects[finalName];
+	}
+
+	Engine::GameObject& Scene::instantiate(const std::string& gameObjectName, const std::string& recipePath)
+	{
+		Engine::GameObject& go = instantiate(gameObjectName);
+
+		std::string parentName;
+		go.parseRecipe(recipePath, parentName);
+		return go;
 	}
 
 	Engine::GameObject* Scene::findGameObjectWithName(const std::string& gameObjectName)

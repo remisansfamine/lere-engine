@@ -55,13 +55,14 @@ namespace Physics
 		return "COMP BOXCOLLIDER " + Utils::vecToStringParsing(box.center) + 
 									 Utils::vecToStringParsing(box.size) +
 									 Utils::quatToStringParsing(box.quaternion) +
-									 std::to_string(box.offsetRounding) + std::to_string(isTrigger);
+									 std::to_string(box.offsetRounding) + " " + std::to_string(isTrigger);
 	}
 
 	void BoxCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<BoxCollider>();
-		auto collider = gameObject.getComponent<BoxCollider>();
+		std::shared_ptr<BoxCollider> collider;
+		if (!gameObject.tryGetComponent(collider))
+			collider = gameObject.addComponent<BoxCollider>();
 
 		iss >> collider->box.center.x;
 		iss >> collider->box.center.y;

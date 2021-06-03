@@ -551,11 +551,18 @@ namespace Core::Maths
         vec3 newX = (up ^ newZ).normalized();
         vec3 newY = (newZ ^ newX).normalized();
 
-        return {
+        /*return {
             newX.x, newY.x, newZ.x, 0.f,
             newX.y, newY.y, newZ.y, 0.f,
             newX.z, newY.z, newZ.z, 0.f,
             -dot(newX, eye), -dot(newY, eye), -dot(newZ, eye),         1.f
+        };*/
+
+        return {
+            newX.x, newX.y, newX.z, -dot(newX, eye),
+            newY.x, newY.y, newY.z, -dot(newY, eye),
+            newZ.x, newZ.y, newZ.z, -dot(newZ, eye),
+            0.f, 0.f, 0.f,         1.f
         };
     }
 }

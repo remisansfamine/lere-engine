@@ -6,6 +6,7 @@
 #include "resources_manager.hpp"
 
 #include "shader.hpp"
+#include "shadow.hpp"
 
 
 namespace LowRenderer
@@ -24,6 +25,40 @@ namespace LowRenderer
 		Core::Debug::Log::info("Destroying the Render Manager");
 	}
 
+	void RenderManager::drawShadows()
+	{
+		std::shared_ptr<Resources::ShaderProgram> program;
+
+		glCullFace(GL_FRONT);
+
+		// Number of lights to render (8 max)
+		int lightCount = std::min((int)lights.size(), 8);
+
+		for (int i = 0; i < lightCount; i++)
+			lights[i]->compute();
+
+		for (auto& light : lights)
+		{
+			if (!light->isActive() || light->shadow == nullptr)
+				continue;
+
+			program = light->shadow->program;
+
+			program->bind();
+
+			light->shadow->sendToShader(light);
+
+			light->shadow->bindAndSetViewport();
+
+			glClear(GL_DEPTH_BUFFER_BIT);
+
+			for (auto& model : models)
+				model->simpleDraw(program);
+
+			light->shadow->unbindAndResetViewport();
+		}
+	}
+
 	void RenderManager::drawModels()
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
@@ -35,12 +70,10 @@ namespace LowRenderer
 		}
 
 		glEnable(GL_FRAMEBUFFER_SRGB);
+		glCullFace(GL_BACK);
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
-
-		for (int i = 0; i < lightCount; i++)
-			lights[i]->compute();
 
 		// Draw renderers
 		for (std::shared_ptr<ModelRenderer>& model : models)
@@ -103,6 +136,8 @@ namespace LowRenderer
 	{
 		RenderManager* RM = instance();
 
+		// Draw Shadows
+		RM->drawShadows();
 		RM->drawModels();
 		RM->drawSprites();
 	}

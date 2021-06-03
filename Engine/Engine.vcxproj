@@ -180,6 +180,9 @@
     <ClCompile Include="src\Engine\LowRenderer\model_renderer.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\renderer.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\render_manager.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow_map.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow_point.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sky_box.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sprite_renderer.cpp" />
     <ClCompile Include="src\Engine\object.cpp" />
@@ -270,6 +273,9 @@
     <ClInclude Include="include\Engine\LowRenderer\model_renderer.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\renderer.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\render_manager.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow_map.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow_point.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sky_box.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sprite_renderer.hpp" />
     <ClInclude Include="include\Engine\object.hpp" />
@@ -323,6 +329,11 @@
     <None Include="include\Core\maths.inl" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
+    <None Include="resources\shaders\depthCubeShader.frag" />
+    <None Include="resources\shaders\depthCubeShader.geom" />
+    <None Include="resources\shaders\depthCubeShader.vert" />
+    <None Include="resources\shaders\depthShader.frag" />
+    <None Include="resources\shaders\depthShader.vert" />
     <None Include="resources\shaders\fragmentCollider.frag" />
     <None Include="resources\shaders\fragmentShader.frag" />
     <None Include="resources\shaders\skyBox.frag" />

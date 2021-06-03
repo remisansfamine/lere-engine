@@ -36,6 +36,7 @@ namespace LowRenderer
 		Model() = default;
 
 		void draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram) const;
+		void simpleDraw(std::shared_ptr<Resources::ShaderProgram> shaderProgram) const;
 		void drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider) const;
 		void drawImGui();
 

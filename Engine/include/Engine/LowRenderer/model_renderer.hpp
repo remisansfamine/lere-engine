@@ -21,6 +21,7 @@ namespace LowRenderer
 		~ModelRenderer();
 
 		void draw() const override;
+		void simpleDraw(std::shared_ptr<Resources::ShaderProgram> program) const;
 		void drawImGui() override;
 		std::string toString() const override;
 
