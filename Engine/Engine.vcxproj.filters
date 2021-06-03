@@ -321,6 +321,9 @@
     <ClCompile Include="src\Core\timer.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\bullet_hole.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -535,6 +538,9 @@
     </ClInclude>
     <ClInclude Include="include\Core\timer.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

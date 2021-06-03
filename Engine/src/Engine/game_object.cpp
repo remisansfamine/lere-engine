@@ -16,10 +16,11 @@
 #include "enemy_movement.hpp"
 #include "player_state.hpp"
 #include "box_collider.hpp"
+#include "pause_screen.hpp"
+#include "bullet_hole.hpp"
 #include "enemy_state.hpp"
 #include "game_master.hpp"
 #include "enemy_life.hpp"
-#include "pause_screen.hpp"
 #include "main_menu.hpp"
 #include "component.hpp"
 #include "transform.hpp"
@@ -247,6 +248,8 @@ namespace Engine
 			Gameplay::CameraMovement::parseComponent(*this, goStream);
 		else if (comp == "BUTTON")
 			UI::Button::parseComponent(*this, goStream);
+		else if (comp == "BULLETHOLE")
+			Gameplay::BulletHole::parseComponent(*this, goStream);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)

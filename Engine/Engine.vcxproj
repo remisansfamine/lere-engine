@@ -80,13 +80,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(ProjectDir)include\Game\Gameplay;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -197,6 +197,7 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
+    <ClCompile Include="src\Game\Gameplay\bullet_hole.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp" />
@@ -299,6 +300,7 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
+    <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp" />

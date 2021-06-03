@@ -23,8 +23,6 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		void onTriggerEnter(Physics::Collider* collider) override;
-
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 
 	};

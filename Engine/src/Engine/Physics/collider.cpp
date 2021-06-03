@@ -29,7 +29,7 @@ namespace Physics
 
 	void Collider::computeCollisionCallback(bool hasHit, const Collision& collision)
 	{
-		auto colliderIt = std::find(m_colliders.begin(), m_colliders.end(), collision.collider);
+		auto colliderIt = m_colliders.find(collision.collider);
 
 		bool isInVector = colliderIt != m_colliders.end();
 
@@ -37,8 +37,8 @@ namespace Physics
 		{
 			if (!hasHit)
 			{
+				getHost().callCollisionExit(colliderIt->second);
 				m_colliders.erase(colliderIt);
-				getHost().callCollisionExit(collision);
 				return;
 			}
 
@@ -48,7 +48,7 @@ namespace Physics
 
 		if (hasHit)
 		{
-			m_colliders.push_back(collision.collider);
+			m_colliders[collision.collider] = collision;
 			getHost().callCollisionEnter(collision);
 			return;
 		}

@@ -1,5 +1,7 @@
 #include "collider_renderer.hpp"
 
+#include "imgui.h"
+
 #include "resources_manager.hpp"
 
 namespace LowRenderer
@@ -27,5 +29,17 @@ namespace LowRenderer
 	bool ColliderRenderer::canBeDraw()
 	{
 		return collider->isDraw;
+	}
+
+	void ColliderRenderer::drawImGui()
+	{
+		if (ImGui::TreeNode("Collider renderer"))
+		{
+			Component::drawImGui();
+
+			ImGui::Checkbox("IsDraw", &collider->isDraw);
+
+			ImGui::TreePop();
+		}
 	}
 }

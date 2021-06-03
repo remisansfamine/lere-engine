@@ -22,5 +22,6 @@ namespace LowRenderer
 		Core::Maths::mat4 getModelCollider() const;
 		bool canBeDraw();
 		void draw() const override;
+		void drawImGui() override;
 	};
 }
