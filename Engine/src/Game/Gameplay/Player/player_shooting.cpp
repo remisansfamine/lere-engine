@@ -78,6 +78,9 @@ namespace Gameplay
 
 				if (Physics::PhysicManager::raycast(ray, raycastHit))
 				{
+					auto& hole = Core::Engine::Graph::instantiate("BulletHole", "resources/recipes/bulletHole.recipe");
+					hole.getComponent<Physics::Transform>()->m_position = raycastHit.hit.point;
+
 					std::shared_ptr<EnemyLife> life;
 					if (raycastHit.collider->getHost().tryGetComponent(life))
 						life->hurt();
