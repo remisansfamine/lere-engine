@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_map>
 
 #include "component.hpp"
 #include "rigidbody.hpp"
@@ -12,7 +12,7 @@ namespace Physics
 	class Collider : public Engine::Component
 	{
 	protected:
-		std::vector<std::shared_ptr<Collider>> m_colliders;
+		std::unordered_map<Collider*, Collision> m_colliders;
 		std::vector<Collider*> m_triggers;
 		Core::Maths::vec3 m_positionOffset;
 

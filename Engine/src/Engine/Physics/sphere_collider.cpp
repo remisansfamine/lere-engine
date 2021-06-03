@@ -45,10 +45,10 @@ namespace Physics
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
+			Collider::drawImGui();
+
 			ImGui::DragFloat3("Center :", &sphere.center.x);
 			ImGui::DragFloat("Radius :", &sphere.radius);
-
-			Component::drawImGui();
 
 			ImGui::TreePop();
 		}

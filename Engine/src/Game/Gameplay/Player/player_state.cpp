@@ -4,10 +4,13 @@
 #include <algorithm>
 #include <irrklang/irrklang.h>
 
+#include "inputs_manager.hpp"
+#include "physic_manager.hpp"
+
 #include "rigidbody.hpp"
 #include "maths.hpp"
 
-#include "inputs_manager.hpp"
+#include "utils.hpp"
 
 irrklang::ISoundEngine* soundEngine = irrklang::createIrrKlangDevice();
 
@@ -16,6 +19,7 @@ namespace Gameplay
 	PlayerState::PlayerState(Engine::GameObject& gameObject)
 		: EntityState(gameObject, std::shared_ptr<PlayerState>(this))
 	{
+		m_transform = requireComponent<Physics::Transform>();
 	}
 
 	void PlayerState::update()
@@ -30,6 +34,13 @@ namespace Gameplay
 			soundEngine->play2D("resources/sounds/shoot.wav");
 	}
 
+	void PlayerState::fixedUpdate()
+	{
+		Physics::RaycastHit hit;
+		Physics::Ray ray(m_transform->m_position, Core::Maths::vec3(0.f, -1.f, 0.f), 1.1f);
+		isGrounded = Physics::PhysicManager::raycast(ray, hit);
+	}
+
 	void PlayerState::drawImGui()
 	{
 		if (ImGui::TreeNode("PlayerState"))
@@ -40,23 +51,6 @@ namespace Gameplay
 			ImGui::Text(forwardStr.c_str());
 			ImGui::TreePop();
 		}
-	}
-
-	void PlayerState::onCollisionEnter(const Physics::Collision& collision)
-	{
-		if (collision.hit.normal.y <= 0.f)
-			return;
-
-		colliderCount++;
-		isGrounded = true;
-	}
-
-	void PlayerState::onCollisionExit(const Physics::Collision& collision)
-	{
-		colliderCount = std::max(0, colliderCount - 1);
-
-		if (colliderCount == 0)
-			isGrounded = false;
 	}
 
 	std::string PlayerState::toString() const

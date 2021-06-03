@@ -197,7 +197,7 @@ namespace Physics
 					continue;
 				}
 
-				Collision collision = { sphereToCheck };
+				Collision collision = { sphereToCheck.get() };
 
 				sphereCollider->computeCollisionCallback(IntersectSpheres(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newSphereToCheck, collision.hit), collision);
 			}
@@ -227,7 +227,7 @@ namespace Physics
 					continue;
 				}
 
-				Collision collision = { boxCollider };
+				Collision collision = { boxCollider.get() };
 
 				sphereCollider->computeCollisionCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, collision.hit), collision);
 			}
