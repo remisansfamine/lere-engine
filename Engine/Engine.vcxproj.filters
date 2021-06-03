@@ -318,6 +318,9 @@
     <ClCompile Include="src\Game\pause_screen.cpp">
       <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\timer.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -526,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\timer.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\timer.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>

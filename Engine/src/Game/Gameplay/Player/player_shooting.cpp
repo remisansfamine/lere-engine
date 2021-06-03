@@ -26,8 +26,6 @@ namespace Gameplay
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
 		m_weaponTransform = Core::Engine::Graph::findGameObjectWithName("Weapon")->getComponent<Physics::Transform>();
 		initRotation = m_weaponTransform->m_rotation;
-
-		deltaTime = Core::TimeManager::getDeltaTime();
 	}
 
 	void PlayerShooting::update()
@@ -37,8 +35,7 @@ namespace Gameplay
 
 		timer.update();
 
-		if (ammo <= 0)
-			Core::Debug::Log::info("No more ammo, please reload.");
+		float deltaTime = Core::TimeManager::getDeltaTime();
 
 		if (reload)
 		{
@@ -49,14 +46,25 @@ namespace Gameplay
 		}
 		else
 			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, 0.0f, deltaTime * 2);
-
 	}
 
 	void PlayerShooting::shooting()
 	{
 		if (Core::Input::InputManager::getMouseButtonDown("LeftClick"))
 		{
-			if (timer.timerOn() && ammo > 0)
+			if (ammo <= 0)
+			{
+				Core::Debug::Log::info("No more ammo, please reload.");
+				return;
+			}
+
+			if (reload)
+			{
+				Core::Debug::Log::info("You cannot shoot while reloading !");
+				return;
+			}
+
+			if (timer.timerOn())
 			{
 				timer.setDelay(0.2f);
 

@@ -20,7 +20,6 @@ namespace Gameplay
 		Core::Maths::vec3 initRotation;
 
 		int ammo = 5;
-		float deltaTime = 0.f;
 
 		bool isReloading = false;
 		bool reload = false;
