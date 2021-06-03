@@ -306,11 +306,8 @@
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\character.cpp">
-      <Filter>Fichiers sources\Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine\LowRenderer\shadow.cpp">
-      <Filter>Fichiers sources</Filter>
+    <ClCompile Include="src\Core\timer.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\LowRenderer\shadow_map.cpp">
       <Filter>Fichiers sources</Filter>
@@ -530,80 +527,8 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
-    <ClInclude Include="include\Resources\character.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ESoundEngineOptions.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ESoundOutputDrivers.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_EStreamModes.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IAudioRecorder.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IAudioStream.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IAudioStreamLoader.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IFileFactory.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IFileReader.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IRefCounted.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_irrKlangTypes.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISound.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundDeviceList.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundEffectControl.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundEngine.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundMixedOutputReceiver.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundSource.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_ISoundStopEventReceiver.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_IVirtualRefCounted.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_SAudioStreamFormat.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\ik_vec3d.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="header\irrklang\irrKlang.h">
-      <Filter>Fichiers d%27en-tête\headers</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\LowRenderer\shadow.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\LowRenderer\shadow_map.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Engine\LowRenderer\shadow_point.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
+    <ClInclude Include="include\Core\timer.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
