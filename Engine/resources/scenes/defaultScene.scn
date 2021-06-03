@@ -85,3 +85,7 @@ endGO
 GO Enemy0
 RECIPE resources/recipes/enemy.recipe
 endGO
+
+GO pauseScreen
+RECIPE resources/recipes/pauseScreen.recipe
+endGO

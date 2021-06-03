@@ -21,8 +21,11 @@ namespace Gameplay
 
 	void GameMaster::update()
 	{
-		if (Core::Input::InputManager::getButtonDown("Return"))
-			Core::Engine::Graph::loadMainMenu();
+		if (Core::Input::InputManager::getButtonDown("Pause"))
+		{
+			Core::TimeManager::setTimeScale(0.f);
+		}
+
 		if (Core::Input::InputManager::getButtonDown("Save"))
 		{
 			Core::Engine::Graph::saveCurrentScene();

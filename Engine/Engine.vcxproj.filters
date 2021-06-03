@@ -285,8 +285,29 @@
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="src\Game\Gameplay\life_bar.cpp">
-      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_state.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Entity\entity_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\pause_screen.cpp">
+      <Filter>Fichiers sources\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -476,8 +497,29 @@
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game\Gameplay\life_bar.hpp">
-      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Entity\entity_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\Physics\Toolbox\referential.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\pause_screen.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
