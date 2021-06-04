@@ -20,8 +20,8 @@ namespace Physics
 
 	struct Hit
 	{
-		Core::Maths::vec3 point;
-		Core::Maths::vec3 normal;
+		Core::Maths::vec3 point = Core::Maths::vec3();
+		Core::Maths::vec3 normal = Core::Maths::vec3();
 	};
 
 	struct RaycastHit

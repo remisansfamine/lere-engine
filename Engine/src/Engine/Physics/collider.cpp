@@ -29,11 +29,14 @@ namespace Physics
 
 	void Collider::computeCollisionCallback(bool hasHit, const Collision& collision)
 	{
+		// Check if hit is valid
+		if (isnan(collision.hit.normal.x) || isnan(collision.hit.point.x))
+			return;
+
 		auto colliderIt = m_colliders.find(collision.collider);
+		bool isInMap = colliderIt != m_colliders.end();
 
-		bool isInVector = colliderIt != m_colliders.end();
-
-		if (isInVector)
+		if (isInMap)
 		{
 			if (!hasHit)
 			{
@@ -46,12 +49,11 @@ namespace Physics
 			return;
 		}
 
-		if (hasHit)
-		{
-			m_colliders[collision.collider] = collision;
-			getHost().callCollisionEnter(collision);
+		if (!hasHit)
 			return;
-		}
+
+		m_colliders[collision.collider] = collision;
+		getHost().callCollisionEnter(collision);
 	}
 
 	void Collider::computeTriggerCallback(bool hasHit, Collider* collider)

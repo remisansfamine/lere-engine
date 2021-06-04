@@ -192,14 +192,17 @@ namespace Physics
 
 				if (sphereCollider->isTrigger || sphereToCheck->isTrigger)
 				{
-					sphereCollider->computeTriggerCallback(TriggerSpheres(newSphere, newSphereToCheck), sphereToCheck.get());
-					sphereToCheck->computeTriggerCallback(TriggerSpheres(newSphere, newSphereToCheck), sphereCollider.get());
+					bool hasHit = TriggerSpheres(newSphere, newSphereToCheck);
+					sphereCollider->computeTriggerCallback(hasHit, sphereToCheck.get());
+					sphereToCheck->computeTriggerCallback(hasHit, sphereCollider.get());
 					continue;
 				}
 
-				Collision collision = { sphereToCheck.get() };
+				Hit hit;
+				bool hasHit = IntersectSpheres(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newSphereToCheck, hit);
 
-				sphereCollider->computeCollisionCallback(IntersectSpheres(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newSphereToCheck, collision.hit), collision);
+				sphereCollider->computeCollisionCallback(hasHit, { sphereToCheck.get(), hit });
+				sphereToCheck->computeCollisionCallback(hasHit, { sphereCollider.get(), hit });
 			}
 
 			for (auto& boxCollider : boxColliders)
@@ -222,14 +225,17 @@ namespace Physics
 
 				if (sphereCollider->isTrigger || boxCollider->isTrigger)
 				{
-					sphereCollider->computeTriggerCallback(TriggerSphereBox(newSphere, newBox), boxCollider.get());
-					boxCollider->computeTriggerCallback(TriggerSphereBox(newSphere, newBox), sphereCollider.get());
+					bool hasHit = TriggerSphereBox(newSphere, newBox);
+					sphereCollider->computeTriggerCallback(hasHit, boxCollider.get());
+					boxCollider->computeTriggerCallback(hasHit, sphereCollider.get());
 					continue;
 				}
 
-				Collision collision = { boxCollider.get() };
+				Hit hit;
+				bool hasHit = IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, hit);
 
-				sphereCollider->computeCollisionCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, collision.hit), collision);
+				sphereCollider->computeCollisionCallback(hasHit, { boxCollider.get(), hit });
+				boxCollider->computeCollisionCallback(hasHit, { sphereCollider.get(), hit });
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();
