@@ -14,8 +14,12 @@
 #include "sphere_collider.hpp"
 #include "model_renderer.hpp"
 #include "enemy_movement.hpp"
+#include "ammo_counter.hpp"
 #include "player_state.hpp"
+#include "player_life.hpp"
 #include "box_collider.hpp"
+#include "pause_screen.hpp"
+#include "bullet_hole.hpp"
 #include "enemy_state.hpp"
 #include "game_master.hpp"
 #include "enemy_life.hpp"
@@ -23,6 +27,7 @@
 #include "component.hpp"
 #include "transform.hpp"
 #include "rigidbody.hpp"
+#include "life_bar.hpp"
 #include "sky_box.hpp"
 #include "button.hpp"
 #include "camera.hpp"
@@ -125,6 +130,9 @@ namespace Engine
 	{
 		std::string goParse = "GO " + m_name + "\n";
 
+		if (m_recipe != "")
+			goParse += "RECIPE " + m_recipe + '\n';
+
 		for (auto& comp : m_components)
 			goParse += comp->toString() + "\n";
 
@@ -225,6 +233,8 @@ namespace Engine
 			Gameplay::PlayerMovement::parseComponent(*this, goStream);
 		else if (comp == "PLAYERSTATE")
 			Gameplay::PlayerState::parseComponent(*this, goStream);
+		else if (comp == "PLAYERLIFE")
+			Gameplay::PlayerLife::parseComponent(*this, goStream);
 		else if (comp == "PLAYERSHOOTING")
 			Gameplay::PlayerShooting::parseComponent(*this, goStream);
 		else if (comp == "ENEMYMOVEMENT")
@@ -233,6 +243,12 @@ namespace Engine
 			Gameplay::EnemyState::parseComponent(*this, goStream);
 		else if (comp == "ENEMYLIFE")
 			Gameplay::EnemyLife::parseComponent(*this, goStream);
+		else if (comp == "LIFEBAR")
+			Gameplay::LifeBar::parseComponent(*this, goStream);
+		else if (comp == "AMMOCOUNTER")
+			Gameplay::AmmoCounter::parseComponent(*this, goStream);
+		else if (comp == "PAUSESCREEN")
+			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "MAINMENU")
 			Gameplay::MainMenu::parseComponent(*this, goStream);
 		else if (comp == "GAMEMASTER")
@@ -241,10 +257,14 @@ namespace Engine
 			Gameplay::CameraMovement::parseComponent(*this, goStream);
 		else if (comp == "BUTTON")
 			UI::Button::parseComponent(*this, goStream);
+		else if (comp == "BULLETHOLE")
+			Gameplay::BulletHole::parseComponent(*this, goStream);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)
 	{
+		m_recipe = filePath;
+
 		std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
 
 		std::string line;

@@ -153,4 +153,21 @@ namespace Utils
             ImGui::Text("   Selected");
         }
     }
+
+    float clampLoop(float value, float min, float max)
+    {
+        float offset = max - min;
+
+        if (value < min)
+            return value + offset;
+        if (value > max)
+            return value - offset;
+
+        return value;
+    }
+
+    Core::Maths::vec3 clampLoop(const Core::Maths::vec3& value, float min, float max)
+    {
+        return Core::Maths::vec3(clampLoop(value.x, min, max), clampLoop(value.y, min, max), clampLoop(value.z, min, max));
+    }
 }

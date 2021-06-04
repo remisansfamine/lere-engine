@@ -33,6 +33,11 @@ namespace Resources
         }
 	}
 
+    Shader::~Shader()
+    {
+        glDeleteShader(shaderID);
+    }
+
 	std::string Shader::loadFromFile(const std::string& filePath)
 	{
         std::ifstream ifs(filePath);
@@ -46,6 +51,9 @@ namespace Resources
 
             else if (Utils::hasSuffix(filePath, ".frag"))
                 shaderID = glCreateShader(GL_FRAGMENT_SHADER);
+
+            else if (Utils::hasSuffix(filePath, ".geom"))
+                shaderID = glCreateShader(GL_GEOMETRY_SHADER);
 
             else
                 Core::Debug::Log::error("File extension is not compatible");
@@ -64,7 +72,7 @@ namespace Resources
 
 
 #pragma region SHADER_PROGRAM
-	ShaderProgram::ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath)
+	ShaderProgram::ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
         : programID(glCreateProgram()), name(programName)
 	{
         Core::Debug::Log::info("Loading program " + programName);
@@ -73,10 +81,16 @@ namespace Resources
 
         std::shared_ptr<Shader> vert = Resources::ResourcesManager::loadShader(vertPath);
         std::shared_ptr<Shader> frag = Resources::ResourcesManager::loadShader(fragPath);
-
+        
         // Attach the two shaders and link them
         glAttachShader(programID, vert->shaderID);
         glAttachShader(programID, frag->shaderID);
+
+        if (geomPath != "")
+        {
+            std::shared_ptr<Shader> geom = Resources::ResourcesManager::loadShader(geomPath);
+            glAttachShader(programID, geom->shaderID);
+        }
 
         glLinkProgram(programID);
 
@@ -94,6 +108,11 @@ namespace Resources
         else
             loadLocations();
 	}
+
+    ShaderProgram::~ShaderProgram()
+    {
+        glDeleteProgram(programID);
+    }
 
     void ShaderProgram::loadLocations()
     {
@@ -127,6 +146,8 @@ namespace Resources
             // And add it to a map
             uniforms[uniName] = { location, type };
         }
+
+        int test = 0;
     }
 
     void ShaderProgram::setUniform(const std::string& target, const void* value,
@@ -158,6 +179,7 @@ namespace Resources
             case GL_INT:
             case GL_BOOL:
             case GL_SAMPLER_2D_ARB:
+            case GL_SAMPLER_CUBE_ARB:
                 glUniform1iv(uniform.location, count, (GLint*)value);
                 break;
 

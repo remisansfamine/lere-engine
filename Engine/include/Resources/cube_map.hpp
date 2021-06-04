@@ -13,10 +13,11 @@ namespace Resources
 	class CubeMap
 	{
 	private:
-		GLuint cubeMapID = -1;
+		GLuint ID = -1;
 
 	public:
 		CubeMap(const std::vector<std::string>& paths);
+		~CubeMap();
 
 		GLuint getID() const;
 

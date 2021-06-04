@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 #include "entity_life.hpp"
 
@@ -8,16 +9,18 @@ namespace Gameplay
 	{
 	private:
 
+		std::string lifeBarName;
+
 	public:
 		PlayerLife(Engine::GameObject& gameObject);
 
-		void start() override {}
+		void start() override;
 		void update() override;
-		void drawImGui() override {}
+		void drawImGui() override;
 
-		//std::string toString() const override {}
+		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss) {}
+		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
 
 		void onCollisionEnter(const Physics::Collision& collision) override {}
 		void onCollisionExit(const Physics::Collision& collision) override {}

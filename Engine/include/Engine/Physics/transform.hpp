@@ -19,6 +19,9 @@ namespace Physics
 		bool m_hasBeenUpdated = false;
 		Core::Maths::mat4 m_model = Core::Maths::identity();
 
+		void onDestroy() override;
+		void deleteChildFromTransform(Transform* transform);
+
 	public:
 		Transform(Engine::GameObject& gameObject);
 
@@ -27,11 +30,14 @@ namespace Physics
 		Core::Maths::vec3 m_scale = Core::Maths::vec3(1.f, 1.f, 1.f);
 
 		Engine::GameObject& getGOParent();
+		std::shared_ptr<Physics::Transform> getParent();
+		Transform* getChild(int childIndex);
 		Engine::GameObject& getGOChild(int childIndex);
 		int getChildrenCount();
 		Core::Maths::mat4 getModel();
 		Core::Maths::mat4 getGlobalModel();
 		Core::Maths::mat4 getParentModel() const;
+
 
 		Core::Maths::vec3 getGlobalRotation() const;
 		Core::Maths::vec3 getGlobalPosition() const;

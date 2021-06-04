@@ -30,6 +30,7 @@ namespace LowRenderer
 		Core::Maths::mat4 getViewMatrix() const;
 		Core::Maths::mat4 getProjection() const;
 		Core::Maths::mat4 getOrthographic() const;
+		Core::Maths::mat4 getShadowOrtho() const;
 		Core::Maths::mat4 getViewProjection() const;
 		Core::Maths::mat4 getViewOrthographic() const;
 

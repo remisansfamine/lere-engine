@@ -45,10 +45,10 @@ namespace Physics
 	{
 		if (ImGui::TreeNode("Sphere Collider"))
 		{
+			Collider::drawImGui();
+
 			ImGui::DragFloat3("Center :", &sphere.center.x);
 			ImGui::DragFloat("Radius :", &sphere.radius);
-
-			Component::drawImGui();
 
 			ImGui::TreePop();
 		}
@@ -63,8 +63,9 @@ namespace Physics
 
 	void SphereCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<SphereCollider>();
-		auto collider = gameObject.getComponent<SphereCollider>();
+		std::shared_ptr<SphereCollider> collider;
+		if (!gameObject.tryGetComponent(collider))
+			collider = gameObject.addComponent<SphereCollider>();
 
 		iss >> collider->sphere.center.x;
 		iss >> collider->sphere.center.y;

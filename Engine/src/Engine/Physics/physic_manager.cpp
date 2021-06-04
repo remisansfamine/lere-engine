@@ -33,7 +33,7 @@ namespace Physics
 
 		for (auto& boxCollider : PM->boxColliders)
 		{
-			if (!boxCollider->isActive())
+			if (!boxCollider->isActive() || boxCollider->isTrigger)
 				continue;
 
 			boxCollider->updateShape();
@@ -91,16 +91,6 @@ namespace Physics
 
 		return true;
 	}
-
-	/*void PhysicManager::linkComponent(const std::shared_ptr<Rigidbody> compToLink)
-	{
-		instance()->rigidbodies.push_back(compToLink);
-	}
-
-	void PhysicManager::removeComponent(const std::shared_ptr<Rigidbody> compToLink)
-	{
-		instance()->rigidbodies.push_back(compToLink);
-	}*/
 
 	void PhysicManager::linkComponent(const std::shared_ptr<BoxCollider> compToLink)
 	{
@@ -207,7 +197,7 @@ namespace Physics
 					continue;
 				}
 
-				Collision collision = { sphereToCheck };
+				Collision collision = { sphereToCheck.get() };
 
 				sphereCollider->computeCollisionCallback(IntersectSpheres(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newSphereToCheck, collision.hit), collision);
 			}
@@ -237,7 +227,7 @@ namespace Physics
 					continue;
 				}
 
-				Collision collision = { boxCollider };
+				Collision collision = { boxCollider.get() };
 
 				sphereCollider->computeCollisionCallback(IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, collision.hit), collision);
 			}

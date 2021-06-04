@@ -11,6 +11,11 @@ namespace Resources
 		//rayane was here
 	}
 
+	Mesh::~Mesh()
+	{
+		//glDeleteVertexArrays(1, &VAO);
+	}
+
 	// Generate VAO, VBO and EBO from mesh
 	void Mesh::generateVAO()
 	{
@@ -25,22 +30,24 @@ namespace Resources
 
 		glBufferData(GL_ARRAY_BUFFER, attributs.size() * sizeof(float), attributs.data(), GL_STATIC_DRAW);
 
+		int stride = 3 * sizeof(Core::Maths::vec3);
+
 		// Set the attrib pointer to the positions
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(Core::Maths::vec3), (GLvoid*)(0));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(0));
 		glEnableVertexAttribArray(0);
 
 		// Set the attrib pointer to the texture coordinates
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(Core::Maths::vec3), (GLvoid*)(sizeof(Core::Maths::vec3)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(sizeof(Core::Maths::vec3)));
 		glEnableVertexAttribArray(1);
 
 		// Set the attrib pointer to the normals
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(Core::Maths::vec3), (GLvoid*)(2 * sizeof(Core::Maths::vec3)));
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(2 * sizeof(Core::Maths::vec3)));
 		glEnableVertexAttribArray(2);
 
 		glBindVertexArray(0);
 
 		// Destroy the VBO
-		glDeleteBuffers(1, &VBO);
+		//glDeleteBuffers(1, &VBO);
 	}
 
 	void Mesh::compute(std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices)

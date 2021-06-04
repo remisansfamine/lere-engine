@@ -7,6 +7,7 @@ namespace Core
 	{
 		friend class Singleton<TimeManager>;
 		friend class Application;
+		friend class Graph;
 
 	private:
 		float time = 0.f;
@@ -23,6 +24,7 @@ namespace Core
 	public:
 		float timeScale = 1.f;
 
+		static void resetTime();
 		static float getTime();
 		static float getDeltaTime();
 		static float getFixedDeltaTime();

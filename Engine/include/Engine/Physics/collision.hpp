@@ -33,7 +33,7 @@ namespace Physics
 
 	struct Collision
 	{
-		std::shared_ptr<Collider> collider;
+		Collider* collider;
 		Hit hit;
 	};
 }

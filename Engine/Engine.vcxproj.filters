@@ -109,6 +109,12 @@
     <Filter Include="Fichiers sources\Game\Gameplay\Entity">
       <UniqueIdentifier>{5a779689-c7cd-4fe8-9b58-84fc944c899d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers de ressources\Shaders\Shadows">
+      <UniqueIdentifier>{da4c1b03-75fa-46fc-b7f5-fe6f74320f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers de ressources\Shaders\Shadow">
+      <UniqueIdentifier>{4455bf65-4fb7-4400-b6b9-5a6ee3a0aeff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -303,8 +309,32 @@
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\timer.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\shadow_map.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\LowRenderer\shadow_point.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
     <ClCompile Include="src\Game\pause_screen.cpp">
       <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\timer.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\sound_manager.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\sound_manager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\life_bar.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp">
+      <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -515,8 +545,23 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game\pause_screen.hpp">
-      <Filter>Fichiers d%27en-tête\Game</Filter>
+    <ClInclude Include="include\Core\timer.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\timer.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\sound_manager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Core\sound_manager.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\life_bar.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +603,36 @@
     </None>
     <None Include="resources\shaders\vertexShader.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.geom">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadows</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.geom">
+      <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
+    </None>
+    <None Include="resources\shaders\depthCubeShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.frag">
+      <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
+    </None>
+    <None Include="resources\shaders\depthShader.vert">
+      <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -17,14 +17,15 @@ namespace Gameplay
 	void PlayerMovement::fixedUpdate()
 	{
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
-		float horizontal = m_playerState->horizontalMove * fixedSpeed;
-		float vertical = m_playerState->forwardMove * fixedSpeed;
+		float horizontal = m_playerState->horizontalMove;
+		float vertical = m_playerState->forwardMove;
 
-		m_transform->m_rotation.y -= 0.5f * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
+		m_transform->m_rotation.y -= m_sensivityY * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
 
 		float cos = cosf(m_transform->m_rotation.y), sin = sinf(m_transform->m_rotation.y);
-		m_rigidbody->velocity.x = horizontal * cos + vertical * sin;
-		m_rigidbody->velocity.z = vertical * cos - horizontal * sin;
+		Core::Maths::vec3 newVelocity = Core::Maths::vec3(horizontal * cos + vertical * sin, 0.f, vertical * cos - horizontal * sin).normalized() * fixedSpeed;
+		newVelocity.y = m_rigidbody->velocity.y;
+		m_rigidbody->velocity = newVelocity;
 
 		if (m_playerState->isGrounded && m_playerState->isJumping)
 		{
@@ -37,6 +38,7 @@ namespace Gameplay
 	{
 		if (ImGui::TreeNode("PlayerMovement"))
 		{
+			ImGui::DragFloat("Sensivity Y : ", &m_sensivityY);
 			ImGui::DragFloat("MoveSpeed : ", &m_speed);
 			ImGui::DragFloat("JumpForce : ", &m_jumpForce);
 			ImGui::TreePop();
@@ -45,12 +47,7 @@ namespace Gameplay
 
 	std::string PlayerMovement::toString() const
 	{
-		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce);
-	}
-
-	void PlayerMovement::onTriggerEnter(Physics::Collider* collider)
-	{
-		int test = 0;
+		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce) + " " + std::to_string(m_sensivityY);
 	}
 
 	void PlayerMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
@@ -60,5 +57,6 @@ namespace Gameplay
 
 		iss >> player->m_speed;
 		iss >> player->m_jumpForce;
+		iss >> player->m_sensivityY;
 	}
 }

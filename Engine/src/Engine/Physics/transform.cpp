@@ -11,6 +11,12 @@ namespace Physics
 	{
 	}
 
+	void Transform::onDestroy()
+	{
+		if (hasParent())
+			getParent()->deleteChildFromTransform(this);
+	}
+
 	bool Transform::hasParent()
 	{
 		return parent != nullptr;
@@ -19,6 +25,11 @@ namespace Physics
 	bool Transform::hasChild()
 	{
 		return children.size() > 0;
+	}
+
+	Transform* Transform::getChild(int childIndex)
+	{
+		return children[childIndex];
 	}
 
 	Engine::GameObject& Transform::getGOChild(int childIndex)
@@ -36,9 +47,19 @@ namespace Physics
 		return parent->getHost();
 	}
 
+	std::shared_ptr<Physics::Transform> Transform::getParent()
+	{
+		return parent;
+	}
+
 	Core::Maths::mat4 Transform::getModel()
 	{
-		if (!m_hasBeenUpdated)
+		return Core::Maths::translate(m_position) *
+			Core::Maths::rotateZ(m_rotation.z) *
+			Core::Maths::rotateY(m_rotation.y) *
+			Core::Maths::rotateX(m_rotation.x) *
+			Core::Maths::scale(m_scale);
+		/*if (!m_hasBeenUpdated)
 		{
 			m_model = Core::Maths::translate(m_position) *
 					  Core::Maths::rotateZ(m_rotation.z) *
@@ -49,7 +70,7 @@ namespace Physics
 			m_hasBeenUpdated = true;
 		}
 
-		return m_model;
+		return m_model;*/
 	}
 
 	Core::Maths::mat4 Transform::getGlobalModel()
@@ -66,6 +87,20 @@ namespace Physics
 			return parent->getGlobalModel();
 
 		return Core::Maths::identity();
+	}
+
+	void Transform::deleteChildFromTransform(Transform* transform)
+	{
+		for (size_t i = 0; i < children.size(); i++)
+		{
+			if (children[i] == transform)
+			{
+				children[i] = children.back();
+				children.pop_back();
+
+				return;
+			}
+		}
 	}
 
 	Core::Maths::vec3 Transform::getGlobalRotation() const
@@ -131,7 +166,9 @@ namespace Physics
 
 	void Transform::update()
 	{
-		m_hasBeenUpdated = false;
+		m_hasBeenUpdated = true;
+
+		//m_rotation = Utils::clampLoop(m_rotation, 0.f, Core::Maths::TAU);
 	}
 
 	void Transform::drawImGui()
@@ -169,10 +206,9 @@ namespace Physics
 
 	void Transform::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName)
 	{
-		if (!gameObject.tryGetComponent<Transform>())
-			gameObject.addComponent<Transform>();
-
-		auto transform = gameObject.getComponent<Transform>();
+		std::shared_ptr<Transform> transform;
+		if (!gameObject.tryGetComponent(transform))
+			transform = gameObject.addComponent<Transform>();
 
 		iss >> transform->m_position.x;
 		iss >> transform->m_position.y;

@@ -12,11 +12,11 @@ namespace Resources
 	class Mesh
 	{
 	private:
-
 		GLuint VAO;
 
-
 	public:
+		~Mesh();
+
 		std::vector<float> attributs;
 		std::string name;
 

@@ -3,9 +3,8 @@
 namespace Gameplay
 {
 	EnemyLife::EnemyLife(Engine::GameObject& gameObject)
-		: EntityLife(gameObject, std::shared_ptr<EnemyLife>(this))
+		: EntityLife(gameObject, std::shared_ptr<EnemyLife>(this), "resources/sounds/enemyDamage.ogg", "resources/sounds/enemyDeath.wav")
 	{
-
 	}
 
 	void EnemyLife::drawImGui()
@@ -19,15 +18,17 @@ namespace Gameplay
 
 	std::string EnemyLife::toString() const
 	{
-		return "COMP LIFE " + std::to_string(life);
+		return "COMP ENEMYLIFE " + EntityLife::toString();
 	}
 
 	void EnemyLife::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<EnemyLife>();
-		auto enemy = gameObject.getComponent<EnemyLife>();
+		std::shared_ptr<EnemyLife> el;
+		if (!gameObject.tryGetComponent(el))
+			el = gameObject.addComponent<EnemyLife>();
 
-		iss >> enemy->life;
+		iss >> el->life;
+		iss >> el->maxLife;
 	}
 
 	void EnemyLife::hurt(int damage)

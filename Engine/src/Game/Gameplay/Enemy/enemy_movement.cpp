@@ -56,9 +56,11 @@ namespace Gameplay
 
 	void EnemyMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<EnemyMovement>();
-		auto enemy = gameObject.getComponent<EnemyMovement>();
+		std::shared_ptr<EnemyMovement> em;
+		if (!gameObject.tryGetComponent(em))
+			em = gameObject.addComponent<EnemyMovement>();
 
-		iss >> enemy->m_speed;
+		iss >> em->m_speed;
+		int brak = 0;
 	}
 }

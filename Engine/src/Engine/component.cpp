@@ -43,8 +43,10 @@ namespace Engine
 
 	void Component::onDestroy()
 	{
-		std::vector<std::shared_ptr<Component>>::iterator it;
+		if (m_gameObject.m_components.size() == 0)
+			return;
 
+		std::vector<std::shared_ptr<Component>>::iterator it;
 		for (it = m_gameObject.m_components.begin(); it != m_gameObject.m_components.end(); it++)
 		{
 			if (it->get() == this)

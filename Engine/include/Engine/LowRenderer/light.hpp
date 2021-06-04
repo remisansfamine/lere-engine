@@ -1,8 +1,8 @@
 #pragma once
 
 #include "component.hpp"
-#include "color.hpp"
 #include "shader.hpp"
+#include "color.hpp"
 
 namespace Physics
 {
@@ -11,6 +11,8 @@ namespace Physics
 
 namespace LowRenderer
 {
+	class Shadow;
+
 	class Light : public Engine::Component
 	{
 	private:
@@ -18,8 +20,12 @@ namespace LowRenderer
 
 		std::shared_ptr<Physics::Transform> m_transform = nullptr;
 
+		Core::Maths::mat4 spaceMatrix = Core::Maths::identity();
+
 	public:
 		Light(Engine::GameObject& gameObject);
+
+		std::unique_ptr<Shadow> shadow = nullptr;
 
 		Core::Maths::vec4 position;
 		Color ambient  = Color::black;
@@ -32,12 +38,16 @@ namespace LowRenderer
 		float outterCutoff = Core::Maths::PI;
 
 		float enable = 1.f;
+		float hasShadow = 0.f;
 		
 		void setAsDirectionnal();
 		void setAsPoint();
 		void setAsSpot();
+		void setShadows(bool isShadow);
 		void compute();
 		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const;
+
+		const Core::Maths::mat4& getSpaceMatrix() const;
 
 		void drawImGui() override;
 		std::string toString() const override;

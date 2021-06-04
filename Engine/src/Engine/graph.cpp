@@ -2,9 +2,10 @@
 
 #include "imgui.h"
 
-#include "debug.hpp"
 #include "physic_manager.hpp"
 #include "application.hpp"
+#include "debug.hpp"
+#include "time.hpp"
 
 namespace Core::Engine
 {
@@ -21,6 +22,7 @@ namespace Core::Engine
 	void Graph::loadScene(const std::string& scenePath)
 	{
 		curScene.load(scenePath);
+		Core::TimeManager::resetTime();
 	}
 
 	void Graph::loadSaveGame()
@@ -145,5 +147,15 @@ namespace Core::Engine
 		instance()->curScene.cursorState = state;
 
 		Core::Application::setCursor(state);
+	}
+
+	::Engine::GameObject& Graph::instantiate(const std::string& GOname)
+	{
+		return instance()->curScene.instantiate(GOname);
+	}
+
+	::Engine::GameObject& Graph::instantiate(const std::string& GOname, const std::string& recipePath)
+	{
+		return instance()->curScene.instantiate(GOname, recipePath);
 	}
 }

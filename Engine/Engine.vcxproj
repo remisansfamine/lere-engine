@@ -80,13 +80,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(ProjectDir)include\Game\Gameplay;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -126,14 +126,16 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -144,15 +146,17 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -162,8 +166,10 @@
     <ClCompile Include="src\Core\Input\key_axis.cpp" />
     <ClCompile Include="src\Core\Input\key_button.cpp" />
     <ClCompile Include="src\Core\Input\mouse_button.cpp" />
+    <ClCompile Include="src\Core\sound_manager.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
+    <ClCompile Include="src\Core\timer.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
     <ClCompile Include="src\Engine\engine_master.cpp" />
     <ClCompile Include="src\Engine\game_object.cpp" />
@@ -176,6 +182,9 @@
     <ClCompile Include="src\Engine\LowRenderer\model_renderer.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\renderer.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\render_manager.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow_map.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\shadow_point.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sky_box.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sprite_renderer.cpp" />
     <ClCompile Include="src\Engine\object.cpp" />
@@ -189,12 +198,15 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
+    <ClCompile Include="src\Game\Gameplay\bullet_hole.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_state.cpp" />
     <ClCompile Include="src\Game\Gameplay\Entity\entity_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Entity\entity_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Entity\entity_state.cpp" />
+    <ClCompile Include="src\Game\Gameplay\life_bar.cpp" />
+    <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_movement.cpp" />
@@ -203,6 +215,7 @@
     <ClCompile Include="src\Game\game_master.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
     <ClCompile Include="src\Game\pause_screen.cpp" />
+    <ClCompile Include="src\Resources\character.cpp" />
     <ClCompile Include="src\Resources\cube_map.cpp" />
     <ClCompile Include="src\Resources\material.cpp" />
     <ClCompile Include="src\Resources\mesh.cpp" />
@@ -223,6 +236,27 @@
     <ClCompile Include="src\Utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\irrklang\ik_ESoundEngineOptions.h" />
+    <ClInclude Include="header\irrklang\ik_ESoundOutputDrivers.h" />
+    <ClInclude Include="header\irrklang\ik_EStreamModes.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioRecorder.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioStream.h" />
+    <ClInclude Include="header\irrklang\ik_IAudioStreamLoader.h" />
+    <ClInclude Include="header\irrklang\ik_IFileFactory.h" />
+    <ClInclude Include="header\irrklang\ik_IFileReader.h" />
+    <ClInclude Include="header\irrklang\ik_IRefCounted.h" />
+    <ClInclude Include="header\irrklang\ik_irrKlangTypes.h" />
+    <ClInclude Include="header\irrklang\ik_ISound.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundDeviceList.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundEffectControl.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundEngine.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundMixedOutputReceiver.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundSource.h" />
+    <ClInclude Include="header\irrklang\ik_ISoundStopEventReceiver.h" />
+    <ClInclude Include="header\irrklang\ik_IVirtualRefCounted.h" />
+    <ClInclude Include="header\irrklang\ik_SAudioStreamFormat.h" />
+    <ClInclude Include="header\irrklang\ik_vec3d.h" />
+    <ClInclude Include="header\irrklang\irrKlang.h" />
     <ClInclude Include="header\stb_image.h" />
     <ClInclude Include="include\Core\application.hpp" />
     <ClInclude Include="include\Core\Input\input.hpp" />
@@ -232,7 +266,9 @@
     <ClInclude Include="include\Core\Input\mouse_button.hpp" />
     <ClInclude Include="include\Core\debug.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
+    <ClInclude Include="include\Core\sound_manager.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
+    <ClInclude Include="include\Core\timer.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />
     <ClInclude Include="include\Engine\engine_master.hpp" />
     <ClInclude Include="include\Engine\game_object.hpp" />
@@ -245,6 +281,9 @@
     <ClInclude Include="include\Engine\LowRenderer\model_renderer.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\renderer.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\render_manager.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow_map.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\shadow_point.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sky_box.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sprite_renderer.hpp" />
     <ClInclude Include="include\Engine\object.hpp" />
@@ -267,12 +306,15 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
+    <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_state.hpp" />
     <ClInclude Include="include\Game\Gameplay\Entity\entity_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp" />
+    <ClInclude Include="include\Game\Gameplay\life_bar.hpp" />
+    <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_movement.hpp" />
@@ -298,6 +340,11 @@
     <None Include="include\Core\maths.inl" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
+    <None Include="resources\shaders\depthCubeShader.frag" />
+    <None Include="resources\shaders\depthCubeShader.geom" />
+    <None Include="resources\shaders\depthCubeShader.vert" />
+    <None Include="resources\shaders\depthShader.frag" />
+    <None Include="resources\shaders\depthShader.vert" />
     <None Include="resources\shaders\fragmentCollider.frag" />
     <None Include="resources\shaders\fragmentShader.frag" />
     <None Include="resources\shaders\skyBox.frag" />
@@ -306,6 +353,8 @@
     <None Include="resources\shaders\spriteVertex.vert" />
     <None Include="resources\shaders\testShader.frag" />
     <None Include="resources\shaders\testShader.vert" />
+    <None Include="resources\shaders\textShader.frag" />
+    <None Include="resources\shaders\textShader.vert" />
     <None Include="resources\shaders\vertexCollider.vert" />
     <None Include="resources\shaders\vertexShader.vert" />
   </ItemGroup>

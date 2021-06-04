@@ -6,6 +6,7 @@
 
 #include "singleton.hpp"
 
+#include "character.hpp"
 #include "cube_map.hpp"
 #include "material.hpp"
 #include "texture.hpp"
@@ -33,6 +34,7 @@ namespace Resources
 		std::unordered_map<std::string, std::shared_ptr<CubeMap>>		cubeMaps;
 		std::unordered_map<std::string, std::shared_ptr<Mesh>>			meshes;
 		std::unordered_map<std::string, std::shared_ptr<Material>>		materials;
+		std::unordered_map<std::string, std::shared_ptr<Font>>			fonts;
 
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
@@ -61,13 +63,14 @@ namespace Resources
 
 		static void clearResources();
 
+		static std::shared_ptr<Font> loadFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
 		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
 		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
 		static std::shared_ptr<Recipe> loadRecipe(const std::string& recipePath);
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
-		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "");
+		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
 
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);

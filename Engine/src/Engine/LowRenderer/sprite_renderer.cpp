@@ -55,7 +55,7 @@ namespace LowRenderer
 		if (!mesh)
 			return;
 
-		m_shaderProgram->setUniform("model", m_transform->getModel().e, 1, 1);
+		m_shaderProgram->setUniform("model", m_transform->getGlobalModel().e, 1, 1);
 		m_shaderProgram->setUniform("color", m_color.e);
 
 		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e);
