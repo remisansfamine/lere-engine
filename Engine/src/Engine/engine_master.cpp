@@ -17,6 +17,8 @@ namespace Core::Engine
 
 		Core::Input::InputManager::addButton("Edit Toggle", GLFW_KEY_C);
 		Core::Application::setCursor(editMode || Graph::getCursorState());
+
+		Engine::SoundManager::init();
 	}
 
 	EngineMaster::~EngineMaster()

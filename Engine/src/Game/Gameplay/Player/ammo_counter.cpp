@@ -21,7 +21,7 @@ namespace Gameplay
 		{
 			Engine::GameObject& go = Core::Engine::Graph::instantiate("Ammo", "resources/recipes/ammoSprite.recipe");
 			ammoTransforms.push_back(go.getComponent<Physics::Transform>());
-			ammoTransforms.back()->m_position.y += 1.5f * (float)i;
+			ammoTransforms.back()->m_position.y += 1.f * (float)i;
 		}
 	}
 

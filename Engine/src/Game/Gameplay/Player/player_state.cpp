@@ -22,7 +22,7 @@ namespace Gameplay
 
 	void PlayerState::start()
 	{
-		Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/warCryPlayer.wav");
+		Core::Engine::SoundManager::play2D("resources/sounds/warCryPlayer.wav");
 		m_collider = getHost().getComponent<Physics::SphereCollider>();
 	}
 

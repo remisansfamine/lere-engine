@@ -17,7 +17,7 @@ namespace Gameplay
 	void EntityLife::hurt(int damage)
 	{
 		if (setLife(life - damage))
-			Core::Engine::SoundManager::getSoundEngine()->play2D(hurtSound.c_str());
+			Core::Engine::SoundManager::play2D(hurtSound.c_str());
 	}
 
 	void EntityLife::heal(int heal)
@@ -52,7 +52,7 @@ namespace Gameplay
 	{
 		Core::Debug::Log::info("Ah tabarnak je suis archi dead lo !");
 
-		Core::Engine::SoundManager::getSoundEngine()->play2D(deathSound.c_str());
+		Core::Engine::SoundManager::play2D(deathSound.c_str());
 	}
 
 	std::string EntityLife::toString() const

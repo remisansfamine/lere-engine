@@ -72,8 +72,7 @@ namespace Gameplay
 		Physics::RaycastHit raycastHit;
 		Physics::Ray ray(m_cameraTransform->getGlobalPosition(), m_cameraTransform->getForward(), maxShootDistance);
 
-
-		Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/shoot.wav");
+		Core::Engine::SoundManager::play2D("resources/sounds/shoot.wav");
 
 		if (Physics::PhysicManager::raycast(ray, raycastHit))
 		{
@@ -92,7 +91,7 @@ namespace Gameplay
 		{
 			if (ammo <= 0)
 			{
-				Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/no_ammo.wav");
+				Core::Engine::SoundManager::play2D("resources/sounds/no_ammo.wav");
 				return;
 			}
 
@@ -116,7 +115,7 @@ namespace Gameplay
 		{
 			if (timer.timerOn())
 			{
-				Core::Engine::SoundManager::getSoundEngine()->play2D("resources/sounds/reload.wav");
+				Core::Engine::SoundManager::play2D("resources/sounds/reload.wav");
 				timer.setDelay(2.f);
 				ammo = maxAmmo;
 				reload = true;

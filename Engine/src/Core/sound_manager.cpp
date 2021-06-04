@@ -19,8 +19,11 @@ namespace Core::Engine
 		instance()->m_soundEngine = irrklang::createIrrKlangDevice();
 	}
 
-	irrklang::ISoundEngine* SoundManager::getSoundEngine()
+	void SoundManager::play2D(const std::string& path)
 	{
-		return instance()->m_soundEngine;
+		irrklang::ISoundEngine* soundEngine = instance()->m_soundEngine;
+
+		if (soundEngine)
+			soundEngine->play2D(path.c_str());
 	}
 }

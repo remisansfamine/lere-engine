@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 #include <irrklang/irrklang.h>
 
 #include "singleton.hpp"
@@ -19,6 +21,6 @@ namespace Core::Engine
 
 	public:
 		static void init();
-		static irrklang::ISoundEngine* getSoundEngine();
+		static void play2D(const std::string& path);
 	};
 }
