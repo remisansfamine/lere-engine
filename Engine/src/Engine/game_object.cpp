@@ -19,6 +19,8 @@
 #include "player_life.hpp"
 #include "box_collider.hpp"
 #include "pause_screen.hpp"
+#include "lose_screen.hpp"
+#include "win_screen.hpp"
 #include "bullet_hole.hpp"
 #include "enemy_state.hpp"
 #include "game_master.hpp"
@@ -251,6 +253,10 @@ namespace Engine
 			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "MAINMENU")
 			Gameplay::MainMenu::parseComponent(*this, goStream);		
+		else if (comp == "LOSESCREEN")
+			Gameplay::LoseScreen::parseComponent(*this, goStream);
+		else if (comp == "WINSCREEN")
+			Gameplay::WinScreen::parseComponent(*this, goStream);
 		else if (comp == "PAUSESCREEN")
 			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "GAMEMASTER")

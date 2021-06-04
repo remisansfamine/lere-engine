@@ -213,8 +213,10 @@
     <ClCompile Include="src\Game\Gameplay\Player\player_shooting.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_state.cpp" />
     <ClCompile Include="src\Game\game_master.cpp" />
+    <ClCompile Include="src\Game\lose_screen.cpp" />
     <ClCompile Include="src\Game\main_menu.cpp" />
     <ClCompile Include="src\Game\pause_screen.cpp" />
+    <ClCompile Include="src\Game\win_screen.cpp" />
     <ClCompile Include="src\Resources\character.cpp" />
     <ClCompile Include="src\Resources\cube_map.cpp" />
     <ClCompile Include="src\Resources\material.cpp" />
@@ -321,8 +323,10 @@
     <ClInclude Include="include\Game\Gameplay\Player\player_shooting.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_state.hpp" />
     <ClInclude Include="include\Game\game_master.hpp" />
+    <ClInclude Include="include\Game\lose_screen.hpp" />
     <ClInclude Include="include\Game\main_menu.hpp" />
     <ClInclude Include="include\Game\pause_screen.hpp" />
+    <ClInclude Include="include\Game\win_screen.hpp" />
     <ClInclude Include="include\Resources\character.hpp" />
     <ClInclude Include="include\Resources\cube_map.hpp" />
     <ClInclude Include="include\Resources\material.hpp" />

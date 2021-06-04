@@ -50,8 +50,6 @@ namespace Gameplay
 
 	void EntityLife::kill()
 	{
-		Core::Debug::Log::info("Ah tabarnak je suis archi dead lo !");
-
 		Core::Engine::SoundManager::play2D(deathSound.c_str());
 	}
 
