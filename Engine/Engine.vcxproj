@@ -206,6 +206,7 @@
     <ClCompile Include="src\Game\Gameplay\Entity\entity_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Entity\entity_state.cpp" />
     <ClCompile Include="src\Game\Gameplay\life_bar.cpp" />
+    <ClCompile Include="src\Game\Gameplay\medkit.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\camera_movement.cpp" />
     <ClCompile Include="src\Game\Gameplay\Player\player_life.cpp" />
@@ -314,6 +315,7 @@
     <ClInclude Include="include\Game\Gameplay\Entity\entity_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Entity\entity_state.hpp" />
     <ClInclude Include="include\Game\Gameplay\life_bar.hpp" />
+    <ClInclude Include="include\Game\Gameplay\medkit.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\camera_movement.hpp" />
     <ClInclude Include="include\Game\Gameplay\Player\player_life.hpp" />

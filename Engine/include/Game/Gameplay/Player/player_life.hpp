@@ -21,8 +21,5 @@ namespace Gameplay
 		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
-
-		void onCollisionEnter(const Physics::Collision& collision) override {}
-		void onCollisionExit(const Physics::Collision& collision) override {}
 	};
 }

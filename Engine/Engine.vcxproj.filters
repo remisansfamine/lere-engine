@@ -336,6 +336,9 @@
     <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\medkit.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -562,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\medkit.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

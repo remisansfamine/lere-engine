@@ -1,6 +1,7 @@
 #include "player_life.hpp"
 
 #include "graph.hpp"
+#include "collider.hpp"
 #include "inputs_manager.hpp"
 
 namespace Gameplay

@@ -30,6 +30,7 @@
 #include "life_bar.hpp"
 #include "sky_box.hpp"
 #include "button.hpp"
+#include "medkit.hpp"
 #include "camera.hpp"
 #include "utils.hpp"
 #include "light.hpp"
@@ -259,6 +260,8 @@ namespace Engine
 			UI::Button::parseComponent(*this, goStream);
 		else if (comp == "BULLETHOLE")
 			Gameplay::BulletHole::parseComponent(*this, goStream);
+		else if (comp == "MEDKIT")
+			Gameplay::MedKit::parseComponent(*this, goStream);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)
