@@ -1,18 +1,24 @@
-FPS
-===
+# **FPS**
 
-3D Platformer made from scratch using Physic and Render Engines made from scratch too (using OpenGL 4.5, stb, GLFW, Glad and ImGui).
+FPS made using the previous engine for the 3D Platformer.
 
 **/!\ This engine is not the most optimized one nor the most efficient one. It supports only .obj models, .mtl materials and a custom scene format. /!\\**
 
-Controls
----
-- **WASD/ZQSD** keys: Move foward, backward, left and right.
-- **Space**: Jump.
-- **Escape**: Return to Main menu.
-- **F5/F9**: Save the current party/Load the last party.
-- **Directional arrows**: Move the camera.
+# Informations
+The program runs in Debug or Release, platform x64. 
+You need to put the files :
+- irrKlang.dll 
+- ikpMP3.dll
+- ikpFlac.dll <br>
+in the folder x64/Release (or x64/Debug), they can be found on sirius : RMLG/BIN.
 
+The resources (obj, textures, mtl, etc) are in the zip file on sirius : RMLG/BIN/resources.
+
+# Controls
+- **WASD/ZQSD keys** : Move foward, backward, left and right.
+- **Space** : Jump.
+- **Escape** : Pause Screen.
+- **C** : Open inspector.
 
 # Engine Features
 * The Game Engine uses a powerful leak-free Component System
@@ -21,10 +27,11 @@ Controls
 
 # In-Game Features
 * The player can launch the game from the main menu
-* The player can load an old save from the main menu or with the keyboard In-Game
 * The player can exit the game from the main menu
-* The player can move in an 3D-environment while being in game
-* The player can move its camera
+* The player can move in a 3D-environment while being in game
+* The player can pause the game
+* The player can exit the game from the pause screen
+* The player can go back to the main menu from the pause screen
 
 ***Annexes***
 ===
@@ -33,38 +40,41 @@ https://miro.com/welcomeonboard/lOMYMf0qwZh91frzycgVN5734rGQn5auxxdjySUvD567BnYC
 
 ***Exemples***
 ===
+
+Here are some examples of what you can see in the game. If you want more you can go to the folder annexes/screenshots.
+
 <div style="text-align:center">
 
 ![Menu](screenshots/menu.png)
 Screenshot of the main menu
 
-![Scene](screenshots/scene.png)
-Screenshot of the In-Game scene
+![Pause](screenshots/pause.png)
+Screenshot of the pause screen
 
-![Jump](screenshots/jump.png)
-Screenshot of the player jump
+![Win](screenshots/win.png)
+Screenshot of the win screen
 
 <div style="text-align:left">
-
-***Known issues***
-===
-- There are collision bugs on the edge of the platforms because of the quaternions.
 
 ***Work in progress and future features***
 ===
 WIP
 ---
-- Edit the inputs from the main menu
+- Shadow mapping
 
 Next features
 ---
-- Editing the current scene in game by adding new GameObjects and link component
-- IA system with enemies
+- Particle system
+- Bloom
 
 ***Third-party programs and libraries***
 ===
 
 # Download links
+
+irrKlang
+---
+https://www.ambiera.com/irrklang/
 
 stb
 ---
