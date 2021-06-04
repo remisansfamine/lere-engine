@@ -166,7 +166,9 @@ namespace Physics
 
 	void Transform::update()
 	{
-		m_hasBeenUpdated = false;
+		m_hasBeenUpdated = true;
+
+		//m_rotation = Utils::clampLoop(m_rotation, 0.f, Core::Maths::TAU);
 	}
 
 	void Transform::drawImGui()

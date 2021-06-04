@@ -47,6 +47,10 @@ namespace Utils
 
     void selectImGuiString(std::string selectableLabel, std::string& strRef);
 
+    float clampLoop(float value, float min, float max);
+
+    Core::Maths::vec3 clampLoop(const Core::Maths::vec3& value, float min, float max);
+
     template <typename T>
     int sign(T value)
     {
