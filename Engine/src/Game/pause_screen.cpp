@@ -19,56 +19,71 @@ namespace Gameplay
 
 	void PauseScreen::start()
 	{
-		/*Core::Engine::Graph::setCursorState(true);
+		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
 
-		Engine::GameObject* goButtonResumeGame = Core::Engine::Graph::findGameObjectWithName("ResumeGameButton");
-		std::shared_ptr<UI::Button> buttonResumeGame = goButtonResumeGame->getComponent<UI::Button>();
+		buttons[0] = Core::Engine::Graph::findGameObjectWithName("ResumeGameButton");
+		std::shared_ptr<UI::Button> buttonResumeGame = buttons[0]->getComponent<UI::Button>();
 		UI::Button* resumeGameptr = buttonResumeGame.get();
-		resumeGameptr->addListener(UI::ButtonState::DOWN, []() {
+
+		resumeGameptr->addListener(UI::ButtonState::DOWN, [this]() {
 			Core::TimeManager::setTimeScale(1.f);
-		});
+			showPauseScreen(false);
+			gameMaster->isPaused = false;
+			});
+
 		resumeGameptr->addListener(UI::ButtonState::HIGHLIGHT, [resumeGameptr]() {
 			resumeGameptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});
+			});
 
 
-		Engine::GameObject* goButtonMainMenu = Core::Engine::Graph::findGameObjectWithName("MainMenuButton");
-		std::shared_ptr<UI::Button> buttonMainMenu = goButtonMainMenu->getComponent<UI::Button>();
+		buttons[1] = Core::Engine::Graph::findGameObjectWithName("MainMenuButton");
+		std::shared_ptr<UI::Button> buttonMainMenu = buttons[1]->getComponent<UI::Button>();
 		UI::Button* mainMenuptr = buttonMainMenu.get();
+
 		mainMenuptr->addListener(UI::ButtonState::DOWN, []() {
+			Core::TimeManager::setTimeScale(1.f);
 			Core::Engine::Graph::loadMainMenu();
-		});
+			});
+
 		mainMenuptr->addListener(UI::ButtonState::HIGHLIGHT, [mainMenuptr]() {
 			mainMenuptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});
+			});
 
 
-		Engine::GameObject* goButtonSaveScene = Core::Engine::Graph::findGameObjectWithName("SaveSceneButton");
-		std::shared_ptr<UI::Button> buttonSaveScene = goButtonSaveScene->getComponent<UI::Button>();
+		/*buttons[2] = Core::Engine::Graph::findGameObjectWithName("SaveSceneButton");
+		std::shared_ptr<UI::Button> buttonSaveScene = buttons[2]->getComponent<UI::Button>();
 		UI::Button* saveSceneptr = buttonSaveScene.get();
+
 		saveSceneptr->addListener(UI::ButtonState::DOWN, []() {
 			Core::Engine::Graph::saveCurrentScene();
 			Core::Debug::Log::info("Scene has been saved");
-		});
+			});
+
 		saveSceneptr->addListener(UI::ButtonState::HIGHLIGHT, [saveSceneptr]() {
 			saveSceneptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});
+			});*/
 
 
-		Engine::GameObject* goButtonExit = Core::Engine::Graph::findGameObjectWithName("ExitButton");
-		std::shared_ptr<UI::Button> buttonExit = goButtonExit->getComponent<UI::Button>();
+		buttons[2] = Core::Engine::Graph::findGameObjectWithName("ExitButton");
+		std::shared_ptr<UI::Button> buttonExit = buttons[2]->getComponent<UI::Button>();
 		UI::Button* exitPtr = buttonExit.get();
 		exitPtr->addListener(UI::ButtonState::DOWN, []() {
 			Core::Application::closeApplication();
-		});
+			});
 		exitPtr->addListener(UI::ButtonState::HIGHLIGHT, [exitPtr]() {
 			exitPtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});*/
-	}
-	
-	void PauseScreen::update()
-	{
+			});
 
+		for (int i = 0; i < 3; ++i)
+			buttons[i]->setActive(false);
+	}
+
+	void PauseScreen::showPauseScreen(bool isActive)
+	{
+		Core::Engine::Graph::setCursorState(isActive);
+
+		for (int i = 0; i < 3; ++i)
+			buttons[i]->setActive(isActive);
 	}
 
 	void PauseScreen::drawImGui()

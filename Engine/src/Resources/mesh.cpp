@@ -8,7 +8,6 @@ namespace Resources
 		glBindVertexArray(VAO);
 		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(attributs.size()));
 		glBindVertexArray(0);
-		//rayane was here
 	}
 
 	Mesh::~Mesh()
@@ -76,6 +75,5 @@ namespace Resources
 
 		// Generate the VAO buffer
 		generateVAO();
-		//rayane was here too 
 	}
 }

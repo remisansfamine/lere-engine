@@ -4,12 +4,17 @@
 
 namespace Gameplay
 {
+	class PauseScreen;
+
 	class GameMaster : public Engine::Component
 	{
 	private:
+		std::shared_ptr<PauseScreen> pauseScreen;
 
 	public:
 		GameMaster(Engine::GameObject& gameObject);
+
+		bool isPaused = false;
 
 		void start() override;
 		void update() override;

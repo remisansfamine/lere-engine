@@ -52,8 +52,9 @@ namespace Gameplay
 
 	void PlayerMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
 	{
-		gameObject.addComponent<PlayerMovement>();
-		auto player = gameObject.getComponent<PlayerMovement>();
+		std::shared_ptr<PlayerMovement> player;
+		if (!gameObject.tryGetComponent(player))
+			player = gameObject.addComponent<PlayerMovement>();
 
 		iss >> player->m_speed;
 		iss >> player->m_jumpForce;

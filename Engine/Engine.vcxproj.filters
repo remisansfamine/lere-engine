@@ -563,6 +563,9 @@
     <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
+    <ClInclude Include="include\Game\pause_screen.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl">

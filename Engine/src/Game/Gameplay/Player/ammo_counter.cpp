@@ -17,10 +17,16 @@ namespace Gameplay
 	{
 		previousCount = Core::Engine::Graph::findGameObjectWithName("Player")->getComponent<PlayerShooting>()->getMaxAmmoCount();
 
-		for (int i = 0; i < previousCount; i++)
+		std::shared_ptr<Physics::Transform> transform = getHost().getComponent<Physics::Transform>();
+		int childrenCount = transform->getChildrenCount();
+
+		for (int i = 0; i < childrenCount; ++i)
+			ammoTransforms.push_back(transform->getChild(i));
+
+		for (int i = ammoTransforms.size(); i < previousCount; i++)
 		{
 			Engine::GameObject& go = Core::Engine::Graph::instantiate("Ammo", "resources/recipes/ammoSprite.recipe");
-			ammoTransforms.push_back(go.getComponent<Physics::Transform>());
+			ammoTransforms.push_back(go.getComponent<Physics::Transform>().get());
 			ammoTransforms.back()->m_position.y += 1.f * (float)i;
 		}
 	}

@@ -11,11 +11,15 @@
 #include "maths.hpp"
 #include "timer.hpp"
 
+#include "game_master.hpp"
+
 namespace Gameplay
 {
 	class PlayerShooting : public Engine::Component
 	{
 	private:
+		std::shared_ptr<GameMaster> gameMaster;
+
 		std::shared_ptr<Physics::Transform> m_cameraTransform;
 		std::shared_ptr<Physics::Transform> m_weaponTransform;
 		std::shared_ptr<AmmoCounter> m_ammoCounter;
