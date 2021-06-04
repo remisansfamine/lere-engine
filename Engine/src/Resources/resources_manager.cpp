@@ -84,12 +84,12 @@ namespace Resources
 	void ResourcesManager::clearResources()
 	{
 		ResourcesManager* RM = instance();
-
+		
 		RM->clearMap(RM->textures);
 		RM->clearMap(RM->cubeMaps);
 		RM->clearMap(RM->meshes);
 		RM->clearMap(RM->materials);
-		RM->clearMap(RM->shaders);
+		//RM->clearMap(RM->shaders);
 		//RM->clearMap(RM->shaderPrograms);
 	}
 

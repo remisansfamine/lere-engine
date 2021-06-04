@@ -14,8 +14,8 @@ namespace Gameplay
     class AmmoCounter : public Engine::Component
     {
     private:
-        std::vector<std::shared_ptr<Physics::Transform>> ammoTransforms;
-        std::vector<std::shared_ptr<Physics::Transform>> ammoShooted;
+        std::vector<Physics::Transform*> ammoTransforms;
+        std::vector<Physics::Transform*> ammoShooted;
 
         float animationSpeed = 5.f;
         float initialXPos = 0.f;

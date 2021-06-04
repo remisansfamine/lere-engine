@@ -6,6 +6,8 @@
 #include "graph.hpp"
 #include "time.hpp"
 
+#include "pause_screen.hpp"
+
 namespace Gameplay
 {
 	GameMaster::GameMaster(Engine::GameObject& gameObject)
@@ -17,13 +19,16 @@ namespace Gameplay
 	void GameMaster::start()
 	{
 		Core::Engine::Graph::setCursorState(false);
+		pauseScreen = Core::Engine::Graph::findGameObjectWithName("PauseScreen")->getComponent<PauseScreen>();
 	}
 
 	void GameMaster::update()
 	{
 		if (Core::Input::InputManager::getButtonDown("Pause"))
 		{
+			isPaused = true;
 			Core::TimeManager::setTimeScale(0.f);
+			pauseScreen->showPauseScreen(true);
 		}
 
 		if (Core::Input::InputManager::getButtonDown("Save"))

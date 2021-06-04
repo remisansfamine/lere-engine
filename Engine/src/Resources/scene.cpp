@@ -200,7 +200,7 @@ namespace Resources
 
 		auto goIt = gameObjects.find(modifiedName);
 		for (int count = 1; goIt != gameObjects.end(); count++, goIt = gameObjects.find(modifiedName))
-			modifiedName = gameObjectName + " (" + std::to_string(count) + ")";
+			modifiedName = gameObjectName + "(" + std::to_string(count) + ")";
 
 		return modifiedName;
 	}

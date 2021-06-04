@@ -323,6 +323,7 @@
     <ClInclude Include="include\Game\game_master.hpp" />
     <ClInclude Include="include\Game\main_menu.hpp" />
     <ClInclude Include="include\Game\pause_screen.hpp" />
+    <ClInclude Include="include\Resources\character.hpp" />
     <ClInclude Include="include\Resources\cube_map.hpp" />
     <ClInclude Include="include\Resources\material.hpp" />
     <ClInclude Include="include\Resources\mesh.hpp" />

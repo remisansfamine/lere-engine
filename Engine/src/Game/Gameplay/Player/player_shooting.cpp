@@ -22,6 +22,8 @@ namespace Gameplay
 
 	void PlayerShooting::start()
 	{
+		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
 		m_weaponTransform = Core::Engine::Graph::findGameObjectWithName("Weapon")->getComponent<Physics::Transform>();
 		initRotation = m_weaponTransform->m_rotation;
@@ -37,6 +39,9 @@ namespace Gameplay
 
 	void PlayerShooting::update()
 	{
+		if (gameMaster->isPaused)
+			return;
+
 		shooting();
 		reloading();
 
