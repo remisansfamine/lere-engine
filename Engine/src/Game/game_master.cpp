@@ -1,6 +1,6 @@
 #include "game_master.hpp"
 
-#include "imgui.h"
+#include <imgui.h>
 
 #include "inputs_manager.hpp"
 #include "graph.hpp"

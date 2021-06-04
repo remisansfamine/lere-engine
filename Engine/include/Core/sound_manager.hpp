@@ -21,6 +21,7 @@ namespace Core::Engine
 
 	public:
 		static void init();
-		static void play2D(const std::string& path);
+		static void play2D(const std::string& path, bool loop = false);
+		static bool isPlaying(const std::string& path);
 	};
 }

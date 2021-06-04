@@ -42,7 +42,10 @@ namespace Gameplay
 	void EnemyState::onCollisionEnter(const Physics::Collision& collision)
 	{
 		if (collision.collider->getHost().m_name == "Player")
-			attackCooldown.setDelay(1.f);
+		{
+			if (attackCooldown.timerOn())
+				attackCooldown.setDelay(1.f);
+		}
 	}
 
 	void EnemyState::onCollisionStay(const Physics::Collision& collision)
