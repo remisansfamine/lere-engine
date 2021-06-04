@@ -1,5 +1,6 @@
 #include "enemy_life.hpp"
 
+
 namespace Gameplay
 {
 	EnemyLife::EnemyLife(Engine::GameObject& gameObject)
@@ -9,8 +10,7 @@ namespace Gameplay
 
 	void EnemyLife::start()
 	{
-		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
-		gameMaster->enemyCount++;
+		transform = getHost().getComponent<Physics::Transform>();
 	}
 
 	void EnemyLife::drawImGui()
@@ -44,9 +44,13 @@ namespace Gameplay
 
 	void EnemyLife::kill()
 	{
-		gameMaster->removeEnemy();
-
 		EntityLife::kill();
+
+		if (true)
+		{
+			auto& go = Core::Engine::Graph::instantiate("MediKit", "resources/recipes/medikit.recipe");
+			go.getComponent<Physics::Transform>()->m_position = transform->m_position;
+		}
 
 		getHost().destroy();
 	}

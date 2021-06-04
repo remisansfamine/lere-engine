@@ -3,8 +3,8 @@
 #include "component.hpp"
 #include "entity_life.hpp"
 #include "enemy_state.hpp"
+#include "transform.hpp"
 
-#include "game_master.hpp"
 
 namespace Gameplay 
 {
@@ -12,7 +12,7 @@ namespace Gameplay
 	{
 	private:
 		void kill() override;
-		std::shared_ptr<GameMaster> gameMaster;
+		std::shared_ptr<Physics::Transform> transform;
 
 	public:
 		EnemyLife(Engine::GameObject& gameObject);

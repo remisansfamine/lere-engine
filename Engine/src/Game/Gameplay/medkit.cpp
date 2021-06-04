@@ -1,9 +1,12 @@
 #include "medkit.hpp"
 
 #include <imgui.h>
+#include <algorithm>
 
-#include "collider.hpp"
 #include "player_life.hpp"
+#include "collider.hpp"
+#include "utils.hpp"
+#include "time.hpp"
 
 namespace Gameplay
 {
@@ -16,11 +19,32 @@ namespace Gameplay
 	void MedKit::start()
 	{
 		transform = getHost().getComponent<Physics::Transform>();
+		initPosition = transform->m_position;
 	}
 
 	void MedKit::update()
 	{
-		
+		float deltaTime = Core::TimeManager::getDeltaTime();
+
+		transform->m_rotation = Utils::clampLoop(transform->m_rotation, 0.f, Core::Maths::TAU);
+		transform->m_rotation.y -= deltaTime * speedLerp;
+
+		if (!animation)
+		{
+			transform->m_position.y = Core::Maths::lerp(transform->m_position.y, 1.5f, deltaTime);
+
+			if (transform->m_position.y <= limMin)
+				animation = true;
+		}
+		else
+		{
+			transform->m_position.y = Core::Maths::lerp(transform->m_position.y, initPosition.y, deltaTime);
+			
+			if (transform->m_position.y >= limMax)
+			{
+				animation = false;
+			}
+		}
 	}
 
 	void MedKit::drawImGui()

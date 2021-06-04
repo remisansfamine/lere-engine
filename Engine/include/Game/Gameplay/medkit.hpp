@@ -2,6 +2,7 @@
 
 #include "component.hpp"
 #include "transform.hpp"
+#include "maths.hpp"
 
 namespace Gameplay
 {
@@ -9,8 +10,19 @@ namespace Gameplay
 	{
 	private:
 
-		int healCount = 2;
 		std::shared_ptr<Physics::Transform> transform;
+
+		Core::Maths::vec3 initPosition;
+
+		bool animation = false;
+
+		int healCount = 2;
+
+		float maxRotation = Core::Maths::TAU;
+		float minRotation = 0;
+		float speedLerp = 1.5f;
+		float limMin = 1.43f;
+		float limMax = 1.950f;
 
 	public:
 		MedKit(Engine::GameObject& gameObject);
