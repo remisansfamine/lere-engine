@@ -39,27 +39,28 @@ namespace Gameplay
 		attackCooldown.update();
 	}
 
+	void EnemyState::hurtPlayer()
+	{
+		rb->velocity.x = rb->velocity.z = 0.f;
+
+		if (attackCooldown.timerOn())
+		{
+			attackCooldown.setDelay(1.f);
+			playerLife->hurt(1);
+		}
+	}
+
+
 	void EnemyState::onCollisionEnter(const Physics::Collision& collision)
 	{
 		if (collision.collider->getHost().m_name == "Player")
-		{
-			if (attackCooldown.timerOn())
-				attackCooldown.setDelay(1.f);
-		}
+			hurtPlayer();
 	}
 
 	void EnemyState::onCollisionStay(const Physics::Collision& collision)
 	{
 		if (collision.collider->getHost().m_name == "Player")
-		{
-			rb->velocity.x = rb->velocity.z = 0.f;
-
-			if (attackCooldown.timerOn())
-			{
-				attackCooldown.setDelay(1.f);
-				playerLife->hurt(1);
-			}
-		}
+			hurtPlayer();
 	}
 
 	std::string EnemyState::toString() const

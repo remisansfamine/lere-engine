@@ -327,6 +327,10 @@ namespace Physics
 
 		// Constant values
 		float a = dot(AB, AB);
+
+		if (a == 0.f)
+			return NO_INTERSECTION;
+
 		float b = 2.f * dot(omegaA, AB);
 		float c = dot(omegaA, omegaA) - (sphere.radius * sphere.radius);
 

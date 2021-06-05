@@ -29,10 +29,6 @@ namespace Physics
 
 	void Collider::computeCollisionCallback(bool hasHit, const Collision& collision)
 	{
-		// Check if hit is valid
-		if (isnan(collision.hit.normal.x) || isnan(collision.hit.point.x))
-			return;
-
 		auto colliderIt = m_colliders.find(collision.collider);
 		bool isInMap = colliderIt != m_colliders.end();
 
