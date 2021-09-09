@@ -4,6 +4,8 @@
 #include <string>
 #include <memory>
 
+#include <atomic>
+
 #include "singleton.hpp"
 
 #include "character.hpp"
@@ -26,6 +28,8 @@ namespace Resources
 
 		ResourcesManager();
 		~ResourcesManager();
+		
+		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
 
 		std::unordered_map<std::string, std::vector<std::string>>		childrenMeshes;
 		std::unordered_map<std::string, std::string>		childrenMaterials;
@@ -63,14 +67,23 @@ namespace Resources
 
 		static void clearResources();
 
-		static std::shared_ptr<Font> loadFont(const std::string& fontPath);
-		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
-		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
-		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
-		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
-		static std::shared_ptr<Recipe> loadRecipe(const std::string& recipePath);
-		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
-		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
+		static void loadFont(const std::string& fontPath);
+		static void loadTexture(const std::string& texturePath);
+		static void loadTexture(const std::string& name, int width, int height, float* data);
+		static void loadCubeMap(const std::vector<std::string>& cubeMapPaths);
+		static void loadMaterial(const std::string& materialPath);
+		static void loadRecipe(const std::string& recipePath);
+		static void loadShader(const std::string& shaderPath);
+		static void loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
+
+		static std::shared_ptr<Font> getFont(const std::string& fontPath);
+		static std::shared_ptr<Texture> getTexture(const std::string& texturePath);
+		static std::shared_ptr<Texture> getTexture(const std::string& name, int width, int height, float* data);
+		static std::shared_ptr<CubeMap> getCubeMap(const std::vector<std::string>& cubeMapPaths);
+		static std::shared_ptr<Material> getMaterial(const std::string& materialPath);
+		static std::shared_ptr<Recipe> getRecipe(const std::string& recipePath);
+		static std::shared_ptr<Shader> getShader(const std::string& shaderPath);
+		static std::shared_ptr<ShaderProgram> getShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
 
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);

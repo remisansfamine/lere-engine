@@ -79,8 +79,8 @@ namespace Resources
 
         Core::Debug::Log::info("Linking " + vertPath + " and " + fragPath + " to " + programName);
 
-        std::shared_ptr<Shader> vert = Resources::ResourcesManager::loadShader(vertPath);
-        std::shared_ptr<Shader> frag = Resources::ResourcesManager::loadShader(fragPath);
+        std::shared_ptr<Shader> vert = Resources::ResourcesManager::getShader(vertPath);
+        std::shared_ptr<Shader> frag = Resources::ResourcesManager::getShader(fragPath);
         
         // Attach the two shaders and link them
         glAttachShader(programID, vert->shaderID);
@@ -88,7 +88,7 @@ namespace Resources
 
         if (geomPath != "")
         {
-            std::shared_ptr<Shader> geom = Resources::ResourcesManager::loadShader(geomPath);
+            std::shared_ptr<Shader> geom = Resources::ResourcesManager::getShader(geomPath);
             glAttachShader(programID, geom->shaderID);
         }
 

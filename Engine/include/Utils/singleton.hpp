@@ -1,8 +1,13 @@
 #pragma once
 
+#include <mutex>
+
 template <class T>
 class Singleton
 {
+private:
+	static std::atomic_flag instantiateFlag;
+
 protected:
 	Singleton() = default;
 
@@ -10,8 +15,11 @@ protected:
 
 	[[nodiscard]] static T* instance()
 	{
-		if (!currentInstance)
-			currentInstance = new T();
+		if (!instantiateFlag.test_and_set())
+		{
+			if (!currentInstance)
+				currentInstance = new T();
+		}
 
 		return currentInstance;
 	}
@@ -21,11 +29,15 @@ public:
 	{
 		delete currentInstance;
 		currentInstance = nullptr;
+		instantiateFlag.clear();
 	}
 
 	Singleton(T&) = delete;
-
 	void operator=(const T&) = delete;
 };
 
-template <class T> T* Singleton<T>::currentInstance = nullptr;
+template <class T>
+T* Singleton<T>::currentInstance = nullptr;
+
+template <class T>
+std::atomic_flag Singleton<T>::instantiateFlag = ATOMIC_FLAG_INIT;

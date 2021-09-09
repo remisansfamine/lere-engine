@@ -127,7 +127,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -236,6 +236,7 @@
     <ClCompile Include="src\Resources\resources_manager.cpp" />
     <ClCompile Include="src\Resources\shader.cpp" />
     <ClCompile Include="src\Resources\texture.cpp" />
+    <ClCompile Include="src\Utils\thread_pool.cpp" />
     <ClCompile Include="src\Utils\utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -338,7 +339,9 @@
     <ClInclude Include="include\Resources\resources_manager.hpp" />
     <ClInclude Include="include\Resources\shader.hpp" />
     <ClInclude Include="include\Resources\texture.hpp" />
+    <ClInclude Include="include\Utils\concurrent_queue.hpp" />
     <ClInclude Include="include\Utils\singleton.hpp" />
+    <ClInclude Include="include\Utils\thread_pool.hpp" />
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />
     <ClInclude Include="include\Resources\recipe.hpp" />

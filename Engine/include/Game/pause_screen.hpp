@@ -7,9 +7,6 @@ namespace Gameplay
 {
 	class PauseScreen : public Engine::Component
 	{
-	private:
-		std::shared_ptr<GameMaster> gameMaster;
-
 	public:
 		Engine::GameObject* buttons[3] = {nullptr};
 

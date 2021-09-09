@@ -276,7 +276,7 @@ namespace Engine
 	{
 		m_recipe = filePath;
 
-		std::istringstream recipeStream(Resources::ResourcesManager::loadRecipe(filePath)->recipe);
+		std::istringstream recipeStream(Resources::ResourcesManager::getRecipe(filePath)->recipe);
 
 		std::string line;
 

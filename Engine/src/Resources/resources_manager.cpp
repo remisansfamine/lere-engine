@@ -8,6 +8,8 @@
 #include "maths.hpp"
 #include "utils.hpp"
 
+#include "thread_pool.hpp"
+
 namespace Resources
 {
 	ResourcesManager::ResourcesManager()
@@ -33,9 +35,9 @@ namespace Resources
 		float noDiffuseBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
 
 		// Load the default textures
-		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
-		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
-		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 1, 1, noDiffuseBuffer);
+		std::shared_ptr<Texture> whiteTex = ResourcesManager::getTexture("whiteTex", 1, 1, whiteBuffer);
+		std::shared_ptr<Texture> blackTex = ResourcesManager::getTexture("blackTex", 1, 1, blackBuffer);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::getTexture("noDiffuseTex", 1, 1, noDiffuseBuffer);
 
 		// Set the default textures
 		Texture::defaultAlpha = whiteTex;
@@ -45,7 +47,7 @@ namespace Resources
 		Texture::defaultSpecular = whiteTex;
 
 		// Load the default material
-		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE");
+		Material::defaultMaterial = ResourcesManager::getMaterial("defaultMaterial_LERE");
 	}
 
 	void ResourcesManager::init()
@@ -93,7 +95,61 @@ namespace Resources
 		//RM->clearMap(RM->shaderPrograms);
 	}
 
-	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
+	std::shared_ptr<Font> ResourcesManager::getFont(const std::string& fontPath)
+	{
+		loadFont(fontPath);
+		return instance()->fonts[fontPath];
+	}
+
+	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& texturePath)
+	{
+		loadTexture(texturePath);
+		return instance()->textures[texturePath];
+	}
+
+	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
+	{
+		loadTexture(name, width, height, data);
+		return instance()->textures[name];
+	}
+
+	std::shared_ptr<CubeMap> ResourcesManager::getCubeMap(const std::vector<std::string>& cubeMapPaths)
+	{
+		ResourcesManager* RM = instance();
+
+		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
+		loadCubeMap(cubeMapPaths);
+
+		return instance()->cubeMaps[pathsDir];
+	}
+
+	std::shared_ptr<Material> ResourcesManager::getMaterial(const std::string& materialPath)
+	{
+		loadMaterial(materialPath);
+		return instance()->materials[materialPath];
+	}
+
+	std::shared_ptr<Recipe> ResourcesManager::getRecipe(const std::string& recipePath)
+	{
+		loadRecipe(recipePath);
+
+		return instance()->recipes[recipePath];
+	}
+	std::shared_ptr<Shader> ResourcesManager::getShader(const std::string& shaderPath)
+	{
+		loadShader(shaderPath);
+
+		return instance()->shaders[shaderPath];
+	}
+
+	std::shared_ptr<ShaderProgram> ResourcesManager::getShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
+	{
+		loadShaderProgram(programName);
+
+		return instance()->shaderPrograms[programName];
+	}
+
+	void ResourcesManager::loadShader(const std::string& shaderPath)
 	{
 		ResourcesManager* RM = instance();
 		
@@ -102,13 +158,14 @@ namespace Resources
 		// Check if the Shader is already loaded
 		if (shaderIt != RM->shaders.end())
 		{
-			return shaderIt->second;
+			shaderIt->second;
+			return;
 		}
 
-		return RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
+		RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
 	}
 
-	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
+	void ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -116,12 +173,15 @@ namespace Resources
 
 		// Check if the ShaderProgram is already loaded
 		if (programIt != RM->shaderPrograms.end())
-			return programIt->second;
+		{
+			programIt->second;
+			return;
+		}
 
-		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
+		RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
 	}
 
-	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
+	void ResourcesManager::loadFont(const std::string& fontPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -130,13 +190,14 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (fontIt != RM->fonts.end())
 		{
-			return fontIt->second;
+			fontIt->second;
+			return;
 		}
 
-		return RM->fonts[fontPath] = std::make_shared<Font>(Font(fontPath));
+		RM->fonts[fontPath] = std::make_shared<Font>(Font(fontPath));
 	}
 
-	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
+	void ResourcesManager::loadTexture(const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -145,13 +206,14 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			return textureIt->second;
+			textureIt->second;
+			return;
 		}
 
-		return RM->textures[texturePath] = std::make_shared<Texture>(texturePath);
+		RM->textures[texturePath] = std::make_shared<Texture>(texturePath);
 	}
 
-	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
+	void ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
 	{
 		ResourcesManager* RM = instance();
 
@@ -160,33 +222,34 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			return textureIt->second;
+			textureIt->second;
+			return;
 		}
 
-		return RM->textures[name] = std::make_shared<Texture>(width, height, data);
+		RM->textures[name] = std::make_shared<Texture>(width, height, data);
 	}
 
-	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
+	void ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
 	{
 		ResourcesManager* RM = instance();
 
 		if (cubeMapPaths.size() == 0)
-			return nullptr;
+			return;
 
 		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
-
 		const auto& cubeMapIt = RM->cubeMaps.find(pathsDir);
 
 		// Check if the Texture is already loaded
 		if (cubeMapIt != RM->cubeMaps.end())
 		{
-			return cubeMapIt->second;
+			cubeMapIt->second;
+			return;
 		}
 
-		return RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(cubeMapPaths);
+		RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(cubeMapPaths);
 	}
 
-	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
+	void ResourcesManager::loadMaterial(const std::string& materialPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -195,13 +258,14 @@ namespace Resources
 		// Check if the Material is already loaded
 		if (materialIt != RM->materials.end())
 		{
-			return materialIt->second;
+			materialIt->second;
+			return;
 		}
 
-		return RM->materials[materialPath] = std::make_shared<Material>();
+		RM->materials[materialPath] = std::make_shared<Material>();
 	}
 
-	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
+	void ResourcesManager::loadRecipe(const std::string& recipePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -209,9 +273,12 @@ namespace Resources
 
 		// Check if the Material is already loaded
 		if (recipeIt != RM->recipes.end())
-			return recipeIt->second;
+		{
+			recipeIt->second;
+			return;
+		}
 
-		return RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
+		RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
 	}
 
 	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
@@ -374,7 +441,7 @@ namespace Resources
 				else
 				{
 					// Add the material
-					*ResourcesManager::loadMaterial(mat.m_name) = mat;
+					*ResourcesManager::getMaterial(mat.m_name) = mat;
 					mat = Material();
 				}
 
@@ -407,19 +474,19 @@ namespace Resources
 
 			// Load mesh textures
 			if (type == "map_Ka")
-				mat.ambientTex  = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.ambientTex  = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Kd")
-				mat.diffuseTex  = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.diffuseTex  = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ks")
-				mat.specularTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.specularTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ke")
-				mat.emissiveTex = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.emissiveTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_d")
-				mat.alphaTex    = ResourcesManager::loadTexture(dirPath + Utils::getFileNameFromPath(texName));
+				mat.alphaTex    = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
 		}
 
 		// Add the material
-		*ResourcesManager::loadMaterial(mat.m_name) = mat;
+		*ResourcesManager::getMaterial(mat.m_name) = mat;
 
 		dataMat.close();
 	}
@@ -571,6 +638,6 @@ namespace Resources
 		}
 
 		// Load and return the material
-		return ResourcesManager::loadMaterial(materialIt->second);
+		return ResourcesManager::getMaterial(materialIt->second);
 	}
 }

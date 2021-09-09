@@ -77,14 +77,12 @@ namespace Core::Maths
 
     union mat3
     {
-        mat3() = default;
         float e[9] = { 0.f };
         vec3  c[3];
     };
 
     union mat4
     {
-        mat4() = default;
         float e[16] = { 0.f };
         vec4  c[4];
     };

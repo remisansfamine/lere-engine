@@ -12,7 +12,7 @@ namespace LowRenderer
 
 		aspect = (float)shadowWidth / (float)shadowHeight;
 
-		program = Resources::ResourcesManager::loadShaderProgram(shaderProgramName);
+		program = Resources::ResourcesManager::getShaderProgram(shaderProgramName);
 	}
 
 	Shadow::~Shadow()

@@ -19,13 +19,13 @@ namespace Gameplay
 
 	void PauseScreen::start()
 	{
-		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+		std::shared_ptr<GameMaster> gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
 
 		buttons[0] = Core::Engine::Graph::findGameObjectWithName("ResumeGameButton");
 		std::shared_ptr<UI::Button> buttonResumeGame = buttons[0]->getComponent<UI::Button>();
 		UI::Button* resumeGameptr = buttonResumeGame.get();
 
-		resumeGameptr->addListener(UI::ButtonState::DOWN, [this]() {
+		resumeGameptr->addListener(UI::ButtonState::DOWN, [this, gameMaster]() {
 			Core::TimeManager::setTimeScale(1.f);
 			showPauseScreen(false);
 			gameMaster->isPaused = false;

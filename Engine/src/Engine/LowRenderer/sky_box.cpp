@@ -9,7 +9,7 @@ namespace LowRenderer
 		: Component(gameObject, ptr)
 	{
 		cubeMesh		= Resources::ResourcesManager::getMeshByName("cube");
-		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
+		m_shaderProgram = Resources::ResourcesManager::getShaderProgram("skyBox");
 		LowRenderer::RenderManager::linkComponent(ptr);
 	}
 
@@ -17,7 +17,7 @@ namespace LowRenderer
 		: SkyBox(gameObject, std::shared_ptr<SkyBox>(this))
 	{
 		// Delegation block other members initialization
-		cubeMap = Resources::ResourcesManager::loadCubeMap(paths);
+		cubeMap = Resources::ResourcesManager::getCubeMap(paths);
 		skyPaths = paths;
 	}
 
