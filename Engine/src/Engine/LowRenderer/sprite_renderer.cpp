@@ -63,8 +63,7 @@ namespace LowRenderer
 		int i = 0;
 		m_shaderProgram->setUniform("diffuseTex", &i);
 
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, texture->getID());
+		texture->bind(0);
 
 		mesh->draw();
 	}

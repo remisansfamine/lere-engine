@@ -17,6 +17,8 @@
 #include "scene.hpp"
 #include "mesh.hpp"
 
+#include "concurrent_queue.hpp"
+
 namespace Resources
 {
 	class ResourcesManager final : public Singleton<ResourcesManager>
@@ -31,8 +33,10 @@ namespace Resources
 		
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
 
+		ConcurrentQueue<Resource*> toInitInMainThread;
+
 		std::unordered_map<std::string, std::vector<std::string>>		childrenMeshes;
-		std::unordered_map<std::string, std::string>		childrenMaterials;
+		std::unordered_map<std::string, std::string>					childrenMaterials;
 
 		std::unordered_map<std::string, std::shared_ptr<Texture>>		textures;
 		std::unordered_map<std::string, std::shared_ptr<CubeMap>>		cubeMaps;
@@ -43,7 +47,7 @@ namespace Resources
 		std::unordered_map<std::string, std::shared_ptr<Shader>>		shaders;
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
 
-		std::unordered_map<std::string, std::shared_ptr<Recipe>> recipes;
+		std::unordered_map<std::string, std::shared_ptr<Recipe>>		recipes;
 
 		void setDefaultResources();
 
@@ -63,13 +67,16 @@ namespace Resources
 		static void init();
 
 		static void loadObj(const std::string& filePath);
-		static void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
 
 		static void clearResources();
 
+		static void addToMainThreadInitializerQueue(Resource* resourcePtr);
+
+		static void mainThreadQueueInitialize();
+
 		static void loadFont(const std::string& fontPath);
-		static void loadTexture(const std::string& texturePath);
-		static void loadTexture(const std::string& name, int width, int height, float* data);
+		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath);
+		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data);
 		static void loadCubeMap(const std::vector<std::string>& cubeMapPaths);
 		static void loadMaterial(const std::string& materialPath);
 		static void loadRecipe(const std::string& recipePath);

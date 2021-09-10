@@ -32,4 +32,6 @@ namespace Resources
 		void sendToShader(const std::shared_ptr<Resources::ShaderProgram>& shaderProgram) const;
 		void bindTextures() const;
 	};
+
+	void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
 }

@@ -142,6 +142,9 @@ namespace Core
 			TimeManager::computeTime();
 			Input::InputManager::compute();
 
+			// Initialize resources
+			Resources::ResourcesManager::mainThreadQueueInitialize();
+
 			// Update the Engine
 			Engine::EngineMaster::update();
 

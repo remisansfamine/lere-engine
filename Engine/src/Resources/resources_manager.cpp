@@ -1,7 +1,6 @@
 #include "resources_manager.hpp"
 
 #include <fstream>
-#include <sstream>
 
 #include "debug.hpp"
 
@@ -79,8 +78,6 @@ namespace Resources
 
 		// Set default textures and materials
 		RM->setDefaultResources();
-
-		std::shared_ptr<float> test;
 	}
 
 	void ResourcesManager::clearResources()
@@ -103,14 +100,18 @@ namespace Resources
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& texturePath)
 	{
-		loadTexture(texturePath);
-		return instance()->textures[texturePath];
+		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>();
+		ThreadPool::addTask(std::bind([&texturePtr, texturePath]() {ResourcesManager::loadTexture(texturePtr, texturePath); }));
+
+		return texturePtr;
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
 	{
-		loadTexture(name, width, height, data);
-		return instance()->textures[name];
+		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(width, height, data);
+		ThreadPool::addTask(std::bind([&texturePtr, name, width, height, data]() {ResourcesManager::loadTexture(texturePtr, name, width, height, data); }));
+
+		return texturePtr;
 	}
 
 	std::shared_ptr<CubeMap> ResourcesManager::getCubeMap(const std::vector<std::string>& cubeMapPaths)
@@ -181,6 +182,26 @@ namespace Resources
 		RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
 	}
 
+	void ResourcesManager::addToMainThreadInitializerQueue(Resource* resourcePtr)
+	{
+		instance()->toInitInMainThread.tryPush(resourcePtr);
+	}
+
+	void ResourcesManager::mainThreadQueueInitialize()
+	{
+		ResourcesManager* RM = instance();
+
+		while (!RM->toInitInMainThread.empty())
+		{
+			Resource* resource = nullptr;
+
+			RM->toInitInMainThread.tryPop(resource);
+
+			if (resource)
+				resource->mainThreadInitialization();
+		}
+	}
+
 	void ResourcesManager::loadFont(const std::string& fontPath)
 	{
 		ResourcesManager* RM = instance();
@@ -194,39 +215,51 @@ namespace Resources
 			return;
 		}
 
-		RM->fonts[fontPath] = std::make_shared<Font>(Font(fontPath));
+		RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
-	void ResourcesManager::loadTexture(const std::string& texturePath)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();
+
+		while (RM->lockTextures.test_and_set());
 
 		const auto& textureIt = RM->textures.find(texturePath);
 
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			textureIt->second;
+			texturePtr = textureIt->second;
+			RM->lockTextures.clear();
 			return;
 		}
 
-		RM->textures[texturePath] = std::make_shared<Texture>(texturePath);
+		RM->textures[texturePath] = texturePtr;
+
+		RM->lockTextures.clear();
+
+		texturePtr->generateBuffer(texturePath);
 	}
 
-	void ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data)
 	{
 		ResourcesManager* RM = instance();
+
+		while (RM->lockTextures.test_and_set());
 
 		const auto& textureIt = RM->textures.find(name);
 
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			textureIt->second;
+			RM->lockTextures.clear();
+			texturePtr = textureIt->second;
 			return;
 		}
 
-		RM->textures[name] = std::make_shared<Texture>(width, height, data);
+		RM->textures[name] = texturePtr;
+
+		RM->lockTextures.clear();
 	}
 
 	void ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
@@ -291,18 +324,6 @@ namespace Resources
 		iss >> data.z;
 
 		dataVector.push_back(data);
-	}
-
-	LowRenderer::Color getColor(std::istringstream& iss)
-	{
-		// Get a Color data form string stream
-		LowRenderer::Color color = { 0.f };
-
-		iss >> color.data.r;
-		iss >> color.data.g;
-		iss >> color.data.b;
-
-		return color;
 	}
 
 	// Use to know if needed to triangulate faces
@@ -403,94 +424,6 @@ namespace Resources
 		}
 	}
 
-	void ResourcesManager::loadMaterialsFromMtl(const std::string& dirPath, const std::string& mtlName)
-	{
-		ResourcesManager* RM = instance();
-
-		std::string filePath = dirPath + mtlName;
-
-		// Check if the file exist
-		std::ifstream dataMat(filePath.c_str());
-		if (!dataMat)
-		{
-			Core::Debug::Log::error("Unable to read the file: " + filePath);
-			dataMat.close();
-			return;
-		}
-
-		Material mat;
-		std::string line;
-		bool isFirstMat = true;
-
-		Core::Debug::Log::info("Loading materials at " + filePath);
-
-		// Get all mesh materials
-		while (std::getline(dataMat, line))
-		{
-			std::istringstream iss(line);
-			std::string type;
-			iss >> type;
-
-			if (type == "#" || type == "" || type == "\n")
-				continue;
-
-			if (type == "newmtl")
-			{
-				if (isFirstMat)
-					isFirstMat = false;
-				else
-				{
-					// Add the material
-					*ResourcesManager::getMaterial(mat.m_name) = mat;
-					mat = Material();
-				}
-
-				iss >> mat.m_name;
-
-				continue;
-			}
-			else if (type == "Ns")
-				iss >> mat.shininess;
-			else if (type == "Ka")
-				mat.ambient = getColor(iss);
-			else if (type == "Kd")
-				mat.diffuse = getColor(iss);
-			else if (type == "Ks")
-				mat.specular = getColor(iss);
-			else if (type == "Ke")
-				mat.emissive = getColor(iss);
-			else if (type == "Ni")
-				iss >> mat.opticalDensity;
-			else if (type == "d")
-				iss >> mat.transparency;
-			else if (type == "illum")
-			{
-				iss >> mat.illumination;
-				continue;
-			}
-			
-			std::string texName;
-			iss >> texName;
-
-			// Load mesh textures
-			if (type == "map_Ka")
-				mat.ambientTex  = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
-			else if (type == "map_Kd")
-				mat.diffuseTex  = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
-			else if (type == "map_Ks")
-				mat.specularTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
-			else if (type == "map_Ke")
-				mat.emissiveTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
-			else if (type == "map_d")
-				mat.alphaTex    = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
-		}
-
-		// Add the material
-		*ResourcesManager::getMaterial(mat.m_name) = mat;
-
-		dataMat.close();
-	}
-
 	// Load an obj with mtl (do triangulation)
 	void ResourcesManager::loadObj(const std::string& filePath)
 	{
@@ -576,7 +509,7 @@ namespace Resources
 				iss >> mtlName;
 
 				// Load mtl file
-				ResourcesManager::loadMaterialsFromMtl(dirPath, mtlName);
+				loadMaterialsFromMtl(dirPath, mtlName);
 			}
 		}
 

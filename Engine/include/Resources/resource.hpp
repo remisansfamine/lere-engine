@@ -14,5 +14,7 @@ namespace Resources
 	public:
 		std::string m_name;
 		std::string getPath() const;
+
+		virtual void mainThreadInitialization() { }
 	};
 }

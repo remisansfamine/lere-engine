@@ -16,16 +16,26 @@ namespace Resources
 	private:
 		GLuint textureID = 0;
 		
-		void generateID(int width, int height, float* colorBuffer);
+		int width = 0;
+		int height = 0;
+		float* colorBuffer = nullptr;
+		bool stbiLoaded = false;
+
 
 	public:
+		Texture() = default;
 		Texture(const std::string& filePath);
 		Texture(int width, int height, float* colorBuffer);
 		~Texture();
 
+		bool generateBuffer(const std::string& filePath);
+		bool generateID();
+
+		void mainThreadInitialization() override;
+
 		GLuint getID() const;
 
-		void bind(int textureIndex) const;
+		bool bind(int textureIndex) const;
 
 		static std::shared_ptr<Texture> defaultAlpha;
 		static std::shared_ptr<Texture> defaultAmbient;

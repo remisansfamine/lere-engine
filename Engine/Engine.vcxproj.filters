@@ -210,9 +210,6 @@
     <ClCompile Include="src\Resources\cube_map.cpp">
       <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\Core\stb_image.cpp">
-      <Filter>Fichiers sources\Core</Filter>
-    </ClCompile>
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp">
       <Filter>Fichiers sources\Engine\Physics\Toolbox</Filter>
     </ClCompile>
@@ -347,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="src\Utils\thread_pool.cpp">
       <Filter>Fichiers sources\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\stb_image.cpp">
+      <Filter>Fichiers sources\ThirdParty</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

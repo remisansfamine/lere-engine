@@ -23,7 +23,7 @@ namespace Gameplay
 		for (int i = 0; i < childrenCount; ++i)
 			ammoTransforms.push_back(transform->getChild(i));
 
-		for (int i = ammoTransforms.size(); i < previousCount; i++)
+		for (size_t i = ammoTransforms.size(); i < previousCount; i++)
 		{
 			Engine::GameObject& go = Core::Engine::Graph::instantiate("Ammo", "resources/recipes/ammoSprite.recipe");
 			ammoTransforms.push_back(go.getComponent<Physics::Transform>().get());
