@@ -12,7 +12,8 @@ void ThreadPool::infiniteLoop()
             continue;
 
         task();
-        TP->lastTime = std::time(0);
+
+        TP->lastTime = std::chrono::system_clock::now();
     }
 }
 
@@ -51,7 +52,7 @@ void ThreadPool::addTasks(const std::initializer_list<std::function<void()>>& ta
         TP->tasks.tryPush(task);
 }
 
-const std::time_t& ThreadPool::getLastTime()
+const std::chrono::system_clock::time_point& ThreadPool::getLastTime()
 {
     return instance()->lastTime;
 }

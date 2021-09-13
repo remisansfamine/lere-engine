@@ -4,6 +4,8 @@
 #include <thread>
 #include <functional>
 
+#include <chrono>
+
 #include "singleton.hpp"
 
 #include "concurrent_queue.hpp"
@@ -15,7 +17,7 @@ class ThreadPool : public Singleton<ThreadPool>
 private:
     std::atomic_flag initialized = ATOMIC_FLAG_INIT;
     std::atomic_flag terminate = ATOMIC_FLAG_INIT;
-    std::atomic<long> lastTime = (const long)std::time(0);
+    std::atomic<std::chrono::system_clock::time_point> lastTime = std::chrono::system_clock::now();
 
     std::vector<std::thread> workers;
     ConcurrentQueue<std::function<void()>> tasks;
@@ -37,5 +39,5 @@ public:
 
     static void addTasks(const std::initializer_list<std::function<void()>>& tasksToAdd);
 
-    static const std::time_t& getLastTime();
+    static const std::chrono::system_clock::time_point& getLastTime();
 };

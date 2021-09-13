@@ -11,6 +11,15 @@
 
 namespace Resources
 {
+	// White color
+	float whiteBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
+
+	// Black color
+	float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
+
+	// Purple and black grid
+	float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
+
 	ResourcesManager::ResourcesManager()
 	{
 		Core::Debug::Log::info("Creating the Resources Manager");
@@ -23,20 +32,10 @@ namespace Resources
 
 	void ResourcesManager::setDefaultResources()
 	{
-		// White color
-		float whiteBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
-
-		// Black color
-		float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
-
-		// Purple and black grid
-		//float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
-		float noDiffuseBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
-
 		// Load the default textures
 		std::shared_ptr<Texture> whiteTex = ResourcesManager::getTexture("whiteTex", 1, 1, whiteBuffer);
 		std::shared_ptr<Texture> blackTex = ResourcesManager::getTexture("blackTex", 1, 1, blackBuffer);
-		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::getTexture("noDiffuseTex", 1, 1, noDiffuseBuffer);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::getTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
 
 		// Set the default textures
 		Texture::defaultAlpha = whiteTex;
@@ -100,16 +99,18 @@ namespace Resources
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& texturePath)
 	{
-		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>();
-		ThreadPool::addTask(std::bind([&texturePtr, texturePath]() {ResourcesManager::loadTexture(texturePtr, texturePath); }));
+		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(texturePath);
+		//ThreadPool::addTask([texturePtr, texturePath]() {ResourcesManager::loadTexture(texturePtr, texturePath); });
+		loadTexture(texturePtr, texturePath);
 
 		return texturePtr;
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
 	{
-		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(width, height, data);
-		ThreadPool::addTask(std::bind([&texturePtr, name, width, height, data]() {ResourcesManager::loadTexture(texturePtr, name, width, height, data); }));
+		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(name, width, height, data);
+		//ThreadPool::addTask([texturePtr, name, width, height, data]() {ResourcesManager::loadTexture(texturePtr, name, width, height, data); });
+		loadTexture(texturePtr, name, width, height, data);
 
 		return texturePtr;
 	}
@@ -218,7 +219,7 @@ namespace Resources
 		RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -229,8 +230,8 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			texturePtr = textureIt->second;
 			RM->lockTextures.clear();
+			texturePtr = textureIt->second;
 			return;
 		}
 
@@ -241,7 +242,7 @@ namespace Resources
 		texturePtr->generateBuffer(texturePath);
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& name, int width, int height, float* data)
 	{
 		ResourcesManager* RM = instance();
 
@@ -252,8 +253,8 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			RM->lockTextures.clear();
 			texturePtr = textureIt->second;
+			RM->lockTextures.clear();
 			return;
 		}
 

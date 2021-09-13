@@ -2,10 +2,15 @@
 
 #include <imgui.h>
 
+#include <chrono>
+
 #include "stb_image.h"
 
 #include "debug.hpp"
+#include "thread_pool.hpp"
 #include "resources_manager.hpp"
+
+#include "utils.hpp"
 
 namespace Resources
 {
@@ -18,11 +23,10 @@ namespace Resources
 	Texture::Texture(const std::string& filePath)
 		: Resource(filePath)
 	{
-		generateBuffer(filePath);
 	}
 
-	Texture::Texture(int width, int height, float* colorBuffer)
-		: width(width), height(height), colorBuffer(colorBuffer)
+	Texture::Texture(const std::string& name, int width, int height, float* colorBuffer)
+		: Resource(name), width(width), height(height), colorBuffer(colorBuffer)
 	{
 		ResourcesManager::addToMainThreadInitializerQueue(this);
 	}
@@ -37,6 +41,10 @@ namespace Resources
 		if (stbiLoaded)
 			return true;
 
+		auto loadStart = std::chrono::system_clock::now();
+
+		Core::Debug::Log::info("Start loading " + filePath + '.');
+
 		stbi_set_flip_vertically_on_load(true);
 
 		int channel = 0;
@@ -50,7 +58,13 @@ namespace Resources
 			return false;
 		}
 
-		Core::Debug::Log::info("Loading of " + filePath + " done with success");
+		auto loadEnd = std::chrono::system_clock::now();
+
+		std::chrono::duration<double> loadDuration = (loadEnd - loadStart) * 1000;
+
+		std::string timeAsString = std::to_string(loadDuration.count());
+
+		Core::Debug::Log::info("Loading of " + filePath + " done with success in " + timeAsString + " ms.");
 
 		stbiLoaded = true;
 
@@ -66,6 +80,8 @@ namespace Resources
 			Core::Debug::Log::error("Texture at " + m_filePath + " is already OpenGL initialized");
 			return false;
 		}
+
+		Core::Debug::Log::info("OpenGL initializing texture at " + m_filePath);
 
 		// Set the texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -87,9 +103,13 @@ namespace Resources
 
 		// Free the color buffer allocated by stbi
 		if (stbiLoaded)
+		{
 			stbi_image_free(colorBuffer);
+		}
 
 		colorBuffer = nullptr;
+
+		Core::Debug::Log::info("OpenGL initializion of " + m_filePath + " done with succes.");
 
 		return true;
 	}

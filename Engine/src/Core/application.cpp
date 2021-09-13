@@ -8,6 +8,7 @@
 #include "inputs_manager.hpp"
 #include "engine_master.hpp"
 #include "debug.hpp"
+#include "thread_pool.hpp"
 #include "time.hpp"
 
 // glfw - Whenever the window size changed (by OS or user resize) this callback function executes
@@ -33,6 +34,7 @@ namespace Core
 		Input::InputManager::kill();
 		Debug::Assertion::kill();
 		Engine::EngineMaster::kill();
+		ThreadPool::kill();
 
 		TimeManager::kill();
 
@@ -118,6 +120,8 @@ namespace Core
 		Resources::ResourcesManager::init();
 
 		Input::InputManager::init(AP->window);
+
+		ThreadPool::init();
 
 		AP->setImGuiColorsEditor();
 	}

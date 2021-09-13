@@ -20,12 +20,13 @@ namespace Resources
 		int height = 0;
 		float* colorBuffer = nullptr;
 		bool stbiLoaded = false;
+		bool loadDone = false;
 
 
 	public:
 		Texture() = default;
 		Texture(const std::string& filePath);
-		Texture(int width, int height, float* colorBuffer);
+		Texture(const std::string& name, int width, int height, float* colorBuffer);
 		~Texture();
 
 		bool generateBuffer(const std::string& filePath);

@@ -56,4 +56,15 @@ namespace Utils
     {
         return (T(0) < value) - (value < T(0));
     }
+
+    template <int I = 26>
+    std::string getTimeAsString(const std::string& format, std::time_t currentTime = std::time(0))
+    {
+        char timeString[I];
+        struct tm tstruct;
+        localtime_s(&tstruct, &currentTime);
+        strftime(timeString, sizeof(timeString), format.c_str(), &tstruct);
+
+        return std::string(timeString);
+    }
 }
