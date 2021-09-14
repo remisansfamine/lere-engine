@@ -431,10 +431,13 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
+		while (RM->lockMeshes.test_and_set());
+
 		// Check if the object is already loaded
 		if (RM->childrenMeshes.find(filePath) != RM->childrenMeshes.end())
 		{
 			Core::Debug::Log::info("Model at " + filePath + " is already loaded");
+			RM->lockMeshes.clear();
 			return;
 		}
 
@@ -445,6 +448,7 @@ namespace Resources
 		{
 			Core::Debug::Log::error("Unable to read the file : " + filePath);
 			dataObj.close();
+			RM->lockMeshes.clear();
 			return;
 		}
 
@@ -480,8 +484,9 @@ namespace Resources
 				else
 				{
 					// Compute and add the mesh
-					RM->meshes[mesh.m_name] = std::make_shared<Mesh>(mesh);
-					RM->meshes[mesh.m_name]->compute(vertices, texCoords, normals, indices);
+					std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
+					RM->meshes[mesh.m_name] = meshPtr;
+					meshPtr->compute(vertices, texCoords, normals, indices);
 
 					names.push_back(mesh.m_name);
 
@@ -517,8 +522,9 @@ namespace Resources
 		}
 
 		// Compute and add the mesh
-		RM->meshes[mesh.m_name] = std::make_shared<Mesh>(mesh);
-		RM->meshes[mesh.m_name]->compute(vertices, texCoords, normals, indices);
+		std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
+		RM->meshes[mesh.m_name] = meshPtr;
+		meshPtr->compute(vertices, texCoords, normals, indices);
 		names.push_back(mesh.m_name);
 
 		RM->childrenMeshes[filePath] = names;
@@ -526,6 +532,8 @@ namespace Resources
 		dataObj.close();
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
+
+		RM->lockMeshes.clear();
 	}
 
 	std::vector<std::string>* ResourcesManager::getMeshNames(const std::string& filePath)

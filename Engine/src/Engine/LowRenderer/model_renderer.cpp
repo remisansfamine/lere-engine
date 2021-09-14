@@ -11,17 +11,15 @@
 
 namespace LowRenderer
 {
-	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& shaderPromgramName)
-		: Renderer(gameObject, ptr, shaderPromgramName)
+	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& filePath, const std::string& shaderPromgramName)
+		: Renderer(gameObject, ptr, shaderPromgramName), model(filePath, m_transform)
 	{
 		LowRenderer::RenderManager::linkComponent(ptr);
 	}
 
 	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling)
-		: ModelRenderer(gameObject, std::shared_ptr<ModelRenderer>(this), shaderPromgramName)
+		: ModelRenderer(gameObject, std::shared_ptr<ModelRenderer>(this), filePath, shaderPromgramName)
 	{
-		model = Model(filePath, m_transform);
-
 		tillingMultiplier = tilling.x;
 		tillingOffset = tilling.y;
 	}

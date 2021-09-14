@@ -16,7 +16,7 @@ namespace LowRenderer
 		void onDestroy() override;
 
 	public:
-		ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& shaderPromgramName);
+		ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& filePath, const std::string& shaderPromgramName);
 		ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling = Core::Maths::vec2(1.f, 0.f));
 		~ModelRenderer();
 

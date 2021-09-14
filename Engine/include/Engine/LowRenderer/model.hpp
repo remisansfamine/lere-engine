@@ -23,8 +23,8 @@ namespace LowRenderer
 		std::shared_ptr<Resources::Material> m_material = Resources::Material::defaultMaterial;
 
 		std::vector<Model> m_children;
-
 		std::string m_filePath;
+		std::string m_name;
 
 		Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName);
 
@@ -43,8 +43,6 @@ namespace LowRenderer
 		void loadMeshes();
 		void setMeshes();
 
-		void setDiffuseTexture(const std::string& difTexName);
-
-		std::string getPath() const;
+		const std::string& getPath() const;
 	};
 }

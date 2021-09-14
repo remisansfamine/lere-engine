@@ -2,7 +2,10 @@
 
 #include "imgui.h"
 
+#include "utils.hpp"
+
 #include "resources_manager.hpp"
+#include "thread_pool.hpp"
 #include "render_manager.hpp"
 
 #include "transform.hpp"
@@ -10,14 +13,17 @@
 namespace LowRenderer
 {
 	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform)
-		: m_transform(transform), m_filePath(filePath)
+		: m_transform(transform), m_filePath(filePath), m_name(Utils::getFileNameFromPath(filePath))
 	{
-		loadMeshes();
+		ThreadPool::addTask(std::bind(&Model::loadMeshes, this));
+		//loadMeshes();
 	}
 
 	Model::Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName)
-		: m_transform(transform), m_mesh(Resources::ResourcesManager::getMeshByName(meshName))
-	{ }
+		: m_transform(transform), m_mesh(Resources::ResourcesManager::getMeshByName(meshName)), m_name(meshName)
+	{
+	
+	}
 
 	void Model::loadMeshes()
 	{
@@ -107,7 +113,7 @@ namespace LowRenderer
 			child.drawCollider(shaderProgram, modelCollider);
 	}
 
-	std::string Model::getPath() const
+	const std::string& Model::getPath() const
 	{
 		return m_filePath;
 	}
@@ -115,14 +121,5 @@ namespace LowRenderer
 	void Model::drawImGui()
 	{
 		ImGui::Text(m_filePath.c_str());
-	}
-
-	void Model::setDiffuseTexture(const std::string& difTexName)
-	{
-		
-		for (auto child : m_children)
-		{
-
-		}
 	}
 }

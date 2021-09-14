@@ -32,6 +32,7 @@ namespace Resources
 		~ResourcesManager();
 		
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
+		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;
 
 		ConcurrentQueue<Resource*> toInitInMainThread;
 
