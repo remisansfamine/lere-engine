@@ -16,12 +16,13 @@ namespace Resources
 	private:
 		GLuint textureID = 0;
 		
-		int width = 0;
-		int height = 0;
-		float* colorBuffer = nullptr;
-		bool stbiLoaded = false;
-		bool loadDone = false;
+		int		width = 0;
+		int		height = 0;
+		float*	colorBuffer = nullptr;
+		bool	stbiLoaded = false;
+		bool	loadDone = false;
 
+		void mainThreadInitialization() override;
 
 	public:
 		Texture() = default;
@@ -31,8 +32,6 @@ namespace Resources
 
 		bool generateBuffer(const std::string& filePath);
 		bool generateID();
-
-		void mainThreadInitialization() override;
 
 		GLuint getID() const;
 

@@ -12,32 +12,46 @@ namespace LowRenderer
 	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform)
 		: m_transform(transform), m_filePath(filePath)
 	{
-		// Load meshes
-		Resources::ResourcesManager::loadObj(filePath);
-
-		std::vector<std::string>* modelChildrens = Resources::ResourcesManager::getMeshNames(filePath);
-
-		// Get model childrens
-		if (modelChildrens != nullptr)
-		{
-			for (std::string& meshName : *modelChildrens)
-			{
-				Model child = Model(transform, meshName);
-
-				std::shared_ptr<Resources::Material> newMat = Resources::ResourcesManager::getMatByMeshName(meshName);
-
-				if (newMat)
-					child.m_material = newMat;
-				m_children.push_back(child);
-			}
-		}
-
-		m_mesh = nullptr;
+		loadMeshes();
 	}
 
 	Model::Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName)
 		: m_transform(transform), m_mesh(Resources::ResourcesManager::getMeshByName(meshName))
 	{ }
+
+	void Model::loadMeshes()
+	{
+		// Load obj
+		Resources::ResourcesManager::loadObj(m_filePath);
+
+		setMeshes();
+	}
+
+	void Model::setMeshes()
+	{
+		if (m_mesh)
+			return;
+
+		std::vector<std::string>* modelChildrens = Resources::ResourcesManager::getMeshNames(m_filePath);
+
+		m_mesh = nullptr;
+
+		if (!modelChildrens)
+			return;
+
+		// Get model childrens
+		for (std::string& meshName : *modelChildrens)
+		{
+			Model child = Model(m_transform, meshName);
+
+			std::shared_ptr<Resources::Material> newMat = Resources::ResourcesManager::getMatByMeshName(meshName);
+
+			if (newMat)
+				child.m_material = newMat;
+
+			m_children.push_back(child);
+		}
+	}
 
 	void Model::draw(std::shared_ptr<Resources::ShaderProgram> shaderProgram) const
 	{

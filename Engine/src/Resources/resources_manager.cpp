@@ -219,7 +219,7 @@ namespace Resources
 		RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& texturePath)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -239,10 +239,11 @@ namespace Resources
 
 		RM->lockTextures.clear();
 
-		texturePtr->generateBuffer(texturePath);
+		ThreadPool::addTask(std::bind(&Texture::generateBuffer, texturePtr, texturePath));
+		//texturePtr->generateBuffer(texturePath);
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& name, int width, int height, float* data)
+	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data)
 	{
 		ResourcesManager* RM = instance();
 
@@ -479,15 +480,16 @@ namespace Resources
 				else
 				{
 					// Compute and add the mesh
-					mesh.compute(vertices, texCoords, normals, indices);
-					RM->meshes[mesh.name] = std::make_shared<Mesh>(mesh);
-					names.push_back(mesh.name);
+					RM->meshes[mesh.m_name] = std::make_shared<Mesh>(mesh);
+					RM->meshes[mesh.m_name]->compute(vertices, texCoords, normals, indices);
+
+					names.push_back(mesh.m_name);
 
 					mesh = Mesh();
 					indices.clear();
 				}
 
-				iss >> mesh.name;
+				iss >> mesh.m_name;
 			}
 			else if (type == "v")
 				addData(vertices, iss);
@@ -502,7 +504,7 @@ namespace Resources
 				std::string matName;
 				iss >> matName;
 
-				RM->childrenMaterials[mesh.name] = matName;
+				RM->childrenMaterials[mesh.m_name] = matName;
 			}
 			else if (type == "mtllib")
 			{
@@ -515,9 +517,9 @@ namespace Resources
 		}
 
 		// Compute and add the mesh
-		mesh.compute(vertices, texCoords, normals, indices);
-		RM->meshes[mesh.name] = std::make_shared<Mesh>(mesh);
-		names.push_back(mesh.name);
+		RM->meshes[mesh.m_name] = std::make_shared<Mesh>(mesh);
+		RM->meshes[mesh.m_name]->compute(vertices, texCoords, normals, indices);
+		names.push_back(mesh.m_name);
 
 		RM->childrenMeshes[filePath] = names;
 

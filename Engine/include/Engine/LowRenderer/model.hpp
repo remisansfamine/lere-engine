@@ -40,6 +40,9 @@ namespace LowRenderer
 		void drawCollider(std::shared_ptr<Resources::ShaderProgram> shaderProgram, Core::Maths::mat4& modelCollider) const;
 		void drawImGui();
 
+		void loadMeshes();
+		void setMeshes();
+
 		void setDiffuseTexture(const std::string& difTexName);
 
 		std::string getPath() const;

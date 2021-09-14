@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <memory>
 
 #include <glad/glad.h>
 
@@ -17,7 +18,13 @@ namespace Resources
 	class Shader : public Resource
 	{
 	private:
-		std::string loadFromFile(const std::string& filePath);
+		void setID();
+		void setCode();
+		void compile();
+
+		void mainThreadInitialization() override;
+
+		std::string shaderCode;
 
 	public:
 		GLint shaderID = GL_INVALID_VALUE;
@@ -29,12 +36,18 @@ namespace Resources
 	class ShaderProgram : public Resource
 	{
 	private:
+		std::shared_ptr<Shader> vertShader;
+		std::shared_ptr<Shader> fragShader;
+		std::shared_ptr<Shader> geomShader;
+
 		GLint programID = GL_INVALID_VALUE;
 		std::string name;
 
 		std::unordered_map<std::string, Uniform> uniforms;
 
 		void loadLocations();
+
+		void mainThreadInitialization() override;
 
 	public:
 		ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath);
@@ -45,5 +58,7 @@ namespace Resources
 		void unbind() const;
 
 		std::string getName();
+
+		void linkShaders();
 	};
 }

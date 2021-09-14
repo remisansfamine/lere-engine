@@ -1,24 +1,76 @@
 #include "shader.hpp"
 
 #include <fstream>
+#include <filesystem>
 
 #include "resources_manager.hpp"
+#include "thread_pool.hpp"
 #include "debug.hpp"
 
 #include "utils.hpp"
+
 
 namespace Resources
 {
 #pragma region SHADER
 	Shader::Shader(const std::string& shaderPath)
+        : Resource(shaderPath)
 	{
 		Core::Debug::Log::info("Loading " + shaderPath);
 
-        std::string codeString = loadFromFile(shaderPath);
-        const char* code = codeString.c_str();
+        setID();
+
+        //ThreadPool::addTask(std::bind(&Shader::setCode, this));
+        setCode();
+	}
+
+    Shader::~Shader()
+    {
+        glDeleteShader(shaderID);
+    }
+
+    void Shader::setID()
+    {
+        // Check if the file can be read
+        if (std::filesystem::exists(m_filePath))
+        {
+            // Create the shader by checking its extension
+            if (Utils::hasSuffix(m_filePath, ".vert"))
+                shaderID = glCreateShader(GL_VERTEX_SHADER);
+
+            else if (Utils::hasSuffix(m_filePath, ".frag"))
+                shaderID = glCreateShader(GL_FRAGMENT_SHADER);
+
+            else if (Utils::hasSuffix(m_filePath, ".geom"))
+                shaderID = glCreateShader(GL_GEOMETRY_SHADER);
+
+            else
+                Core::Debug::Log::error("File extension is not compatible");
+
+            return;
+        }
+
+        Core::Debug::Log::error("Cannot open the file " + m_filePath);
+    }
+
+    void Shader::setCode()
+    {
+        std::ifstream ifs(m_filePath);
+
+        // Send the code to OpenGL as a char*
+        shaderCode.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
+
+        ResourcesManager::addToMainThreadInitializerQueue(this);
+    }
+
+    void Shader::compile()
+    {
+        const char* code = shaderCode.c_str();
 
         glShaderSource(shaderID, 1, &code, NULL);
         glCompileShader(shaderID);
+
+        shaderCode.clear();
 
         // Check if the compilation is a success
         GLint success;
@@ -29,45 +81,14 @@ namespace Resources
         if (!success)
         {
             glGetShaderInfoLog(shaderID, infoSize, NULL, infoLog);
-            Core::Debug::Log::error(shaderPath + " shader compilation failed" + infoLog);
+            Core::Debug::Log::error(m_filePath + " shader compilation failed" + infoLog);
         }
-	}
-
-    Shader::~Shader()
-    {
-        glDeleteShader(shaderID);
     }
 
-	std::string Shader::loadFromFile(const std::string& filePath)
-	{
-        std::ifstream ifs(filePath);
-
-        // Check if the file can be read
-        if (!ifs.fail())
-        {
-            // Create the shader by checking its extension
-            if (Utils::hasSuffix(filePath, ".vert"))
-                shaderID = glCreateShader(GL_VERTEX_SHADER);
-
-            else if (Utils::hasSuffix(filePath, ".frag"))
-                shaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-            else if (Utils::hasSuffix(filePath, ".geom"))
-                shaderID = glCreateShader(GL_GEOMETRY_SHADER);
-
-            else
-                Core::Debug::Log::error("File extension is not compatible");
-        }
-        else
-            Core::Debug::Log::error("Cannot open the file " + filePath);
-
-        // Send the code to OpenGL as a char*
-        std::string string_code;
-        string_code.assign((std::istreambuf_iterator<char>(ifs)),
-            (std::istreambuf_iterator<char>()));
-
-        return string_code;
-	}
+    void Shader::mainThreadInitialization()
+    {
+        compile();
+    }
 #pragma endregion
 
 
@@ -79,18 +100,23 @@ namespace Resources
 
         Core::Debug::Log::info("Linking " + vertPath + " and " + fragPath + " to " + programName);
 
-        std::shared_ptr<Shader> vert = Resources::ResourcesManager::getShader(vertPath);
-        std::shared_ptr<Shader> frag = Resources::ResourcesManager::getShader(fragPath);
-        
-        // Attach the two shaders and link them
-        glAttachShader(programID, vert->shaderID);
-        glAttachShader(programID, frag->shaderID);
+        vertShader = Resources::ResourcesManager::getShader(vertPath);
+        fragShader = Resources::ResourcesManager::getShader(fragPath);
 
         if (geomPath != "")
-        {
-            std::shared_ptr<Shader> geom = Resources::ResourcesManager::getShader(geomPath);
-            glAttachShader(programID, geom->shaderID);
-        }
+            geomShader = Resources::ResourcesManager::getShader(geomPath);
+
+        ResourcesManager::addToMainThreadInitializerQueue(this);
+	}
+
+    void ShaderProgram::linkShaders()
+    {
+        // Attach the two shaders and link them
+        glAttachShader(programID, vertShader->shaderID);
+        glAttachShader(programID, fragShader->shaderID);
+
+        if (geomShader)
+            glAttachShader(programID, geomShader->shaderID);
 
         glLinkProgram(programID);
 
@@ -99,15 +125,22 @@ namespace Resources
         const GLsizei infoSize = 256;
         GLchar infoLog[infoSize];
         glGetProgramiv(programID, GL_LINK_STATUS, &success);
+
         if (!success)
         {
             glGetProgramInfoLog(programID, infoSize, NULL, infoLog);
-            Core::Debug::Log::error(programName + " shader program linking failed: " + infoLog);
+            Core::Debug::Log::error(m_name + " shader program linking failed: " + infoLog);
+            return;
         }
+
         // If there is no error, load the uniform locations of the program
-        else
-            loadLocations();
-	}
+        loadLocations();
+    }
+
+    void ShaderProgram::mainThreadInitialization()
+    {
+        linkShaders();
+    }
 
     ShaderProgram::~ShaderProgram()
     {

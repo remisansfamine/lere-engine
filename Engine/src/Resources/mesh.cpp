@@ -1,5 +1,7 @@
 #include "mesh.hpp"
 
+#include "resources_manager.hpp"
+
 namespace Resources
 {
 	void Mesh::draw() const
@@ -73,6 +75,11 @@ namespace Resources
 			attributs.push_back(normal.z);
 		}
 
+		ResourcesManager::addToMainThreadInitializerQueue(this);
+	}
+
+	void Mesh::mainThreadInitialization()
+	{
 		// Generate the VAO buffer
 		generateVAO();
 	}

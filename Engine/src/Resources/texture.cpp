@@ -41,24 +41,24 @@ namespace Resources
 		if (stbiLoaded)
 			return true;
 
-		auto loadStart = std::chrono::system_clock::now();
-
 		Core::Debug::Log::info("Start loading " + filePath + '.');
 
 		stbi_set_flip_vertically_on_load(true);
 
 		int channel = 0;
 
+		auto loadStart = std::chrono::system_clock::now();
+
 		// Get the color buffer by using stbi
 		colorBuffer = stbi_loadf(filePath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
+
+		auto loadEnd = std::chrono::system_clock::now();
 
 		if (!colorBuffer)
 		{
 			Core::Debug::Log::error("Cannot find the texture file at " + filePath);
 			return false;
 		}
-
-		auto loadEnd = std::chrono::system_clock::now();
 
 		std::chrono::duration<double> loadDuration = (loadEnd - loadStart) * 1000;
 
@@ -81,7 +81,10 @@ namespace Resources
 			return false;
 		}
 
+
 		Core::Debug::Log::info("OpenGL initializing texture at " + m_filePath);
+
+		auto initStart = std::chrono::system_clock::now();
 
 		// Set the texture parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -103,13 +106,17 @@ namespace Resources
 
 		// Free the color buffer allocated by stbi
 		if (stbiLoaded)
-		{
 			stbi_image_free(colorBuffer);
-		}
 
 		colorBuffer = nullptr;
 
-		Core::Debug::Log::info("OpenGL initializion of " + m_filePath + " done with succes.");
+		auto initEnd = std::chrono::system_clock::now();
+
+		std::chrono::duration<double> initDuration = (initEnd - initStart) * 1000;
+
+		std::string timeAsString = std::to_string(initDuration.count());
+
+		Core::Debug::Log::info("OpenGL initializion of " + m_filePath + " done with succes in " + timeAsString + " ms.");
 
 		return true;
 	}

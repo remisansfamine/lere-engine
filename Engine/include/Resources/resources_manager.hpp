@@ -75,8 +75,8 @@ namespace Resources
 		static void mainThreadQueueInitialize();
 
 		static void loadFont(const std::string& fontPath);
-		static void loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& texturePath);
-		static void loadTexture(std::shared_ptr<Texture> texturePtr, const std::string& name, int width, int height, float* data);
+		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath);
+		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data);
 		static void loadCubeMap(const std::vector<std::string>& cubeMapPaths);
 		static void loadMaterial(const std::string& materialPath);
 		static void loadRecipe(const std::string& recipePath);

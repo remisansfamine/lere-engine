@@ -10,6 +10,8 @@ namespace Resources
 	{
 		Recipe(const std::string& filePath);
 
+		void load(const std::string& filePath);
+
 		std::string recipe;
 	};
 }

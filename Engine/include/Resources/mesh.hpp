@@ -7,18 +7,22 @@
 
 #include "maths.hpp"
 
+#include "resource.hpp"
+
 namespace Resources
 {
-	class Mesh
+	class Mesh : public Resource
 	{
 	private:
 		GLuint VAO;
 
+		void mainThreadInitialization() override;
+
 	public:
 		~Mesh();
 
+
 		std::vector<float> attributs;
-		std::string name;
 
 		void draw() const;
 		void generateVAO();

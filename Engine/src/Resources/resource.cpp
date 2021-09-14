@@ -5,7 +5,7 @@
 namespace Resources
 {
 	Resource::Resource(const std::string& filePath)
-		: m_filePath(filePath)
+		: m_filePath(filePath), m_name(Utils::getFileNameFromPath(filePath))
 	{
 	}
 
