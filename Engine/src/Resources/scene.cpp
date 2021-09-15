@@ -12,6 +12,7 @@
 #include "resources_manager.hpp"
 #include "physic_manager.hpp"
 #include "inputs_manager.hpp"
+#include "thread_pool.hpp"
 #include "debug.hpp"
 
 #include "player_movement.hpp"
@@ -21,13 +22,17 @@
 #include "button.hpp"
 #include "light.hpp"
 
+#include "graph.hpp"
+
 namespace Resources
 {
 	Scene::Scene(const std::string& path)
 	{
 		Core::Debug::Log::info("Loading " + path);
 
-		load(path);
+		ThreadPool::addTask(std::bind(&Scene::load, this, path));
+
+		//load(path);
 	}
 
 	Scene::~Scene()
@@ -93,6 +98,7 @@ namespace Resources
 
 		scnStream.close();
 
+		isLoadFinished = true;
 		//Resources::ResourcesManager::clearResources();
 	}
 
@@ -117,6 +123,9 @@ namespace Resources
 
 	void Scene::draw() const
 	{
+		if (!isLoadFinished)
+			return;
+
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
@@ -144,15 +153,16 @@ namespace Resources
 
 	void Scene::addToDestroyQueue(Engine::Object* objToDestroy)
 	{
-		objectsToDestroy.push_back(objToDestroy);
+		destroyQueue.push(objToDestroy);
 	}
 
 	void Scene::cleanObjects()
 	{
-		for (Engine::Object* obj : objectsToDestroy)
-			obj->onDestroy();
-
-		objectsToDestroy.clear();
+		while (!destroyQueue.empty())
+		{
+			destroyQueue.front()->onDestroy();
+			destroyQueue.pop();
+		}
 	}
 
 	void Scene::deleteGameObject(const std::string& goName)
@@ -172,6 +182,9 @@ namespace Resources
 
 	void Scene::update()
 	{
+		if (!isLoadFinished)
+			return;
+
 		for (auto& go : gameObjects)
 		{
 			if (go.second.isActive())

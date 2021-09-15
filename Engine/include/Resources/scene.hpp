@@ -2,6 +2,7 @@
 
 #include <deque>
 #include <unordered_map>
+#include <queue>
 
 #include "game_object.hpp"
 
@@ -14,10 +15,11 @@ namespace Resources
 
 		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
 
-		std::vector<Engine::Object*> objectsToDestroy;
+		std::queue<Engine::Object*> destroyQueue;
 
 	public:
 		bool cursorState = true;
+		bool isLoadFinished = false;
 
 		std::string filePath;
 		std::unordered_map<std::string, Engine::GameObject> gameObjects;

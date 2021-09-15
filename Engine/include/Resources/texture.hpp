@@ -13,14 +13,13 @@ namespace Resources
 {
 	class Texture : public Resource
 	{
-	private:
+	protected:
 		GLuint textureID = 0;
 		
 		int		width = 0;
 		int		height = 0;
 		float*	colorBuffer = nullptr;
 		bool	stbiLoaded = false;
-		bool	loadDone = false;
 
 		void mainThreadInitialization() override;
 
@@ -30,8 +29,8 @@ namespace Resources
 		Texture(const std::string& name, int width, int height, float* colorBuffer);
 		~Texture();
 
-		bool generateBuffer(const std::string& filePath);
-		bool generateID();
+		virtual bool generateBuffer();
+		virtual bool generateID();
 
 		GLuint getID() const;
 
@@ -42,5 +41,17 @@ namespace Resources
 		static std::shared_ptr<Texture> defaultDiffuse;
 		static std::shared_ptr<Texture> defaultEmissive;
 		static std::shared_ptr<Texture> defaultSpecular;
-	};	
+	};
+
+	class CubeMapTexture : public Texture
+	{
+	public:
+		CubeMapTexture(int ID, const std::string& filePath);
+		CubeMapTexture() = default;
+
+		int cubeMapID;
+
+		bool generateBuffer() override;
+		bool generateID() override;
+	};
 }

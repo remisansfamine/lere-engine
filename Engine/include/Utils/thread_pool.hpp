@@ -22,12 +22,14 @@ private:
     std::vector<std::thread> workers;
     ConcurrentQueue<std::function<void()>> tasks;
 
+    ConcurrentQueue<std::exception_ptr> exceptions;
+
     ~ThreadPool();
 
     static void infiniteLoop();
 
 public:
-    static void init(int workerCount = std::thread::hardware_concurrency());
+    static void init(unsigned int workerCount = std::thread::hardware_concurrency());
 
     static void stopAllThread();
 
@@ -39,5 +41,7 @@ public:
 
     static void addTasks(const std::initializer_list<std::function<void()>>& tasksToAdd);
 
-    static const std::chrono::system_clock::time_point& getLastTime();
+    static std::chrono::system_clock::time_point getLastTime();
+
+    static void rethrowExceptions();
 };

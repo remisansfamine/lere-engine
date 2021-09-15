@@ -6,6 +6,7 @@
 #include <ctime>
 
 #include <iostream>
+#include <array>
 
 namespace Core
 {

@@ -59,17 +59,21 @@ namespace LowRenderer
 		}
 	}
 
-	void RenderManager::drawModels()
+	void RenderManager::drawSkybox()
 	{
-		std::shared_ptr<Resources::ShaderProgram> program;
+		glEnable(GL_FRAMEBUFFER_SRGB);
 
 		if (skyBoxes.size() > 0)
 		{
 			if (skyBoxes.back()->isActive())
 				skyBoxes.back()->draw();
 		}
+	}
 
-		glEnable(GL_FRAMEBUFFER_SRGB);
+	void RenderManager::drawModels()
+	{
+		std::shared_ptr<Resources::ShaderProgram> program;
+
 		glCullFace(GL_BACK);
 
 		// Number of lights to render (8 max)
@@ -138,6 +142,7 @@ namespace LowRenderer
 
 		// Draw Shadows
 		RM->drawShadows();
+		RM->drawSkybox();
 		RM->drawModels();
 		RM->drawSprites();
 	}

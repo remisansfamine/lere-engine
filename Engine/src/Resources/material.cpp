@@ -30,19 +30,24 @@ namespace Resources
 	void Material::bindTextures() const
 	{
 		if (alphaTex)
-			alphaTex->bind(0);
+			if (!alphaTex->bind(0))
+				Texture::defaultAlpha->bind(0);
 
 		if (ambientTex)
-			ambientTex->bind(1);
+			if (!ambientTex->bind(1))
+				Texture::defaultAmbient->bind(1);
 
 		if (diffuseTex)
-			diffuseTex->bind(2);
+			if (!diffuseTex->bind(2))
+				Texture::defaultDiffuse->bind(2);
 			
 		if (emissiveTex)
-			emissiveTex->bind(3);
+			if (!emissiveTex->bind(3))
+				Texture::defaultEmissive->bind(3);
 
 		if (specularTex)
-			specularTex->bind(4);
+			if (!specularTex->bind(4))
+				Texture::defaultSpecular->bind(4);
 
 		glActiveTexture(0);
 	}

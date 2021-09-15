@@ -93,26 +93,17 @@ namespace Resources
 
 	std::shared_ptr<Font> ResourcesManager::getFont(const std::string& fontPath)
 	{
-		loadFont(fontPath);
-		return instance()->fonts[fontPath];
+		return loadFont(fontPath);
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& texturePath)
 	{
-		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(texturePath);
-		//ThreadPool::addTask([texturePtr, texturePath]() {ResourcesManager::loadTexture(texturePtr, texturePath); });
-		loadTexture(texturePtr, texturePath);
-
-		return texturePtr;
+		return loadTexture(texturePath);
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
 	{
-		std::shared_ptr<Texture> texturePtr = std::make_shared<Texture>(name, width, height, data);
-		//ThreadPool::addTask([texturePtr, name, width, height, data]() {ResourcesManager::loadTexture(texturePtr, name, width, height, data); });
-		loadTexture(texturePtr, name, width, height, data);
-
-		return texturePtr;
+		return loadTexture( name, width, height, data);
 	}
 
 	std::shared_ptr<CubeMap> ResourcesManager::getCubeMap(const std::vector<std::string>& cubeMapPaths)
@@ -120,38 +111,32 @@ namespace Resources
 		ResourcesManager* RM = instance();
 
 		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
-		loadCubeMap(cubeMapPaths);
 
-		return instance()->cubeMaps[pathsDir];
+		return loadCubeMap(cubeMapPaths);
 	}
 
 	std::shared_ptr<Material> ResourcesManager::getMaterial(const std::string& materialPath)
 	{
-		loadMaterial(materialPath);
-		return instance()->materials[materialPath];
+		
+		return loadMaterial(materialPath);
 	}
 
 	std::shared_ptr<Recipe> ResourcesManager::getRecipe(const std::string& recipePath)
 	{
-		loadRecipe(recipePath);
-
-		return instance()->recipes[recipePath];
+		return loadRecipe(recipePath);
 	}
+
 	std::shared_ptr<Shader> ResourcesManager::getShader(const std::string& shaderPath)
 	{
-		loadShader(shaderPath);
-
-		return instance()->shaders[shaderPath];
+		return loadShader(shaderPath);
 	}
 
 	std::shared_ptr<ShaderProgram> ResourcesManager::getShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
 	{
-		loadShaderProgram(programName);
-
-		return instance()->shaderPrograms[programName];
+		return loadShaderProgram(programName);
 	}
 
-	void ResourcesManager::loadShader(const std::string& shaderPath)
+	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
 	{
 		ResourcesManager* RM = instance();
 		
@@ -160,14 +145,13 @@ namespace Resources
 		// Check if the Shader is already loaded
 		if (shaderIt != RM->shaders.end())
 		{
-			shaderIt->second;
-			return;
+			return shaderIt->second;
 		}
 
-		RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
+		return RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
 	}
 
-	void ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
+	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -176,11 +160,10 @@ namespace Resources
 		// Check if the ShaderProgram is already loaded
 		if (programIt != RM->shaderPrograms.end())
 		{
-			programIt->second;
-			return;
+			return programIt->second;
 		}
 
-		RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
+		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
 	}
 
 	void ResourcesManager::addToMainThreadInitializerQueue(Resource* resourcePtr)
@@ -203,7 +186,7 @@ namespace Resources
 		}
 	}
 
-	void ResourcesManager::loadFont(const std::string& fontPath)
+	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -212,14 +195,13 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (fontIt != RM->fonts.end())
 		{
-			fontIt->second;
-			return;
+			return fontIt->second;
 		}
 
-		RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
+		return RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath)
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -231,19 +213,22 @@ namespace Resources
 		if (textureIt != RM->textures.end())
 		{
 			RM->lockTextures.clear();
-			texturePtr = textureIt->second;
-			return;
+			return textureIt->second;
 		}
+
+		std::shared_ptr<Texture> texturePtr(new Texture(texturePath));
 
 		RM->textures[texturePath] = texturePtr;
 
 		RM->lockTextures.clear();
 
-		ThreadPool::addTask(std::bind(&Texture::generateBuffer, texturePtr, texturePath));
-		//texturePtr->generateBuffer(texturePath);
+		ThreadPool::addTask(std::bind(&Texture::generateBuffer, texturePtr));
+		//texturePtr->generateBuffer();
+
+		return texturePtr;
 	}
 
-	void ResourcesManager::loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data)
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
 	{
 		ResourcesManager* RM = instance();
 
@@ -254,22 +239,27 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (textureIt != RM->textures.end())
 		{
-			texturePtr = textureIt->second;
 			RM->lockTextures.clear();
-			return;
+			return textureIt->second;
 		}
+
+		std::shared_ptr<Texture> texturePtr(new Texture(name, width, height, data));
 
 		RM->textures[name] = texturePtr;
 
 		RM->lockTextures.clear();
+
+		return texturePtr;
 	}
 
-	void ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
+	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
 	{
+		if (cubeMapPaths.size() == 0)
+			return nullptr;
+
 		ResourcesManager* RM = instance();
 
-		if (cubeMapPaths.size() == 0)
-			return;
+		while (!RM->lockCubemaps.test_and_set());
 
 		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
 		const auto& cubeMapIt = RM->cubeMaps.find(pathsDir);
@@ -277,14 +267,23 @@ namespace Resources
 		// Check if the Texture is already loaded
 		if (cubeMapIt != RM->cubeMaps.end())
 		{
-			cubeMapIt->second;
-			return;
+			RM->lockCubemaps.clear();
+			return cubeMapIt->second;
 		}
 
-		RM->cubeMaps[pathsDir] = std::make_shared<CubeMap>(cubeMapPaths);
+		std::shared_ptr<CubeMap> cubeMapPtr(new CubeMap(cubeMapPaths));
+
+		RM->cubeMaps[pathsDir] = cubeMapPtr;
+
+		RM->lockCubemaps.clear();
+
+		ThreadPool::addTask(std::bind(&CubeMap::generateBuffers, RM->cubeMaps[pathsDir]));
+		//RM->cubeMaps[pathsDir]->generateBuffers();
+
+		return cubeMapPtr;
 	}
 
-	void ResourcesManager::loadMaterial(const std::string& materialPath)
+	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -293,14 +292,13 @@ namespace Resources
 		// Check if the Material is already loaded
 		if (materialIt != RM->materials.end())
 		{
-			materialIt->second;
-			return;
+			return materialIt->second;
 		}
 
-		RM->materials[materialPath] = std::make_shared<Material>();
+		return RM->materials[materialPath] = std::make_shared<Material>();
 	}
 
-	void ResourcesManager::loadRecipe(const std::string& recipePath)
+	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
 	{
 		ResourcesManager* RM = instance();
 
@@ -309,11 +307,10 @@ namespace Resources
 		// Check if the Material is already loaded
 		if (recipeIt != RM->recipes.end())
 		{
-			recipeIt->second;
-			return;
+			return recipeIt->second;
 		}
 
-		RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
+		return RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
 	}
 
 	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
@@ -429,6 +426,16 @@ namespace Resources
 	// Load an obj with mtl (do triangulation)
 	void ResourcesManager::loadObj(const std::string& filePath)
 	{
+		std::ifstream dataObj(filePath.c_str());
+
+		// Check if the file exists
+		if (!dataObj)
+		{
+			Core::Debug::Log::error("Unable to read the file : " + filePath);
+			dataObj.close();
+			return;
+		}
+
 		ResourcesManager* RM = instance();
 
 		while (RM->lockMeshes.test_and_set());
@@ -437,17 +444,6 @@ namespace Resources
 		if (RM->childrenMeshes.find(filePath) != RM->childrenMeshes.end())
 		{
 			Core::Debug::Log::info("Model at " + filePath + " is already loaded");
-			RM->lockMeshes.clear();
-			return;
-		}
-
-		std::ifstream dataObj(filePath.c_str());
-
-		// Check if the file exists
-		if (!dataObj)
-		{
-			Core::Debug::Log::error("Unable to read the file : " + filePath);
-			dataObj.close();
 			RM->lockMeshes.clear();
 			return;
 		}

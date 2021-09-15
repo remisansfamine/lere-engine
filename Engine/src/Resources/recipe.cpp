@@ -1,6 +1,10 @@
 #include "recipe.hpp"
 
 #include "debug.hpp"
+#include <errno.h>
+#include <string.h>
+#include <locale.h>
+#include <stdio.h>
 
 #include "thread_pool.hpp"
 
@@ -19,7 +23,10 @@ namespace Resources
 
 		// Check if the file can be read
 		if (ifs.fail())
-			Core::Debug::Log::error("Cannot load the recipe: " + filePath);
+		{
+			std::string error = std::system_error(errno, std::system_category()).code().message();
+			Core::Debug::Log::error("Cannot load the recipe " + filePath + ": " + error);
+		}
 
 		recipe.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
 	}

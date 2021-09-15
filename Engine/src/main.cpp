@@ -28,9 +28,13 @@ int main()
 	{
 		Core::Debug::Log::assertion(msg);
 	}
-	catch (const std::exception& assertion)
+	catch (const std::exception& exception)
 	{
-		Core::Debug::Log::assertion(assertion.what());
+		Core::Debug::Log::assertion(exception.what());
+	}
+	catch (...)
+	{
+		Core::Debug::Log::assertion("Exception not supported.");
 	}
 
 	Core::Application::kill();

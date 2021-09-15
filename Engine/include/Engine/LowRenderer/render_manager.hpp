@@ -32,6 +32,7 @@ namespace LowRenderer
 		void drawColliders() const;
 
 		void drawShadows();
+		void drawSkybox();
 		void drawModels();
 		void drawSprites();
 

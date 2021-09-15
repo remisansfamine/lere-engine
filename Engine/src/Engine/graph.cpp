@@ -134,6 +134,9 @@ namespace Core::Engine
 
 	void Graph::addToDestroyQueue(::Engine::Object* obj)
 	{
+		if (!obj)
+			return;
+
 		instance()->curScene.addToDestroyQueue(obj);
 	}
 

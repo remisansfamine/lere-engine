@@ -3,6 +3,8 @@
 #include <fstream>
 #include <cassert>
 
+#include "utils.hpp"
+
 namespace Core
 {
 	namespace Debug
@@ -30,15 +32,11 @@ namespace Core
 
 		void Log::out(const std::string& log, LogType logType)
 		{
-			// Get the current time as a char*
-			std::time_t currentTime = std::time(0);	// Get current time
-
-			char timeString[26];
-			ctime_s(timeString, sizeof(timeString), &currentTime);
-			timeString[24] = '\0';
+			// Get the time as a string
+			std::string timeAsString = Utils::getTimeAsString("[%x - %X]");
 
 			// Set the current log format
-			std::string currentLog = "[" + std::string(timeString) + "] " + log + '\n';
+			std::string currentLog = timeAsString + ' ' + log + '\n';
 
 			Log* logManager = Log::instance();
 

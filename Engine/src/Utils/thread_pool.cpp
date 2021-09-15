@@ -1,4 +1,5 @@
 #include "thread_pool.hpp"
+#include "debug.hpp"
 
 void ThreadPool::infiniteLoop()
 {
@@ -11,20 +12,27 @@ void ThreadPool::infiniteLoop()
         if (!TP->tasks.tryPop(task))
             continue;
 
-        task();
+        try
+        {
+            task();
+        }
+        catch (...)
+        {
+            TP->exceptions.tryPush(std::current_exception());
+        }
 
         TP->lastTime = std::chrono::system_clock::now();
     }
 }
 
-void ThreadPool::init(int workerCount)
+void ThreadPool::init(unsigned int workerCount)
 {
     ThreadPool* TP = instance();
 
     if (TP->initialized.test_and_set() && !TP->terminate.test())
         return;
 
-    for (int i = 0; i < workerCount; i++)
+    for (unsigned int i = 0; i < workerCount; i++)
         TP->workers.emplace_back(ThreadPool::infiniteLoop);
 }
 
@@ -52,7 +60,15 @@ void ThreadPool::addTasks(const std::initializer_list<std::function<void()>>& ta
         TP->tasks.tryPush(task);
 }
 
-const std::chrono::system_clock::time_point& ThreadPool::getLastTime()
+std::chrono::system_clock::time_point ThreadPool::getLastTime()
 {
     return instance()->lastTime;
+}
+
+void ThreadPool::rethrowExceptions()
+{
+    std::exception_ptr exception;
+
+    if (instance()->exceptions.tryPop(exception))
+        std::rethrow_exception(exception);
 }

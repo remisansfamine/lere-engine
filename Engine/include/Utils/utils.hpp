@@ -58,7 +58,7 @@ namespace Utils
     }
 
     template <int I = 26>
-    std::string getTimeAsString(const std::string& format, std::time_t currentTime = std::time(0))
+    std::string getTimeAsString(const std::string& format, time_t currentTime = std::time(0))
     {
         char timeString[I];
         struct tm tstruct;

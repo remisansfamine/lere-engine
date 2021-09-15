@@ -36,27 +36,32 @@ namespace Resources
 		glDeleteTextures(1, &textureID);
 	}
 
-	bool Texture::generateBuffer(const std::string& filePath)
+	bool Texture::generateBuffer()
 	{
 		if (stbiLoaded)
 			return true;
 
-		Core::Debug::Log::info("Start loading " + filePath + '.');
+		Core::Debug::Log::info("Start loading " + m_filePath + '.');
 
-		stbi_set_flip_vertically_on_load(true);
 
 		int channel = 0;
 
 		auto loadStart = std::chrono::system_clock::now();
 
+
+		stbi_set_flip_vertically_on_load_thread(true);
+
 		// Get the color buffer by using stbi
-		colorBuffer = stbi_loadf(filePath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
+		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
+
+		stbi_set_flip_vertically_on_load_thread(false);
+
 
 		auto loadEnd = std::chrono::system_clock::now();
 
 		if (!colorBuffer)
 		{
-			Core::Debug::Log::error("Cannot find the texture file at " + filePath);
+			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath);
 			return false;
 		}
 
@@ -64,7 +69,7 @@ namespace Resources
 
 		std::string timeAsString = std::to_string(loadDuration.count());
 
-		Core::Debug::Log::info("Loading of " + filePath + " done with success in " + timeAsString + " ms.");
+		Core::Debug::Log::info("Loading of " + m_filePath + " done with success in " + timeAsString + " ms.");
 
 		stbiLoaded = true;
 
@@ -80,7 +85,6 @@ namespace Resources
 			Core::Debug::Log::error("Texture at " + m_filePath + " is already OpenGL initialized");
 			return false;
 		}
-
 
 		Core::Debug::Log::info("OpenGL initializing texture at " + m_filePath);
 
@@ -141,6 +145,42 @@ namespace Resources
 
 		glActiveTexture(GL_TEXTURE0 + textureIndex);
 		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		return true;
+	}
+
+	CubeMapTexture::CubeMapTexture(int ID, const std::string& filePath)
+		: Texture(filePath), cubeMapID(ID)
+	{
+
+	}
+
+	bool CubeMapTexture::generateBuffer()
+	{
+		int channel;
+		stbi_set_flip_vertically_on_load_thread(false);
+		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, 0);
+		stbi_set_flip_vertically_on_load_thread(true);
+
+		if (colorBuffer)
+		{
+			Core::Debug::Log::info("Loading of " + m_filePath + " done with success");
+			stbiLoaded = true;
+		}
+		else
+			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath);
+
+		return colorBuffer;
+	}
+
+	bool CubeMapTexture::generateID()
+	{
+		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubeMapID, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, colorBuffer);
+
+		if (stbiLoaded)
+			stbi_image_free(colorBuffer);
+
+		colorBuffer = nullptr;
 
 		return true;
 	}

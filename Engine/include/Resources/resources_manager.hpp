@@ -33,6 +33,7 @@ namespace Resources
 		
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;
+		std::atomic_flag lockCubemaps = ATOMIC_FLAG_INIT;
 
 		ConcurrentQueue<Resource*> toInitInMainThread;
 
@@ -75,14 +76,14 @@ namespace Resources
 
 		static void mainThreadQueueInitialize();
 
-		static void loadFont(const std::string& fontPath);
-		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& texturePath);
-		static void loadTexture(std::shared_ptr<Texture>& texturePtr, const std::string& name, int width, int height, float* data);
-		static void loadCubeMap(const std::vector<std::string>& cubeMapPaths);
-		static void loadMaterial(const std::string& materialPath);
-		static void loadRecipe(const std::string& recipePath);
-		static void loadShader(const std::string& shaderPath);
-		static void loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
+		static std::shared_ptr<Font>  loadFont(const std::string& fontPath);
+		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
+		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
+		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
+		static std::shared_ptr<Material> loadMaterial(const std::string& materialPath);
+		static std::shared_ptr<Recipe> loadRecipe(const std::string& recipePath);
+		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
+		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
 
 		static std::shared_ptr<Font> getFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> getTexture(const std::string& texturePath);

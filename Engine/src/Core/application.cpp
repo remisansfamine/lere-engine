@@ -27,6 +27,8 @@ namespace Core
 
 	Application::~Application()
 	{
+		ThreadPool::kill();
+
 		Resources::ResourcesManager::kill();
 
 		Debug::Log::info("Destroying the Application");
@@ -34,7 +36,6 @@ namespace Core
 		Input::InputManager::kill();
 		Debug::Assertion::kill();
 		Engine::EngineMaster::kill();
-		ThreadPool::kill();
 
 		TimeManager::kill();
 
@@ -120,7 +121,7 @@ namespace Core
 		Resources::ResourcesManager::init();
 
 		Input::InputManager::init(AP->window);
-
+		
 		ThreadPool::init();
 
 		AP->setImGuiColorsEditor();
@@ -137,6 +138,8 @@ namespace Core
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
+			ThreadPool::rethrowExceptions();
+
 			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
