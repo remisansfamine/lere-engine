@@ -68,7 +68,7 @@ namespace Resources
 	public:
 		static void init();
 
-		static void loadObj(const std::string& filePath);
+		static void loadObj(std::string filePath);
 
 		static void clearResources();
 

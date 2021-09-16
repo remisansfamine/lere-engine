@@ -18,14 +18,16 @@ namespace Resources
 
 		void mainThreadInitialization() override;
 
+
 	public:
 		~Mesh();
 
-
 		std::vector<float> attributs;
+
+		void parse(const std::string& toParse, std::array<unsigned int, 3> offsets);
 
 		void draw() const;
 		void generateVAO();
-		void compute(std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices);
+		void compute(std::array<unsigned int, 3> offsets, std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices);
 	};
 }

@@ -313,118 +313,8 @@ namespace Resources
 		return RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
 	}
 
-	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
-	{
-		// Get a 3D Vector data form string stream
-		Core::Maths::vec3 data = { 0.f };
-
-		iss >> data.x;
-		iss >> data.y;
-		iss >> data.z;
-
-		dataVector.push_back(data);
-	}
-
-	// Use to know if needed to triangulate faces
-	int getNumFace(const std::string& line)
-	{
-		int numFace = 0;
-
-		// Check how many spaces the line has
-		for (size_t i = 0; i < line.length(); i++)
-		{
-			if (line[i] == ' ')
-				numFace++;
-		}
-
-		return numFace;
-	}
-
-	// Give the number of vertices of a face from an .obj
-	int numVerticesFace(const std::string& line)
-	{
-		int numV = 0;
-
-		for (size_t i = 0; i < line.length(); i++)
-		{
-			if (line[i] == '/')
-				numV++;
-		}
-
-		if (numV > 6)
-			return 4;
-		else
-			return 3;
-	}
-
-	// Allow to know if face is of type v//vn or v/uv/vn
-	int getFaceType(const std::string& line)
-	{
-		for (size_t i = 3; i < line.length(); i++)
-		{
-			if (line[i - 1] == '/' && line[i] == '/')
-				return 1;
-		}
-
-		return 0;
-	}
-
-	void addIndices(std::vector<unsigned int>& indices, std::istringstream& iss, const std::string& line)
-	{
-		unsigned int indicesVertices[4];
-		unsigned int indicesUV[4];
-		unsigned int indicesNormals[4];
-
-		// Number of vertices of the face 
-		int numV = numVerticesFace(line);
-
-		// Data type of the face
-		int type = getFaceType(line);
-
-		for (int i = 0; i < numV; i++)
-		{
-			// Face of type v/uv/vn
-			if (type == 0)
-			{
-				iss >> indicesVertices[i];
-				iss.ignore();
-				iss >> indicesUV[i];
-				iss.ignore();
-				iss >> indicesNormals[i];
-				iss.ignore();
-			}
-			// Face of type v//vn
-			else
-			{
-				iss >> indicesVertices[i];
-				iss.ignore();
-				iss.ignore();
-				iss >> indicesNormals[i];
-
-				indicesUV[i] = 1;
-			}
-
-			int indexV2Strip = i;
-			// Strip faces (triangulation)
-			if (i > 2)
-			{
-				indices.push_back(indicesVertices[0] - 1);
-				indices.push_back(indicesUV[0] - 1);
-				indices.push_back(indicesNormals[0] - 1);
-				indices.push_back(indicesVertices[i - 1] - 1);
-				indices.push_back(indicesUV[i - 1] - 1);
-				indices.push_back(indicesNormals[i - 1] - 1);
-			}
-
-			// Add vertex indices to the mesh indices
-			indices.push_back(indicesVertices[i] - 1);
-			indices.push_back(indicesUV[i] - 1);
-			indices.push_back(indicesNormals[i] - 1);
-		}
-	}
-
 	// Load an obj with mtl (do triangulation)
-	void ResourcesManager::loadObj(const std::string& filePath)
+	void ResourcesManager::loadObj(std::string filePath)
 	{
 		std::ifstream dataObj(filePath.c_str());
 
@@ -450,10 +340,6 @@ namespace Resources
 
 		Core::Debug::Log::info("Start loading obj " + filePath);
 
-		std::vector<Core::Maths::vec3> vertices;
-		std::vector<Core::Maths::vec3> texCoords;
-		std::vector<Core::Maths::vec3> normals;
-		std::vector<unsigned int> indices;
 		std::vector<std::string> names;
 		std::string dirPath = Utils::getDirectory(filePath);
 
@@ -462,9 +348,15 @@ namespace Resources
 
 		Core::Debug::Log::info("Loading meshes");
 
-		std::string line;
-		while (std::getline(dataObj, line))
+		std::string meshSubString;
+
+		std::array<unsigned int, 3> countArray{ 0u, 0u, 0u };
+		std::array<unsigned int, 3> lastCountArray{ 0u, 0u, 0u };
+
+		for (std::string line; std::getline(dataObj, line);)
 		{
+			meshSubString += line + '\n';
+
 			std::istringstream iss(line);
 			std::string type;
 
@@ -482,24 +374,26 @@ namespace Resources
 					// Compute and add the mesh
 					std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
 					RM->meshes[mesh.m_name] = meshPtr;
-					meshPtr->compute(vertices, texCoords, normals, indices);
+
+					ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
 
 					names.push_back(mesh.m_name);
 
 					mesh = Mesh();
-					indices.clear();
 				}
 
+				meshSubString.clear();
+
 				iss >> mesh.m_name;
+
+				lastCountArray = countArray;
 			}
 			else if (type == "v")
-				addData(vertices, iss);
+				countArray[0]++;
 			else if (type == "vt")
-				addData(texCoords, iss);
+				countArray[1]++;
 			else if (type == "vn")
-				addData(normals, iss);
-			else if (type == "f")
-				addIndices(indices, iss, line);
+				countArray[2]++;
 			else if (type == "usemtl")
 			{
 				std::string matName;
@@ -520,7 +414,9 @@ namespace Resources
 		// Compute and add the mesh
 		std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
 		RM->meshes[mesh.m_name] = meshPtr;
-		meshPtr->compute(vertices, texCoords, normals, indices);
+
+		ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
+
 		names.push_back(mesh.m_name);
 
 		RM->childrenMeshes[filePath] = names;
