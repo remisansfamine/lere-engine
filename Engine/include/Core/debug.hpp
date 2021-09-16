@@ -1,12 +1,15 @@
 #pragma once
 
 #include "singleton.hpp"
+#include "concurrent_queue.hpp"
 
 #include <chrono>
 #include <ctime>
 
 #include <iostream>
 #include <array>
+
+#include <thread>
 
 namespace Core
 {
@@ -18,7 +21,20 @@ namespace Core
 			ASSERTION,
 			WARNING,
 			INFO,
-			EXCEPTION
+			EXCEPTION,
+			GLOBAL
+		};
+
+		struct LogInfo
+		{
+			time_t time = std::time(0);
+			std::string message;
+			LogType type;
+
+			LogInfo() = default;
+			LogInfo(const std::string& message, LogType type, const time_t& time = std::time(0));
+
+			std::string getMessage(const std::string& timeFormat);
 		};
 
 		class Log final : public Singleton<Log>
@@ -26,44 +42,61 @@ namespace Core
 			friend class Singleton<Log>;
 
 		private:
-			std::string logs;
+			std::thread printThread;
 
+			ConcurrentQueue<LogInfo> queues[(int)LogType::GLOBAL + 1];
+			std::string logsAsString[(int)LogType::GLOBAL + 1];
+			
+			std::atomic_flag terminate;
+
+			Log();
 			~Log();
 
-			static void saveToFile();
+			static void saveToFile(const std::string& fileLocation, LogType typeToSave);
+			static void saveToFiles();
 
 			// Output the casted log
-			static void out(const std::string& log, LogType logType);
+			static void out();
 
 		public:
 			template <typename T>
 			static void exception(const T& log)
 			{
-				out(std::string("EXCEPTION: ") + log, LogType::EXCEPTION);
+				LogType type = LogType::EXCEPTION;
+				instance()->queues[(int)type].tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), type));
+				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), LogType::GLOBAL));
 			}
 
 			template <typename T>
 			static void warning(const T& log)
 			{
-				out(std::string("Warning: ") + log, LogType::WARNING);
+				LogType type = LogType::WARNING;
+				instance()->queues[(int)type].tryPush(LogInfo(std::string("Warning: ") + std::string(log), type));
+				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("Warning: ") + std::string(log), LogType::GLOBAL));
 			}
 
 			template <typename T>
 			static void assertion(const T& log)
 			{
-				out(std::string("ASSERTION: ") + log, LogType::ASSERTION);
+				LogType type = LogType::ASSERTION;
+				instance()->queues[(int)type].tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), type));
+				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), LogType::GLOBAL));
 			}
 
 			template <typename T>
 			static void error(const T& log)
 			{
-				out(std::string("ERROR: ") + log, LogType::ERROR);
+				LogType type = LogType::ERROR;
+				instance()->queues[(int)type].tryPush(LogInfo(std::string("ERROR: ") + std::string(log), type));
+				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("ERROR: ") + std::string(log), LogType::GLOBAL));
 			}
 
 			template <typename T>
 			static void info(const T& log)
 			{
-				out(std::string("Info: ") + log, LogType::INFO);
+				LogType type = LogType::INFO;
+				instance()->queues[(int)type].tryPush(LogInfo(std::string("Info: ") + std::string(log), type));
+				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("Info: ") + std::string(log), LogType::GLOBAL));
 			}
 		};
 

@@ -1,0 +1,18 @@
+[09/16/21 - 10:51:55] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Component not found
+[09/16/21 - 10:52:16] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/16/21 - 10:52:16] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj

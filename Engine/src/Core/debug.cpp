@@ -9,42 +9,83 @@ namespace Core
 {
 	namespace Debug
 	{
+		LogInfo::LogInfo(const std::string& message, LogType type, const time_t& time)
+			: message(message), type(type), time(time)
+		{
+
+		}
+
+		std::string LogInfo::getMessage(const std::string& timeFormat)
+		{
+			return Utils::getTimeAsString("[%x - %X]", time) + ' ' + message + '\n';
+		}
+
+		Log::Log()
+		{
+			printThread = std::thread(&Log::out);
+		}
+
 		Log::~Log()
 		{
 			Log::info("Destroying the Logs Manager");
 
-			Log::saveToFile();
+			Log::saveToFiles();
+
+			if (terminate.test_and_set())
+				return;
+
+			printThread.join();
 		}
 
-		void Log::saveToFile()
+		void Log::saveToFile(const std::string& fileLocation, LogType typeToSave)
 		{
-			Log* logManager = Log::instance();
+			Log* logManager = instance();
 
 			// Create a new log file
-			std::ofstream currentFile("logs/log.txt");
+			std::ofstream currentFile(fileLocation);
+
+			std::string& logString = logManager->logsAsString[(int)typeToSave];
 
 			// Put all the logs in it
-			currentFile << logManager->logs;
+			currentFile << logString;
 
 			// Clear the logs
-			logManager->logs.clear();
+			logString.clear();
 		}
 
-		void Log::out(const std::string& log, LogType logType)
+		void Log::saveToFiles()
 		{
-			// Get the time as a string
-			std::string timeAsString = Utils::getTimeAsString("[%x - %X]");
+			saveToFile("logs/infos.txt", LogType::INFO);
+			saveToFile("logs/log.txt", LogType::GLOBAL);
+			saveToFile("logs/assertions.txt", LogType::ASSERTION);
+			saveToFile("logs/warnings.txt", LogType::WARNING);
+			saveToFile("logs/errors.txt", LogType::ERROR);
+			saveToFile("logs/exception.txt", LogType::EXCEPTION);
+		}
 
-			// Set the current log format
-			std::string currentLog = timeAsString + ' ' + log + '\n';
+		void Log::out()
+		{
+			Log* logManager = instance();
 
-			Log* logManager = Log::instance();
+			while (!logManager->terminate.test())
+			{
+				for (unsigned int i = 0; i < (int)LogType::GLOBAL; i++)
+				{
+					LogInfo log;
+					if (!logManager->queues[i].tryPop(log))
+						continue;
 
-			// Put the logs in the Log Manager 
-			logManager->logs += currentLog;
+					// Get the time as a string
+					std::string message = log.getMessage("[%x - %X]");
 
-			// Cout the current log
-			std::cout << currentLog;
+					// Put the logs in the Log Manager 
+					logManager->logsAsString[(int)log.type] += message;
+					logManager->logsAsString[(int)LogType::GLOBAL] += message;
+
+					// Cout the current log
+					std::cout << message;
+				}
+			}
 		}
 
 		Assertion::Assertion()
