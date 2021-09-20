@@ -8,6 +8,12 @@ namespace Resources
 {
 	std::shared_ptr<Material> Material::defaultMaterial = nullptr;
 
+	Material::Material(const std::string& name)
+		: Resource(name)
+	{
+
+	}
+
 	void Material::sendToShader(const std::shared_ptr<ShaderProgram>& shaderProgram) const
 	{
 		// Set the model's material informations 
@@ -64,89 +70,77 @@ namespace Resources
 		return color;
 	}
 
-	void loadMaterialsFromMtl(const std::string& dirPath, const std::string& mtlName)
+	void Material::parse(const std::string& toParse, const std::string& directoryPath)
 	{
-		std::string filePath = dirPath + mtlName;
+		std::istringstream stringStream(toParse);
 
-		// Check if the file exist
-		std::ifstream dataMat(filePath.c_str());
-		if (!dataMat)
-		{
-			Core::Debug::Log::error("Unable to read the file: " + filePath);
-			dataMat.close();
-			return;
-		}
-
-		Material mat;
 		std::string line;
-		bool isFirstMat = true;
-
-		Core::Debug::Log::info("Loading materials at " + filePath);
-
-		// Get all mesh materials
-		while (std::getline(dataMat, line))
+		while (std::getline(stringStream, line))
 		{
 			std::istringstream iss(line);
 			std::string type;
 			iss >> type;
 
-			if (type == "#" || type == "" || type == "\n")
+			if (type == "#" || type == "" || type == "\n" || type == "n")
 				continue;
 
-			if (type == "newmtl")
+			if (type == "Ns")
 			{
-				if (isFirstMat)
-					isFirstMat = false;
-				else
-				{
-					// Add the material
-					*ResourcesManager::getMaterial(mat.m_name) = mat;
-					mat = Material();
-				}
-
-				iss >> mat.m_name;
-
+				iss >> shininess;
 				continue;
 			}
-			else if (type == "Ns")
-				iss >> mat.shininess;
-			else if (type == "Ka")
-				mat.ambient = getColor(iss);
-			else if (type == "Kd")
-				mat.diffuse = getColor(iss);
-			else if (type == "Ks")
-				mat.specular = getColor(iss);
-			else if (type == "Ke")
-				mat.emissive = getColor(iss);
-			else if (type == "Ni")
-				iss >> mat.opticalDensity;
-			else if (type == "d")
-				iss >> mat.transparency;
-			else if (type == "illum")
+			if (type == "Ka")
 			{
-				iss >> mat.illumination;
+				ambient = getColor(iss);
+				continue;
+			}
+			if (type == "Kd")
+			{
+				diffuse = getColor(iss);
+				continue;
+			}
+			if (type == "Ks")
+			{
+				specular = getColor(iss);
+				continue;
+			}
+			if (type == "Ke")
+			{
+				emissive = getColor(iss);
+				continue;
+			}
+			if (type == "Ni")
+			{
+				iss >> opticalDensity;
+				continue;
+			}
+			if (type == "d")
+			{
+				iss >> transparency;
+				continue;
+			}
+			if (type == "illum")
+			{
+				iss >> illumination;
 				continue;
 			}
 
 			std::string texName;
 			iss >> texName;
 
+			std::shared_ptr<Texture> texture = ResourcesManager::getTexture(directoryPath + Utils::getFileNameFromPath(texName));
+
 			// Load mesh textures
 			if (type == "map_Ka")
-				mat.ambientTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
+				ambientTex = texture;
 			else if (type == "map_Kd")
-				mat.diffuseTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
+				diffuseTex = texture;
 			else if (type == "map_Ks")
-				mat.specularTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
+				specularTex = texture;
 			else if (type == "map_Ke")
-				mat.emissiveTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
+				emissiveTex = texture;
 			else if (type == "map_d")
-				mat.alphaTex = ResourcesManager::getTexture(dirPath + Utils::getFileNameFromPath(texName));
+				alphaTex = texture;
 		}
-
-		// Add the material
-		*ResourcesManager::getMaterial(mat.m_name) = mat;
-
-		dataMat.close();
 	}
 }

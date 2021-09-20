@@ -11,6 +11,8 @@ namespace Resources
 {
 	struct Material : public Resource
 	{
+		Material(const std::string& name);
+
 		LowRenderer::Color ambient = { 0.2f, 0.2f, 0.2f, 1.0f };
 		LowRenderer::Color diffuse = { 0.8f, 0.8f, 0.8f, 1.0f };
 		LowRenderer::Color specular = { 0.0f, 0.0f, 0.0f, 1.0f };
@@ -27,11 +29,11 @@ namespace Resources
 		float transparency = 0.f;
 		float illumination = 0.f;
 
+		void parse(const std::string& toParse, const std::string& directoryPath);
+
 		static std::shared_ptr<Material> defaultMaterial;
 
 		void sendToShader(const std::shared_ptr<Resources::ShaderProgram>& shaderProgram) const;
 		void bindTextures() const;
 	};
-
-	void loadMaterialsFromMtl(const std::string& dirPath, const std::string& fileName);
 }

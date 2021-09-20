@@ -117,7 +117,6 @@ namespace Resources
 
 	std::shared_ptr<Material> ResourcesManager::getMaterial(const std::string& materialPath)
 	{
-		
 		return loadMaterial(materialPath);
 	}
 
@@ -295,7 +294,7 @@ namespace Resources
 			return materialIt->second;
 		}
 
-		return RM->materials[materialPath] = std::make_shared<Material>();
+		return RM->materials[materialPath] = std::make_shared<Material>(materialPath);
 	}
 
 	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
@@ -340,11 +339,11 @@ namespace Resources
 
 		Core::Debug::Log::info("Start loading obj " + filePath);
 
-		std::vector<std::string> names;
 		std::string dirPath = Utils::getDirectory(filePath);
 
 		bool isFirstObject = true;
-		Resources::Mesh mesh;
+
+		std::string meshName;
 
 		Core::Debug::Log::info("Loading meshes");
 
@@ -372,19 +371,16 @@ namespace Resources
 				else
 				{
 					// Compute and add the mesh
-					std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
-					RM->meshes[mesh.m_name] = meshPtr;
+					std::shared_ptr<Mesh> meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
 
 					ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
 
-					names.push_back(mesh.m_name);
-
-					mesh = Mesh();
+					RM->childrenMeshes[filePath].push_back(meshName);
 				}
 
 				meshSubString.clear();
 
-				iss >> mesh.m_name;
+				iss >> meshName;
 
 				lastCountArray = countArray;
 			}
@@ -399,7 +395,7 @@ namespace Resources
 				std::string matName;
 				iss >> matName;
 
-				RM->childrenMaterials[mesh.m_name] = matName;
+				RM->childrenMaterials[meshName] = matName;
 			}
 			else if (type == "mtllib")
 			{
@@ -407,21 +403,16 @@ namespace Resources
 				iss >> mtlName;
 
 				// Load mtl file
-				loadMaterialsFromMtl(dirPath, mtlName);
+				//ThreadPool::addTask(std::bind(&ResourcesManager::loadMaterials, dirPath, mtlName));
+				loadMaterials(dirPath, mtlName);
 			}
 		}
 
 		// Compute and add the mesh
-		std::shared_ptr<Mesh> meshPtr(new Mesh(mesh));
-		RM->meshes[mesh.m_name] = meshPtr;
+		std::shared_ptr<Mesh> meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
+		RM->childrenMeshes[filePath].push_back(meshName);
 
 		ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
-
-		names.push_back(mesh.m_name);
-
-		RM->childrenMeshes[filePath] = names;
-
-		dataObj.close();
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
 
@@ -475,5 +466,69 @@ namespace Resources
 
 		// Load and return the material
 		return ResourcesManager::getMaterial(materialIt->second);
+	}
+
+	void ResourcesManager::loadMaterials(const std::string& dirPath, const std::string& mtlName)
+	{
+		std::string filePath = dirPath + mtlName;
+
+		// Check if the file exist
+		std::ifstream dataMat(filePath.c_str());
+		if (!dataMat)
+		{
+			Core::Debug::Log::error("Unable to read the file: " + filePath);
+			dataMat.close();
+			return;
+		}
+
+		ResourcesManager* RM = instance();
+
+		while (RM->lockMaterials.test_and_set());
+
+		std::string matName;
+		bool isFirstMat = true;
+
+		Core::Debug::Log::info("Loading materials at " + filePath);
+
+		std::string matSubString;
+
+		// Get all mesh materials
+		std::string line;
+		for (std::string line; std::getline(dataMat, line);)
+		{
+			matSubString += line + '\n';
+
+			std::istringstream iss(line);
+			std::string type;
+			iss >> type;
+
+			if (type == "newmtl")
+			{
+				if (isFirstMat)
+					isFirstMat = false;
+				else
+				{
+					// Check if the material is already loaded
+					if (RM->materials.find(matName) != RM->materials.end())
+						continue;
+
+					// Add the material
+					std::shared_ptr<Material> matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+
+					ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+				}
+
+				iss >> matName;
+
+				matSubString.clear();
+			}
+		}
+
+		// Add the material
+		std::shared_ptr<Material> matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+
+		ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+
+		RM->lockMaterials.clear();
 	}
 }

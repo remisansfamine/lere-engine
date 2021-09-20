@@ -17,6 +17,13 @@ namespace Resources
 		glBindVertexArray(0);
 	}
 
+	Mesh::Mesh(const std::string& name)
+		: Resource(name)
+	{
+
+	}
+
+
 	Mesh::~Mesh()
 	{
 		//glDeleteVertexArrays(1, &VAO);

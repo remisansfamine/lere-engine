@@ -66,9 +66,11 @@ namespace LowRenderer
 			// Send model matrix to program
 			shaderProgram->setUniform("model", m_transform->getGlobalModel().e, 1, 1);
 
+			std::shared_ptr<Resources::Material> currentMat = m_material ? m_material : Resources::Material::defaultMaterial;
+
 			// Send and bind material to program
-			m_material->sendToShader(shaderProgram);
-			m_material->bindTextures();
+			currentMat->sendToShader(shaderProgram);
+			currentMat->bindTextures();
 
 			// Draw the mesh
 			m_mesh->draw();

@@ -34,6 +34,7 @@ namespace Resources
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockCubemaps = ATOMIC_FLAG_INIT;
+		std::atomic_flag lockMaterials = ATOMIC_FLAG_INIT;
 
 		ConcurrentQueue<Resource*> toInitInMainThread;
 
@@ -69,6 +70,7 @@ namespace Resources
 		static void init();
 
 		static void loadObj(std::string filePath);
+		static void loadMaterials(const std::string& dirPath, const std::string& mtlName);
 
 		static void clearResources();
 

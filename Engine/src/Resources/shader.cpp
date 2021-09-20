@@ -179,8 +179,6 @@ namespace Resources
             // And add it to a map
             uniforms[uniName] = { location, type };
         }
-
-        int test = 0;
     }
 
     void ShaderProgram::setUniform(const std::string& target, const void* value,
