@@ -12,6 +12,8 @@
 
 #include "utils.hpp"
 
+#include <cerrno>
+
 namespace Resources
 {
 	 std::shared_ptr<Texture> Texture::defaultAlpha = nullptr;
@@ -43,11 +45,9 @@ namespace Resources
 
 		Core::Debug::Log::info("Start loading " + m_filePath + '.');
 
-
 		int channel = 0;
 
 		auto loadStart = std::chrono::system_clock::now();
-
 
 		stbi_set_flip_vertically_on_load_thread(true);
 
@@ -55,13 +55,14 @@ namespace Resources
 		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
 
 		stbi_set_flip_vertically_on_load_thread(false);
-
-
+		
 		auto loadEnd = std::chrono::system_clock::now();
 
 		if (!colorBuffer)
 		{
-			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath);
+			std::string error = std::system_error(errno, std::system_category()).code().message();
+
+			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " : " + error);
 			return false;
 		}
 
@@ -120,7 +121,7 @@ namespace Resources
 
 		std::string timeAsString = std::to_string(initDuration.count());
 
-		Core::Debug::Log::info("OpenGL initializion of " + m_filePath + " done with succes in " + timeAsString + " ms.");
+		Core::Debug::Log::info("OpenGL initialization of " + m_filePath + " done with success in " + timeAsString + " ms.");
 
 		return true;
 	}
@@ -133,6 +134,21 @@ namespace Resources
 	GLuint Texture::getID() const
 	{
 		return textureID;
+	}
+
+	int Texture::getHeight() const
+	{
+		return height;
+	}
+
+	int Texture::getWidth() const
+	{
+		return width;
+	}
+
+	void Texture::drawImGui()
+	{
+		ImGui::Image((void*)textureID, ImVec2(width, height));
 	}
 
 	bool Texture::bind(int textureIndex) const

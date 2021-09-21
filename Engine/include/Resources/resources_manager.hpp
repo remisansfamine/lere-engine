@@ -28,10 +28,13 @@ namespace Resources
 	private:
 		bool initialized = false;
 
+		bool monoThread = true;
+
 		ResourcesManager();
 		~ResourcesManager();
 		
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
+		std::atomic_flag lockMeshChildren = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockCubemaps = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMaterials = ATOMIC_FLAG_INIT;
@@ -99,5 +102,7 @@ namespace Resources
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);
 		static std::shared_ptr<Material> getMatByMeshName(const std::string& meshName);
+
+		static void drawImGui();
 	};
 }

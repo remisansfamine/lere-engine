@@ -128,19 +128,23 @@ namespace Resources
 			std::string texName;
 			iss >> texName;
 
-			std::shared_ptr<Texture> texture = ResourcesManager::getTexture(directoryPath + Utils::getFileNameFromPath(texName));
+			std::shared_ptr<Texture>* texturePtr;
 
 			// Load mesh textures
 			if (type == "map_Ka")
-				ambientTex = texture;
+				texturePtr = &ambientTex;
 			else if (type == "map_Kd")
-				diffuseTex = texture;
+				texturePtr = &diffuseTex;
 			else if (type == "map_Ks")
-				specularTex = texture;
+				texturePtr = &specularTex;
 			else if (type == "map_Ke")
-				emissiveTex = texture;
+				texturePtr = &emissiveTex;
 			else if (type == "map_d")
-				alphaTex = texture;
+				texturePtr = &alphaTex;
+			else
+				continue;
+
+			*texturePtr = ResourcesManager::getTexture(directoryPath + Utils::getFileNameFromPath(texName));
 		}
 	}
 }

@@ -17,13 +17,6 @@ namespace Resources
 		glBindVertexArray(0);
 	}
 
-	Mesh::Mesh(const std::string& name)
-		: Resource(name)
-	{
-
-	}
-
-
 	Mesh::~Mesh()
 	{
 		//glDeleteVertexArrays(1, &VAO);
@@ -90,8 +83,10 @@ namespace Resources
 		ResourcesManager::addToMainThreadInitializerQueue(this);
 	}
 
-	void addData(std::vector<Core::Maths::vec3>& dataVector, std::istringstream& iss)
+	void addData(std::vector<Core::Maths::vec3>& dataVector, const std::string& line)
 	{
+		std::istringstream iss(line);
+
 		// Get a 3D Vector data form string stream
 		Core::Maths::vec3 data = { 0.f };
 
@@ -143,8 +138,10 @@ namespace Resources
 		return false;
 	}
 
-	void addIndices(std::vector<unsigned int>& indices, std::istringstream& iss, const std::string& line)
+	void addIndices(std::vector<unsigned int>& indices, const std::string& line)
 	{
+		std::istringstream iss(line);
+
 		unsigned int indicesVertices[4];
 		unsigned int indicesUV[4];
 		unsigned int indicesNormals[4];
@@ -209,22 +206,19 @@ namespace Resources
 		std::string line;
 		while (std::getline(stringStream, line))
 		{
-			std::istringstream iss(line);
-			std::string type;
+			std::string_view view = line;
 
-			iss >> type;
-
-			if (type == "#" || type == "" || type == "\n")
+			if (view.starts_with("#") || view == "" || view.starts_with("\n"))
 				continue;
 
-			if (type == "v")
-				addData(vertices, iss);
-			else if (type == "vt")
-				addData(texCoords, iss);
-			else if (type == "vn")
-				addData(normals, iss);
-			else if (type == "f")
-				addIndices(indices, iss, line);
+			if (view.starts_with("v "))
+				addData(vertices, line.substr(2));
+			else if (view.starts_with("vt "))
+				addData(texCoords, line.substr(3));
+			else if (view.starts_with("vn "))
+				addData(normals, line.substr(3));
+			else if (view.starts_with("f "))
+				addIndices(indices, line.substr(2));
 		}
 
 		compute(offsets, vertices, texCoords, normals, indices);

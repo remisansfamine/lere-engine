@@ -33,6 +33,10 @@ namespace Resources
 		virtual bool generateID();
 
 		GLuint getID() const;
+		int getHeight() const;
+		int getWidth() const;
+
+		void drawImGui();
 
 		bool bind(int textureIndex) const;
 

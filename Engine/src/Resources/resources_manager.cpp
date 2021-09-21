@@ -9,6 +9,8 @@
 
 #include "thread_pool.hpp"
 
+#include "imgui.h"
+
 namespace Resources
 {
 	// White color
@@ -82,7 +84,7 @@ namespace Resources
 	void ResourcesManager::clearResources()
 	{
 		ResourcesManager* RM = instance();
-		
+
 		RM->clearMap(RM->textures);
 		RM->clearMap(RM->cubeMaps);
 		RM->clearMap(RM->meshes);
@@ -103,7 +105,7 @@ namespace Resources
 
 	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
 	{
-		return loadTexture( name, width, height, data);
+		return loadTexture(name, width, height, data);
 	}
 
 	std::shared_ptr<CubeMap> ResourcesManager::getCubeMap(const std::vector<std::string>& cubeMapPaths)
@@ -138,7 +140,7 @@ namespace Resources
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
 	{
 		ResourcesManager* RM = instance();
-		
+
 		const auto& shaderIt = RM->shaders.find(shaderPath);
 
 		// Check if the Shader is already loaded
@@ -314,6 +316,7 @@ namespace Resources
 
 	// Load an obj with mtl (do triangulation)
 	void ResourcesManager::loadObj(std::string filePath)
+
 	{
 		std::ifstream dataObj(filePath.c_str());
 
@@ -327,15 +330,17 @@ namespace Resources
 
 		ResourcesManager* RM = instance();
 
-		while (RM->lockMeshes.test_and_set());
+		while (RM->lockMeshChildren.test_and_set());
 
 		// Check if the object is already loaded
 		if (RM->childrenMeshes.find(filePath) != RM->childrenMeshes.end())
 		{
 			Core::Debug::Log::info("Model at " + filePath + " is already loaded");
-			RM->lockMeshes.clear();
+			RM->lockMeshChildren.clear();
 			return;
 		}
+
+		RM->lockMeshChildren.clear();
 
 		Core::Debug::Log::info("Start loading obj " + filePath);
 
@@ -343,11 +348,12 @@ namespace Resources
 
 		bool isFirstObject = true;
 
-		std::string meshName;
-
 		Core::Debug::Log::info("Loading meshes");
 
+		std::string meshName = filePath;
 		std::string meshSubString;
+
+		std::shared_ptr<Mesh> meshPtr;
 
 		std::array<unsigned int, 3> countArray{ 0u, 0u, 0u };
 		std::array<unsigned int, 3> lastCountArray{ 0u, 0u, 0u };
@@ -366,23 +372,42 @@ namespace Resources
 
 			if (type == "o")
 			{
-				if (isFirstObject)
-					isFirstObject = false;
-				else
-				{
-					// Compute and add the mesh
-					std::shared_ptr<Mesh> meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
-
-					ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
-
-					RM->childrenMeshes[filePath].push_back(meshName);
-				}
-
-				meshSubString.clear();
-
 				iss >> meshName;
 
-				lastCountArray = countArray;
+				if (isFirstObject)
+				{
+					isFirstObject = false;
+					meshSubString.clear();
+					lastCountArray = countArray;
+				}
+				else
+				{
+					if (meshPtr)
+					{
+						ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
+						meshPtr = nullptr;
+
+						lastCountArray = countArray;
+						meshSubString.clear();
+					}
+				}
+
+				while (RM->lockMeshes.test_and_set());
+
+				// Compute and add the mesh
+				if (RM->meshes.find(meshName) == RM->meshes.end())
+				{
+					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>();
+					meshPtr->m_name = meshName;
+				}
+
+				RM->lockMeshes.clear();
+
+				while (RM->lockMeshChildren.test_and_set());
+
+				RM->childrenMeshes[filePath].push_back(meshName);
+
+				RM->lockMeshChildren.clear();
 			}
 			else if (type == "v")
 				countArray[0]++;
@@ -408,15 +433,30 @@ namespace Resources
 			}
 		}
 
-		// Compute and add the mesh
-		std::shared_ptr<Mesh> meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
-		RM->childrenMeshes[filePath].push_back(meshName);
+		if (isFirstObject)
+		{
+			while (RM->lockMeshes.test_and_set());
 
-		ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
+			// Compute and add the mesh
+			if (RM->meshes.find(meshName) == RM->meshes.end())
+			{
+				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>();
+				meshPtr->m_name = meshName;
+			}
+
+			RM->lockMeshes.clear();
+
+			while (RM->lockMeshChildren.test_and_set());
+
+			RM->childrenMeshes[filePath].push_back(meshName);
+
+			RM->lockMeshChildren.clear();
+		}
+
+		if (meshPtr)
+			ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
-
-		RM->lockMeshes.clear();
 	}
 
 	std::vector<std::string>* ResourcesManager::getMeshNames(const std::string& filePath)
@@ -483,8 +523,6 @@ namespace Resources
 
 		ResourcesManager* RM = instance();
 
-		while (RM->lockMaterials.test_and_set());
-
 		std::string matName;
 		bool isFirstMat = true;
 
@@ -502,33 +540,65 @@ namespace Resources
 			std::string type;
 			iss >> type;
 
-			if (type == "newmtl")
+			if (type != "newmtl")
+				continue;
+
+			if (isFirstMat)
+				isFirstMat = false;
+			else
 			{
-				if (isFirstMat)
-					isFirstMat = false;
-				else
-				{
-					// Check if the material is already loaded
-					if (RM->materials.find(matName) != RM->materials.end())
-						continue;
+				std::shared_ptr<Material> matPtr;
 
-					// Add the material
-					std::shared_ptr<Material> matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+				while (RM->lockMaterials.test_and_set());
 
+				// Check if the material is already loaded
+				if (RM->materials.find(matName) == RM->materials.end())
+					matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+
+				RM->lockMaterials.clear();
+
+				// Add the material
+				if (matPtr)
 					ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
-				}
-
-				iss >> matName;
-
-				matSubString.clear();
 			}
+
+			iss >> matName;
+
+			matSubString.clear();
 		}
 
-		// Add the material
-		std::shared_ptr<Material> matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+		std::shared_ptr<Material> matPtr;
 
-		ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+		while (RM->lockMaterials.test_and_set());
+
+		// Check if the material is already loaded
+		if (RM->materials.find(matName) == RM->materials.end())
+			matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
 
 		RM->lockMaterials.clear();
+
+		// Add the material
+		if (matPtr)
+			ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+	}
+
+	void ResourcesManager::drawImGui()
+	{
+		ResourcesManager* RM = instance();
+
+		if (ImGui::Begin("Resources Manager"))
+		{
+			ImGui::Checkbox("Is load mono-threaded", &RM->monoThread);
+
+			if (ImGui::CollapsingHeader("Textures:"))
+			{
+				for (auto& texturePtr : RM->textures)
+				{
+					if (ImGui::CollapsingHeader(texturePtr.first.c_str()))
+						texturePtr.second->drawImGui();
+				}
+			}
+		}
+		ImGui::End();
 	}
 }

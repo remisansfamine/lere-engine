@@ -41,14 +41,12 @@ namespace Core::Engine
 
 	void EngineMaster::update()
 	{
-
 		Graph::draw();
 
 		EngineMaster* EM = instance();
 
 		if (Core::Input::InputManager::getButtonDown("Edit Toggle"))
 			EM->toggleEditMode();
-
 
 		if (EM->editMode)
 			Graph::drawImGui();
