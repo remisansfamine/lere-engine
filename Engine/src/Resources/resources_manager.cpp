@@ -7,8 +7,6 @@
 #include "maths.hpp"
 #include "utils.hpp"
 
-#include "thread_pool.hpp"
-
 #include "imgui.h"
 
 namespace Resources
@@ -35,9 +33,9 @@ namespace Resources
 	void ResourcesManager::setDefaultResources()
 	{
 		// Load the default textures
-		std::shared_ptr<Texture> whiteTex = ResourcesManager::getTexture("whiteTex", 1, 1, whiteBuffer);
-		std::shared_ptr<Texture> blackTex = ResourcesManager::getTexture("blackTex", 1, 1, blackBuffer);
-		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::getTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
+		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
+		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
 
 		// Set the default textures
 		Texture::defaultAlpha = whiteTex;
@@ -47,7 +45,7 @@ namespace Resources
 		Texture::defaultSpecular = whiteTex;
 
 		// Load the default material
-		Material::defaultMaterial = ResourcesManager::getMaterial("defaultMaterial_LERE");
+		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE");
 	}
 
 	void ResourcesManager::init()
@@ -91,50 +89,6 @@ namespace Resources
 		RM->clearMap(RM->materials);
 		//RM->clearMap(RM->shaders);
 		//RM->clearMap(RM->shaderPrograms);
-	}
-
-	std::shared_ptr<Font> ResourcesManager::getFont(const std::string& fontPath)
-	{
-		return loadFont(fontPath);
-	}
-
-	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& texturePath)
-	{
-		return loadTexture(texturePath);
-	}
-
-	std::shared_ptr<Texture> ResourcesManager::getTexture(const std::string& name, int width, int height, float* data)
-	{
-		return loadTexture(name, width, height, data);
-	}
-
-	std::shared_ptr<CubeMap> ResourcesManager::getCubeMap(const std::vector<std::string>& cubeMapPaths)
-	{
-		ResourcesManager* RM = instance();
-
-		std::string pathsDir = Utils::getDirectory(cubeMapPaths.back());
-
-		return loadCubeMap(cubeMapPaths);
-	}
-
-	std::shared_ptr<Material> ResourcesManager::getMaterial(const std::string& materialPath)
-	{
-		return loadMaterial(materialPath);
-	}
-
-	std::shared_ptr<Recipe> ResourcesManager::getRecipe(const std::string& recipePath)
-	{
-		return loadRecipe(recipePath);
-	}
-
-	std::shared_ptr<Shader> ResourcesManager::getShader(const std::string& shaderPath)
-	{
-		return loadShader(shaderPath);
-	}
-
-	std::shared_ptr<ShaderProgram> ResourcesManager::getShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
-	{
-		return loadShaderProgram(programName);
 	}
 
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
@@ -223,7 +177,7 @@ namespace Resources
 
 		RM->lockTextures.clear();
 
-		ThreadPool::addTask(std::bind(&Texture::generateBuffer, texturePtr));
+		manageTask(&Texture::generateBuffer, texturePtr);
 		//texturePtr->generateBuffer();
 
 		return texturePtr;
@@ -278,7 +232,7 @@ namespace Resources
 
 		RM->lockCubemaps.clear();
 
-		ThreadPool::addTask(std::bind(&CubeMap::generateBuffers, RM->cubeMaps[pathsDir]));
+		manageTask(&CubeMap::generateBuffers, RM->cubeMaps[pathsDir]);
 		//RM->cubeMaps[pathsDir]->generateBuffers();
 
 		return cubeMapPtr;
@@ -346,8 +300,6 @@ namespace Resources
 
 		std::string dirPath = Utils::getDirectory(filePath);
 
-		bool isFirstObject = true;
-
 		Core::Debug::Log::info("Loading meshes");
 
 		std::string meshName = filePath;
@@ -374,32 +326,20 @@ namespace Resources
 			{
 				iss >> meshName;
 
-				if (isFirstObject)
+				if (meshPtr)
 				{
-					isFirstObject = false;
-					meshSubString.clear();
-					lastCountArray = countArray;
+					manageTask(&Mesh::parse, meshPtr, meshSubString, lastCountArray);
+					meshPtr = nullptr;
 				}
-				else
-				{
-					if (meshPtr)
-					{
-						ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
-						meshPtr = nullptr;
 
-						lastCountArray = countArray;
-						meshSubString.clear();
-					}
-				}
+				lastCountArray = countArray;
+				meshSubString.clear();
 
 				while (RM->lockMeshes.test_and_set());
 
 				// Compute and add the mesh
 				if (RM->meshes.find(meshName) == RM->meshes.end())
-				{
-					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>();
-					meshPtr->m_name = meshName;
-				}
+					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
 
 				RM->lockMeshes.clear();
 
@@ -421,6 +361,13 @@ namespace Resources
 				iss >> matName;
 
 				RM->childrenMaterials[meshName] = matName;
+
+				while (RM->lockMaterials.test_and_set());
+
+				if (RM->materials.find(matName) == RM->materials.end())
+					RM->materials[matName] = std::make_shared<Material>(matName);
+
+				RM->lockMaterials.clear();
 			}
 			else if (type == "mtllib")
 			{
@@ -428,21 +375,18 @@ namespace Resources
 				iss >> mtlName;
 
 				// Load mtl file
-				//ThreadPool::addTask(std::bind(&ResourcesManager::loadMaterials, dirPath, mtlName));
-				loadMaterials(dirPath, mtlName);
+				manageTask(&ResourcesManager::loadMaterials, dirPath, mtlName);
+				//loadMaterials(dirPath, mtlName);
 			}
 		}
 
-		if (isFirstObject)
+		if (!meshPtr)
 		{
 			while (RM->lockMeshes.test_and_set());
 
 			// Compute and add the mesh
 			if (RM->meshes.find(meshName) == RM->meshes.end())
-			{
-				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>();
-				meshPtr->m_name = meshName;
-			}
+				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
 
 			RM->lockMeshes.clear();
 
@@ -454,7 +398,7 @@ namespace Resources
 		}
 
 		if (meshPtr)
-			ThreadPool::addTask(std::bind(&Mesh::parse, meshPtr, meshSubString, lastCountArray));
+			manageTask(&Mesh::parse, meshPtr, meshSubString, lastCountArray);
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
 	}
@@ -505,7 +449,7 @@ namespace Resources
 		}
 
 		// Load and return the material
-		return ResourcesManager::getMaterial(materialIt->second);
+		return ResourcesManager::loadMaterial(materialIt->second);
 	}
 
 	void ResourcesManager::loadMaterials(const std::string& dirPath, const std::string& mtlName)
@@ -524,11 +468,12 @@ namespace Resources
 		ResourcesManager* RM = instance();
 
 		std::string matName;
-		bool isFirstMat = true;
 
 		Core::Debug::Log::info("Loading materials at " + filePath);
 
 		std::string matSubString;
+
+		std::shared_ptr<Material> matPtr;
 
 		// Get all mesh materials
 		std::string line;
@@ -543,43 +488,31 @@ namespace Resources
 			if (type != "newmtl")
 				continue;
 
-			if (isFirstMat)
-				isFirstMat = false;
-			else
+			if (matPtr)
 			{
-				std::shared_ptr<Material> matPtr;
-
-				while (RM->lockMaterials.test_and_set());
-
-				// Check if the material is already loaded
-				if (RM->materials.find(matName) == RM->materials.end())
-					matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
-
-				RM->lockMaterials.clear();
-
 				// Add the material
-				if (matPtr)
-					ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+				manageTask(&Material::parse, matPtr, matSubString, dirPath);
+				matPtr = nullptr;
 			}
+
+			matSubString.clear();
 
 			iss >> matName;
 
-			matSubString.clear();
+			while (RM->lockMaterials.test_and_set());
+
+			// Check if the material is already loaded
+			if (RM->materials.find(matName) == RM->materials.end())
+				matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
+			else
+				matPtr = RM->materials[matName];
+
+			RM->lockMaterials.clear();
 		}
-
-		std::shared_ptr<Material> matPtr;
-
-		while (RM->lockMaterials.test_and_set());
-
-		// Check if the material is already loaded
-		if (RM->materials.find(matName) == RM->materials.end())
-			matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
-
-		RM->lockMaterials.clear();
 
 		// Add the material
 		if (matPtr)
-			ThreadPool::addTask(std::bind(&Material::parse, matPtr, matSubString, dirPath));
+			manageTask(&Material::parse, matPtr, matSubString, dirPath);
 	}
 
 	void ResourcesManager::drawImGui()

@@ -31,7 +31,7 @@ namespace LowRenderer
 	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
 		: SpriteRenderer(gameObject, std::shared_ptr<SpriteRenderer>(this), shaderPromgramName)
 	{
-		texture = texturePath == "" ? Resources::Texture::defaultDiffuse : Resources::ResourcesManager::getTexture(texturePath);
+		texture = texturePath == "" ? Resources::Texture::defaultDiffuse : Resources::ResourcesManager::loadTexture(texturePath);
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
 
 		tillingMultiplier = tilling.x;
@@ -63,7 +63,9 @@ namespace LowRenderer
 		int i = 0;
 		m_shaderProgram->setUniform("diffuseTex", &i);
 
-		texture->bind(0);
+		if (texture)
+			if (!texture->bind(0))
+				Resources::Texture::defaultDiffuse->bind(0);
 
 		mesh->draw();
 	}
@@ -74,9 +76,14 @@ namespace LowRenderer
 
 		if (ImGui::TreeNode("Sprite renderer"))
 		{
-			std::string texStr = "Texture : " + texture->getPath();
-			const char* texText = (texStr).c_str();
-			ImGui::Text(texText);
+			if (ImGui::CollapsingHeader("Texture:"))
+			{
+				std::string texStr = "Filepath: " + texture->getPath();
+				const char* texText = (texStr).c_str();
+				ImGui::Text(texText);
+
+				texture->drawImGui();
+			}
 
 			ImGui::DragFloat("TillingMultiplier", &tillingMultiplier, 0.1f, 0.f, 200.f);
 			ImGui::DragFloat("TillingOffset", &tillingOffset, 0.01f, 0.f, 1.f);
@@ -113,8 +120,8 @@ namespace LowRenderer
 			return;
 		}
 
-		sprite->m_shaderProgram = Resources::ResourcesManager::getShaderProgram(shaderProgramName);
-		sprite->texture = Resources::ResourcesManager::getTexture(texturePath);
+		sprite->m_shaderProgram = Resources::ResourcesManager::loadShaderProgram(shaderProgramName);
+		sprite->texture = Resources::ResourcesManager::loadTexture(texturePath);
 		sprite->tillingMultiplier = tilling.x;
 		sprite->tillingOffset = tilling.y;
 	}

@@ -1,10 +1,11 @@
 #include "engine_master.hpp"
 
+#include "resources_manager.hpp"
 #include "inputs_manager.hpp"
-#include "application.hpp"
 #include "physic_manager.hpp"
 #include "render_manager.hpp"
 #include "sound_manager.hpp"
+#include "application.hpp"
 #include "debug.hpp"
 #include "graph.hpp"
 #include "time.hpp"
@@ -49,7 +50,10 @@ namespace Core::Engine
 			EM->toggleEditMode();
 
 		if (EM->editMode)
+		{
+			Resources::ResourcesManager::drawImGui();
 			Graph::drawImGui();
+		}
 		else 
 			Graph::update();
 

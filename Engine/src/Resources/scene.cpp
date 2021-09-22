@@ -30,7 +30,7 @@ namespace Resources
 	{
 		Core::Debug::Log::info("Loading " + path);
 
-		ThreadPool::addTask(std::bind(&Scene::load, this, path));
+		ResourcesManager::manageTask(&Scene::load, this, path);
 
 		//load(path);
 	}

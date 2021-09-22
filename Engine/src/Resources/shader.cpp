@@ -20,7 +20,7 @@ namespace Resources
 
         setID();
 
-        //ThreadPool::addTask(std::bind(&Shader::setCode, this));
+        //ResourcesManager::manageTask(&Shader::setCode, this);
         setCode();
 	}
 
@@ -100,11 +100,11 @@ namespace Resources
 
         Core::Debug::Log::info("Linking " + vertPath + " and " + fragPath + " to " + programName);
 
-        vertShader = Resources::ResourcesManager::getShader(vertPath);
-        fragShader = Resources::ResourcesManager::getShader(fragPath);
+        vertShader = Resources::ResourcesManager::loadShader(vertPath);
+        fragShader = Resources::ResourcesManager::loadShader(fragPath);
 
         if (geomPath != "")
-            geomShader = Resources::ResourcesManager::getShader(geomPath);
+            geomShader = Resources::ResourcesManager::loadShader(geomPath);
 
         ResourcesManager::addToMainThreadInitializerQueue(this);
 	}

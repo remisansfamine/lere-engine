@@ -144,7 +144,7 @@ namespace Resources
 			else
 				continue;
 
-			*texturePtr = ResourcesManager::getTexture(directoryPath + Utils::getFileNameFromPath(texName));
+			*texturePtr = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 		}
 	}
 }

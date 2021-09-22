@@ -15,7 +15,7 @@ namespace LowRenderer
 	Model::Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform)
 		: m_transform(transform), m_filePath(filePath), m_name(Utils::getFileNameFromPath(filePath))
 	{
-		ThreadPool::addTask(std::bind(&Model::loadMeshes, this));
+		Resources::ResourcesManager::manageTask(&Model::loadMeshes, this);
 		//loadMeshes();
 	}
 

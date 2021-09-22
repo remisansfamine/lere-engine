@@ -8,6 +8,8 @@
 
 #include "singleton.hpp"
 
+#include "thread_pool.hpp"
+
 #include "character.hpp"
 #include "cube_map.hpp"
 #include "material.hpp"
@@ -81,7 +83,7 @@ namespace Resources
 
 		static void mainThreadQueueInitialize();
 
-		static std::shared_ptr<Font>  loadFont(const std::string& fontPath);
+		static std::shared_ptr<Font>	loadFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data);
 		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths);
@@ -90,19 +92,21 @@ namespace Resources
 		static std::shared_ptr<Shader> loadShader(const std::string& shaderPath);
 		static std::shared_ptr<ShaderProgram> loadShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
 
-		static std::shared_ptr<Font> getFont(const std::string& fontPath);
-		static std::shared_ptr<Texture> getTexture(const std::string& texturePath);
-		static std::shared_ptr<Texture> getTexture(const std::string& name, int width, int height, float* data);
-		static std::shared_ptr<CubeMap> getCubeMap(const std::vector<std::string>& cubeMapPaths);
-		static std::shared_ptr<Material> getMaterial(const std::string& materialPath);
-		static std::shared_ptr<Recipe> getRecipe(const std::string& recipePath);
-		static std::shared_ptr<Shader> getShader(const std::string& shaderPath);
-		static std::shared_ptr<ShaderProgram> getShaderProgram(const std::string& programName, const std::string& vertPath = "", const std::string& fragPath = "", const std::string& geomPath = "");
-
 		static std::vector<std::string>* getMeshNames(const std::string& filePath);
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);
 		static std::shared_ptr<Material> getMatByMeshName(const std::string& meshName);
 
 		static void drawImGui();
+
+		template <class Fct, typename... Types>
+		static void manageTask(Fct&& func, Types&&... args)
+		{
+			if (instance()->monoThread)
+			{
+				std::bind(func, args...)();
+			}
+			else
+				ThreadPool::addTask(func, args...);
+		}
 	};
 }

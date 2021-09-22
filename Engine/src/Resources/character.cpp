@@ -79,13 +79,13 @@ namespace Resources
 	Text::Text(Engine::GameObject& gameObject, std::shared_ptr<Text> ptr)
 		: Component(gameObject, ptr)
 	{
-		m_shaderProgram = Resources::ResourcesManager::getShaderProgram("skyBox");
+		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
 	}
 
 	Text::Text(Engine::GameObject& gameObject, const std::string& path)
 		: Text(gameObject, std::shared_ptr<Text>(this))
 	{
-		m_font = Resources::ResourcesManager::getFont(path);
+		m_font = Resources::ResourcesManager::loadFont(path);
 	}
 
 	Text::~Text()

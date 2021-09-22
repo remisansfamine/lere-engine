@@ -124,6 +124,7 @@ namespace Core::Engine
 
 		if (ImGui::Begin("Inspector"))
 			graph->curScene.drawInspector();
+
 		ImGui::End();
 	}
 

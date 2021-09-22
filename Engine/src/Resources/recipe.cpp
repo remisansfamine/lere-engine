@@ -13,7 +13,7 @@ namespace Resources
 	Recipe::Recipe(const std::string& filePath)
 		: Resource(filePath)
 	{
-		//ThreadPool::addTask(std::bind(&Recipe::load, this, filePath));
+		//manageTask(&Recipe::load, this, filePath);
 		load(filePath);
 	}
 

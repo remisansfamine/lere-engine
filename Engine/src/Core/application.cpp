@@ -149,8 +149,6 @@ namespace Core
 			TimeManager::computeTime();
 			Input::InputManager::compute();
 
-			Resources::ResourcesManager::drawImGui();
-
 			// Initialize resources
 			Resources::ResourcesManager::mainThreadQueueInitialize();
 

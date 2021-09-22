@@ -33,10 +33,10 @@ public:
 
     static void stopAllThread();
 
-    template <typename T>
-    static void addTask(const T& taskToAdd)
+    template <class Fct, typename... Types>
+    static void addTask(Fct&& func, Types&&... args)
     {
-        instance()->tasks.tryPush(taskToAdd);
+        instance()->tasks.tryPush(std::bind(func, args...));
     }
 
     static void addTasks(const std::initializer_list<std::function<void()>>& tasksToAdd);

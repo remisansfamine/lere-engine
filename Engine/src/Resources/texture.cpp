@@ -148,7 +148,7 @@ namespace Resources
 
 	void Texture::drawImGui()
 	{
-		ImGui::Image((void*)textureID, ImVec2(width, height));
+		ImGui::Image((void*)(std::intptr_t)textureID, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	bool Texture::bind(int textureIndex) const

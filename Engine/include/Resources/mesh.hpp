@@ -19,6 +19,7 @@ namespace Resources
 		void mainThreadInitialization() override;
 
 	public:
+		Mesh(const std::string& name);
 		~Mesh();
 
 		std::vector<float> attributs;
