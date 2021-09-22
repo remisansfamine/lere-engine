@@ -24,6 +24,8 @@ namespace Core::Engine
 		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
 	public:
+		static void reloadScene();
+
 		void loadScene(const std::string& scenePath);
 
 		static void saveCurrentScene();

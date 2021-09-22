@@ -37,4 +37,14 @@ public:
 
         return true;
 	}
+
+    void clear()
+    {
+        while (used.test_and_set());
+
+        std::queue<T> emptyQueue;
+        std::swap(*this, emptyQueue);
+
+        used.clear();
+    }
 };

@@ -15,6 +15,8 @@ class ThreadPool : public Singleton<ThreadPool>
     friend Singleton<ThreadPool>;
 
 private:
+    std::atomic<int> workingThreadCount;
+
     std::atomic_flag initialized = ATOMIC_FLAG_INIT;
     std::atomic_flag terminate = ATOMIC_FLAG_INIT;
     std::atomic<std::chrono::system_clock::time_point> lastTime = std::chrono::system_clock::now();
@@ -32,6 +34,8 @@ public:
     static void init(unsigned int workerCount = std::thread::hardware_concurrency());
 
     static void stopAllThread();
+
+    static void syncAndClean();
 
     template <class Fct, typename... Types>
     static void addTask(Fct&& func, Types&&... args)

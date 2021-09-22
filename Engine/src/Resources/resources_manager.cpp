@@ -33,9 +33,9 @@ namespace Resources
 	void ResourcesManager::setDefaultResources()
 	{
 		// Load the default textures
-		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer);
-		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer);
-		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer);
+		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer, true);
+		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer, true);
+		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer, true);
 
 		// Set the default textures
 		Texture::defaultAlpha = whiteTex;
@@ -45,7 +45,7 @@ namespace Resources
 		Texture::defaultSpecular = whiteTex;
 
 		// Load the default material
-		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE");
+		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE", true);
 	}
 
 	void ResourcesManager::init()
@@ -62,18 +62,18 @@ namespace Resources
 		RM->initialized = true;
 		Core::Debug::Log::info("Resources Manager initialized");
 
-		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag");
-		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag");
-		loadShaderProgram("colliderShader", "resources/shaders/vertexCollider.vert", "resources/shaders/fragmentCollider.frag");
-		loadShaderProgram("spriteShader", "resources/shaders/spriteVertex.vert", "resources/shaders/spriteFragment.frag");
-		loadShaderProgram("depthShader", "resources/shaders/depthShader.vert", "resources/shaders/depthShader.frag");
-		loadShaderProgram("depthCubeShader", "resources/shaders/depthCubeShader.vert", "resources/shaders/depthShader.frag", "resources/shaders/depthCubeShader.geom");
+		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag", "", true);
+		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag", "", true);
+		loadShaderProgram("colliderShader", "resources/shaders/vertexCollider.vert", "resources/shaders/fragmentCollider.frag", "", true);
+		loadShaderProgram("spriteShader", "resources/shaders/spriteVertex.vert", "resources/shaders/spriteFragment.frag", "", true);
+		loadShaderProgram("depthShader", "resources/shaders/depthShader.vert", "resources/shaders/depthShader.frag", "", true);
+		loadShaderProgram("depthCubeShader", "resources/shaders/depthCubeShader.vert", "resources/shaders/depthShader.frag", "resources/shaders/depthCubeShader.geom", true);
 
-		loadObj("resources/obj/cube.obj");
-		loadObj("resources/obj/sphere.obj");
-		loadObj("resources/obj/plane.obj");
-		loadObj("resources/obj/colliders/boxCollider.obj");
-		loadObj("resources/obj/colliders/sphereCollider.obj");
+		loadObj("resources/obj/cube.obj", true);
+		loadObj("resources/obj/sphere.obj", true);
+		loadObj("resources/obj/plane.obj", true);
+		loadObj("resources/obj/colliders/boxCollider.obj", true);
+		loadObj("resources/obj/colliders/sphereCollider.obj", true);
 
 		// Set default textures and materials
 		RM->setDefaultResources();
@@ -83,15 +83,25 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
-		RM->clearMap(RM->textures);
-		RM->clearMap(RM->cubeMaps);
-		RM->clearMap(RM->meshes);
-		RM->clearMap(RM->materials);
+		RM->childrenMeshes.clear();
+		RM->childrenMaterials.clear();
+		RM->toInitInMainThread.clear();
+	}
+
+
+	void ResourcesManager::purgeResources()
+	{
+		ResourcesManager* RM = instance();
+
+		RM->purgeMap(RM->materials, RM->lockMaterials);
+		RM->purgeMap(RM->textures, RM->lockTextures);
+		RM->purgeMap(RM->cubeMaps, RM->lockCubemaps);
+		RM->purgeMap(RM->meshes, RM->lockMeshes);
 		//RM->clearMap(RM->shaders);
 		//RM->clearMap(RM->shaderPrograms);
 	}
 
-	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath)
+	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -106,7 +116,7 @@ namespace Resources
 		return RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
 	}
 
-	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
+	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -123,7 +133,9 @@ namespace Resources
 
 	void ResourcesManager::addToMainThreadInitializerQueue(Resource* resourcePtr)
 	{
-		instance()->toInitInMainThread.tryPush(resourcePtr);
+		ResourcesManager* RM = instance();
+
+		RM->toInitInMainThread.tryPush(resourcePtr);
 	}
 
 	void ResourcesManager::mainThreadQueueInitialize()
@@ -133,10 +145,7 @@ namespace Resources
 		while (!RM->toInitInMainThread.empty())
 		{
 			Resource* resource = nullptr;
-
-			RM->toInitInMainThread.tryPop(resource);
-
-			if (resource)
+			if (RM->toInitInMainThread.tryPop(resource))
 				resource->mainThreadInitialization();
 		}
 	}
@@ -156,7 +165,7 @@ namespace Resources
 		return RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
-	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath)
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -173,17 +182,25 @@ namespace Resources
 
 		std::shared_ptr<Texture> texturePtr(new Texture(texturePath));
 
+		if (setAsPersistent)
+		{
+			while (RM->lockPersistentResources.test_and_set());
+
+			RM->persistentsResources.push_back(texturePtr);
+
+			RM->lockPersistentResources.clear();
+		}
+
 		RM->textures[texturePath] = texturePtr;
 
 		RM->lockTextures.clear();
 
 		manageTask(&Texture::generateBuffer, texturePtr);
-		//texturePtr->generateBuffer();
 
 		return texturePtr;
 	}
 
-	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data)
+	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& name, int width, int height, float* data, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -200,6 +217,15 @@ namespace Resources
 
 		std::shared_ptr<Texture> texturePtr(new Texture(name, width, height, data));
 
+		if (setAsPersistent)
+		{
+			while (RM->lockPersistentResources.test_and_set());
+
+			RM->persistentsResources.push_back(texturePtr);
+
+			RM->lockPersistentResources.clear();
+		}
+
 		RM->textures[name] = texturePtr;
 
 		RM->lockTextures.clear();
@@ -207,7 +233,7 @@ namespace Resources
 		return texturePtr;
 	}
 
-	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths)
+	std::shared_ptr<CubeMap> ResourcesManager::loadCubeMap(const std::vector<std::string>& cubeMapPaths, bool setAsPersistent)
 	{
 		if (cubeMapPaths.size() == 0)
 			return nullptr;
@@ -228,17 +254,25 @@ namespace Resources
 
 		std::shared_ptr<CubeMap> cubeMapPtr(new CubeMap(cubeMapPaths));
 
+		if (setAsPersistent)
+		{
+			while (RM->lockPersistentResources.test_and_set());
+
+			RM->persistentsResources.push_back(cubeMapPtr);
+
+			RM->lockPersistentResources.clear();
+		}
+
 		RM->cubeMaps[pathsDir] = cubeMapPtr;
 
 		RM->lockCubemaps.clear();
 
 		manageTask(&CubeMap::generateBuffers, RM->cubeMaps[pathsDir]);
-		//RM->cubeMaps[pathsDir]->generateBuffers();
 
 		return cubeMapPtr;
 	}
 
-	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath)
+	std::shared_ptr<Material> ResourcesManager::loadMaterial(const std::string& materialPath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -250,10 +284,21 @@ namespace Resources
 			return materialIt->second;
 		}
 
-		return RM->materials[materialPath] = std::make_shared<Material>(materialPath);
+		std::shared_ptr<Material> matPtr = RM->materials[materialPath] = std::make_shared<Material>(materialPath);
+
+		if (setAsPersistent)
+		{
+			while (RM->lockPersistentResources.test_and_set());
+
+			RM->persistentsResources.push_back(matPtr);
+
+			RM->lockPersistentResources.clear();
+		}
+
+		return matPtr;
 	}
 
-	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath)
+	std::shared_ptr<Recipe> ResourcesManager::loadRecipe(const std::string& recipePath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();
 
@@ -265,12 +310,22 @@ namespace Resources
 			return recipeIt->second;
 		}
 
-		return RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
+		std::shared_ptr<Recipe> recipePtr = RM->recipes[recipePath] = std::make_shared<Recipe>(recipePath);
+
+		if (setAsPersistent)
+		{
+			while (RM->lockPersistentResources.test_and_set());
+
+			RM->persistentsResources.push_back(recipePtr);
+
+			RM->lockPersistentResources.clear();
+		}
+
+		return recipePtr;
 	}
 
 	// Load an obj with mtl (do triangulation)
-	void ResourcesManager::loadObj(std::string filePath)
-
+	void ResourcesManager::loadObj(std::string filePath, bool setAsPersistent)
 	{
 		std::ifstream dataObj(filePath.c_str());
 
@@ -339,7 +394,18 @@ namespace Resources
 
 				// Compute and add the mesh
 				if (RM->meshes.find(meshName) == RM->meshes.end())
+				{
 					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
+
+					if (setAsPersistent)
+					{
+						while (RM->lockPersistentResources.test_and_set());
+
+						RM->persistentsResources.push_back(meshPtr);
+
+						RM->lockPersistentResources.clear();
+					}
+				}
 
 				RM->lockMeshes.clear();
 
@@ -376,7 +442,6 @@ namespace Resources
 
 				// Load mtl file
 				manageTask(&ResourcesManager::loadMaterials, dirPath, mtlName);
-				//loadMaterials(dirPath, mtlName);
 			}
 		}
 
@@ -386,7 +451,18 @@ namespace Resources
 
 			// Compute and add the mesh
 			if (RM->meshes.find(meshName) == RM->meshes.end())
+			{
 				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
+
+				if (setAsPersistent)
+				{
+					while (RM->lockPersistentResources.test_and_set());
+
+					RM->persistentsResources.push_back(meshPtr);
+
+					RM->lockPersistentResources.clear();
+				}
+			}
 
 			RM->lockMeshes.clear();
 
@@ -501,11 +577,13 @@ namespace Resources
 
 			while (RM->lockMaterials.test_and_set());
 
+			auto matIt = RM->materials.find(matName);
+
 			// Check if the material is already loaded
-			if (RM->materials.find(matName) == RM->materials.end())
+			if (matIt == RM->materials.end())
 				matPtr = RM->materials[matName] = std::make_shared<Material>(matName);
 			else
-				matPtr = RM->materials[matName];
+				matPtr = matIt->second;
 
 			RM->lockMaterials.clear();
 		}

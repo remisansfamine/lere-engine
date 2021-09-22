@@ -1,0 +1,1 @@
+[09/22/21 - 17:00:23] ASSERTION: bad allocation

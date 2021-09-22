@@ -6,14 +6,14 @@
 #include <locale.h>
 #include <stdio.h>
 
-#include "thread_pool.hpp"
+#include "resources_manager.hpp"
 
 namespace Resources
 {
 	Recipe::Recipe(const std::string& filePath)
 		: Resource(filePath)
 	{
-		//manageTask(&Recipe::load, this, filePath);
+		//ResourcesManager::manageTask(&Recipe::load, this, filePath);
 		load(filePath);
 	}
 

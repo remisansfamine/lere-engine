@@ -14,7 +14,9 @@ void ThreadPool::infiniteLoop()
 
         try
         {
+            TP->workingThreadCount++;
             task();
+            TP->workingThreadCount--;
         }
         catch (...)
         {
@@ -45,6 +47,15 @@ void ThreadPool::stopAllThread()
 
     for (auto& worker : TP->workers)
         worker.join();
+}
+
+void ThreadPool::syncAndClean()
+{
+    ThreadPool* TP = instance();
+
+    TP->tasks.clear();
+
+    while (TP->workingThreadCount > 0);
 }
 
 ThreadPool::~ThreadPool()

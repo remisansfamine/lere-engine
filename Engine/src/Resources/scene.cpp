@@ -30,9 +30,7 @@ namespace Resources
 	{
 		Core::Debug::Log::info("Loading " + path);
 
-		ResourcesManager::manageTask(&Scene::load, this, path);
-
-		//load(path);
+		load(path);
 	}
 
 	Scene::~Scene()
@@ -48,11 +46,13 @@ namespace Resources
 
 	void Scene::load(const std::string& _filePath)
 	{
+
 		LowRenderer::RenderManager::clearComponents<LowRenderer::SpriteRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ColliderRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
 		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
+		LowRenderer::RenderManager::clearComponents<LowRenderer::SkyBox>();
 		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
 		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
 
@@ -99,7 +99,6 @@ namespace Resources
 		scnStream.close();
 
 		isLoadFinished = true;
-		//Resources::ResourcesManager::clearResources();
 	}
 
 	void Scene::save()

@@ -2,7 +2,9 @@
 
 #include "imgui.h"
 
+#include "resources_manager.hpp"
 #include "physic_manager.hpp"
+#include "thread_pool.hpp"
 #include "application.hpp"
 #include "debug.hpp"
 #include "time.hpp"
@@ -19,9 +21,23 @@ namespace Core::Engine
 		Core::Debug::Log::info("Destroying the Graph");
 	}
 
+	void Graph::reloadScene()
+	{
+		Graph* graph = instance();
+
+		graph->curScene.load(graph->curScene.filePath);
+	}
+
 	void Graph::loadScene(const std::string& scenePath)
 	{
+		ThreadPool::syncAndClean();
+
+		Resources::ResourcesManager::clearResources();
+
 		curScene.load(scenePath);
+
+		Resources::ResourcesManager::purgeResources();
+
 		Core::TimeManager::resetTime();
 	}
 
@@ -116,6 +132,9 @@ namespace Core::Engine
 
 			if (graph->showDemoWindowImGui)
 				ImGui::ShowDemoWindow();
+
+			if (ImGui::Button("Reload current scene"))
+				reloadScene();
 
 			if (ImGui::CollapsingHeader("Hierarchy"))
 				graph->curScene.drawHierarchy();
