@@ -5,7 +5,6 @@
 #include "utils.hpp"
 
 #include "resources_manager.hpp"
-#include "thread_pool.hpp"
 #include "render_manager.hpp"
 
 #include "transform.hpp"
@@ -122,6 +121,14 @@ namespace LowRenderer
 
 	void Model::drawImGui()
 	{
-		ImGui::Text(m_filePath.c_str());
+		if (ImGui::TreeNode(m_filePath.c_str()))
+		{
+			m_material->drawImGui();
+
+			for (Model& child : m_children)
+				child.drawImGui();
+
+			ImGui::TreePop();
+		}
 	}
 }

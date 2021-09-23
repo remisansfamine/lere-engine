@@ -46,16 +46,6 @@ namespace Resources
 
 	void Scene::load(const std::string& _filePath)
 	{
-
-		LowRenderer::RenderManager::clearComponents<LowRenderer::SpriteRenderer>();
-		LowRenderer::RenderManager::clearComponents<LowRenderer::ColliderRenderer>();
-		LowRenderer::RenderManager::clearComponents<LowRenderer::ModelRenderer>();
-		LowRenderer::RenderManager::clearComponents<LowRenderer::Camera>();
-		LowRenderer::RenderManager::clearComponents<LowRenderer::Light>();
-		LowRenderer::RenderManager::clearComponents<LowRenderer::SkyBox>();
-		Physics::PhysicManager::clearComponents<Physics::SphereCollider>();
-		Physics::PhysicManager::clearComponents<Physics::BoxCollider>();
-
 		gameObjects.clear();
 		curGoName = "";
 

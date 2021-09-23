@@ -1,5 +1,7 @@
 #include "material.hpp"
 
+#include <imgui.h>
+
 #include "resources_manager.hpp"
 #include "utils.hpp"
 #include "maths.hpp"
@@ -56,6 +58,44 @@ namespace Resources
 				Texture::defaultSpecular->bind(4);
 
 		glActiveTexture(0);
+	}
+
+	void Material::drawImGui()
+	{
+		if (ImGui::TreeNode(m_filePath.c_str()))
+		{
+			if (ImGui::TreeNode("Alpha texture:"))
+			{
+				alphaTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Ambient texture:"))
+			{
+				ambientTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Diffuse texture:"))
+			{
+				diffuseTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Emissive texture:"))
+			{
+				emissiveTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Specular texture:"))
+			{
+				specularTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			ImGui::TreePop();
+		}
 	}
 
 	LowRenderer::Color getColor(std::istringstream& iss)

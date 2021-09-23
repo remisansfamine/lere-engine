@@ -15,6 +15,7 @@ namespace Resources
 	{
 	private:
 		GLuint VAO;
+		GLuint VBO;
 
 		void mainThreadInitialization() override;
 

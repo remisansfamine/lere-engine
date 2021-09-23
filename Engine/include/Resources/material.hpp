@@ -35,5 +35,7 @@ namespace Resources
 
 		void sendToShader(const std::shared_ptr<Resources::ShaderProgram>& shaderProgram) const;
 		void bindTextures() const;
+
+		void drawImGui();
 	};
 }

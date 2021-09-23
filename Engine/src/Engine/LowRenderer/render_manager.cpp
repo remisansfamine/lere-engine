@@ -235,6 +235,16 @@ namespace LowRenderer
 		}
 	}
 
+	void RenderManager::clearAll()
+	{
+		clearComponents<LowRenderer::SpriteRenderer>();
+		clearComponents<LowRenderer::ColliderRenderer>();
+		clearComponents<LowRenderer::ModelRenderer>();
+		clearComponents<LowRenderer::Camera>();
+		clearComponents<LowRenderer::Light>();
+		clearComponents<LowRenderer::SkyBox>();
+	}
+
 	std::shared_ptr<Camera> RenderManager::getCurrentCamera()
 	{
 		RenderManager* RM = instance();

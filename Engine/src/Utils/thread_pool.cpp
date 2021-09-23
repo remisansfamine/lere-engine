@@ -5,7 +5,7 @@ void ThreadPool::infiniteLoop()
 {
     ThreadPool* TP = instance();
 
-    while (!TP->terminate.test())
+    while (!TP->terminate)
     {
         std::function<void()> task;
 
@@ -31,8 +31,10 @@ void ThreadPool::init(unsigned int workerCount)
 {
     ThreadPool* TP = instance();
 
-    if (TP->initialized.test_and_set() && !TP->terminate.test())
+    if (TP->initialized && !TP->terminate)
         return;
+
+    TP->initialized = true;
 
     for (unsigned int i = 0; i < workerCount; i++)
         TP->workers.emplace_back(ThreadPool::infiniteLoop);
@@ -42,20 +44,26 @@ void ThreadPool::stopAllThread()
 {
     ThreadPool* TP = instance();
 
-    if (TP->terminate.test_and_set())
+    if (TP->terminate)
         return;
+
+    TP->terminate = true;
 
     for (auto& worker : TP->workers)
         worker.join();
 }
 
-void ThreadPool::syncAndClean()
+void ThreadPool::sync()
 {
     ThreadPool* TP = instance();
 
-    TP->tasks.clear();
-
     while (TP->workingThreadCount > 0);
+}
+
+void ThreadPool::syncAndClean()
+{
+    instance()->tasks.clear();
+    sync();
 }
 
 ThreadPool::~ThreadPool()

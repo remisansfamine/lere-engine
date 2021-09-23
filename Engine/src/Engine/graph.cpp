@@ -4,6 +4,7 @@
 
 #include "resources_manager.hpp"
 #include "physic_manager.hpp"
+#include "render_manager.hpp"
 #include "thread_pool.hpp"
 #include "application.hpp"
 #include "debug.hpp"
@@ -25,18 +26,19 @@ namespace Core::Engine
 	{
 		Graph* graph = instance();
 
-		graph->curScene.load(graph->curScene.filePath);
+		graph->loadScene(graph->curScene.filePath);
 	}
 
 	void Graph::loadScene(const std::string& scenePath)
 	{
 		ThreadPool::syncAndClean();
 
+		LowRenderer::RenderManager::clearAll();
+		Physics::PhysicManager::clearAll();
+
 		Resources::ResourcesManager::clearResources();
 
 		curScene.load(scenePath);
-
-		Resources::ResourcesManager::purgeResources();
 
 		Core::TimeManager::resetTime();
 	}

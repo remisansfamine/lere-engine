@@ -62,12 +62,9 @@ namespace Resources
 		void setDefaultResources();
 
 		template <class C>
-		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map, std::atomic_flag& mapFlag)
+		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map)
 		{
 			//std::erase_if(map, [](std::pair<const std::string&, std::shared_ptr<C>> &item) { return item->second.use_count() <= 1; });
-
-			while (mapFlag.test_and_set());
-
 			for (auto it = map.begin(); it != map.end();)
 			{
 				if (it->second.use_count() <= 1)
@@ -75,6 +72,14 @@ namespace Resources
 				else
 					it++;
 			}
+		}
+
+		template <class C>
+		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map, std::atomic_flag& mapFlag)
+		{
+			while (mapFlag.test_and_set());
+
+			purgeMap(map);
 
 			mapFlag.clear();
 		}

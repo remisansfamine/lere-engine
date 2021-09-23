@@ -17,8 +17,8 @@ class ThreadPool : public Singleton<ThreadPool>
 private:
     std::atomic<int> workingThreadCount;
 
-    std::atomic_flag initialized = ATOMIC_FLAG_INIT;
-    std::atomic_flag terminate = ATOMIC_FLAG_INIT;
+    std::atomic<bool> terminate = false;
+    std::atomic<bool> initialized = false;
     std::atomic<std::chrono::system_clock::time_point> lastTime = std::chrono::system_clock::now();
 
     std::vector<std::thread> workers;
@@ -35,6 +35,7 @@ public:
 
     static void stopAllThread();
 
+    static void sync();
     static void syncAndClean();
 
     template <class Fct, typename... Types>

@@ -157,6 +157,12 @@ namespace Physics
 		}
 	}
 
+	void PhysicManager::clearAll()
+	{
+		clearComponents<SphereCollider>();
+		clearComponents<BoxCollider>();
+	}
+
 	void PhysicManager::computeCollisions()
 	{
 		// Sort the part of the colliders linked to a rigidbody

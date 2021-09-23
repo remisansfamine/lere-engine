@@ -148,16 +148,14 @@ namespace Resources
 
 	void Texture::drawImGui()
 	{
+		ImGui::Text(m_filePath.c_str());
 		ImGui::Image((void*)(std::intptr_t)textureID, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
 	}
 
 	bool Texture::bind(int textureIndex) const
 	{
 		if (!textureID)
-		{
-			//generateID(width, height, colorBuffer);
 			return false;
-		}
 
 		glActiveTexture(GL_TEXTURE0 + textureIndex);
 		glBindTexture(GL_TEXTURE_2D, textureID);

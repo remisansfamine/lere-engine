@@ -36,27 +36,6 @@ namespace LowRenderer
 		void drawModels();
 		void drawSprites();
 
-	public:
-
-		static std::shared_ptr<Camera> getCurrentCamera();
-
-		static void draw();
-
-		static void linkComponent(const std::shared_ptr<Light>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<ModelRenderer>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<Camera>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<SkyBox>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink);
-
-		static void removeComponent(SpriteRenderer* compToRemove);
-		static void removeComponent(ModelRenderer* compToRemove);
-
 		template <class C>
 		static void clearComponents();
 
@@ -95,5 +74,28 @@ namespace LowRenderer
 		{
 			instance()->colliders.clear();
 		}
+
+	public:
+
+		static std::shared_ptr<Camera> getCurrentCamera();
+
+		static void draw();
+
+		static void linkComponent(const std::shared_ptr<Light>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<ModelRenderer>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<Camera>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<SkyBox>& compToLink);
+
+		static void linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink);
+
+		static void removeComponent(SpriteRenderer* compToRemove);
+		static void removeComponent(ModelRenderer* compToRemove);
+
+		static void clearAll();
 	};
 }

@@ -1,168 +1,22 @@
-[09/22/21 - 16:52:26] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Component not found
-[09/22/21 - 16:52:30] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:52:30] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:11] ERROR: Component not found
-[09/22/21 - 16:53:12] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:53:12] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Component not found
-[09/22/21 - 16:53:37] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:53:37] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:53:51] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 16:53:52] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 16:53:55] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Can not find material at platform0
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Component not found
-[09/22/21 - 16:56:16] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:56:16] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Can not find material at boxCollider
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Component not found
-[09/22/21 - 16:57:25] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:57:25] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:29] ERROR: Component not found
-[09/22/21 - 16:57:36] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:57:36] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 16:57:36] ERROR: Can not find material at sponza_280
-[09/22/21 - 16:57:39] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 16:57:40] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 16:57:57] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Can not find material at boxCollider
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Component not found
-[09/22/21 - 17:00:14] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 17:00:14] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:18] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:21] ERROR: Component not found
-[09/22/21 - 17:00:23] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/22/21 - 17:00:23] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/23/21 - 15:47:50] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Can not find material at boxCollider
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Component not found
+[09/23/21 - 15:47:56] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/23/21 - 15:47:56] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/23/21 - 15:48:09] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
+[09/23/21 - 15:48:09] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
+[09/23/21 - 15:48:14] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.

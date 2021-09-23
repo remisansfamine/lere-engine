@@ -37,6 +37,7 @@ namespace Physics
 		static void linkComponent(const std::shared_ptr<BoxCollider> compToLink);
 		static void removeComponent(BoxCollider* compToRemove);
 
+		static void clearAll();
 
 		template <class C>
 		static void clearComponents();

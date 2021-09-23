@@ -26,7 +26,14 @@ namespace Resources
 
 	Mesh::~Mesh()
 	{
-		//glDeleteVertexArrays(1, &VAO);
+		// Destroy the VBO
+		if (VAO)
+			glDeleteVertexArrays(1, &VAO);
+
+		// Destroy the VBO
+		if (VBO)
+			glDeleteBuffers(1, &VBO);
+
 	}
 
 	// Generate VAO, VBO and EBO from mesh
@@ -37,7 +44,6 @@ namespace Resources
 		glBindVertexArray(VAO);
 
 		// VBO initialization and binding
-		GLuint VBO;
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
@@ -58,9 +64,6 @@ namespace Resources
 		glEnableVertexAttribArray(2);
 
 		glBindVertexArray(0);
-
-		// Destroy the VBO
-		//glDeleteBuffers(1, &VBO);
 	}
 
 	void Mesh::compute(std::array<unsigned int, 3> offsets, std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices)

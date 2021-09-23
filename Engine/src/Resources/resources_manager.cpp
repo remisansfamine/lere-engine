@@ -88,7 +88,6 @@ namespace Resources
 		RM->toInitInMainThread.clear();
 	}
 
-
 	void ResourcesManager::purgeResources()
 	{
 		ResourcesManager* RM = instance();
@@ -97,8 +96,8 @@ namespace Resources
 		RM->purgeMap(RM->textures, RM->lockTextures);
 		RM->purgeMap(RM->cubeMaps, RM->lockCubemaps);
 		RM->purgeMap(RM->meshes, RM->lockMeshes);
-		//RM->clearMap(RM->shaders);
-		//RM->clearMap(RM->shaderPrograms);
+		RM->purgeMap(RM->shaders);
+		RM->purgeMap(RM->shaderPrograms);
 	}
 
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath, bool setAsPersistent)
@@ -113,7 +112,12 @@ namespace Resources
 			return shaderIt->second;
 		}
 
-		return RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
+		std::shared_ptr<Shader> shaderPtr = RM->shaders[shaderPath] = std::make_shared<Shader>(shaderPath);
+
+		if (setAsPersistent)
+			RM->persistentsResources.push_back(shaderPtr);
+
+		return shaderPtr;
 	}
 
 	std::shared_ptr<ShaderProgram> ResourcesManager::loadShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath, bool setAsPersistent)
@@ -128,7 +132,12 @@ namespace Resources
 			return programIt->second;
 		}
 
-		return RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
+		std::shared_ptr programPtr = RM->shaderPrograms[programName] = std::make_shared<ShaderProgram>(programName, vertPath, fragPath, geomPath);
+
+		if (setAsPersistent)
+			RM->persistentsResources.push_back(programPtr);
+
+		return programPtr;
 	}
 
 	void ResourcesManager::addToMainThreadInitializerQueue(Resource* resourcePtr)
@@ -148,6 +157,7 @@ namespace Resources
 			if (RM->toInitInMainThread.tryPop(resource))
 				resource->mainThreadInitialization();
 		}
+
 	}
 
 	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
@@ -604,10 +614,13 @@ namespace Resources
 			if (ImGui::CollapsingHeader("Textures:"))
 			{
 				for (auto& texturePtr : RM->textures)
-				{
-					if (ImGui::CollapsingHeader(texturePtr.first.c_str()))
-						texturePtr.second->drawImGui();
-				}
+					texturePtr.second->drawImGui();
+			}
+
+			if (ImGui::CollapsingHeader("Materials:"))
+			{
+				for (auto& materialPtr : RM->materials)
+					materialPtr.second->drawImGui();
 			}
 		}
 		ImGui::End();
