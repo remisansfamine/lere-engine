@@ -10,10 +10,8 @@
 
 #include "concurrent_queue.hpp"
 
-class ThreadPool : public Singleton<ThreadPool>
+class ThreadPool
 {
-    friend Singleton<ThreadPool>;
-
 private:
     std::atomic<int> workingThreadCount;
 
@@ -26,27 +24,26 @@ private:
 
     ConcurrentQueue<std::exception_ptr> exceptions;
 
-    ~ThreadPool();
 
-    static void infiniteLoop();
+    void infiniteLoop();
 
 public:
-    static void init(unsigned int workerCount = std::thread::hardware_concurrency());
+    ~ThreadPool();
 
-    static void stopAllThread();
+    void init(unsigned int workerCount = std::thread::hardware_concurrency());
 
-    static void sync();
-    static void syncAndClean();
+    void stopAllThread();
+
+    void sync();
+    void syncAndClean();
 
     template <class Fct, typename... Types>
-    static void addTask(Fct&& func, Types&&... args)
+    void addTask(Fct&& func, Types&&... args)
     {
-        instance()->tasks.tryPush(std::bind(func, args...));
+        tasks.tryPush(std::bind(func, args...));
     }
 
-    static void addTasks(const std::initializer_list<std::function<void()>>& tasksToAdd);
+    std::chrono::system_clock::time_point getLastTime();
 
-    static std::chrono::system_clock::time_point getLastTime();
-
-    static void rethrowExceptions();
+    void rethrowExceptions();
 };

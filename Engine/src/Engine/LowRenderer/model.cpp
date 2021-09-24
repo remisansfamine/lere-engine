@@ -101,6 +101,7 @@ namespace LowRenderer
 		if (m_mesh)
 		{
 			Core::Maths::vec3 color = Core::Maths::vec3(0.f, 1.f, 0.f);
+
 			// Send model matrix to program
 			shaderProgram->setUniform("model", modelCollider.e, 1, 1);
 			shaderProgram->setUniform("color", color.e, 1, 1);

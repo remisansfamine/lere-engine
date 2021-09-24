@@ -1,22 +1,19 @@
-[09/23/21 - 15:47:50] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Can not find material at boxCollider
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Component not found
-[09/23/21 - 15:47:56] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/23/21 - 15:47:56] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/23/21 - 15:48:09] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
-[09/23/21 - 15:48:09] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
-[09/23/21 - 15:48:14] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.
+[09/24/21 - 10:49:44] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Can not find material at boxCollider
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:49] ERROR: Component not found
+[09/24/21 - 10:49:50] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 10:49:50] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj

@@ -35,6 +35,9 @@ namespace Resources
 
 	Texture::~Texture()
 	{
+		if (colorBuffer)
+			stbi_image_free(colorBuffer);
+
 		glDeleteTextures(1, &textureID);
 	}
 

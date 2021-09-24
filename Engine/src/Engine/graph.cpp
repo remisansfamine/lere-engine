@@ -5,7 +5,7 @@
 #include "resources_manager.hpp"
 #include "physic_manager.hpp"
 #include "render_manager.hpp"
-#include "thread_pool.hpp"
+#include "thread_manager.hpp"
 #include "application.hpp"
 #include "debug.hpp"
 #include "time.hpp"
@@ -31,7 +31,7 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath)
 	{
-		ThreadPool::syncAndClean();
+		ThreadManager::syncAndClean();
 
 		LowRenderer::RenderManager::clearAll();
 		Physics::PhysicManager::clearAll();

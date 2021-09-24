@@ -348,6 +348,9 @@
     <ClCompile Include="src\Core\stb_image.cpp">
       <Filter>Fichiers sources\ThirdParty</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\thread_manager.cpp">
+      <Filter>Fichiers sources\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -592,6 +595,9 @@
     </ClInclude>
     <ClInclude Include="include\Utils\thread_pool.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="thread_manager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

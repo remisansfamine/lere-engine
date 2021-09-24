@@ -8,7 +8,7 @@
 #include "inputs_manager.hpp"
 #include "engine_master.hpp"
 #include "debug.hpp"
-#include "thread_pool.hpp"
+#include "thread_manager.hpp"
 #include "time.hpp"
 
 // glfw - Whenever the window size changed (by OS or user resize) this callback function executes
@@ -27,7 +27,7 @@ namespace Core
 
 	Application::~Application()
 	{
-		ThreadPool::kill();
+		ThreadManager::kill();
 
 		Resources::ResourcesManager::kill();
 
@@ -122,7 +122,7 @@ namespace Core
 
 		Input::InputManager::init(AP->window);
 		
-		ThreadPool::init();
+		ThreadManager::init();
 
 		AP->setImGuiColorsEditor();
 	}
@@ -138,7 +138,7 @@ namespace Core
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
-			ThreadPool::rethrowExceptions();
+			ThreadManager::rethrowExceptions();
 
 			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();

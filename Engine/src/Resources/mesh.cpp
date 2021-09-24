@@ -13,7 +13,7 @@ namespace Resources
 
 		// Bind the mesh's VAO and draw it
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)(attributs.size()));
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)attributs.size());
 		glBindVertexArray(0);
 	}
 
@@ -22,7 +22,6 @@ namespace Resources
 	{
 
 	}
-
 
 	Mesh::~Mesh()
 	{

@@ -205,7 +205,7 @@ namespace Resources
 
 		RM->lockTextures.clear();
 
-		manageTask(&Texture::generateBuffer, texturePtr);
+		manageTask(&Texture::generateBuffer, texturePtr.get());
 
 		return texturePtr;
 	}
@@ -277,7 +277,7 @@ namespace Resources
 
 		RM->lockCubemaps.clear();
 
-		manageTask(&CubeMap::generateBuffers, RM->cubeMaps[pathsDir]);
+		manageTask(&CubeMap::generateBuffers, cubeMapPtr.get());
 
 		return cubeMapPtr;
 	}
@@ -393,7 +393,7 @@ namespace Resources
 
 				if (meshPtr)
 				{
-					manageTask(&Mesh::parse, meshPtr, meshSubString, lastCountArray);
+					manageTask(&Mesh::parse, meshPtr.get(), meshSubString, lastCountArray);
 					meshPtr = nullptr;
 				}
 
@@ -484,7 +484,7 @@ namespace Resources
 		}
 
 		if (meshPtr)
-			manageTask(&Mesh::parse, meshPtr, meshSubString, lastCountArray);
+			manageTask(&Mesh::parse, meshPtr.get(), meshSubString, lastCountArray);
 
 		Core::Debug::Log::info("Finish loading obj " + filePath);
 	}
@@ -577,7 +577,7 @@ namespace Resources
 			if (matPtr)
 			{
 				// Add the material
-				manageTask(&Material::parse, matPtr, matSubString, dirPath);
+				manageTask(&Material::parse, matPtr.get(), matSubString, dirPath);
 				matPtr = nullptr;
 			}
 
@@ -600,7 +600,7 @@ namespace Resources
 
 		// Add the material
 		if (matPtr)
-			manageTask(&Material::parse, matPtr, matSubString, dirPath);
+			manageTask(&Material::parse, matPtr.get(), matSubString, dirPath);
 	}
 
 	void ResourcesManager::drawImGui()
@@ -609,8 +609,6 @@ namespace Resources
 
 		if (ImGui::Begin("Resources Manager"))
 		{
-			ImGui::Checkbox("Is load mono-threaded", &RM->monoThread);
-
 			if (ImGui::CollapsingHeader("Textures:"))
 			{
 				for (auto& texturePtr : RM->textures)

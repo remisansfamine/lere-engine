@@ -168,6 +168,7 @@
     <ClCompile Include="src\Core\Input\mouse_button.cpp" />
     <ClCompile Include="src\Core\sound_manager.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
+    <ClCompile Include="src\Core\thread_manager.cpp" />
     <ClCompile Include="src\Core\time.cpp" />
     <ClCompile Include="src\Core\timer.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
@@ -345,6 +346,7 @@
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />
     <ClInclude Include="include\Resources\recipe.hpp" />
+    <ClInclude Include="thread_manager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl" />

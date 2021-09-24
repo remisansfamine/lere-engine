@@ -3,66 +3,58 @@
 
 void ThreadPool::infiniteLoop()
 {
-    ThreadPool* TP = instance();
-
-    while (!TP->terminate)
+    while (!terminate)
     {
         std::function<void()> task;
 
-        if (!TP->tasks.tryPop(task))
+        if (!tasks.tryPop(task))
             continue;
 
         try
         {
-            TP->workingThreadCount++;
+            workingThreadCount++;
             task();
-            TP->workingThreadCount--;
+            workingThreadCount--;
         }
         catch (...)
         {
-            TP->exceptions.tryPush(std::current_exception());
+            exceptions.tryPush(std::current_exception());
         }
 
-        TP->lastTime = std::chrono::system_clock::now();
+        lastTime = std::chrono::system_clock::now();
     }
 }
 
 void ThreadPool::init(unsigned int workerCount)
 {
-    ThreadPool* TP = instance();
-
-    if (TP->initialized && !TP->terminate)
+    if (initialized && !terminate)
         return;
 
-    TP->initialized = true;
+    initialized = true;
 
     for (unsigned int i = 0; i < workerCount; i++)
-        TP->workers.emplace_back(ThreadPool::infiniteLoop);
+        workers.emplace_back(&ThreadPool::infiniteLoop, this);
 }
 
 void ThreadPool::stopAllThread()
 {
-    ThreadPool* TP = instance();
-
-    if (TP->terminate)
+    if (terminate)
         return;
 
-    TP->terminate = true;
+    terminate = true;
 
-    for (auto& worker : TP->workers)
+    for (auto& worker : workers)
         worker.join();
 }
 
 void ThreadPool::sync()
 {
-    ThreadPool* TP = instance();
-
-    while (TP->workingThreadCount > 0);
+    while (workingThreadCount > 0);
 }
 
 void ThreadPool::syncAndClean()
 {
-    instance()->tasks.clear();
+    tasks.clear();
     sync();
 }
 
@@ -71,23 +63,15 @@ ThreadPool::~ThreadPool()
     stopAllThread();
 }
 
-void ThreadPool::addTasks(const std::initializer_list<std::function<void()>>& tasksToAdd)
-{
-    ThreadPool* TP = instance();
-
-    for (const auto& task : tasksToAdd)
-        TP->tasks.tryPush(task);
-}
-
 std::chrono::system_clock::time_point ThreadPool::getLastTime()
 {
-    return instance()->lastTime;
+    return lastTime;
 }
 
 void ThreadPool::rethrowExceptions()
 {
     std::exception_ptr exception;
 
-    if (instance()->exceptions.tryPop(exception))
+    if (exceptions.tryPop(exception))
         std::rethrow_exception(exception);
 }

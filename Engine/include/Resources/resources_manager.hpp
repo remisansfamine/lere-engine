@@ -8,7 +8,7 @@
 
 #include "singleton.hpp"
 
-#include "thread_pool.hpp"
+#include "thread_manager.hpp"
 
 #include "character.hpp"
 #include "cube_map.hpp"
@@ -29,8 +29,6 @@ namespace Resources
 
 	private:
 		bool initialized = false;
-
-		bool monoThread = false;
 
 		ResourcesManager();
 		~ResourcesManager();
@@ -115,10 +113,7 @@ namespace Resources
 		template <class Fct, typename... Types>
 		static void manageTask(Fct&& func, Types&&... args)
 		{
-			if (instance()->monoThread)
-				std::bind(func, args...)();
-			else
-				ThreadPool::addTask(func, args...);
+			ThreadManager::manageTask(func, args...);
 		}
 	};
 }
