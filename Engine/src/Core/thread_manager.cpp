@@ -3,39 +3,81 @@
 
 #include "imgui.h"
 
-void ThreadManager::init(unsigned int workerCount)
+void ThreadManager::init(const std::string& poolKey, unsigned int workerCount)
 {
-    instance()->mainPool.init(workerCount);
+    instance()->pools[poolKey].init(workerCount);
 }
 
-void ThreadManager::stopAllThread()
+std::size_t ThreadManager::getWorkingThreadCount(const std::string& poolKey)
 {
-    instance()->mainPool.stopAllThread();
+    return instance()->pools[poolKey].getWorkingThreadCount();
 }
 
-void ThreadManager::sync()
+std::size_t ThreadManager::getWorkerCount(const std::string& poolKey)
 {
-    instance()->mainPool.sync();
+    return instance()->pools[poolKey].getWorkerCount();
 }
 
-void ThreadManager::syncAndClean()
+bool ThreadManager::isEmpty(const std::string& poolKey)
 {
-    instance()->mainPool.syncAndClean();
+    return instance()->pools[poolKey].isEmpty();
 }
 
-ThreadManager::~ThreadManager()
+bool ThreadManager::isMonoThreaded()
 {
-    stopAllThread();
+    return instance()->monoThread;
 }
 
-std::chrono::system_clock::time_point ThreadManager::getLastTime()
+void ThreadManager::stopAllThread(const std::string& poolKey)
 {
-    return instance()->mainPool.getLastTime();
+    instance()->pools[poolKey].stopAllThread();
+}
+
+void ThreadManager::stopAllPool()
+{
+    ThreadManager* TM = instance();
+
+    for (auto& poolPair : TM->pools)
+        poolPair.second.stopAllThread();
+}
+
+void ThreadManager::sync(const std::string& poolKey)
+{
+    instance()->pools[poolKey].sync();
+}
+
+void ThreadManager::syncAndClean(const std::string& poolKey)
+{
+    instance()->pools[poolKey].syncAndClean();
+}
+
+void ThreadManager::syncAll()
+{
+    ThreadManager* TM = instance();
+
+    for (auto& poolPair : TM->pools)
+        poolPair.second.sync();
+}
+
+void ThreadManager::syncAndCleanAll()
+{
+    ThreadManager* TM = instance();
+
+    for (auto& poolPair : TM->pools)
+        poolPair.second.syncAndClean();
+}
+
+std::chrono::system_clock::time_point ThreadManager::getLastTime(const std::string& poolKey)
+{
+    return instance()->pools[poolKey].getLastTime();
 }
 
 void ThreadManager::rethrowExceptions()
 {
-    instance()->mainPool.rethrowExceptions();
+    ThreadManager* TM = instance();
+
+    for (auto& poolPair : TM->pools)
+        poolPair.second.rethrowExceptions();
 }
 
 void ThreadManager::drawImGui()
@@ -46,6 +88,19 @@ void ThreadManager::drawImGui()
 	{
 		ImGui::Checkbox("Is load mono-threaded", &TM->monoThread);
 
+        for (const auto& poolPair : TM->pools)
+        {
+            if (ImGui::TreeNode(poolPair.first.c_str()))
+            {
+
+                std::string workingThreadString = "Working threads = " + std::to_string(poolPair.second.getWorkingThreadCount());
+                ImGui::Text(workingThreadString.c_str());
+
+                ImGui::TreePop();
+            }
+        }
 	}
 	ImGui::End();
+
+
 }

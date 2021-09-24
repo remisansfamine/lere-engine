@@ -22,21 +22,27 @@ namespace Core::Engine
 		Core::Debug::Log::info("Destroying the Graph");
 	}
 
-	void Graph::reloadScene()
+	void Graph::reloadScene(bool wipeAll)
 	{
 		Graph* graph = instance();
 
-		graph->loadScene(graph->curScene.filePath);
+		graph->loadScene(graph->curScene.filePath, wipeAll);
 	}
 
-	void Graph::loadScene(const std::string& scenePath)
+	void Graph::loadScene(const std::string& scenePath, bool wipeAll)
 	{
-		ThreadManager::syncAndClean();
+		ThreadManager::syncAndClean("load");
 
 		LowRenderer::RenderManager::clearAll();
 		Physics::PhysicManager::clearAll();
 
 		Resources::ResourcesManager::clearResources();
+
+		if (wipeAll)
+		{
+			curScene.clear();
+			Resources::ResourcesManager::purgeResources();
+		}
 
 		curScene.load(scenePath);
 
@@ -136,7 +142,10 @@ namespace Core::Engine
 				ImGui::ShowDemoWindow();
 
 			if (ImGui::Button("Reload current scene"))
-				reloadScene();
+				reloadScene(false);
+
+			if (ImGui::Button("Wipe current scene"))
+				reloadScene(true);
 
 			if (ImGui::CollapsingHeader("Hierarchy"))
 				graph->curScene.drawHierarchy();

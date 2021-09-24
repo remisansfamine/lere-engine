@@ -24,9 +24,9 @@ namespace Core::Engine
 		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
 	public:
-		static void reloadScene();
+		static void reloadScene(bool wipeAll);
 
-		void loadScene(const std::string& scenePath);
+		void loadScene(const std::string& scenePath, bool wipeAll = false);
 
 		static void saveCurrentScene();
 		static void loadNewGame();

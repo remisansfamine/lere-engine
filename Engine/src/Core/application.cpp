@@ -118,11 +118,9 @@ namespace Core
 		updateWindowSize(width, height);
 
 		// Init Managers
-		Resources::ResourcesManager::init();
+		Resources::ResourcesManager::init(4u);
 
 		Input::InputManager::init(AP->window);
-		
-		ThreadManager::init();
 
 		AP->setImGuiColorsEditor();
 	}

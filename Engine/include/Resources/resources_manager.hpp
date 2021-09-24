@@ -28,6 +28,9 @@ namespace Resources
 		friend Singleton<ResourcesManager>;
 
 	private:
+		std::atomic<bool> isLoading = false;
+		std::chrono::system_clock::time_point loadStart;
+
 		bool initialized = false;
 
 		ResourcesManager();
@@ -83,7 +86,7 @@ namespace Resources
 		}
 
 	public:
-		static void init();
+		static void init(unsigned int workerCount);
 
 		static void loadObj(std::string filePath, bool setAsPersistent = false);
 		static void loadMaterials(const std::string& dirPath, const std::string& mtlName);
@@ -94,6 +97,8 @@ namespace Resources
 		static void addToMainThreadInitializerQueue(Resource* resourcePtr);
 
 		static void mainThreadQueueInitialize();
+
+		static void checkLoadEnd();
 
 		static std::shared_ptr<Font>	loadFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath, bool setAsPersistent = false);
@@ -113,7 +118,15 @@ namespace Resources
 		template <class Fct, typename... Types>
 		static void manageTask(Fct&& func, Types&&... args)
 		{
-			ThreadManager::manageTask(func, args...);
+			ResourcesManager* RM = instance();
+
+			if (!RM->isLoading)
+			{
+				RM->loadStart = std::chrono::system_clock::now();
+				RM->isLoading = true;
+			}
+
+			ThreadManager::manageTask("load", func, args...);
 		}
 	};
 }

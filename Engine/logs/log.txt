@@ -1,307 +1,624 @@
-[09/24/21 - 10:49:43] Info: Creating the Application
-[09/24/21 - 10:49:43] Info: Creating the window
-[09/24/21 - 10:49:44] Info: Application initialized
-[09/24/21 - 10:49:44] Info: Creating the Resources Manager
-[09/24/21 - 10:49:44] Info: Resources Manager initialized
-[09/24/21 - 10:49:44] Info: Loading program shader
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/vertexShader.vert and resources/shaders/fragmentShader.frag to shader
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/vertexShader.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/fragmentShader.frag
-[09/24/21 - 10:49:44] Info: Loading program skyBox
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/skyBox.vert and resources/shaders/skyBox.frag to skyBox
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/skyBox.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/skyBox.frag
-[09/24/21 - 10:49:44] Info: Loading program colliderShader
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/vertexCollider.vert and resources/shaders/fragmentCollider.frag to colliderShader
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/vertexCollider.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/fragmentCollider.frag
-[09/24/21 - 10:49:44] Info: Loading program spriteShader
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/spriteVertex.vert and resources/shaders/spriteFragment.frag to spriteShader
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/spriteVertex.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/spriteFragment.frag
-[09/24/21 - 10:49:44] Info: Loading program depthShader
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/depthShader.vert and resources/shaders/depthShader.frag to depthShader
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/depthShader.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/depthShader.frag
-[09/24/21 - 10:49:44] Info: Loading program depthCubeShader
-[09/24/21 - 10:49:44] Info: Linking resources/shaders/depthCubeShader.vert and resources/shaders/depthShader.frag to depthCubeShader
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/depthCubeShader.vert
-[09/24/21 - 10:49:44] Info: Loading resources/shaders/depthCubeShader.geom
-[09/24/21 - 10:49:44] Info: Start loading obj resources/obj/cube.obj
-[09/24/21 - 10:49:44] Info: Loading meshes
-[09/24/21 - 10:49:44] Info: Finish loading obj resources/obj/cube.obj
-[09/24/21 - 10:49:44] Info: Start loading obj resources/obj/sphere.obj
-[09/24/21 - 10:49:44] Info: Loading meshes
-[09/24/21 - 10:49:44] Info: Finish loading obj resources/obj/sphere.obj
-[09/24/21 - 10:49:44] Info: Start loading obj resources/obj/plane.obj
-[09/24/21 - 10:49:44] Info: Loading meshes
-[09/24/21 - 10:49:44] Info: Finish loading obj resources/obj/plane.obj
-[09/24/21 - 10:49:44] Info: Start loading obj resources/obj/colliders/boxCollider.obj
-[09/24/21 - 10:49:44] Info: Loading meshes
-[09/24/21 - 10:49:44] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
-[09/24/21 - 10:49:44] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
-[09/24/21 - 10:49:44] Info: Loading meshes
-[09/24/21 - 10:49:44] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
-[09/24/21 - 10:49:44] Info: Creating the Time Manager
-[09/24/21 - 10:49:44] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/24/21 - 10:49:44] Info: Loading materials at resources/obj/colliders/boxCollider.mtl
-[09/24/21 - 10:49:44] Info: Loading materials at resources/obj/colliders/sphereCollider.mtl
-[09/24/21 - 10:49:45] Info: OpenGL initializing texture at whiteTex
-[09/24/21 - 10:49:45] Info: OpenGL initialization of whiteTex done with success in 0.022400 ms.
-[09/24/21 - 10:49:45] Info: OpenGL initializing texture at blackTex
-[09/24/21 - 10:49:45] Info: OpenGL initialization of blackTex done with success in 0.500000 ms.
-[09/24/21 - 10:49:45] Info: OpenGL initializing texture at noDiffuseTex
-[09/24/21 - 10:49:45] Info: OpenGL initialization of noDiffuseTex done with success in 0.040100 ms.
-[09/24/21 - 10:49:45] Info: Loading resources/scenes/mainMenu.scn
-[09/24/21 - 10:49:45] Info: Creating a GameObject named MainCamera
-[09/24/21 - 10:49:45] Info: Creating the Render Manager
-[09/24/21 - 10:49:45] Info: Creating a GameObject named MainMenu
-[09/24/21 - 10:49:45] Info: Creating a GameObject named SkyBox
-[09/24/21 - 10:49:45] Info: Creating a GameObject named NewGameButton
-[09/24/21 - 10:49:45] Info: Start loading resources/UI/newGameText.png.
-[09/24/21 - 10:49:45] Info: Creating a GameObject named ExitButton
-[09/24/21 - 10:49:45] Info: Start loading resources/UI/exitText.png.
-[09/24/21 - 10:49:45] Info: Creating the Graph
-[09/24/21 - 10:49:45] Info: Creating the Engine
-[09/24/21 - 10:49:45] Info: Loading of resources/UI/exitText.png done with success in 21.445600 ms.
-[09/24/21 - 10:49:45] Info: Loading of resources/UI/newGameText.png done with success in 32.908800 ms.
-[09/24/21 - 10:49:46] Info: Loading of resources/skyboxes/right.png done with success
-[09/24/21 - 10:49:46] Info: Loading of resources/skyboxes/left.png done with success
-[09/24/21 - 10:49:46] Info: Creating the Sound Manager
-[09/24/21 - 10:49:46] Info: Creating the Physic Manager
-[09/24/21 - 10:49:46] Info: OpenGL initializing texture at resources/UI/exitText.png
-[09/24/21 - 10:49:46] Info: OpenGL initialization of resources/UI/exitText.png done with success in 88.219000 ms.
-[09/24/21 - 10:49:46] Info: OpenGL initializing texture at resources/UI/newGameText.png
-[09/24/21 - 10:49:46] Info: OpenGL initialization of resources/UI/newGameText.png done with success in 5.145200 ms.
-[09/24/21 - 10:49:47] Info: Loading of resources/skyboxes/top.png done with success
-[09/24/21 - 10:49:47] Info: Loading of resources/skyboxes/bottom.png done with success
-[09/24/21 - 10:49:48] Info: Loading of resources/skyboxes/front.png done with success
-[09/24/21 - 10:49:48] Info: Loading of resources/skyboxes/back.png done with success
-[09/24/21 - 10:49:49] Info: Creating a GameObject named GameMaster
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform0
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/platforms/platform1.obj
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] ERROR: Can not find material at boxCollider
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/colliders/boxCollider.obj
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Loading materials at resources/obj/platforms/platform1.mtl
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Creating a GameObject named WareHouse
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/house/wareHouse.obj
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Creating a GameObject named AimCross
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Finish loading obj resources/obj/platforms/platform1.obj
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform1
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Loading materials at resources/obj/colliders/boxCollider.mtl
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform2
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] ERROR: Component not found
-[09/24/21 - 10:49:49] Info: Start loading resources/UI/AimCross.png.
-[09/24/21 - 10:49:49] Info: Loading materials at resources/obj/house/warehouse.mtl
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform3
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform4
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform5
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform6
-[09/24/21 - 10:49:49] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/platforms/platform0.obj
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform7
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform8
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform9
-[09/24/21 - 10:49:49] Info: Finish loading obj resources/obj/platforms/platform0.obj
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform0.obj is already loaded
-[09/24/21 - 10:49:49] Info: Start loading resources/obj/platforms/ground.jpg.
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform10
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform11
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Platform12
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PlayerLifeBar
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PlayerLifeBarPivot
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PlayerLifeRender
-[09/24/21 - 10:49:49] Info: Creating a GameObject named AmmoCounter
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Player
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform0.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform0.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform0.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/platforms/platform2.obj
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] Info: Finish loading obj resources/obj/platforms/platform2.obj
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Loading materials at resources/obj/platforms/platform0.mtl
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform1.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform2.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform2.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform2.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform2.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/platforms/platform2.obj is already loaded
-[09/24/21 - 10:49:49] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:49] Info: Start loading resources/UI/lifebar0.png.
-[09/24/21 - 10:49:49] Info: Creating a GameObject named MainCamera
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Weapon
-[09/24/21 - 10:49:49] Info: Creating a GameObject named HealKit
-[09/24/21 - 10:49:49] Info: Creating a GameObject named SkyBox
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(1)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(2)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(3)
-[09/24/21 - 10:49:49] Info: Loading of resources/UI/lifebar0.png done with success in 5.534700 ms.
-[09/24/21 - 10:49:49] Info: Start loading resources/UI/lifebar1.png.
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(4)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(5)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(6)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(7)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Sponza
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(8)
-[09/24/21 - 10:49:49] Info: Loading of resources/UI/lifebar1.png done with success in 5.569200 ms.
-[09/24/21 - 10:49:49] Info: Start loading resources/obj/house/warewhouse_Diff.jpg.
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Enemy(9)
-[09/24/21 - 10:49:49] Info: Creating a GameObject named Light
-[09/24/21 - 10:49:49] Info: Create ShadowMap
-[09/24/21 - 10:49:49] Info: ShadowMap : Attach texture and depth buffer
-[09/24/21 - 10:49:49] Info: Loading of resources/UI/AimCross.png done with success in 53.369700 ms.
-[09/24/21 - 10:49:49] Info: Loading materials at resources/obj/platforms/platform2.mtl
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
-[09/24/21 - 10:49:49] Info: Start loading obj resources/obj/gun/M1A1_thompson.obj
-[09/24/21 - 10:49:49] Info: Loading meshes
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PauseScreen
-[09/24/21 - 10:49:49] Info: Creating a GameObject named ResumeGameButton
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PauseMainMenuButton
-[09/24/21 - 10:49:49] Info: Creating a GameObject named PauseExitButton
-[09/24/21 - 10:49:49] Info: Creating a GameObject named LoseScreen
-[09/24/21 - 10:49:49] Info: Creating a GameObject named LoseText
-[09/24/21 - 10:49:49] Info: Creating a GameObject named LoseMainMenuButton
-[09/24/21 - 10:49:50] Info: Creating a GameObject named LoseExitButton
-[09/24/21 - 10:49:50] Info: Creating a GameObject named WinScreen
-[09/24/21 - 10:49:50] Info: Creating a GameObject named WinText
-[09/24/21 - 10:49:50] Info: Creating a GameObject named WinMainMenuButton
-[09/24/21 - 10:49:50] Info: Creating a GameObject named WinExitButton
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(1)
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(2)
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(3)
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(4)
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(5)
-[09/24/21 - 10:49:50] Info: Creating a GameObject named Ammo(6)
-[09/24/21 - 10:49:50] Info: Finish loading obj resources/obj/house/wareHouse.obj
-[09/24/21 - 10:49:50] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 10:49:50] Info: Start loading obj resources/obj/enemies/soldier.obj
-[09/24/21 - 10:49:50] Info: Loading meshes
-[09/24/21 - 10:49:50] Info: Finish loading obj resources/obj/enemies/soldier.obj
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Start loading obj resources/obj/Sponza-master/sponza.obj
-[09/24/21 - 10:49:50] Info: Loading meshes
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/lifebar0.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/lifebar0.png done with success in 8.323200 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/lifebar1.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/lifebar1.png done with success in 4.490200 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/AimCross.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/AimCross.png done with success in 16.552800 ms.
-[09/24/21 - 10:49:50] Info: Loading of resources/obj/platforms/ground.jpg done with success in 616.275800 ms.
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/enemies/soldier.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
-[09/24/21 - 10:49:50] Info: Start loading resources/obj/platforms/wall.jpg.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/obj/platforms/ground.jpg
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/obj/platforms/ground.jpg done with success in 33.354700 ms.
-[09/24/21 - 10:49:50] Info: Loading of resources/obj/platforms/wall.jpg done with success in 389.947700 ms.
-[09/24/21 - 10:49:50] Info: Loading materials at resources/obj/colliders/sphereCollider.mtl
-[09/24/21 - 10:49:50] Info: Loading materials at resources/obj/gun/M1A1_thompson.mtl
-[09/24/21 - 10:49:50] Info: Start loading resources/UI/resumeGameText.png.
-[09/24/21 - 10:49:50] Info: Loading of resources/UI/resumeGameText.png done with success in 5.298400 ms.
-[09/24/21 - 10:49:50] Info: Start loading resources/UI/mainMenuText.png.
-[09/24/21 - 10:49:50] Info: Loading of resources/UI/mainMenuText.png done with success in 5.048600 ms.
-[09/24/21 - 10:49:50] Info: Start loading resources/UI/loseText.png.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/obj/platforms/wall.jpg
-[09/24/21 - 10:49:50] Info: Loading of resources/UI/loseText.png done with success in 4.671500 ms.
-[09/24/21 - 10:49:50] Info: Start loading resources/UI/winText.png.
-[09/24/21 - 10:49:50] Info: Loading of resources/UI/winText.png done with success in 4.440500 ms.
-[09/24/21 - 10:49:50] Info: Start loading resources/UI/ammo.png.
-[09/24/21 - 10:49:50] Info: Loading of resources/UI/ammo.png done with success in 22.577600 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/obj/platforms/wall.jpg done with success in 59.731800 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/resumeGameText.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/resumeGameText.png done with success in 8.701700 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/mainMenuText.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/mainMenuText.png done with success in 71.398300 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/loseText.png
-[09/24/21 - 10:49:50] Info: OpenGL initialization of resources/UI/loseText.png done with success in 3.980100 ms.
-[09/24/21 - 10:49:50] Info: OpenGL initializing texture at resources/UI/winText.png
-[09/24/21 - 10:49:51] Info: OpenGL initialization of resources/UI/winText.png done with success in 8.954800 ms.
-[09/24/21 - 10:49:51] Info: OpenGL initializing texture at resources/UI/ammo.png
-[09/24/21 - 10:49:51] Info: Finish loading obj resources/obj/gun/M1A1_thompson.obj
-[09/24/21 - 10:49:51] Info: OpenGL initialization of resources/UI/ammo.png done with success in 80.319600 ms.
-[09/24/21 - 10:49:51] Info: Loading materials at resources/obj/enemies/soldier.mtl
-[09/24/21 - 10:49:51] Info: Loading materials at resources/obj/Sponza-master/sponza.mtl
-[09/24/21 - 10:49:51] Info: Start loading resources/obj/platforms/515.jpg.
-[09/24/21 - 10:49:52] Info: Loading of resources/obj/house/warewhouse_Diff.jpg done with success in 2256.506100 ms.
-[09/24/21 - 10:49:52] Info: OpenGL initializing texture at resources/obj/house/warewhouse_Diff.jpg
-[09/24/21 - 10:49:52] Info: OpenGL initialization of resources/obj/house/warewhouse_Diff.jpg done with success in 134.933900 ms.
-[09/24/21 - 10:49:57] Info: Loading of resources/obj/platforms/515.jpg done with success in 6105.961400 ms.
-[09/24/21 - 10:50:03] Info: Finish loading obj resources/obj/Sponza-master/sponza.obj
-[09/24/21 - 10:50:03] Info: Destroying the Resources Manager
-[09/24/21 - 10:50:03] Info: Destroying the Application
-[09/24/21 - 10:50:03] Info: Destroying the Engine
-[09/24/21 - 10:50:03] Info: Destroying the Graph
-[09/24/21 - 10:50:03] Info: Destroying the Physic Manager
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform1.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/house/wareHouse.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform0.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform0.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform0.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform0.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform0.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform2.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform1.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform2.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform2.obj
-[09/24/21 - 10:50:03] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:51:53] Info: Creating the Application
+[09/24/21 - 15:51:53] Info: Creating the window
+[09/24/21 - 15:51:53] Info: Application initialized
+[09/24/21 - 15:51:53] Info: Creating the Resources Manager
+[09/24/21 - 15:51:53] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/24/21 - 15:51:53] Info: Resources Manager initialized
+[09/24/21 - 15:51:53] Info: Loading program shader
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/vertexShader.vert and resources/shaders/fragmentShader.frag to shader
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/vertexShader.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/fragmentShader.frag
+[09/24/21 - 15:51:53] Info: Loading program skyBox
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/skyBox.vert and resources/shaders/skyBox.frag to skyBox
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/skyBox.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/skyBox.frag
+[09/24/21 - 15:51:53] Info: Loading program colliderShader
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/vertexCollider.vert and resources/shaders/fragmentCollider.frag to colliderShader
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/vertexCollider.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/fragmentCollider.frag
+[09/24/21 - 15:51:53] Info: Loading program spriteShader
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/spriteVertex.vert and resources/shaders/spriteFragment.frag to spriteShader
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/spriteVertex.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/spriteFragment.frag
+[09/24/21 - 15:51:53] Info: Loading program depthShader
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/depthShader.vert and resources/shaders/depthShader.frag to depthShader
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/depthShader.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/depthShader.frag
+[09/24/21 - 15:51:53] Info: Loading program depthCubeShader
+[09/24/21 - 15:51:53] Info: Linking resources/shaders/depthCubeShader.vert and resources/shaders/depthShader.frag to depthCubeShader
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/depthCubeShader.vert
+[09/24/21 - 15:51:53] Info: Loading resources/shaders/depthCubeShader.geom
+[09/24/21 - 15:51:53] Info: Start loading obj resources/obj/cube.obj
+[09/24/21 - 15:51:53] Info: Loading meshes
+[09/24/21 - 15:51:53] Info: Finish loading obj resources/obj/cube.obj
+[09/24/21 - 15:51:53] Info: Start loading obj resources/obj/sphere.obj
+[09/24/21 - 15:51:53] Info: Loading meshes
+[09/24/21 - 15:51:53] Info: Finish loading obj resources/obj/sphere.obj
+[09/24/21 - 15:51:53] Info: Start loading obj resources/obj/plane.obj
+[09/24/21 - 15:51:53] Info: Loading meshes
+[09/24/21 - 15:51:53] Info: Finish loading obj resources/obj/plane.obj
+[09/24/21 - 15:51:53] Info: Start loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:51:53] Info: Loading meshes
+[09/24/21 - 15:51:53] Info: Loading materials at resources/obj/colliders/boxCollider.mtl
+[09/24/21 - 15:51:53] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:51:53] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:51:53] Info: Loading meshes
+[09/24/21 - 15:51:53] Info: Loading materials at resources/obj/colliders/sphereCollider.mtl
+[09/24/21 - 15:51:53] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:51:53] Info: Creating the Time Manager
+[09/24/21 - 15:51:54] Info: OpenGL initializing texture at whiteTex
+[09/24/21 - 15:51:54] Info: OpenGL initialization of whiteTex done with success in 0.059600 ms.
+[09/24/21 - 15:51:54] Info: OpenGL initializing texture at blackTex
+[09/24/21 - 15:51:54] Info: OpenGL initialization of blackTex done with success in 0.502600 ms.
+[09/24/21 - 15:51:54] Info: OpenGL initializing texture at noDiffuseTex
+[09/24/21 - 15:51:54] Info: OpenGL initialization of noDiffuseTex done with success in 0.044500 ms.
+[09/24/21 - 15:51:54] Info: The scene totally loaded in 300.308100 ms, without OpenGL initialization the scene took 41.698400 ms with 4 threads.
+[09/24/21 - 15:51:54] Info: Loading resources/scenes/mainMenu.scn
+[09/24/21 - 15:51:54] Info: Creating a GameObject named MainCamera
+[09/24/21 - 15:51:54] Info: Creating the Render Manager
+[09/24/21 - 15:51:54] Info: Creating a GameObject named MainMenu
+[09/24/21 - 15:51:54] Info: Creating a GameObject named SkyBox
+[09/24/21 - 15:51:54] Info: Creating a GameObject named NewGameButton
+[09/24/21 - 15:51:54] Info: Start loading resources/UI/newGameText.png.
+[09/24/21 - 15:51:54] Info: Creating a GameObject named ExitButton
+[09/24/21 - 15:51:54] Info: Start loading resources/UI/exitText.png.
+[09/24/21 - 15:51:54] Info: Creating the Graph
+[09/24/21 - 15:51:54] Info: Creating the Engine
+[09/24/21 - 15:51:54] Info: Loading of resources/UI/exitText.png done with success in 11.928000 ms.
+[09/24/21 - 15:51:54] Info: Loading of resources/UI/newGameText.png done with success in 18.795700 ms.
+[09/24/21 - 15:51:54] Info: Creating the Sound Manager
+[09/24/21 - 15:51:54] Info: Creating the Physic Manager
+[09/24/21 - 15:51:54] Info: OpenGL initializing texture at resources/UI/exitText.png
+[09/24/21 - 15:51:54] Info: OpenGL initialization of resources/UI/exitText.png done with success in 120.655400 ms.
+[09/24/21 - 15:51:54] Info: OpenGL initializing texture at resources/UI/newGameText.png
+[09/24/21 - 15:51:54] Info: Loading of resources/skyboxes/right.png done with success
+[09/24/21 - 15:51:54] Info: OpenGL initialization of resources/UI/newGameText.png done with success in 22.444700 ms.
+[09/24/21 - 15:51:54] Info: Loading of resources/skyboxes/left.png done with success
+[09/24/21 - 15:51:54] Info: Loading of resources/skyboxes/top.png done with success
+[09/24/21 - 15:51:55] Info: Loading of resources/skyboxes/bottom.png done with success
+[09/24/21 - 15:51:55] Info: Loading of resources/skyboxes/front.png done with success
+[09/24/21 - 15:51:55] Info: Loading of resources/skyboxes/back.png done with success
+[09/24/21 - 15:51:55] Info: The scene totally loaded in 1632.903600 ms, without OpenGL initialization the scene took 1484.416000 ms with 4 threads.
+[09/24/21 - 15:51:57] Info: Creating a GameObject named GameMaster
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform0
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named WareHouse
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/platforms/platform1.obj
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named AimCross
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:51:57] ERROR: Can not find material at boxCollider
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform1
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform2
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform3
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/platforms/platform1.obj
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/house/wareHouse.obj
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform4
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] ERROR: Component not found
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/AimCross.png.
+[09/24/21 - 15:51:57] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform5
+[09/24/21 - 15:51:57] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform6
+[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform7
+[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform8
+[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform9
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/platforms/platform0.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform10
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform11
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/platforms/platform0.obj
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Platform12
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/colliders/boxCollider.mtl
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PlayerLifeBar
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PlayerLifeBarPivot
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/platforms/platform1.mtl
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PlayerLifeRender
+[09/24/21 - 15:51:57] Info: Creating a GameObject named AmmoCounter
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Player
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named MainCamera
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Weapon
+[09/24/21 - 15:51:57] Info: Creating a GameObject named HealKit
+[09/24/21 - 15:51:57] Info: Creating a GameObject named SkyBox
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(1)
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/house/warehouse.mtl
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(2)
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(3)
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/platforms/platform2.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(4)
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/platforms/platform2.obj
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(5)
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform1.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(6)
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(7)
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/platforms/platform0.mtl
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Sponza
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(8)
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Enemy(9)
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Light
+[09/24/21 - 15:51:57] Info: Create ShadowMap
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: ShadowMap : Attach texture and depth buffer
+[09/24/21 - 15:51:57] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/lifebar0.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/lifebar0.png done with success in 2.700800 ms.
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/lifebar1.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/lifebar1.png done with success in 2.916300 ms.
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/gun/M1A1_thompson.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/AimCross.png done with success in 11.721000 ms.
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/enemies/soldier.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/enemies/soldier.obj
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/platforms/platform2.mtl
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Start loading obj resources/obj/Sponza-master/sponza.obj
+[09/24/21 - 15:51:57] Info: Loading meshes
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:51:57] Info: Start loading resources/obj/platforms/ground.jpg.
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/house/wareHouse.obj
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/colliders/sphereCollider.mtl
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/gun/M1A1_thompson.mtl
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/enemies/soldier.mtl
+[09/24/21 - 15:51:57] Info: Start loading resources/obj/house/warewhouse_Diff.jpg.
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PauseScreen
+[09/24/21 - 15:51:57] Info: Creating a GameObject named ResumeGameButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PauseMainMenuButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named PauseExitButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named LoseScreen
+[09/24/21 - 15:51:57] Info: Creating a GameObject named LoseText
+[09/24/21 - 15:51:57] Info: Creating a GameObject named LoseMainMenuButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named LoseExitButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named WinScreen
+[09/24/21 - 15:51:57] Info: Creating a GameObject named WinText
+[09/24/21 - 15:51:57] Info: Creating a GameObject named WinMainMenuButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named WinExitButton
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(1)
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(2)
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(3)
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(4)
+[09/24/21 - 15:52:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(5)
+[09/24/21 - 15:51:57] Info: Creating a GameObject named Ammo(6)
+[09/24/21 - 15:51:57] Info: Finish loading obj resources/obj/gun/M1A1_thompson.obj
+[09/24/21 - 15:51:57] Info: Start loading resources/obj/platforms/wall.jpg.
+[09/24/21 - 15:51:57] Info: Loading of resources/obj/platforms/ground.jpg done with success in 256.959600 ms.
+[09/24/21 - 15:51:57] Info: Loading materials at resources/obj/Sponza-master/sponza.mtl
+[09/24/21 - 15:51:57] Info: Loading of resources/obj/platforms/wall.jpg done with success in 146.712100 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initializing texture at resources/UI/lifebar0.png
+[09/24/21 - 15:51:57] Info: OpenGL initialization of resources/UI/lifebar0.png done with success in 25.376100 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initializing texture at resources/UI/lifebar1.png
+[09/24/21 - 15:51:57] Info: OpenGL initialization of resources/UI/lifebar1.png done with success in 26.025200 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initializing texture at resources/UI/AimCross.png
+[09/24/21 - 15:51:57] Info: OpenGL initialization of resources/UI/AimCross.png done with success in 33.610200 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initializing texture at resources/obj/platforms/ground.jpg
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/resumeGameText.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/resumeGameText.png done with success in 2.652800 ms.
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/mainMenuText.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/mainMenuText.png done with success in 3.592900 ms.
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/loseText.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/loseText.png done with success in 4.204200 ms.
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/winText.png.
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/winText.png done with success in 2.182600 ms.
+[09/24/21 - 15:51:57] Info: Start loading resources/UI/ammo.png.
+[09/24/21 - 15:51:57] Info: OpenGL initialization of resources/obj/platforms/ground.jpg done with success in 60.326700 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initializing texture at resources/obj/platforms/wall.jpg
+[09/24/21 - 15:51:57] Info: Loading of resources/UI/ammo.png done with success in 9.986400 ms.
+[09/24/21 - 15:51:57] Info: OpenGL initialization of resources/obj/platforms/wall.jpg done with success in 22.788200 ms.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/UI/resumeGameText.png
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/UI/resumeGameText.png done with success in 21.591400 ms.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/UI/mainMenuText.png
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/UI/mainMenuText.png done with success in 16.184100 ms.
+[09/24/21 - 15:52:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/UI/loseText.png
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/UI/loseText.png done with success in 26.401200 ms.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/UI/winText.png
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/UI/winText.png done with success in 13.602600 ms.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/UI/ammo.png
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/UI/ammo.png done with success in 25.090800 ms.
+[09/24/21 - 15:51:58] Info: Start loading resources/obj/platforms/515.jpg.
+[09/24/21 - 15:51:58] Info: Loading of resources/obj/house/warewhouse_Diff.jpg done with success in 1157.095300 ms.
+[09/24/21 - 15:51:58] Info: OpenGL initializing texture at resources/obj/house/warewhouse_Diff.jpg
+[09/24/21 - 15:51:58] Info: OpenGL initialization of resources/obj/house/warewhouse_Diff.jpg done with success in 129.600800 ms.
+[09/24/21 - 15:51:58] Info: Start loading resources/obj/gun/diffuseGun.png.
+[09/24/21 - 15:51:58] Info: Start loading resources/obj/enemies/soldier.png.
+[09/24/21 - 15:51:59] Info: Loading of resources/obj/enemies/soldier.png done with success in 296.952700 ms.
+[09/24/21 - 15:51:59] Info: OpenGL initializing texture at resources/obj/enemies/soldier.png
+[09/24/21 - 15:51:59] Info: OpenGL initialization of resources/obj/enemies/soldier.png done with success in 54.824500 ms.
+[09/24/21 - 15:51:59] Info: Finish loading obj resources/obj/Sponza-master/sponza.obj
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/lion.tga.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/background.tga.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/lion.tga done with success in 190.481900 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/vase_plant.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/lion.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/lion.tga done with success in 33.164100 ms.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/background.tga done with success in 241.358800 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/vase_plant_mask.tga.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/sponza_arch_diff.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/background.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/background.tga done with success in 30.635400 ms.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/vase_plant.tga done with success in 238.335000 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/spnza_bricks_a_diff.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/vase_plant.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/vase_plant.tga done with success in 30.933800 ms.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/sponza_arch_diff.tga done with success in 251.727800 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/sponza_ceiling_a_diff.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_arch_diff.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_arch_diff.tga done with success in 24.517400 ms.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/spnza_bricks_a_diff.tga done with success in 246.046500 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/chain_texture.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/spnza_bricks_a_diff.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/spnza_bricks_a_diff.tga done with success in 48.693700 ms.
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/chain_texture.tga done with success in 55.260200 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/chain_texture_mask.tga.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/sponza_column_a_diff.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/chain_texture.tga
+[09/24/21 - 15:52:01] Info: Loading of resources/obj/Sponza-master/sponza_ceiling_a_diff.tga done with success in 234.211600 ms.
+[09/24/21 - 15:52:01] Info: Start loading resources/obj/Sponza-master/sponza_column_b_diff.tga.
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/chain_texture.tga done with success in 9.988400 ms.
+[09/24/21 - 15:52:01] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_ceiling_a_diff.tga
+[09/24/21 - 15:52:01] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_ceiling_a_diff.tga done with success in 29.199000 ms.
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_column_a_diff.tga done with success in 220.881200 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_column_c_diff.tga.
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_column_b_diff.tga done with success in 208.790600 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_details_diff.tga.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_column_a_diff.tga
+[09/24/21 - 15:52:02] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_column_a_diff.tga done with success in 49.377100 ms.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_column_b_diff.tga
+[09/24/21 - 15:52:02] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_column_b_diff.tga done with success in 45.240100 ms.
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_details_diff.tga done with success in 228.978900 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_fabric_diff.tga.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_details_diff.tga
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_column_c_diff.tga done with success in 249.833100 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_curtain_diff.tga.
+[09/24/21 - 15:52:02] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_details_diff.tga done with success in 25.648300 ms.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_column_c_diff.tga
+[09/24/21 - 15:52:02] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_column_c_diff.tga done with success in 24.681400 ms.
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_fabric_diff.tga done with success in 241.576100 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_fabric_blue_diff.tga.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_fabric_diff.tga
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/platforms/515.jpg done with success in 4362.413000 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_fabric_green_diff.tga.
+[09/24/21 - 15:52:02] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_fabric_diff.tga done with success in 61.201600 ms.
+[09/24/21 - 15:52:02] Info: OpenGL initializing texture at resources/obj/platforms/515.jpg
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_fabric_blue_diff.tga done with success in 261.487200 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_curtain_green_diff.tga.
+[09/24/21 - 15:52:02] Info: Loading of resources/obj/Sponza-master/sponza_fabric_green_diff.tga done with success in 226.024300 ms.
+[09/24/21 - 15:52:02] Info: Start loading resources/obj/Sponza-master/sponza_curtain_blue_diff.tga.
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/platforms/515.jpg done with success in 475.898600 ms.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_fabric_blue_diff.tga
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_fabric_blue_diff.tga done with success in 35.165800 ms.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_fabric_green_diff.tga
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_fabric_green_diff.tga done with success in 20.065500 ms.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_curtain_diff.tga done with success in 1062.696600 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_flagpole_diff.tga.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_curtain_diff.tga
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_curtain_diff.tga done with success in 74.101700 ms.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_flagpole_diff.tga done with success in 269.749700 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_floor_a_diff.tga.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_flagpole_diff.tga
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_flagpole_diff.tga done with success in 29.123800 ms.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_curtain_blue_diff.tga done with success in 1006.200600 ms.
+[09/24/21 - 15:52:03] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_thorn_diff.tga.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_curtain_blue_diff.tga
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_curtain_green_diff.tga done with success in 1035.300500 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_thorn_mask.tga.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_roof_diff.tga.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/gun/diffuseGun.png done with success in 4931.967300 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/sponza_roof_ddn.tga.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_floor_a_diff.tga done with success in 265.039900 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/vase_dif.tga.
+[09/24/21 - 15:52:03] Info: Loading of resources/obj/Sponza-master/sponza_thorn_diff.tga done with success in 85.815000 ms.
+[09/24/21 - 15:52:03] Info: Start loading resources/obj/Sponza-master/vase_hanging.tga.
+[09/24/21 - 15:52:03] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_curtain_blue_diff.tga done with success in 86.337300 ms.
+[09/24/21 - 15:52:03] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_curtain_green_diff.tga
+[09/24/21 - 15:52:04] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_curtain_green_diff.tga done with success in 177.473500 ms.
+[09/24/21 - 15:52:04] Info: OpenGL initializing texture at resources/obj/gun/diffuseGun.png
+[09/24/21 - 15:52:04] Info: Loading of resources/obj/Sponza-master/sponza_roof_diff.tga done with success in 356.486700 ms.
+[09/24/21 - 15:52:04] Info: Start loading resources/obj/Sponza-master/vase_round.tga.
+[09/24/21 - 15:52:04] Info: Loading of resources/obj/Sponza-master/sponza_roof_ddn.tga done with success in 447.936600 ms.
+[09/24/21 - 15:52:04] Info: Loading of resources/obj/Sponza-master/vase_hanging.tga done with success in 462.725700 ms.
+[09/24/21 - 15:52:04] Info: Loading of resources/obj/Sponza-master/vase_dif.tga done with success in 509.709600 ms.
+[09/24/21 - 15:52:04] Info: Loading of resources/obj/Sponza-master/vase_round.tga done with success in 448.125900 ms.
+[09/24/21 - 15:52:04] Info: OpenGL initialization of resources/obj/gun/diffuseGun.png done with success in 766.918000 ms.
+[09/24/21 - 15:52:04] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_floor_a_diff.tga
+[09/24/21 - 15:52:04] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_floor_a_diff.tga done with success in 109.842300 ms.
+[09/24/21 - 15:52:04] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_thorn_diff.tga
+[09/24/21 - 15:52:04] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_thorn_diff.tga done with success in 11.224200 ms.
+[09/24/21 - 15:52:04] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_roof_diff.tga
+[09/24/21 - 15:52:05] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_roof_diff.tga done with success in 36.300000 ms.
+[09/24/21 - 15:52:05] Info: OpenGL initializing texture at resources/obj/Sponza-master/sponza_roof_ddn.tga
+[09/24/21 - 15:52:05] Info: OpenGL initialization of resources/obj/Sponza-master/sponza_roof_ddn.tga done with success in 53.665100 ms.
+[09/24/21 - 15:52:05] Info: OpenGL initializing texture at resources/obj/Sponza-master/vase_hanging.tga
+[09/24/21 - 15:52:05] Info: OpenGL initialization of resources/obj/Sponza-master/vase_hanging.tga done with success in 66.457700 ms.
+[09/24/21 - 15:52:05] Info: OpenGL initializing texture at resources/obj/Sponza-master/vase_dif.tga
+[09/24/21 - 15:52:05] Info: OpenGL initialization of resources/obj/Sponza-master/vase_dif.tga done with success in 51.840700 ms.
+[09/24/21 - 15:52:05] Info: OpenGL initializing texture at resources/obj/Sponza-master/vase_round.tga
+[09/24/21 - 15:52:05] Info: OpenGL initialization of resources/obj/Sponza-master/vase_round.tga done with success in 56.337400 ms.
+[09/24/21 - 15:52:05] Info: The scene totally loaded in 8103.848800 ms, without OpenGL initialization the scene took 8039.506900 ms with 4 threads.
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform1.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/house/wareHouse.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform1.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/gun/M1A1_thompson.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/Sponza-master/sponza.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Unload model resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:17] Info: Creating a GameObject named MainCamera
+[09/24/21 - 15:52:17] Info: Creating a GameObject named MainMenu
+[09/24/21 - 15:52:17] Info: Creating a GameObject named SkyBox
+[09/24/21 - 15:52:17] Info: Creating a GameObject named NewGameButton
+[09/24/21 - 15:52:17] Info: Creating a GameObject named ExitButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named GameMaster
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform0
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named WareHouse
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/platforms/platform1.obj
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named AimCross
+[09/24/21 - 15:52:19] ERROR: Can not find material at boxCollider
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform1
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/house/wareHouse.obj
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform2
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/platforms/platform1.obj
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform3
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/platforms/platform1.mtl
+[09/24/21 - 15:52:19] ERROR: Component not found
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform4
+[09/24/21 - 15:52:19] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform5
+[09/24/21 - 15:52:19] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:19] ERROR: Can not find material at sphereCollider
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform6
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform7
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/colliders/boxCollider.mtl
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform8
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform9
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/house/warehouse.mtl
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform10
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform11
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Platform12
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PlayerLifeBar
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform0.obj is already loaded
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/platforms/platform0.mtl
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PlayerLifeBarPivot
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PlayerLifeRender
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named AmmoCounter
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Player
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform1.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named MainCamera
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/platforms/platform2.obj
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Weapon
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named HealKit
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named SkyBox
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/platforms/platform2.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(1)
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/platforms/platform2.mtl
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/gun/M1A1_thompson.obj
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(2)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(3)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(4)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(5)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(6)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(7)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Sponza
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(8)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Enemy(9)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Light
+[09/24/21 - 15:52:19] Info: Create ShadowMap
+[09/24/21 - 15:52:19] Info: ShadowMap : Attach texture and depth buffer
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/enemies/soldier.obj
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/colliders/sphereCollider.mtl
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/gun/M1A1_thompson.mtl
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Start loading obj resources/obj/Sponza-master/sponza.obj
+[09/24/21 - 15:52:19] Info: Loading meshes
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/enemies/soldier.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/boxCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Model at resources/obj/colliders/sphereCollider.obj is already loaded
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/enemies/soldier.mtl
+[09/24/21 - 15:52:19] Info: Loading materials at resources/obj/Sponza-master/sponza.mtl
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PauseScreen
+[09/24/21 - 15:52:19] Info: Creating a GameObject named ResumeGameButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PauseMainMenuButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named PauseExitButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named LoseScreen
+[09/24/21 - 15:52:19] Info: Creating a GameObject named LoseText
+[09/24/21 - 15:52:19] Info: Creating a GameObject named LoseMainMenuButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named LoseExitButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named WinScreen
+[09/24/21 - 15:52:19] Info: Creating a GameObject named WinText
+[09/24/21 - 15:52:19] Info: Creating a GameObject named WinMainMenuButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named WinExitButton
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(1)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(2)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(3)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(4)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(5)
+[09/24/21 - 15:52:19] Info: Creating a GameObject named Ammo(6)
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/house/wareHouse.obj
+[09/24/21 - 15:52:19] Info: Finish loading obj resources/obj/gun/M1A1_thompson.obj
+[09/24/21 - 15:52:20] Info: Finish loading obj resources/obj/Sponza-master/sponza.obj
+[09/24/21 - 15:52:20] Info: The scene totally loaded in 1140.036900 ms, without OpenGL initialization the scene took 1126.299400 ms with 4 threads.
+[09/24/21 - 15:52:31] Info: Destroying the Resources Manager
+[09/24/21 - 15:52:31] Info: Destroying the Application
+[09/24/21 - 15:52:31] Info: Destroying the Engine
+[09/24/21 - 15:52:31] Info: Destroying the Graph
+[09/24/21 - 15:52:31] Info: Destroying the Physic Manager
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform1.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/house/wareHouse.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform0.obj
+[09/24/21 - 15:52:31] Info: Unload model resources/obj/platforms/platform0.obj

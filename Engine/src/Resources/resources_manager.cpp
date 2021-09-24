@@ -48,7 +48,7 @@ namespace Resources
 		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE", true);
 	}
 
-	void ResourcesManager::init()
+	void ResourcesManager::init(unsigned int workerCount)
 	{
 		ResourcesManager* RM = instance();
 
@@ -61,6 +61,8 @@ namespace Resources
 
 		RM->initialized = true;
 		Core::Debug::Log::info("Resources Manager initialized");
+
+		ThreadManager::init("load", workerCount);
 
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag", "", true);
 		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag", "", true);
@@ -158,6 +160,34 @@ namespace Resources
 				resource->mainThreadInitialization();
 		}
 
+		checkLoadEnd();
+	}
+
+	void ResourcesManager::checkLoadEnd()
+	{
+		ResourcesManager* RM = instance();
+
+		if (ThreadManager::isEmpty("load") && RM->isLoading)
+		{
+			RM->isLoading = false;
+
+			std::chrono::system_clock::time_point totalLoadEnd = std::chrono::system_clock::now();
+
+			std::chrono::duration<double> totalDuration = (totalLoadEnd - RM->loadStart) * 1000;
+			std::string totalDurationString = std::to_string(totalDuration.count());
+
+			if (ThreadManager::isMonoThreaded())
+			{
+				Core::Debug::Log::info("The scene totally loaded in " + totalDurationString + " ms in mono-thread.");
+				return;
+			}
+
+			std::chrono::duration<double> threadedLoadDuration = (ThreadManager::getLastTime("load") - RM->loadStart) * 1000;
+			std::string threadedLoadDurationString = std::to_string(threadedLoadDuration.count());
+
+			std::string threadCountAsString = std::to_string(ThreadManager::getWorkerCount("load"));
+			Core::Debug::Log::info("The scene totally loaded in " + totalDurationString + " ms, without OpenGL initialization the scene took " + threadedLoadDurationString + " ms to load with " + threadCountAsString + " threads.");
+		}
 	}
 
 	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)

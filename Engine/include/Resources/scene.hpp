@@ -27,6 +27,7 @@ namespace Resources
 		Scene(const std::string& path);
 		~Scene();
 
+		void clear();
 		void load(const std::string& filePath);
 		void save();
 		void draw() const;

@@ -6,17 +6,6 @@
 
 namespace Resources
 {
-	void Mesh::draw() const
-	{
-		if (!this || !VAO)
-			return;
-
-		// Bind the mesh's VAO and draw it
-		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)attributs.size());
-		glBindVertexArray(0);
-	}
-
 	Mesh::Mesh(const std::string& name)
 		: Resource(name)
 	{
@@ -32,7 +21,6 @@ namespace Resources
 		// Destroy the VBO
 		if (VBO)
 			glDeleteBuffers(1, &VBO);
-
 	}
 
 	// Generate VAO, VBO and EBO from mesh
@@ -62,6 +50,7 @@ namespace Resources
 		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(2 * sizeof(Core::Maths::vec3)));
 		glEnableVertexAttribArray(2);
 
+		glEnableVertexAttribArray(0);
 		glBindVertexArray(0);
 	}
 
@@ -231,6 +220,17 @@ namespace Resources
 		}
 
 		compute(offsets, vertices, texCoords, normals, indices);
+	}
+
+	void Mesh::draw() const
+	{
+		if (!this || !VAO)
+			return;
+
+		// Bind the mesh's VAO and draw it
+		glBindVertexArray(VAO);
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)attributs.size());
+		glBindVertexArray(0);
 	}
 
 	void Mesh::mainThreadInitialization()

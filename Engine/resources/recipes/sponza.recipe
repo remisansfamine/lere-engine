@@ -1,2 +1,2 @@
-COMP TRANSFORM 0 0 0 0 0 0 0.25 0.25 0.25 none
+COMP TRANSFORM 0 1.1 0 0 0 0 1 1 1 none
 COMP MODELRENDERER resources/obj/Sponza-master/sponza.obj shader 1 0

@@ -34,6 +34,23 @@ void ThreadPool::init(unsigned int workerCount)
 
     for (unsigned int i = 0; i < workerCount; i++)
         workers.emplace_back(&ThreadPool::infiniteLoop, this);
+
+    threadsCount = workers.size();
+}
+
+std::size_t ThreadPool::getWorkingThreadCount() const
+{
+    return workingThreadCount.load();
+}
+
+std::size_t ThreadPool::getWorkerCount() const
+{
+    return threadsCount;
+}
+
+bool ThreadPool::isEmpty() const
+{
+    return tasks.empty() && !workingThreadCount;
 }
 
 void ThreadPool::stopAllThread()

@@ -24,13 +24,20 @@ private:
 
     ConcurrentQueue<std::exception_ptr> exceptions;
 
-
     void infiniteLoop();
+
+    std::size_t threadsCount;
 
 public:
     ~ThreadPool();
 
-    void init(unsigned int workerCount = std::thread::hardware_concurrency());
+    void init(unsigned int workerCount);
+
+    std::size_t getWorkingThreadCount() const;
+
+    std::size_t getWorkerCount() const;
+
+    bool isEmpty() const;
 
     void stopAllThread();
 

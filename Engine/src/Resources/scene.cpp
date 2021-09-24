@@ -44,10 +44,16 @@ namespace Resources
 		gameObjects[goName].getComponent<Physics::Transform>()->setChild(gameObjects[goChildName]);
 	}
 
-	void Scene::load(const std::string& _filePath)
+	void Scene::clear()
 	{
 		gameObjects.clear();
 		curGoName = "";
+
+	}
+
+	void Scene::load(const std::string& _filePath)
+	{
+		clear();
 
 		std::ifstream scnStream(_filePath);
 

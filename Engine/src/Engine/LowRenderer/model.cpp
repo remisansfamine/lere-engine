@@ -122,9 +122,10 @@ namespace LowRenderer
 
 	void Model::drawImGui()
 	{
-		if (ImGui::TreeNode(m_filePath.c_str()))
+		if (ImGui::TreeNode(m_name.c_str()))
 		{
-			m_material->drawImGui();
+			if (m_material)
+				m_material->drawImGui();
 
 			for (Model& child : m_children)
 				child.drawImGui();
