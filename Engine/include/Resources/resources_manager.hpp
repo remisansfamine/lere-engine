@@ -98,7 +98,7 @@ namespace Resources
 
 		static void mainThreadQueueInitialize();
 
-		static void checkLoadEnd();
+		static bool checkLoadEnd();
 
 		static std::shared_ptr<Font>	loadFont(const std::string& fontPath);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath, bool setAsPersistent = false);
@@ -126,7 +126,7 @@ namespace Resources
 				RM->isLoading = true;
 			}
 
-			ThreadManager::manageTask("load", func, args...);
+			Multithread::ThreadManager::manageTask("load", func, args...);
 		}
 	};
 }

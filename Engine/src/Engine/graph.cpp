@@ -31,18 +31,17 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath, bool wipeAll)
 	{
-		ThreadManager::syncAndClean("load");
+		Multithread::ThreadManager::syncAndClean("load");
 
 		LowRenderer::RenderManager::clearAll();
 		Physics::PhysicManager::clearAll();
 
 		Resources::ResourcesManager::clearResources();
 
+		curScene.clear();
+
 		if (wipeAll)
-		{
-			curScene.clear();
 			Resources::ResourcesManager::purgeResources();
-		}
 
 		curScene.load(scenePath);
 

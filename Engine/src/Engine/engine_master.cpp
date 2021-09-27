@@ -52,7 +52,7 @@ namespace Core::Engine
 		if (EM->editMode)
 		{
 			Resources::ResourcesManager::drawImGui();
-			ThreadManager::drawImGui();
+			Multithread::ThreadManager::drawImGui();
 			Graph::drawImGui();
 		}
 		else 

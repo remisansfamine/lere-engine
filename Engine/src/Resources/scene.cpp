@@ -49,15 +49,15 @@ namespace Resources
 		gameObjects.clear();
 		curGoName = "";
 
+		std::queue<Engine::Object*> emptyQueue;
+		destroyQueue.swap(emptyQueue);
 	}
 
 	void Scene::load(const std::string& _filePath)
 	{
-		clear();
-
 		std::ifstream scnStream(_filePath);
 
-		Core::Debug::Assertion::out(scnStream.is_open(), "Can not find scene at " + _filePath);
+		Core::Debug::Assertion::out(scnStream.is_open() && !scnStream.fail(), "Can not find scene at " + _filePath);
 
 		filePath = _filePath;
 
@@ -123,7 +123,7 @@ namespace Resources
 
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-		glPolygonMode(GL_FRONT, GL_FILL);  // GL_FILL | GL_LINE (fill or wireframe)
+		glPolygonMode(GL_FRONT, GL_FILL);
 		glEnable(GL_DEPTH_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

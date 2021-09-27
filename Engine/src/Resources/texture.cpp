@@ -39,6 +39,7 @@ namespace Resources
 			stbi_image_free(colorBuffer);
 
 		glDeleteTextures(1, &textureID);
+		glActiveTexture(0);
 	}
 
 	bool Texture::generateBuffer()

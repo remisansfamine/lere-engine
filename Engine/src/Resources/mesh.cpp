@@ -26,7 +26,7 @@ namespace Resources
 	// Generate VAO, VBO and EBO from mesh
 	void Mesh::generateVAO()
 	{
-			// VAO initialization and binding
+		// VAO initialization and binding
 		glGenVertexArrays(1, &VAO);
 		glBindVertexArray(VAO);
 

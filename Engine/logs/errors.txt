@@ -1,45 +1,30 @@
-[09/24/21 - 15:51:53] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Can not find material at boxCollider
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Component not found
-[09/24/21 - 15:51:57] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 15:51:57] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
-[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
-[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
-[09/24/21 - 15:51:57] ERROR: Can not find material at sphereCollider
-[09/24/21 - 15:52:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga : Le fichier spécifié est introuvable.
-[09/24/21 - 15:52:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga : Le fichier spécifié est introuvable.
-[09/24/21 - 15:52:03] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga : Le fichier spécifié est introuvable.
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Can not find material at boxCollider
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Component not found
-[09/24/21 - 15:52:19] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 15:52:19] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/24/21 - 15:52:19] ERROR: Can not find material at sphereCollider
+[09/27/21 - 15:48:37] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/27/21 - 15:48:37] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:41] ERROR: Can not find material at boxCollider
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:41] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Component not found
+[09/27/21 - 15:48:42] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/27/21 - 15:48:42] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/27/21 - 15:49:14] ERROR: Unable to read the file: resources/obj/sphere.mtl

@@ -39,8 +39,6 @@ namespace LowRenderer
 
 		std::vector<std::string>* modelChildrens = Resources::ResourcesManager::getMeshNames(m_filePath);
 
-		m_mesh = nullptr;
-
 		if (!modelChildrens)
 			return;
 

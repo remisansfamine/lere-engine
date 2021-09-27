@@ -36,7 +36,7 @@ The resources (obj, textures, mtl, etc) are in the zip file on sirius : RMLG/BIN
 ***Annexes***
 ===
 - Link to the UML:
-https://miro.com/welcomeonboard/lOMYMf0qwZh91frzycgVN5734rGQn5auxxdjySUvD567BnYCpg9ax7DVqhvT4jLA
+https://miro.com/welcomeonboard/Y1VWWjN5ZUptejZDWVhxWkR2SElZZjRzR2RXaWZjMUpmUG5yZ05wUExSZmVPWFBpdDg3bXFPeklyVUpkRDdlaHwzMDc0NDU3MzU3NzMyNDc2MDQ5?invite_link_id=717859921437
 
 ***Exemples***
 ===

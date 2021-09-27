@@ -14,8 +14,8 @@ namespace Resources
 	class Mesh : public Resource
 	{
 	private:
-		GLuint VAO;
-		GLuint VBO;
+		GLuint VAO = 0;
+		GLuint VBO = 0;
 
 		void mainThreadInitialization() override;
 

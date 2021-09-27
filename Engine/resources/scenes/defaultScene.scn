@@ -190,7 +190,7 @@ COMP TRANSFORM 1.506000 23.021851 226.421127 0.000000 0.000000 0.000000 0.150000
 endGO
 
 GO Sponza
-RECIPE resources/recipes/sponza.recipe
+#RECIPE resources/recipes/sponza.recipe
 endGO
 
 GO Enemy (3)

@@ -1,94 +1,97 @@
 #include "thread_pool.hpp"
 #include "debug.hpp"
 
-void ThreadPool::infiniteLoop()
+namespace Multithread
 {
-    while (!terminate)
+    void ThreadPool::infiniteLoop()
     {
-        std::function<void()> task;
-
-        if (!tasks.tryPop(task))
-            continue;
-
-        try
+        while (!terminate)
         {
-            workingThreadCount++;
-            task();
-            workingThreadCount--;
-        }
-        catch (...)
-        {
-            exceptions.tryPush(std::current_exception());
-        }
+            std::function<void()> task;
 
-        lastTime = std::chrono::system_clock::now();
+            if (!tasks.tryPop(task))
+                continue;
+
+            try
+            {
+                workingThreadCount++;
+                task();
+                workingThreadCount--;
+            }
+            catch (...)
+            {
+                exceptions.tryPush(std::current_exception());
+            }
+
+            lastTime = std::chrono::system_clock::now();
+        }
     }
-}
 
-void ThreadPool::init(unsigned int workerCount)
-{
-    if (initialized && !terminate)
-        return;
+    void ThreadPool::init(unsigned int workerCount)
+    {
+        if (initialized && !terminate)
+            return;
 
-    initialized = true;
+        initialized = true;
 
-    for (unsigned int i = 0; i < workerCount; i++)
-        workers.emplace_back(&ThreadPool::infiniteLoop, this);
+        for (unsigned int i = 0; i < workerCount; i++)
+            workers.emplace_back(&ThreadPool::infiniteLoop, this);
 
-    threadsCount = workers.size();
-}
+        threadsCount = workers.size();
+    }
 
-std::size_t ThreadPool::getWorkingThreadCount() const
-{
-    return workingThreadCount.load();
-}
+    std::size_t ThreadPool::getWorkingThreadCount() const
+    {
+        return workingThreadCount.load();
+    }
 
-std::size_t ThreadPool::getWorkerCount() const
-{
-    return threadsCount;
-}
+    std::size_t ThreadPool::getWorkerCount() const
+    {
+        return threadsCount;
+    }
 
-bool ThreadPool::isEmpty() const
-{
-    return tasks.empty() && !workingThreadCount;
-}
+    bool ThreadPool::isEmpty() const
+    {
+        return tasks.empty() && !workingThreadCount;
+    }
 
-void ThreadPool::stopAllThread()
-{
-    if (terminate)
-        return;
+    void ThreadPool::stopAllThread()
+    {
+        if (terminate)
+            return;
 
-    terminate = true;
+        terminate = true;
 
-    for (auto& worker : workers)
-        worker.join();
-}
+        for (auto& worker : workers)
+            worker.join();
+    }
 
-void ThreadPool::sync()
-{
-    while (workingThreadCount > 0);
-}
+    void ThreadPool::sync()
+    {
+        while (workingThreadCount > 0);
+    }
 
-void ThreadPool::syncAndClean()
-{
-    tasks.clear();
-    sync();
-}
+    void ThreadPool::syncAndClean()
+    {
+        tasks.clear();
+        sync();
+    }
 
-ThreadPool::~ThreadPool()
-{
-    stopAllThread();
-}
+    ThreadPool::~ThreadPool()
+    {
+        stopAllThread();
+    }
 
-std::chrono::system_clock::time_point ThreadPool::getLastTime()
-{
-    return lastTime;
-}
+    std::chrono::system_clock::time_point ThreadPool::getLastTime()
+    {
+        return lastTime;
+    }
 
-void ThreadPool::rethrowExceptions()
-{
-    std::exception_ptr exception;
+    void ThreadPool::rethrowExceptions()
+    {
+        std::exception_ptr exception;
 
-    if (exceptions.tryPop(exception))
-        std::rethrow_exception(exception);
+        if (exceptions.tryPop(exception))
+            std::rethrow_exception(exception);
+    }
 }

@@ -27,7 +27,7 @@ namespace Core
 
 	Application::~Application()
 	{
-		ThreadManager::kill();
+		Multithread::ThreadManager::kill();
 
 		Resources::ResourcesManager::kill();
 
@@ -136,22 +136,19 @@ namespace Core
 		// Loop while the game is running
 		while (!glfwWindowShouldClose(AP->window))
 		{
-			ThreadManager::rethrowExceptions();
+			// Compute managers
+			TimeManager::computeTime();
+			Input::InputManager::compute();
 
 			// Update ImGui frame
 			ImGui_ImplOpenGL3_NewFrame();
 			ImGui_ImplGlfw_NewFrame();
 			ImGui::NewFrame();
 
-			// Compute managers
-			TimeManager::computeTime();
-			Input::InputManager::compute();
-
-			// Initialize resources
-			Resources::ResourcesManager::mainThreadQueueInitialize();
-
 			// Update the Engine
 			Engine::EngineMaster::update();
+
+			Multithread::ThreadManager::rethrowExceptions();
 
 			// Render ImGui
 			ImGui::Render();
@@ -160,6 +157,9 @@ namespace Core
 			// glfw - Swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
 			glfwSwapBuffers(AP->window);
 			glfwPollEvents();
+
+			// Initialize resources
+			Resources::ResourcesManager::mainThreadQueueInitialize();
 		}
 	}
 
