@@ -5,6 +5,11 @@
 
 namespace Multithread
 {
+    ThreadManager::~ThreadManager()
+    {
+        stopAllPool();
+    }
+
     void ThreadManager::init(const std::string& poolKey, unsigned int workerCount)
     {
         instance()->pools[poolKey].init(workerCount);
@@ -103,7 +108,5 @@ namespace Multithread
             }
         }
         ImGui::End();
-
-
     }
 }

@@ -1,112 +1,36 @@
-[09/28/21 - 14:38:28] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[09/28/21 - 14:38:29] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Can not find material at boxCollider
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Cannot load the material from boxCollider
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Component not found
-[09/28/21 - 14:38:48] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:38:48] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:39:00] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:39:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:39:06] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Can not find material at boxCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from boxCollider
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Can not find material at boxCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from boxCollider
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Component not found
-[09/28/21 - 14:39:24] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:39:24] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:24] ERROR: Can not find material at sphereCollider
-[09/28/21 - 14:39:24] ERROR: Cannot load the material from sphereCollider
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Can not find material at boxCollider
-[09/28/21 - 14:39:54] ERROR: Cannot load the material from boxCollider
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Component not found
-[09/28/21 - 14:39:54] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:39:54] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:40:06] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:40:07] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:40:11] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:40:34] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:37] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:40:45] ERROR: Component not found
-[09/28/21 - 14:41:00] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:41:00] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 14:41:00] ERROR: Component not found
-[09/28/21 - 14:41:01] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:41:03] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
-[09/28/21 - 14:41:12] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/right.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/left.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/top.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/bottom.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/front.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/back.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Can not find material at boxCollider
+[09/28/21 - 15:21:57] ERROR: Cannot load the material from boxCollider
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Component not found
+[09/28/21 - 15:21:57] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 15:21:57] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj

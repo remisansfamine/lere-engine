@@ -20,6 +20,8 @@ namespace Multithread
         bool monoThread = false;
 
     public:
+        ~ThreadManager();
+
         static void init(const std::string& poolKey, unsigned int workerCount = std::thread::hardware_concurrency());
 
         static std::size_t getWorkingThreadCount(const std::string& poolKey);
@@ -43,6 +45,7 @@ namespace Multithread
         static void manageTask(const std::string& poolKey, Fct&& func, Types&&... args)
         {
             ThreadManager* TM = instance();
+
             if (TM->monoThread)
                 std::bind(func, args...)();
             else
