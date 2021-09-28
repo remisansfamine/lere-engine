@@ -88,8 +88,6 @@ namespace UI
 		return m_image;
 	}
 
-
-
 	void Button::drawImGui()
 	{
 		if (ImGui::TreeNode("Button"))

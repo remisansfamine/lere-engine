@@ -51,6 +51,8 @@ namespace LowRenderer
 
 			if (newMat)
 				child.m_material = newMat;
+			else
+				Core::Debug::Log::error("Cannot load the material from " + meshName);
 
 			m_children.push_back(child);
 		}

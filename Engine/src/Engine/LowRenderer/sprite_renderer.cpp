@@ -28,10 +28,10 @@ namespace LowRenderer
 		tillingOffset = tilling.y;
 	}
 
-	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
-		: SpriteRenderer(gameObject, std::shared_ptr<SpriteRenderer>(this), shaderPromgramName)
+	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderProgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
+		: SpriteRenderer(gameObject, std::shared_ptr<SpriteRenderer>(this), shaderProgramName)
 	{
-		texture = texturePath == "" ? Resources::Texture::defaultDiffuse : Resources::ResourcesManager::loadTexture(texturePath);
+		texture = Resources::ResourcesManager::loadTexture(texturePath);
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
 
 		tillingMultiplier = tilling.x;
@@ -87,7 +87,7 @@ namespace LowRenderer
 
 			ImGui::DragFloat("TillingMultiplier", &tillingMultiplier, 0.1f, 0.f, 200.f);
 			ImGui::DragFloat("TillingOffset", &tillingOffset, 0.01f, 0.f, 1.f);
-			ImGui::Image((void*)(intptr_t)texture->getID(), { 128, 128 }, ImVec2(0, 1), ImVec2(1, 0));
+			texture->drawImGui();
 
 			Component::drawImGui();
 

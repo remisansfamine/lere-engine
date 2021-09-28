@@ -3,6 +3,7 @@
 #include <imgui.h>
 
 #include <chrono>
+#include <filesystem>
 
 #include "stb_image.h"
 
@@ -66,7 +67,8 @@ namespace Resources
 		{
 			std::string error = std::system_error(errno, std::system_category()).code().message();
 
-			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " : " + error);
+			auto path = std::filesystem::current_path(); //getting path
+			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " in the directory " + path.generic_string() + ": " + error);
 			return false;
 		}
 
@@ -180,13 +182,18 @@ namespace Resources
 		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, 0);
 		stbi_set_flip_vertically_on_load_thread(true);
 
-		if (colorBuffer)
+		if (!colorBuffer)
 		{
-			Core::Debug::Log::info("Loading of " + m_filePath + " done with success");
-			stbiLoaded = true;
+			std::string error = std::system_error(errno, std::system_category()).code().message();
+
+			auto path = std::filesystem::current_path(); //getting path
+			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " in the directory " + path.generic_string() + ": " + error);
+			return false;
 		}
-		else
-			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath);
+
+		Core::Debug::Log::info("Loading of " + m_filePath + " done with success");
+
+		stbiLoaded = true;
 
 		return colorBuffer;
 	}

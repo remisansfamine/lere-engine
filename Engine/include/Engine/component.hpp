@@ -48,10 +48,7 @@ namespace Engine
 			std::shared_ptr<C> tempPtr;
 
 			if (!m_gameObject.tryGetComponent<C>(tempPtr))
-			{
 				return m_gameObject.addComponent<C>(args...);
-				//return m_gameObject.getComponent<C>();
-			}
 
 			return tempPtr;
 		}

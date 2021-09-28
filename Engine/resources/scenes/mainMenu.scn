@@ -7,8 +7,10 @@ GO MainMenu
 COMP MAINMENU
 endGO
 
-GO SkyBox
-RECIPE resources/recipes/skybox.recipe
+GO ExitButton
+COMP BUTTON spriteShader resources/UI/exitText.png
+COMP TRANSFORM 0.000000 -3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
+COMP SPRITERENDERER spriteShader resources/UI/exitText.png 1.0000 1.0000
 endGO
 
 GO NewGameButton
@@ -17,10 +19,6 @@ COMP TRANSFORM 0.000000 3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.
 COMP SPRITERENDERER spriteShader resources/UI/newGameText.png 1.0000 1.0000
 endGO
 
-GO ExitButton
-COMP BUTTON spriteShader resources/UI/exitText.png
-COMP TRANSFORM 0.000000 -3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none
-COMP SPRITERENDERER spriteShader resources/UI/exitText.png 1.0000 1.0000
+GO SkyBox
+RECIPE resources/recipes/skybox.recipe
 endGO
-
-

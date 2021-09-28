@@ -54,7 +54,7 @@ namespace Resources
 		~ShaderProgram();
 
 		void setUniform(const std::string& target, const void* value, int count = 1, bool transpose = false) const;
-		void bind() const;
+		bool bind() const;
 		void unbind() const;
 
 		std::string getName();

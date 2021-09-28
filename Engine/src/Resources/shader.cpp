@@ -265,9 +265,14 @@ namespace Resources
         #pragma endregion
     }
 
-    void ShaderProgram::bind() const
+    bool ShaderProgram::bind() const
     {
+        if (!programID)
+            return false;
+
         glUseProgram(programID);
+
+        return true;
     }
 
     void ShaderProgram::unbind() const

@@ -17,8 +17,13 @@ namespace LowRenderer
 
 	Shadow::~Shadow()
 	{
-		glDeleteBuffers(1, &FBO);
-		glDeleteTextures(1, &ID);
+		if (FBO)
+			glDeleteFramebuffers(1, &FBO);
+
+		if (ID)
+			glDeleteTextures(1, &ID);
+
+		unbindAndResetViewport();
 	}
 
 	float Shadow::getAspect()
@@ -26,10 +31,15 @@ namespace LowRenderer
 		return aspect;
 	}
 
-	void Shadow::bindAndSetViewport()
+	bool Shadow::bindAndSetViewport()
 	{
+		if (!FBO)
+			return false;
+
 		glViewport(0, 0, shadowWidth, shadowHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, FBO);
+
+		return true;
 	}
 
 	void Shadow::unbindAndResetViewport()

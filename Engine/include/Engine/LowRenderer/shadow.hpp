@@ -35,7 +35,7 @@ namespace LowRenderer
 
 		void virtual sendToShader(std::shared_ptr<LowRenderer::Light> light) = 0;
 
-		void bindAndSetViewport();
+		bool bindAndSetViewport();
 		void unbindAndResetViewport();
 
 		float getAspect();

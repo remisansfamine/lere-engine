@@ -42,6 +42,8 @@ namespace Core::Engine
 
 	void EngineMaster::update()
 	{
+		Graph::clean();
+
 		Graph::draw();
 
 		EngineMaster* EM = instance();
@@ -57,7 +59,5 @@ namespace Core::Engine
 		}
 		else 
 			Graph::update();
-
-		Graph::clean();
 	}
 }	

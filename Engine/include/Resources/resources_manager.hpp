@@ -36,6 +36,8 @@ namespace Resources
 		ResourcesManager();
 		~ResourcesManager();
 		
+		std::atomic_flag stbiFlag = ATOMIC_FLAG_INIT;
+
 		std::atomic_flag lockPersistentResources = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;

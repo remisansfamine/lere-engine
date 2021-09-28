@@ -48,7 +48,8 @@ namespace LowRenderer
 
 			light->shadow->sendToShader(light);
 
-			light->shadow->bindAndSetViewport();
+			if (!light->shadow->bindAndSetViewport())
+				continue;
 
 			glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -90,7 +91,8 @@ namespace LowRenderer
 			{
 				program = model->getProgram();
 
-				program->bind();
+				if (!program->bind())
+					continue;
 
 				getCurrentCamera()->sendViewProjToProgram(program);
 
@@ -123,7 +125,8 @@ namespace LowRenderer
 			{
 				program = sprite->getProgram();
 
-				program->bind();
+				if (!program->bind())
+					continue;
 
 				getCurrentCamera()->sendViewOrthoToProgram(program);
 			}
@@ -156,7 +159,8 @@ namespace LowRenderer
 
 		std::shared_ptr<Resources::ShaderProgram> program = colliders[0]->getProgram();
 
-		program->bind();
+		if (!program->bind())
+			return;
 
 		getCurrentCamera()->sendProjToProgram(program);
 

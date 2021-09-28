@@ -2,12 +2,12 @@
 
 #include <fstream>
 
+#include <imgui.h>
+
 #include "debug.hpp"
 
 #include "maths.hpp"
 #include "utils.hpp"
-
-#include "imgui.h"
 
 namespace Resources
 {
