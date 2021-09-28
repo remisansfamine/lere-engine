@@ -83,11 +83,7 @@ namespace Resources
 
 	void ResourcesManager::clearResources()
 	{
-		ResourcesManager* RM = instance();
-
-		RM->childrenMeshes.clear();
-		RM->childrenMaterials.clear();
-		RM->toInitInMainThread.clear();
+		instance()->toInitInMainThread.clear();
 	}
 
 	void ResourcesManager::purgeResources()
@@ -100,7 +96,7 @@ namespace Resources
 		RM->purgeMap(RM->meshes, RM->lockMeshes);
 		RM->purgeMap(RM->shaders);
 		RM->purgeMap(RM->shaderPrograms);
-	}
+ 	}
 
 	std::shared_ptr<Shader> ResourcesManager::loadShader(const std::string& shaderPath, bool setAsPersistent)
 	{
@@ -438,7 +434,7 @@ namespace Resources
 				// Compute and add the mesh
 				if (RM->meshes.find(meshName) == RM->meshes.end())
 				{
-					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
+					meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName, filePath);
 
 					if (setAsPersistent)
 					{
@@ -495,7 +491,7 @@ namespace Resources
 			// Compute and add the mesh
 			if (RM->meshes.find(meshName) == RM->meshes.end())
 			{
-				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName);
+				meshPtr = RM->meshes[meshName] = std::make_shared<Mesh>(meshName, filePath);
 
 				if (setAsPersistent)
 				{

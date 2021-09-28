@@ -6,8 +6,8 @@
 
 namespace Resources
 {
-	Mesh::Mesh(const std::string& name)
-		: Resource(name)
+	Mesh::Mesh(const std::string& name, const std::string& parentMeshName)
+		: Resource(name), parentMeshName(parentMeshName)
 	{
 
 	}

@@ -1,36 +1,128 @@
-[09/28/21 - 15:21:42] ERROR: Unable to read the file: resources/obj/sphere.mtl
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/right.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/left.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/top.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/bottom.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/front.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:42] ERROR: Cannot find the texture file at resources/skyboxes/back.png in the directory C:/Users/r.giner/GP_2025RSMNGR/x64/Debug: Le fichier spécifié est introuvable.
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Can not find material at boxCollider
-[09/28/21 - 15:21:57] ERROR: Cannot load the material from boxCollider
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Component not found
-[09/28/21 - 15:21:57] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[09/28/21 - 15:21:57] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:24] ERROR: Unable to read the file: resources/obj/sphere.mtl
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[09/28/21 - 16:57:25] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Component not found
+[09/28/21 - 16:57:31] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:31] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Component not found
+[09/28/21 - 16:57:41] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:41] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:41] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:57:41] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:57:42] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Component not found
+[09/28/21 - 16:57:59] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:57:59] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Component not found
+[09/28/21 - 16:58:12] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:12] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/right.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/left.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/top.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/bottom.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/front.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:12] ERROR: Cannot find the texture file at resources/skyboxes/back.jpg in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:15] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:16] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:17] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Component not found
+[09/28/21 - 16:58:28] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:28] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Component not found
+[09/28/21 - 16:58:46] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:46] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[09/28/21 - 16:58:47] ERROR: Cannot find the texture file at resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:48] ERROR: Cannot find the texture file at resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.
+[09/28/21 - 16:58:50] ERROR: Cannot find the texture file at resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:/Users/r.giner/GP_2025RSMNGR/Engine: Le fichier spécifié est introuvable.

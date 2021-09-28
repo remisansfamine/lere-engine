@@ -65,25 +65,32 @@ namespace Resources
 		void setDefaultResources();
 
 		template <class C>
+		void purgeCallback(const std::shared_ptr<C>& resourcePtr) { }
+
+		template <>
+		void purgeCallback(const std::shared_ptr<Mesh>& meshPtr)
+		{
+			childrenMeshes.erase(meshPtr->parentMeshName);
+			childrenMaterials.erase(meshPtr->m_name);
+		}
+
+		template <class C>
 		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map)
 		{
-			//std::erase_if(map, [](std::pair<const std::string&, std::shared_ptr<C>> &item) { return item->second.use_count() <= 1; });
-			for (auto it = map.begin(); it != map.end();)
-			{
-				if (it->second.use_count() <= 1)
-					it = map.erase(it);
-				else
-					it++;
-			}
+			std::erase_if(map, [this](const std::pair<const std::string&, const std::shared_ptr<C>&> &pair) {
+				if (pair.second.use_count() > 1)
+					return false;
+
+ 				purgeCallback(pair.second);
+				return true;
+				});
 		}
 
 		template <class C>
 		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map, std::atomic_flag& mapFlag)
 		{
 			while (mapFlag.test_and_set());
-
 			purgeMap(map);
-
 			mapFlag.clear();
 		}
 
