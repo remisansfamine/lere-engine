@@ -19,7 +19,7 @@ namespace Resources
 
 	void Recipe::load(const std::string& filePath)
 	{
-		std::ifstream ifs(filePath);
+		std::ifstream ifs(ResourcesManager::getResourcesPath() + filePath);
 
 		// Check if the file can be read
 		if (ifs.fail())

@@ -55,7 +55,7 @@ namespace Resources
 
 	void Scene::load(const std::string& _filePath)
 	{
-		std::ifstream scnStream(_filePath);
+		std::ifstream scnStream(ResourcesManager::getResourcesPath() + _filePath);
 
 		Core::Debug::Assertion::out(scnStream.is_open() && !scnStream.fail(), "Can not find scene at " + _filePath);
 

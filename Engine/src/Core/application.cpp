@@ -5,10 +5,11 @@
 #include <imgui_impl_opengl3.h>
 
 #include "resources_manager.hpp"
+#include "thread_manager.hpp"
 #include "inputs_manager.hpp"
 #include "engine_master.hpp"
+#include "benchmarker.hpp"
 #include "debug.hpp"
-#include "thread_manager.hpp"
 #include "time.hpp"
 
 // glfw - Whenever the window size changed (by OS or user resize) this callback function executes
@@ -38,7 +39,7 @@ namespace Core
 		Engine::EngineMaster::kill();
 
 		TimeManager::kill();
-
+		Debug::Benchmarker::kill();
 		Debug::Log::kill();
 
 		// Destroy ImGui context

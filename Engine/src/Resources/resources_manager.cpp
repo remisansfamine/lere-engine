@@ -1,6 +1,7 @@
 #include "resources_manager.hpp"
 
 #include <fstream>
+#include <filesystem>
 
 #include <imgui.h>
 
@@ -11,18 +12,11 @@
 
 namespace Resources
 {
-	// White color
-	float whiteBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
-
-	// Black color
-	float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
-
-	// Purple and black grid
-	float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
-
 	ResourcesManager::ResourcesManager()
 	{
-		Core::Debug::Log::info("Creating the Resources Manager");
+		resourcesPath = std::filesystem::current_path().string();
+
+		Core::Debug::Log::info("Creating the Resources Manager, the resources path will be " + resourcesPath);
 	}
 
 	ResourcesManager::~ResourcesManager()
@@ -159,6 +153,8 @@ namespace Resources
 		if (checkLoadEnd())
 		{
 			Resources::ResourcesManager::purgeResources();
+
+			Core::Debug::Benchmarker::sceneLoadedCallback();
 		}
 	}
 
@@ -171,10 +167,10 @@ namespace Resources
 
 		RM->isLoading = false;
 
-		std::chrono::system_clock::time_point totalLoadEnd = std::chrono::system_clock::now();
+		Core::Debug::Benchmarker::stopChrono("load");
 
-		std::chrono::duration<double> totalDuration = (totalLoadEnd - RM->loadStart) * 1000;
-		std::string totalDurationString = std::to_string(totalDuration.count());
+		auto totalDuration = Core::Debug::Benchmarker::getDuration("load");
+		std::string totalDurationString = std::to_string(totalDuration.count() * 1000);
 
 		if (Multithread::ThreadManager::isMonoThreaded())
 		{
@@ -182,8 +178,8 @@ namespace Resources
 			return true;
 		}
 
-		std::chrono::duration<double> threadedLoadDuration = (Multithread::ThreadManager::getLastTime("load") - RM->loadStart) * 1000;
-		std::string threadedLoadDurationString = std::to_string(threadedLoadDuration.count());
+		auto threadedLoadDuration = (Multithread::ThreadManager::getLastTime("load") - Core::Debug::Benchmarker::getTimerStart("load"));
+		std::string threadedLoadDurationString = std::to_string(threadedLoadDuration.count() * 1000);
 
 		std::string threadCountAsString = std::to_string(Multithread::ThreadManager::getWorkerCount("load"));
 		Core::Debug::Log::info("The scene totally loaded in " + totalDurationString + " ms, without OpenGL initialization the scene took " + threadedLoadDurationString + " ms to load with " + threadCountAsString + " threads.");
@@ -366,7 +362,9 @@ namespace Resources
 	// Load an obj with mtl (do triangulation)
 	void ResourcesManager::loadObj(std::string filePath, bool setAsPersistent)
 	{
-		std::ifstream dataObj(filePath.c_str());
+		std::string correctPath = getResourcesPath() + filePath;
+
+		std::ifstream dataObj(correctPath.c_str());
 
 		// Check if the file exists
 		if (!dataObj)
@@ -569,7 +567,7 @@ namespace Resources
 
 	void ResourcesManager::loadMaterials(const std::string& dirPath, const std::string& mtlName)
 	{
-		std::string filePath = dirPath + mtlName;
+		std::string filePath = getResourcesPath() + dirPath + mtlName;
 
 		// Check if the file exist
 		std::ifstream dataMat(filePath.c_str());
@@ -630,6 +628,11 @@ namespace Resources
 		// Add the material
 		if (matPtr)
 			manageTask(&Material::parse, matPtr.get(), matSubString, dirPath);
+	}
+
+	std::string ResourcesManager::getResourcesPath()
+	{
+		return instance()->resourcesPath + '/';
 	}
 
 	void ResourcesManager::drawImGui()

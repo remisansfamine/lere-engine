@@ -143,7 +143,6 @@ namespace LowRenderer
 	{
 		RenderManager* RM = instance();
 
-		// Draw Shadows
 		RM->drawShadows();
 		RM->drawSkybox();
 		RM->drawModels();

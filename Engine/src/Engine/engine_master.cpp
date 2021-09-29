@@ -55,6 +55,7 @@ namespace Core::Engine
 		{
 			Resources::ResourcesManager::drawImGui();
 			Multithread::ThreadManager::drawImGui();
+			Core::Debug::Benchmarker::drawImGui();
 			Graph::drawImGui();
 		}
 		else 

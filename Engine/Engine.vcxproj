@@ -161,6 +161,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\application.cpp" />
+    <ClCompile Include="src\Core\benchmarker.cpp" />
     <ClCompile Include="src\Core\debug.cpp" />
     <ClCompile Include="src\Core\Input\inputs_manager.cpp" />
     <ClCompile Include="src\Core\Input\key_axis.cpp" />
@@ -264,6 +265,7 @@
     <ClInclude Include="header\irrklang\irrKlang.h" />
     <ClInclude Include="header\stb_image.h" />
     <ClInclude Include="include\Core\application.hpp" />
+    <ClInclude Include="include\Core\benchmarker.hpp" />
     <ClInclude Include="include\Core\Input\input.hpp" />
     <ClInclude Include="include\Core\Input\inputs_manager.hpp" />
     <ClInclude Include="include\Core\Input\key_axis.hpp" />

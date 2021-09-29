@@ -9,6 +9,7 @@
 #include "singleton.hpp"
 
 #include "thread_manager.hpp"
+#include "benchmarker.hpp"
 
 #include "character.hpp"
 #include "cube_map.hpp"
@@ -28,8 +29,16 @@ namespace Resources
 		friend Singleton<ResourcesManager>;
 
 	private:
+		// White color
+		float whiteBuffer[4] = { 1.f, 1.f, 1.f, 1.f };
+
+		// Black color
+		float blackBuffer[4] = { 0.f, 0.f, 0.f, 0.f };
+
+		// Purple and black grid
+		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
+
 		std::atomic<bool> isLoading = false;
-		std::chrono::system_clock::time_point loadStart;
 
 		bool initialized = false;
 
@@ -61,6 +70,8 @@ namespace Resources
 		std::unordered_map<std::string, std::shared_ptr<ShaderProgram>> shaderPrograms;
 
 		std::unordered_map<std::string, std::shared_ptr<Recipe>>		recipes;
+
+		std::string resourcesPath;
 
 		void setDefaultResources();
 
@@ -122,6 +133,8 @@ namespace Resources
 		static std::shared_ptr<Mesh> getMeshByName(const std::string& meshName);
 		static std::shared_ptr<Material> getMatByMeshName(const std::string& meshName);
 
+		static std::string getResourcesPath();
+
 		static void drawImGui();
 
 		template <class Fct, typename... Types>
@@ -131,7 +144,8 @@ namespace Resources
 
 			if (!RM->isLoading)
 			{
-				RM->loadStart = std::chrono::system_clock::now();
+				Core::Debug::Benchmarker::startChrono("load");
+				Core::Debug::Benchmarker::startChrono("loadWithOpenGL");
 				RM->isLoading = true;
 			}
 

@@ -41,3 +41,10 @@ T* Singleton<T>::currentInstance = nullptr;
 
 template <class T>
 std::atomic_flag Singleton<T>::instantiateFlag = ATOMIC_FLAG_INIT;
+
+#define SINGLETONSTART(Class) \
+class Class final : public Singleton<Class>\
+{\
+ friend class Singleton<Class>;\
+
+#define SINGLETONSTOP };

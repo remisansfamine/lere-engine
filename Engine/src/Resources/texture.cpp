@@ -56,8 +56,10 @@ namespace Resources
 
 		stbi_set_flip_vertically_on_load_thread(true);
 
+		std::string correctPath = ResourcesManager::getResourcesPath() + m_filePath;
+
 		// Get the color buffer by using stbi
-		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
+		colorBuffer = stbi_loadf(correctPath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
 
 		stbi_set_flip_vertically_on_load_thread(false);
 		
@@ -68,7 +70,7 @@ namespace Resources
 			std::string error = std::system_error(errno, std::system_category()).code().message();
 
 			auto path = std::filesystem::current_path(); //getting path
-			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " in the directory " + path.generic_string() + ": " + error);
+			Core::Debug::Log::error("Cannot find the texture file at " + correctPath + " in the directory " + path.string() + ": " + error);
 			return false;
 		}
 
@@ -179,15 +181,17 @@ namespace Resources
 	{
 		int channel;
 		stbi_set_flip_vertically_on_load_thread(false);
-		colorBuffer = stbi_loadf(m_filePath.c_str(), &width, &height, &channel, 0);
+
+		std::string correctPath = ResourcesManager::getResourcesPath() + m_filePath;
+
+		colorBuffer = stbi_loadf(correctPath.c_str(), &width, &height, &channel, 0);
 		stbi_set_flip_vertically_on_load_thread(true);
 
 		if (!colorBuffer)
 		{
 			std::string error = std::system_error(errno, std::system_category()).code().message();
-
-			auto path = std::filesystem::current_path(); //getting path
-			Core::Debug::Log::error("Cannot find the texture file at " + m_filePath + " in the directory " + path.generic_string() + ": " + error);
+			Core::Debug::Log::error("Cannot find the cube map texture file at " + correctPath + " in the directory " + std::filesystem::current_path().string() + ": " + error);
+			std::string foo = ResourcesManager::getResourcesPath();
 			return false;
 		}
 

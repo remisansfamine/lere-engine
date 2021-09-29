@@ -55,7 +55,7 @@ namespace Resources
 
     void Shader::setCode()
     {
-        std::ifstream ifs(m_filePath);
+        std::ifstream ifs(ResourcesManager::getResourcesPath() + m_filePath);
 
         // Send the code to OpenGL as a char*
         shaderCode.assign(std::istreambuf_iterator<char>(ifs), std::istreambuf_iterator<char>());
