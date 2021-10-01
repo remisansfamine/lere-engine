@@ -21,6 +21,13 @@ namespace Core::Debug
 		chronoEnd = std::chrono::system_clock::now();
 	}
 
+	void Benchmarker::resetStatistics()
+	{
+		Benchmarker* BM = instance();
+
+		BM->timeSums.clear();
+		BM->timers = { std::unordered_map<std::string, Timer>() };
+	}
 
 	void Benchmarker::startChrono(const std::string& chronoKey)
 	{
@@ -42,6 +49,9 @@ namespace Core::Debug
 
 			if (ImGui::Button("Reload"))
 				Core::Engine::Graph::reloadScene(true);
+
+			if (ImGui::Button("Reset statistics"))
+				resetStatistics();
 
 			if (ImGui::CollapsingHeader("Averages"))
 			{

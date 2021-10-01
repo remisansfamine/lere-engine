@@ -44,7 +44,7 @@ namespace Core
 		private:
 			std::thread printThread;
 
-			ConcurrentQueue<LogInfo> queues[(int)LogType::GLOBAL + 1];
+			ConcurrentQueue<LogInfo> queue;
 			std::string logsAsString[(int)LogType::GLOBAL + 1];
 			
 			std::atomic_flag terminate;
@@ -62,41 +62,31 @@ namespace Core
 			template <typename T>
 			static void exception(const T& log)
 			{
-				LogType type = LogType::EXCEPTION;
-				instance()->queues[(int)type].tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), type));
-				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), LogType::GLOBAL));
+				instance()->queue.tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), LogType::EXCEPTION));
 			}
 
 			template <typename T>
 			static void warning(const T& log)
 			{
-				LogType type = LogType::WARNING;
-				instance()->queues[(int)type].tryPush(LogInfo(std::string("Warning: ") + std::string(log), type));
-				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("Warning: ") + std::string(log), LogType::GLOBAL));
+				instance()->queue.tryPush(LogInfo(std::string("Warning: ") + std::string(log), LogType::WARNING));
 			}
 
 			template <typename T>
 			static void assertion(const T& log)
 			{
-				LogType type = LogType::ASSERTION;
-				instance()->queues[(int)type].tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), type));
-				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), LogType::GLOBAL));
+				instance()->queue.tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), LogType::ASSERTION));
 			}
 
 			template <typename T>
 			static void error(const T& log)
 			{
-				LogType type = LogType::ERROR;
-				instance()->queues[(int)type].tryPush(LogInfo(std::string("ERROR: ") + std::string(log), type));
-				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("ERROR: ") + std::string(log), LogType::GLOBAL));
+				instance()->queue.tryPush(LogInfo(std::string("ERROR: ") + std::string(log), LogType::ERROR));
 			}
 
 			template <typename T>
 			static void info(const T& log)
 			{
-				LogType type = LogType::INFO;
-				instance()->queues[(int)type].tryPush(LogInfo(std::string("Info: ") + std::string(log), type));
-				instance()->queues[(int)LogType::GLOBAL].tryPush(LogInfo(std::string("Info: ") + std::string(log), LogType::GLOBAL));
+				instance()->queue.tryPush(LogInfo(std::string("Info: ") + std::string(log), LogType::INFO));
 			}
 		};
 

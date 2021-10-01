@@ -82,6 +82,7 @@ namespace Resources
 
 		stbiLoaded = true;
 
+		// Tell to the RM that the initialization is finished
 		ResourcesManager::addToMainThreadInitializerQueue(this);
 
 		return true;
@@ -191,7 +192,6 @@ namespace Resources
 		{
 			std::string error = std::system_error(errno, std::system_category()).code().message();
 			Core::Debug::Log::error("Cannot find the cube map texture file at " + correctPath + " in the directory " + std::filesystem::current_path().string() + ": " + error);
-			std::string foo = ResourcesManager::getResourcesPath();
 			return false;
 		}
 

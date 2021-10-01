@@ -46,6 +46,7 @@ namespace Multithread
         {
             ThreadManager* TM = instance();
 
+            // If the program is monothreaded, call directly the function, else add it to the correct pool
             if (TM->monoThread)
                 std::bind(func, args...)();
             else

@@ -12,11 +12,13 @@ namespace Multithread
 
     void ThreadManager::init(const std::string& poolKey, unsigned int workerCount)
     {
+        // Init the pool at the correct key
         instance()->pools[poolKey].init(workerCount);
     }
 
     std::size_t ThreadManager::getWorkingThreadCount(const std::string& poolKey)
     {
+        // Return the working thread number from the pool at the correct key
         return instance()->pools[poolKey].getWorkingThreadCount();
     }
 
@@ -27,6 +29,7 @@ namespace Multithread
 
     bool ThreadManager::isEmpty(const std::string& poolKey)
     {
+        // Return if the pool at the correct key is empty
         return instance()->pools[poolKey].isEmpty();
     }
 
@@ -99,7 +102,6 @@ namespace Multithread
             {
                 if (ImGui::TreeNode(poolPair.first.c_str()))
                 {
-
                     std::string workingThreadString = "Working threads = " + std::to_string(poolPair.second.getWorkingThreadCount());
                     ImGui::Text(workingThreadString.c_str());
 

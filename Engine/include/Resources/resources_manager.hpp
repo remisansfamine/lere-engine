@@ -1,9 +1,9 @@
 #pragma once
 
 #include <unordered_map>
+#include <filesystem>
 #include <string>
 #include <memory>
-
 #include <atomic>
 
 #include "singleton.hpp"
@@ -71,7 +71,7 @@ namespace Resources
 
 		std::unordered_map<std::string, std::shared_ptr<Recipe>>		recipes;
 
-		std::string resourcesPath;
+		std::string resourcesPath = std::filesystem::current_path().string();
 
 		void setDefaultResources();
 
@@ -81,6 +81,7 @@ namespace Resources
 		template <>
 		void purgeCallback(const std::shared_ptr<Mesh>& meshPtr)
 		{
+			// Remove the dependency with the meshes and the materials
 			childrenMeshes.erase(meshPtr->parentMeshName);
 			childrenMaterials.erase(meshPtr->m_name);
 		}
@@ -88,6 +89,7 @@ namespace Resources
 		template <class C>
 		void purgeMap(std::unordered_map<std::string, std::shared_ptr<C>>& map)
 		{
+			// Remove each resources that is not used
 			std::erase_if(map, [this](const std::pair<const std::string&, const std::shared_ptr<C>&> &pair) {
 				if (pair.second.use_count() > 1)
 					return false;
@@ -142,6 +144,7 @@ namespace Resources
 		{
 			ResourcesManager* RM = instance();
 
+			// Set the chronos
 			if (!RM->isLoading)
 			{
 				Core::Debug::Benchmarker::startChrono("load");
@@ -149,6 +152,7 @@ namespace Resources
 				RM->isLoading = true;
 			}
 
+			// Add the task to the thread manager
 			Multithread::ThreadManager::manageTask("load", func, args...);
 		}
 	};

@@ -13,12 +13,14 @@ public:
 	{
         while (used.test_and_set());
 
+        // Check if the queue is empty
         if (std::queue<T>::empty())
         {
             used.clear();
             return false;
         }
 
+        // Set the value reference with the front of the queue, and remove it
         value = std::queue<T>::front();
         std::queue<T>::pop();
 
@@ -31,6 +33,7 @@ public:
 	{
         while (used.test_and_set());
 
+        // Push if the queue is not used
         std::queue<T>::push(value);
 
         used.clear();
@@ -42,6 +45,7 @@ public:
     {
         while (used.test_and_set());
 
+        // Swap the queue with an empty one
         std::queue<T> emptyQueue;
         std::swap(*this, emptyQueue);
 

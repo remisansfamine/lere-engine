@@ -78,6 +78,7 @@ namespace Resources
 			attributs.push_back(normal.z);
 		}
 
+		// Tell to the RM that the initialization is finished
 		ResourcesManager::addToMainThreadInitializerQueue(this);
 	}
 
@@ -200,7 +201,8 @@ namespace Resources
 		std::vector<Core::Maths::vec3> texCoords;
 		std::vector<Core::Maths::vec3> normals;
 		std::vector<unsigned int> indices;
-
+		
+		// Parse the attributs
 		std::string line;
 		while (std::getline(stringStream, line))
 		{

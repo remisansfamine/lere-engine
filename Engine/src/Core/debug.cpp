@@ -69,22 +69,19 @@ namespace Core
 
 			while (!logManager->terminate.test())
 			{
-				for (unsigned int i = 0; i < (int)LogType::GLOBAL; i++)
-				{
-					LogInfo log;
-					if (!logManager->queues[i].tryPop(log))
-						continue;
+				LogInfo log;
+				if (!logManager->queue.tryPop(log))
+					continue;
 
-					// Get the time as a string
-					std::string message = log.getMessage("[%x - %X]");
+				// Get the time as a string
+				std::string message = log.getMessage("[%x - %X]");
 
-					// Put the logs in the Log Manager 
-					logManager->logsAsString[(int)log.type] += message;
-					logManager->logsAsString[(int)LogType::GLOBAL] += message;
+				// Put the logs in the Log Manager 
+				logManager->logsAsString[(int)log.type] += message;
+				logManager->logsAsString[(int)LogType::GLOBAL] += message;
 
-					// Cout the current log
-					std::cout << message;
-				}
+				// Cout the current log
+				std::cout << message;
 			}
 		}
 

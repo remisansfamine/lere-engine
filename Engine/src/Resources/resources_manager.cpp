@@ -1,7 +1,6 @@
 #include "resources_manager.hpp"
 
 #include <fstream>
-#include <filesystem>
 
 #include <imgui.h>
 
@@ -14,8 +13,6 @@ namespace Resources
 {
 	ResourcesManager::ResourcesManager()
 	{
-		resourcesPath = std::filesystem::current_path().string();
-
 		Core::Debug::Log::info("Creating the Resources Manager, the resources path will be " + resourcesPath);
 	}
 
@@ -26,19 +23,19 @@ namespace Resources
 
 	void ResourcesManager::setDefaultResources()
 	{
-		// Load the default textures
+		// Load the peristent textures
 		std::shared_ptr<Texture> whiteTex = ResourcesManager::loadTexture("whiteTex", 1, 1, whiteBuffer, true);
 		std::shared_ptr<Texture> blackTex = ResourcesManager::loadTexture("blackTex", 1, 1, blackBuffer, true);
 		std::shared_ptr<Texture> noDiffuseTex = ResourcesManager::loadTexture("noDiffuseTex", 2, 2, noDiffuseBuffer, true);
 
-		// Set the default textures
+		// Set the peristent textures
 		Texture::defaultAlpha = whiteTex;
 		Texture::defaultAmbient = whiteTex;
 		Texture::defaultDiffuse = noDiffuseTex;
 		Texture::defaultEmissive = blackTex;
 		Texture::defaultSpecular = whiteTex;
 
-		// Load the default material
+		// Load the peristent material
 		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE", true);
 	}
 
@@ -58,6 +55,7 @@ namespace Resources
 
 		Multithread::ThreadManager::init("load", workerCount);
 
+		// Set the shader program
 		loadShaderProgram("shader", "resources/shaders/vertexShader.vert", "resources/shaders/fragmentShader.frag", "", true);
 		loadShaderProgram("skyBox", "resources/shaders/skyBox.vert", "resources/shaders/skyBox.frag", "", true);
 		loadShaderProgram("colliderShader", "resources/shaders/vertexCollider.vert", "resources/shaders/fragmentCollider.frag", "", true);
@@ -65,6 +63,7 @@ namespace Resources
 		loadShaderProgram("depthShader", "resources/shaders/depthShader.vert", "resources/shaders/depthShader.frag", "", true);
 		loadShaderProgram("depthCubeShader", "resources/shaders/depthCubeShader.vert", "resources/shaders/depthShader.frag", "resources/shaders/depthCubeShader.geom", true);
 
+		// Set the peristent obj
 		loadObj("resources/obj/cube.obj", true);
 		loadObj("resources/obj/sphere.obj", true);
 		loadObj("resources/obj/plane.obj", true);
@@ -136,6 +135,7 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
+		// Add the resource to the initialization queue 
 		RM->toInitInMainThread.tryPush(resourcePtr);
 	}
 
@@ -143,6 +143,7 @@ namespace Resources
 	{
 		ResourcesManager* RM = instance();
 
+		// Initialize each resource that is in the queue
 		while (!RM->toInitInMainThread.empty())
 		{
 			Resource* resource = nullptr;
@@ -215,12 +216,14 @@ namespace Resources
 			return textureIt->second;
 		}
 
+		// Create the texture if it does not exist
 		std::shared_ptr<Texture> texturePtr(new Texture(texturePath));
 
 		if (setAsPersistent)
 		{
 			while (RM->lockPersistentResources.test_and_set());
 
+			// If the texture is persistent, add it to the persistent resources vector
 			RM->persistentsResources.push_back(texturePtr);
 
 			RM->lockPersistentResources.clear();
@@ -230,6 +233,7 @@ namespace Resources
 
 		RM->lockTextures.clear();
 
+		// Generate its buffer with the threading system
 		manageTask(&Texture::generateBuffer, texturePtr.get());
 
 		return texturePtr;
@@ -249,7 +253,8 @@ namespace Resources
 			RM->lockTextures.clear();
 			return textureIt->second;
 		}
-
+		
+		// If the texture is persistent, add it to the persistent resources vector
 		std::shared_ptr<Texture> texturePtr(new Texture(name, width, height, data));
 
 		if (setAsPersistent)
@@ -287,6 +292,7 @@ namespace Resources
 			return cubeMapIt->second;
 		}
 
+		// If the cubemap is persistent, add it to the persistent resources vector
 		std::shared_ptr<CubeMap> cubeMapPtr(new CubeMap(cubeMapPaths));
 
 		if (setAsPersistent)
@@ -302,6 +308,7 @@ namespace Resources
 
 		RM->lockCubemaps.clear();
 
+		// Generate its buffers with the threading system
 		manageTask(&CubeMap::generateBuffers, cubeMapPtr.get());
 
 		return cubeMapPtr;
@@ -319,12 +326,14 @@ namespace Resources
 			return materialIt->second;
 		}
 
+		// If the material is persistent, add it to the persistent resources vector
 		std::shared_ptr<Material> matPtr = RM->materials[materialPath] = std::make_shared<Material>(materialPath);
 
 		if (setAsPersistent)
 		{
 			while (RM->lockPersistentResources.test_and_set());
 
+			// Generate its buffers with the threading system
 			RM->persistentsResources.push_back(matPtr);
 
 			RM->lockPersistentResources.clear();
@@ -397,6 +406,7 @@ namespace Resources
 		std::string meshName = filePath;
 		std::string meshSubString;
 
+		// Set the mesh ptr to put the ptr in
 		std::shared_ptr<Mesh> meshPtr;
 
 		std::array<unsigned int, 3> countArray{ 0u, 0u, 0u };
@@ -420,6 +430,7 @@ namespace Resources
 
 				if (meshPtr)
 				{
+					// Parse the current mesh with the substring and the offsets
 					manageTask(&Mesh::parse, meshPtr.get(), meshSubString, lastCountArray);
 					meshPtr = nullptr;
 				}
@@ -438,6 +449,7 @@ namespace Resources
 					{
 						while (RM->lockPersistentResources.test_and_set());
 
+						// If the mesh is persistent, add it to the persistent resources vector
 						RM->persistentsResources.push_back(meshPtr);
 
 						RM->lockPersistentResources.clear();
@@ -448,10 +460,12 @@ namespace Resources
 
 				while (RM->lockMeshChildren.test_and_set());
 
+				// Set the dependency with the meshes
 				RM->childrenMeshes[filePath].push_back(meshName);
 
 				RM->lockMeshChildren.clear();
 			}
+			// Count the attributs offsets for the mesh parsing
 			else if (type == "v")
 				countArray[0]++;
 			else if (type == "vt")
@@ -467,6 +481,7 @@ namespace Resources
 
 				while (RM->lockMaterials.test_and_set());
 
+				// Create an empty material if it does not exist
 				if (RM->materials.find(matName) == RM->materials.end())
 					RM->materials[matName] = std::make_shared<Material>(matName);
 
@@ -495,6 +510,7 @@ namespace Resources
 				{
 					while (RM->lockPersistentResources.test_and_set());
 
+					// If the mesh is persistent, add it to the persistent resources vector
 					RM->persistentsResources.push_back(meshPtr);
 
 					RM->lockPersistentResources.clear();
@@ -505,6 +521,7 @@ namespace Resources
 
 			while (RM->lockMeshChildren.test_and_set());
 
+			// Set the dependency with the meshes
 			RM->childrenMeshes[filePath].push_back(meshName);
 
 			RM->lockMeshChildren.clear();
@@ -586,6 +603,7 @@ namespace Resources
 
 		std::string matSubString;
 
+		// Create an empty ptr for the next material
 		std::shared_ptr<Material> matPtr;
 
 		// Get all mesh materials
@@ -603,7 +621,7 @@ namespace Resources
 
 			if (matPtr)
 			{
-				// Add the material
+				// Parse the current material with the substring
 				manageTask(&Material::parse, matPtr.get(), matSubString, dirPath);
 				matPtr = nullptr;
 			}
@@ -625,7 +643,7 @@ namespace Resources
 			RM->lockMaterials.clear();
 		}
 
-		// Add the material
+		// Parse the current material with the substring
 		if (matPtr)
 			manageTask(&Material::parse, matPtr.get(), matSubString, dirPath);
 	}

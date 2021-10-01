@@ -12,8 +12,10 @@ namespace Multithread
             if (!tasks.tryPop(task))
                 continue;
 
+            // Catch all exceptions and keep them in the ThreadPool
             try
             {
+                // Set the current working thread
                 workingThreadCount++;
                 task();
                 workingThreadCount--;
@@ -34,6 +36,7 @@ namespace Multithread
 
         initialized = true;
 
+        // Assign all threads to the loop function
         for (unsigned int i = 0; i < workerCount; i++)
             workers.emplace_back(&ThreadPool::infiniteLoop, this);
 
@@ -62,6 +65,7 @@ namespace Multithread
 
         terminate = true;
 
+        // Join each thread
         for (auto& worker : workers)
             worker.join();
     }

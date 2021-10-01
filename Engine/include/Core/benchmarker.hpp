@@ -51,6 +51,8 @@ namespace Core
 			std::vector<std::unordered_map<std::string, Timer>> timers = { std::unordered_map<std::string, Timer>() };
 
 		public:
+			static void resetStatistics();
+
 			static void startChrono(const std::string& chronoKey);
 			static void stopChrono(const std::string& chronoKey);
 

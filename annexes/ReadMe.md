@@ -1,6 +1,6 @@
-# **FPS**
+# **Resources Manager**
 
-FPS made using the previous engine for the 3D Platformer.
+Resources Manager improvement made using the previous engine for the FPS.
 
 **/!\ This engine is not the most optimized one nor the most efficient one. It supports only .obj models, .mtl materials and a custom scene format. /!\\**
 
@@ -10,49 +10,50 @@ You need to put the files :
 - irrKlang.dll 
 - ikpMP3.dll
 - ikpFlac.dll <br>
-in the folder x64/Release (or x64/Debug), they can be found on sirius : RMLG/BIN.
+in the folder x64/Release (or x64/Debug), they can be found on sirius : RSMNGR/BIN.
 
-The resources (obj, textures, mtl, etc) are in the zip file on sirius : RMLG/BIN/resources.
+The resources (obj, textures, mtl, etc) are in the zip file on sirius : RSMNGR/BIN/resources.
 
 # Controls
-- **WASD/ZQSD keys** : Move foward, backward, left and right.
-- **Space** : Jump.
-- **Escape** : Pause Screen.
-- **C** : Open inspector.
+- **C** : Open inspector, and the interfaces of the Managers.
 
 # Engine Features
-* The Game Engine uses a powerful leak-free Component System
-* The Game Engine is formed by the Render Engine and the Physic Engine
-* The Game Engine supports UI system and button callback
+* The Game Engine uses a powerful leak-free Resources Manager
+* The Game Engine is formed by the Render Engine, the Physic Engine and a multi-treaded Resources Manager
+* The game can reload a scene very quickly (instantly) thanks to the use of shared_ptr
+* The game engine has a Benchmarking option to benchmark the load of a scene automatically
 
-# In-Game Features
-* The player can launch the game from the main menu
-* The player can exit the game from the main menu
-* The player can move in a 3D-environment while being in game
-* The player can pause the game
-* The player can exit the game from the pause screen
-* The player can go back to the main menu from the pause screen
+# Benchmark
+For a scene using 230Mo of resources: 13 different models, 81 different textures and 36 materials.
+The engine can load in:
+
+In Release
+---
+- With multithreading: 7 seconds.
+- In monothread: 30 seconds.
+
+In Debug
+---
+- With multithreading: 33 seconds.
+- In monothread: 5 minutes and 30 seconds.
 
 ***Annexes***
 ===
 - Link to the UML:
 https://miro.com/welcomeonboard/Y1VWWjN5ZUptejZDWVhxWkR2SElZZjRzR2RXaWZjMUpmUG5yZ05wUExSZmVPWFBpdDg3bXFPeklyVUpkRDdlaHwzMDc0NDU3MzU3NzMyNDc2MDQ5?invite_link_id=717859921437
 
-***Exemples***
+***Examples***
 ===
 
 Here are some examples of what you can see in the game. If you want more you can go to the folder annexes/screenshots.
 
 <div style="text-align:center">
 
-![Menu](screenshots/menu.png)
-Screenshot of the main menu
+![Menu](screenshots/sponza.png)
+Screenshot of the Sponza loading its resources
 
-![Pause](screenshots/pause.png)
-Screenshot of the pause screen
-
-![Win](screenshots/win.png)
-Screenshot of the win screen
+![Pause](screenshots/benchmarker.png)
+Screenshot of the benchmarker showing the loading statistics
 
 <div style="text-align:left">
 
@@ -60,14 +61,17 @@ Screenshot of the win screen
 ===
 WIP
 ---
-- Shadow mapping
+- OBJ Parser group support
 
 Next features
 ---
-- Particle system
-- Bloom
+- Multi-threading physics
 
-***Third-party programs and libraries***
+***Know bugs***
+===
+- Sometimes some textures do not load due to an issue with fopen
+
+***Third-party programs, libraries and resoucres***
 ===
 
 # Download links
@@ -87,6 +91,10 @@ https://www.glfw.org/
 Glad
 ---
 https://glad.dav1d.de/
+
+Sponza
+---
+https://github.com/jimmiebergmann/Sponza
 
 ***References***
 ===
