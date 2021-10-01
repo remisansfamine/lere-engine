@@ -24,7 +24,7 @@ The resources (obj, textures, mtl, etc) are in the zip file on sirius : RSMNGR/B
 * The game engine has a Benchmarking option to benchmark the load of a scene automatically
 
 # Benchmark
-For a scene using 230Mo of resources: 13 different models, 81 different textures and 36 materials.
+For a scene using 221 Mo of resources: 13 different models, 81 different textures and 36 materials.
 The engine can load in:
 
 In Release
