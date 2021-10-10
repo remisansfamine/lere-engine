@@ -1,0 +1,16 @@
+#visual studio
+.vs
+
+#build
+x64
+Debug
+Release
+[Bb]uild
+[Bb]uilds
+
+#python external files
+common
+externals
+
+#resources
+resources
