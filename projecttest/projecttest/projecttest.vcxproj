@@ -131,7 +131,7 @@
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)common/dll" "$(TargetDir)"
 copy /Y "$(ProjectDir)resources/scripts" "$(TargetDir)"
-copy /Y "$(SolutionDir)modules/build/Debug" "$(TargetDir)"</Command>
+copy /Y "$(SolutionDir)modules/Release" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -153,7 +153,7 @@ copy /Y "$(SolutionDir)modules/build/Debug" "$(TargetDir)"</Command>
     <PostBuildEvent>
       <Command>copy /Y "$(SolutionDir)common/dll" "$(TargetDir)"
 copy /Y "$(ProjectDir)resources/scripts" "$(TargetDir)"
-copy /Y "$(SolutionDir)modules/build/Debug" "$(TargetDir)"</Command>
+copy /Y "$(SolutionDir)modules/Release" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

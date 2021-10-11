@@ -11,6 +11,13 @@ Release
 #python external files
 common
 externals
+modules/*
+!modules/maker
 
 #resources
 resources
+
+#archives
+*.zip
+*.rar
+*.7z
