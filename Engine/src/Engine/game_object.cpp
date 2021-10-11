@@ -272,6 +272,11 @@ namespace Engine
 			Gameplay::MedKit::parseComponent(*this, goStream);
 	}
 
+	void GameObject::parseScripts(std::istringstream& parseScript)
+	{
+
+	}
+
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)
 	{
 		m_recipe = filePath;
@@ -304,6 +309,8 @@ namespace Engine
 
 			if (type == "COMP")
 				parseComponents(iss, parentName);
+			else if (type == "SCRIPT")
+				parseScripts(iss);
 			else if (type == "RECIPE")
 			{
 				std::string filePath;

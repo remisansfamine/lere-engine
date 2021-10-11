@@ -362,9 +362,6 @@
     <ClInclude Include="include\Core\application.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\Utils\singleton.hpp">
-      <Filter>Fichiers d%27en-tête\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="include\Resources\resources_manager.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
@@ -604,6 +601,9 @@
     </ClInclude>
     <ClInclude Include="include\Core\benchmarker.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\singleton.hpp">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

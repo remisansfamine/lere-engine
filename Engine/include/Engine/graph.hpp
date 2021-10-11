@@ -5,53 +5,56 @@
 #include "scene.hpp"
 #include "game_object.hpp"
 
-namespace Core::Engine
+namespace Core
 {
-	class Graph final : public Singleton<Graph>
+	namespace Engine
 	{
-		friend class Singleton<Graph>;
+		class Graph final : public Singleton<Graph>
+		{
+			friend class Singleton<Graph>;
 
-	private:
-		Graph();
-		~Graph();
-		
-		bool isStartingNewGame = false;
-		bool isLoadingSavedScene = false;
-		bool isLoadingMainMenu = false;
+		private:
+			Graph();
+			~Graph();
 
-		bool showDemoWindowImGui = false;
+			bool isStartingNewGame = false;
+			bool isLoadingSavedScene = false;
+			bool isLoadingMainMenu = false;
 
-		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
+			bool showDemoWindowImGui = false;
 
-	public:
-		static void reloadScene(bool wipeAll);
+			Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
-		void loadScene(const std::string& scenePath, bool wipeAll = false);
+		public:
+			static void reloadScene(bool wipeAll);
 
-		static void saveCurrentScene();
-		static void loadNewGame();
-		static void loadSaveGame();
-		static void loadMainMenu();
+			static void loadScene(const std::string& scenePath, bool wipeAll = false);
 
-		static void init();
+			static void saveCurrentScene();
+			static void loadNewGame();
+			static void loadSaveGame();
+			static void loadMainMenu();
 
-		static Resources::Scene& getCurScene();
+			static void init();
 
-		static void draw();
-		static void update();
-		static void drawImGui();
-		static void fixedUpdate();
-		static void clean();
-		static void deleteGameObject(const std::string& goName);
+			static Resources::Scene& getCurScene();
 
-		static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+			static void draw();
+			static void update();
+			static void drawImGui();
+			static void fixedUpdate();
+			static void clean();
+			static void deleteGameObject(const std::string& goName);
 
-		static void addToDestroyQueue(::Engine::Object* obj);
+			static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
 
-		static bool getCursorState();
-		static void setCursorState(bool state);
+			static void addToDestroyQueue(::Engine::Object* obj);
 
-		static ::Engine::GameObject& instantiate(const std::string& GOname);
-		static ::Engine::GameObject& instantiate(const std::string& GOname, const std::string& recipePath);
-	};
+			static bool getCursorState();
+			static void setCursorState(bool state);
+
+			static ::Engine::GameObject& instantiate(const std::string& GOname);
+			static ::Engine::GameObject& instantiate(const std::string& GOname, const std::string& recipePath);
+		};
+	}
 }

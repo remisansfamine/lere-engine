@@ -32,7 +32,6 @@ namespace Core::Input
 		static KeyAxis& getAxisByName(const std::string& name);
 
 	public:
-
 		static void init(GLFWwindow* window);
 
 		static void compute();

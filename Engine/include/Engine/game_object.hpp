@@ -100,6 +100,7 @@ namespace Engine
 		std::string toString();
 
 		void parseComponents(std::istringstream& parseComponent, std::string& parentName);
+		void parseScripts(std::istringstream& parseScript);
 		void parseRecipe(const std::string& filePath, std::string& parentName);
 		void parse(std::istream& scnStream, std::string& parentName);
 

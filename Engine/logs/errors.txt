@@ -1,31 +1,149 @@
-[10/01/21 - 14:30:50] ERROR: Unable to read the file: C:\Users\r.giner\GP_2025RSMNGR\Engine/resources/obj/sphere.mtl
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/01/21 - 14:30:51] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Component not found
-[10/01/21 - 14:30:54] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[10/01/21 - 14:30:54] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[10/01/21 - 14:30:57] ERROR: Cannot find the texture file at C:\Users\r.giner\GP_2025RSMNGR\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:\Users\r.giner\GP_2025RSMNGR\Engine: Le fichier spécifié est introuvable.
-[10/01/21 - 14:30:58] ERROR: Cannot find the texture file at C:\Users\r.giner\GP_2025RSMNGR\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:\Users\r.giner\GP_2025RSMNGR\Engine: Le fichier spécifié est introuvable.
-[10/01/21 - 14:31:00] ERROR: Cannot find the texture file at C:\Users\r.giner\GP_2025RSMNGR\Engine/resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:\Users\r.giner\GP_2025RSMNGR\Engine: Le fichier spécifié est introuvable.
+[10/11/21 - 15:49:48] ERROR: Unable to read the file: C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/sphere.mtl
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/11/21 - 15:49:48] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/11/21 - 15:49:49] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:50] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:51] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:52] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:53] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist
+[10/11/21 - 15:49:54] ERROR: Button Edit Toggle does not exist

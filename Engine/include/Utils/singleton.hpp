@@ -13,7 +13,7 @@ protected:
 
 	static T* currentInstance;
 
-	[[nodiscard]] static T* instance()
+	static T* instance()
 	{
 		if (!instantiateFlag.test_and_set())
 		{

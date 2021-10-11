@@ -31,6 +31,8 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath, bool wipeAll)
 	{
+		Graph* graph = instance();
+
 		Multithread::ThreadManager::syncAndClean("load");
 
 		LowRenderer::RenderManager::clearAll();
@@ -38,12 +40,12 @@ namespace Core::Engine
 
 		Resources::ResourcesManager::clearResources();
 
-		curScene.clear();
+		graph->curScene.clear();
 
 		if (wipeAll)
 			Resources::ResourcesManager::purgeResources();
 
-		curScene.load(scenePath);
+		graph->curScene.load(scenePath);
 
 		Core::TimeManager::resetTime();
 	}

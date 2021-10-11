@@ -72,23 +72,29 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
+    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
+    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(ProjectDir)include\Game\Gameplay;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
-    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
-    <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\;$(ProjectDir)include\Scripting</IncludePath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath);$(VC_SourcePath);</SourcePath>
+    <LibraryPath>$(ProjectDir)lib;$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(ProjectDir)..\common\lib</LibraryPath>
+    <TargetName>$(ProjectName)</TargetName>
+    <TargetExt>.exe</TargetExt>
+    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -97,11 +103,17 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -112,13 +124,19 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -126,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -137,6 +155,9 @@
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -146,7 +167,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -158,6 +179,9 @@
       <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\application.cpp" />

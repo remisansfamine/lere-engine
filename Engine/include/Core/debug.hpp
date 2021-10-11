@@ -37,7 +37,7 @@ namespace Core
 			std::string getMessage(const std::string& timeFormat);
 		};
 
-		class Log final : public Singleton<Log>
+		class Log : public Singleton<Log>
 		{
 			friend class Singleton<Log>;
 
@@ -59,38 +59,18 @@ namespace Core
 			static void out();
 
 		public:
-			template <typename T>
-			static void exception(const T& log)
-			{
-				instance()->queue.tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), LogType::EXCEPTION));
-			}
+			static void exception(const std::string& log);
 
-			template <typename T>
-			static void warning(const T& log)
-			{
-				instance()->queue.tryPush(LogInfo(std::string("Warning: ") + std::string(log), LogType::WARNING));
-			}
+			static void warning(const std::string& log);
 
-			template <typename T>
-			static void assertion(const T& log)
-			{
-				instance()->queue.tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), LogType::ASSERTION));
-			}
+			static void assertion(const std::string& log);
 
-			template <typename T>
-			static void error(const T& log)
-			{
-				instance()->queue.tryPush(LogInfo(std::string("ERROR: ") + std::string(log), LogType::ERROR));
-			}
+			static void error(const std::string& log);
 
-			template <typename T>
-			static void info(const T& log)
-			{
-				instance()->queue.tryPush(LogInfo(std::string("Info: ") + std::string(log), LogType::INFO));
-			}
+			static void info(const std::string& log);
 		};
 
-		class Assertion final : public Singleton<Assertion>
+		class Assertion : public Singleton<Assertion>
 		{
 			friend class Singleton<Assertion>;
 

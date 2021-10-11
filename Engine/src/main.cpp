@@ -9,10 +9,28 @@
 const unsigned int SCR_WIDTH = 1440;
 const unsigned int SCR_HEIGHT = 900;
 
+#include <python.h>
+#include "pyhelper.hpp"
+
 int main()
 {
 	// Check for leak
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+
+
+	CPyInstance instance;
+
+	char filename[] = "../x64/Release/main.py";
+	PyObject* obj = Py_BuildValue("s", filename);
+
+	FILE* file = _Py_fopen_obj(obj, "r+");
+
+	if (file != NULL)
+		PyRun_SimpleFile(file, filename);
+
+
+
 
 	try
 	{

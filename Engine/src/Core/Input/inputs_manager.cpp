@@ -67,7 +67,8 @@ namespace Core::Input
 		auto keyIt = IM->keyButtons.find(name);
 
 		// Assert if the key does not exist
-		Core::Debug::Assertion::out(keyIt != IM->keyButtons.end(), "Button " + name + " does not exist");
+		if (keyIt != IM->keyButtons.end())
+			Core::Debug::Log::error("Button " + name + " does not exist");
 
 		return keyIt->second;
 	}
@@ -79,7 +80,8 @@ namespace Core::Input
 		auto keyIt = IM->mouseButtons.find(name);
 
 		// Assert if the key does not exist
-		Core::Debug::Assertion::out(keyIt != IM->mouseButtons.end(), "Mouse button " + name + " does not exist");
+		if (keyIt != IM->mouseButtons.end())
+			Core::Debug::Log::error("Mouse button " + name + " does not exist");
 
 		return keyIt->second;
 	}
@@ -91,7 +93,8 @@ namespace Core::Input
 		auto keyIt = IM->keyAxes.find(name);
 
 		// Assert if the axis does not exist
-		Core::Debug::Assertion::out(keyIt != IM->keyAxes.end(), "Axis " + name + " does not exist");
+		if (keyIt != IM->keyAxes.end())
+			Core::Debug::Log::error("Axis " + name + " does not exist");
 
 		return keyIt->second;
 	}
