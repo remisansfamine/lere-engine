@@ -354,6 +354,9 @@
     <ClCompile Include="src\Core\benchmarker.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine\script.cpp">
+      <Filter>Fichiers sources\Engine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -604,6 +607,9 @@
     </ClInclude>
     <ClInclude Include="include\Utils\singleton.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\script.hpp">
+      <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

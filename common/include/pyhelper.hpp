@@ -28,6 +28,9 @@ public:
 	CPyObject(PyObject* p) : p(p)
 	{}
 
+	CPyObject(CPyObject& other) : p(other.AddRef())
+	{ }
+
 	~CPyObject()
 	{
 		Release();

@@ -17,6 +17,9 @@ namespace Core::Input
 		friend Singleton<InputManager>;
 
 	private:
+		InputManager();
+		~InputManager();
+
 		bool initialized = false;
 		GLFWwindow* window = nullptr;
 

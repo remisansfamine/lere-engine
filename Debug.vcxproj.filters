@@ -13,14 +13,38 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Fichiers de ressources\Shaders">
-      <UniqueIdentifier>{47a8c70e-8faa-41eb-80b9-8e8e879d4285}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers de ressources\Shaders\Shadow">
-      <UniqueIdentifier>{4455bf65-4fb7-4400-b6b9-5a6ee3a0aeff}</UniqueIdentifier>
+    <Filter Include="Fichiers sources\interfaces">
+      <UniqueIdentifier>{8b976dde-86e0-4763-b527-f736db714f8a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\source">
-      <UniqueIdentifier>{fc63197a-e469-4f19-b5a5-8741494c7f22}</UniqueIdentifier>
+      <UniqueIdentifier>{520d9300-8820-4cbc-8a31-2f7d8d34e827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Resources">
+      <UniqueIdentifier>{d1e28711-82c3-4bda-bffc-96c0d718e1f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\ThirdParty">
+      <UniqueIdentifier>{f1d9b43e-2b63-40ee-a4d4-dab79bb85508}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\ThirdParty\ImGui">
+      <UniqueIdentifier>{75e59472-fba3-43e8-92de-d274cd501d52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Utils">
+      <UniqueIdentifier>{3f64a28b-ee77-4b89-8972-4dca80460d5a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Game">
+      <UniqueIdentifier>{51be28bb-4782-4cdb-9df9-e88e02a53152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Game\Gameplay">
+      <UniqueIdentifier>{e6d461f0-2a83-4f65-a8e4-f4dd7a4644d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Game\Gameplay\Player">
+      <UniqueIdentifier>{3a8653ae-70f8-4c13-b735-6cad18e1c3ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Game\Gameplay\Enemies">
+      <UniqueIdentifier>{6c32ad78-bfda-40c8-903e-24544531d65d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\source\Game\Gameplay\Entity">
+      <UniqueIdentifier>{5a779689-c7cd-4fe8-9b58-84fc944c899d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers sources\source\Core">
       <UniqueIdentifier>{d5d6fd48-1ce9-400a-b57a-b500733b3c45}</UniqueIdentifier>
@@ -43,44 +67,11 @@
     <Filter Include="Fichiers sources\source\Engine\LowRenderer">
       <UniqueIdentifier>{c8b3f9c5-d759-4dd6-8f6e-d909fbfd1555}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Fichiers sources\source\Game">
-      <UniqueIdentifier>{51be28bb-4782-4cdb-9df9-e88e02a53152}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Game\Gameplay">
-      <UniqueIdentifier>{e6d461f0-2a83-4f65-a8e4-f4dd7a4644d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Game\Gameplay\Player">
-      <UniqueIdentifier>{3a8653ae-70f8-4c13-b735-6cad18e1c3ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Game\Gameplay\Enemies">
-      <UniqueIdentifier>{6c32ad78-bfda-40c8-903e-24544531d65d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Game\Gameplay\Entity">
-      <UniqueIdentifier>{5a779689-c7cd-4fe8-9b58-84fc944c899d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Resources">
-      <UniqueIdentifier>{d1e28711-82c3-4bda-bffc-96c0d718e1f0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\ThirdParty">
-      <UniqueIdentifier>{f1d9b43e-2b63-40ee-a4d4-dab79bb85508}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\ThirdParty\ImGui">
-      <UniqueIdentifier>{75e59472-fba3-43e8-92de-d274cd501d52}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\source\Utils">
-      <UniqueIdentifier>{3f64a28b-ee77-4b89-8972-4dca80460d5a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers sources\interfaces">
-      <UniqueIdentifier>{894edb1f-6208-467e-b139-59c59d82cf15}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Fichiers sources\wrappers">
-      <UniqueIdentifier>{484cfc31-f1de-42ed-8d00-b585d53ef6ab}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Fichiers d%27en-tête\wrappers">
-      <UniqueIdentifier>{c12313d6-2d58-4219-9266-7f8f0c0e550f}</UniqueIdentifier>
+      <UniqueIdentifier>{67d6d1bf-b4d2-47b3-b5c1-7481998fcb42}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers d%27en-tête\include">
-      <UniqueIdentifier>{33a68974-bb48-4dfd-b8af-c2daa0027e90}</UniqueIdentifier>
+      <UniqueIdentifier>{b37c9971-02ee-42d3-9a51-37ef40a992d9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Fichiers d%27en-tête\include\Core">
       <UniqueIdentifier>{601b7a72-6829-45e0-8d60-a2a2c075d36f}</UniqueIdentifier>
@@ -129,6 +120,9 @@
     </Filter>
     <Filter Include="Fichiers d%27en-tête\include\Utils">
       <UniqueIdentifier>{35af11c0-aeba-4114-8351-d695787f9131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers d%27en-tête\wrappers">
+      <UniqueIdentifier>{ff2a9574-3b5a-4911-843f-f07ab6987d39}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -351,9 +345,6 @@
     <ClCompile Include="src\Core\benchmarker.cpp">
       <Filter>Fichiers sources\source\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\script.cpp">
-      <Filter>Fichiers sources\source\Engine</Filter>
-    </ClCompile>
     <ClCompile Include="src\glad.c">
       <Filter>Fichiers sources\source</Filter>
     </ClCompile>
@@ -375,11 +366,17 @@
     <ClCompile Include="src\Core\sound_manager.cpp">
       <Filter>Fichiers sources\source</Filter>
     </ClCompile>
-    <ClCompile Include="interfaces\input_wrap.cxx">
+    <ClCompile Include="wrappers\graph_wrapper.cpp">
+      <Filter>Fichiers sources\wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="wrappers\debug_wrapper.cpp">
+      <Filter>Fichiers sources\wrappers</Filter>
+    </ClCompile>
+    <ClCompile Include="interfaces\debug_wrap.cxx">
       <Filter>Fichiers sources\interfaces</Filter>
     </ClCompile>
-    <ClCompile Include="wrappers\input_wrapper.cpp">
-      <Filter>Fichiers sources\wrappers</Filter>
+    <ClCompile Include="interfaces\graph_wrap.cxx">
+      <Filter>Fichiers sources\interfaces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -391,6 +388,9 @@
     </ClInclude>
     <ClInclude Include="include\Resources\resources_manager.hpp">
       <Filter>Fichiers d%27en-tête\include\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\include\debug.hpp">
+      <Filter>Fichiers d%27en-tête\include\Core</Filter>
     </ClInclude>
     <ClInclude Include="include\Resources\shader.hpp">
       <Filter>Fichiers d%27en-tête\include\Resources</Filter>
@@ -414,6 +414,9 @@
       <Filter>Fichiers d%27en-tête\include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\component.hpp">
+      <Filter>Fichiers d%27en-tête\include\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\common\include\graph.hpp">
       <Filter>Fichiers d%27en-tête\include\Engine</Filter>
     </ClInclude>
     <ClInclude Include="include\Resources\scene.hpp">
@@ -680,12 +683,6 @@
     <ClInclude Include="include\Utils\singleton.hpp">
       <Filter>Fichiers d%27en-tête\include\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\common\include\debug.hpp">
-      <Filter>Fichiers d%27en-tête\include</Filter>
-    </ClInclude>
-    <ClInclude Include="..\common\include\graph.hpp">
-      <Filter>Fichiers d%27en-tête\include</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game\pause_screen.hpp">
       <Filter>Fichiers d%27en-tête\include</Filter>
     </ClInclude>
@@ -704,18 +701,21 @@
     <ClInclude Include="include\Core\sound_manager.hpp">
       <Filter>Fichiers d%27en-tête\include</Filter>
     </ClInclude>
-    <ClInclude Include="wrappers\input_wrapper.hpp">
+    <ClInclude Include="wrappers\debug_wrapper.hpp">
       <Filter>Fichiers d%27en-tête\wrappers</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\script.hpp">
-      <Filter>Fichiers d%27en-tête\include\Engine</Filter>
+    <ClInclude Include="wrappers\graph_wrapper.hpp">
+      <Filter>Fichiers d%27en-tête\wrappers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl">
       <Filter>Fichiers d%27en-tête\include\Core</Filter>
     </None>
-    <None Include="interfaces\input.i">
+    <None Include="interfaces\graph.i">
+      <Filter>Fichiers sources\interfaces</Filter>
+    </None>
+    <None Include="interfaces\debug.i">
       <Filter>Fichiers sources\interfaces</Filter>
     </None>
   </ItemGroup>

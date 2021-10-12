@@ -19,7 +19,6 @@ namespace Engine
 	private:
 		GameObject& m_gameObject;
 
-
 	protected:
 		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
 		virtual ~Component();
@@ -53,7 +52,6 @@ namespace Engine
 		void virtual lateUpdate() { }
 		void virtual onEnable() { }
 		void virtual onDisable() { }
-
 
 		bool isActive() override;
 		void destroy() override;

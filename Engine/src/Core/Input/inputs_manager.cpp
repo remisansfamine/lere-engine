@@ -4,6 +4,16 @@
 
 namespace Core::Input
 {
+	InputManager::InputManager()
+	{
+		Core::Debug::Log::info("Creating the Input Manager");
+	}
+
+	InputManager::~InputManager()
+	{
+		Core::Debug::Log::info("Destroying the Input Manager");
+	}
+
 	void InputManager::init(GLFWwindow* _window)
 	{
 		InputManager* IM = instance();
@@ -67,7 +77,7 @@ namespace Core::Input
 		auto keyIt = IM->keyButtons.find(name);
 
 		// Assert if the key does not exist
-		if (keyIt != IM->keyButtons.end())
+		if (keyIt == IM->keyButtons.end())
 			Core::Debug::Log::error("Button " + name + " does not exist");
 
 		return keyIt->second;
@@ -80,7 +90,7 @@ namespace Core::Input
 		auto keyIt = IM->mouseButtons.find(name);
 
 		// Assert if the key does not exist
-		if (keyIt != IM->mouseButtons.end())
+		if (keyIt == IM->mouseButtons.end())
 			Core::Debug::Log::error("Mouse button " + name + " does not exist");
 
 		return keyIt->second;
@@ -93,7 +103,7 @@ namespace Core::Input
 		auto keyIt = IM->keyAxes.find(name);
 
 		// Assert if the axis does not exist
-		if (keyIt != IM->keyAxes.end())
+		if (keyIt == IM->keyAxes.end())
 			Core::Debug::Log::error("Axis " + name + " does not exist");
 
 		return keyIt->second;

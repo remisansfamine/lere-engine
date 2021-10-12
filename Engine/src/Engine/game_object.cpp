@@ -36,6 +36,7 @@
 #include "camera.hpp"
 #include "utils.hpp"
 #include "light.hpp"
+#include "script.hpp"
 
 namespace Engine
 {
@@ -274,7 +275,10 @@ namespace Engine
 
 	void GameObject::parseScripts(std::istringstream& parseScript)
 	{
+		std::string comp;
+		parseScript >> comp;
 
+		addComponent<ScriptComponent>(comp);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)

@@ -201,6 +201,30 @@ namespace Resources
 		return RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
 	}
 
+	std::shared_ptr<Script> ResourcesManager::loadScript(const std::string& scriptName)
+	{
+		ResourcesManager* RM = instance();
+
+		while (RM->lockScripts.test_and_set());
+
+		const auto& scriptIt = RM->scripts.find(scriptName);
+
+		// Check if the Texture is already loaded
+		if (scriptIt != RM->scripts.end())
+		{
+			RM->lockScripts.clear();
+			return scriptIt->second;
+		}
+
+		std::shared_ptr<Script> script(new Script(scriptName));
+
+		RM->scripts[scriptName] = script;
+
+		RM->lockScripts.clear();
+
+		return script;
+	}
+
 	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath, bool setAsPersistent)
 	{
 		ResourcesManager* RM = instance();

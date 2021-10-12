@@ -17,23 +17,11 @@ int main()
 	// Check for leak
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-
-
-	CPyInstance instance;
-
-	char filename[] = "../x64/Release/main.py";
-	PyObject* obj = Py_BuildValue("s", filename);
-
-	FILE* file = _Py_fopen_obj(obj, "r+");
-
-	if (file != NULL)
-		PyRun_SimpleFile(file, filename);
-
-
-
-
 	try
 	{
+		CPyInstance pyInstance;
+
+
 		Core::Application::init(SCR_WIDTH, SCR_HEIGHT, "Engine");
 
 		Core::Application::update();
