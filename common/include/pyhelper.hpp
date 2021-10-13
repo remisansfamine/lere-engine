@@ -31,9 +31,12 @@ private:
 public:
 	CPyObject() = default;
 
-	CPyObject(PyObject* p) : p(p)
+	CPyObject(PyObject* pp)
 	{
-		Py_INCREF(p);
+		if (pp)
+			Py_INCREF(pp);
+
+		p = pp;
 	}
 
 	CPyObject(CPyObject& other) : p(other.addRef())
@@ -94,4 +97,12 @@ public:
 
 		return p;
 	}
+
+	double asDouble() { return p ? PyFloat_AsDouble(p) : 0.f; }
+
+	float asFloat() { return  (float)asDouble(); }
+
+	long asLong() { return p ? PyLong_AsLong(p) : 0; }
+
+	int asInt() { return (int)asLong(); }
 };

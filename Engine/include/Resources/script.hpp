@@ -1,15 +1,10 @@
 #pragma once
 
-#include "pyhelper.hpp"
-
-#include "component.hpp"
-
 #include <string>
 #include <memory>
 #include <unordered_map>
 
-#include "transform.hpp"
-#include "rigidbody.hpp"
+#include "pyhelper.hpp"
 
 namespace Resources
 {
@@ -28,6 +23,7 @@ namespace Resources
 
 		void addFunction(const std::string& functionName);
 
+
 	public:
 		CPyObject pyClass;
 
@@ -41,36 +37,12 @@ namespace Resources
 
 		void reload();
 
-		void callFunction(const std::string& functionName);
+		CPyObject callFunction(const std::string& functionName);
 
 		void callFunction(CPyObject* instance, const std::string& functionName, const char* format = nullptr, ...);
 
 		CPyObject* createClassInstance();
-	};
-}
 
-namespace Engine
-{
-	class ScriptComponent : public Component
-	{
-	private:
-		std::shared_ptr<Resources::Script> script;
-
-		CPyObject* instance = nullptr;
-
-	public:
-		Physics::Transform* transform;
-		Physics::Rigidbody* rigidbody;
-
-		ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName);
-
-		void awake() override;
-		void start() override;
-		void update() override;
-		void lateUpdate() override;
-		void fixedUpdate() override;
-		void lateFixedUpdate() override;
-		void onEnable() override;
-		void onDisable() override;
+		std::string& getScriptPath();
 	};
 }

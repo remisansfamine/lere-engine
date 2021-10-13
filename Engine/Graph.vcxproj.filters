@@ -354,7 +354,7 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp">
       <Filter>Fichiers sources\source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\script.cpp">
+    <ClCompile Include="src\Resources\script.cpp">
       <Filter>Fichiers sources\source</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\LowRenderer\shadow.cpp">
@@ -368,6 +368,9 @@
     </ClCompile>
     <ClCompile Include="src\Core\sound_manager.cpp">
       <Filter>Fichiers sources\source</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine\script_component.cpp">
+      <Filter>Fichiers sources\source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -696,8 +699,11 @@
     <ClInclude Include="wrappers\graph_wrapper.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\script.hpp">
+    <ClInclude Include="include\Resources\script.hpp">
       <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\script_component.hpp">
+      <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

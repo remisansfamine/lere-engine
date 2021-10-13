@@ -7,6 +7,7 @@
 #include "render_manager.hpp"
 #include "resources_manager.hpp"
 
+#include "script_component.hpp"
 #include "sprite_renderer.hpp"
 #include "player_shooting.hpp"
 #include "player_movement.hpp"
@@ -36,7 +37,6 @@
 #include "camera.hpp"
 #include "utils.hpp"
 #include "light.hpp"
-#include "script.hpp"
 
 namespace Engine
 {

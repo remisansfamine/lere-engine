@@ -5,6 +5,7 @@
 
 #include "inputs_manager.hpp"
 #include "physic_manager.hpp"
+#include "resources_manager.hpp"
 #include "sound_manager.hpp"
 
 #include "rigidbody.hpp"

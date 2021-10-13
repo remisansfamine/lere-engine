@@ -1,13 +1,33 @@
-[10/13/21 - 15:28:26] ERROR: Unable to read the file: C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/sphere.mtl
-[10/13/21 - 15:28:26] ERROR: Component not found
-[10/13/21 - 15:28:26] ERROR: Component not found
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Unable to read the file: C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/sphere.mtl
+[10/13/21 - 17:52:28] ERROR: Component not found
+[10/13/21 - 17:52:28] ERROR: Component not found
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/13/21 - 17:52:28] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Component not found
+[10/13/21 - 17:52:31] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[10/13/21 - 17:52:31] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[10/13/21 - 17:52:35] ERROR: Cannot find the texture file at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:\Users\r.giner\2021_gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.
+[10/13/21 - 17:52:35] ERROR: Cannot find the texture file at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:\Users\r.giner\2021_gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.
+[10/13/21 - 17:52:37] ERROR: Cannot find the texture file at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:\Users\r.giner\2021_gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.

@@ -1,5 +1,9 @@
 #include "player_movement.hpp"
 
+#include "pyhelper.hpp"
+
+#include "resources_manager.hpp"
+
 namespace Gameplay
 {
 	PlayerMovement::PlayerMovement(Engine::GameObject& gameObject)
@@ -12,10 +16,16 @@ namespace Gameplay
 	void PlayerMovement::start()
 	{
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
+
+		script = Resources::ResourcesManager::loadScript("player_movement");
 	}
 
 	void PlayerMovement::fixedUpdate()
 	{
+		m_speed = script->callFunction("getSpeed").asFloat();
+		m_sensivityY = script->callFunction("getSensitivity").asFloat();
+		m_jumpForce = script->callFunction("getJump").asFloat();
+
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
 		float horizontal = m_playerState->horizontalMove;
 		float vertical = m_playerState->forwardMove;

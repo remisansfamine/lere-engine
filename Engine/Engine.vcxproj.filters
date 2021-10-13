@@ -354,8 +354,11 @@
     <ClCompile Include="src\Core\benchmarker.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\script.cpp">
+    <ClCompile Include="src\Engine\script_component.cpp">
       <Filter>Fichiers sources\Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Resources\script.cpp">
+      <Filter>Fichiers sources\Resources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -608,8 +611,11 @@
     <ClInclude Include="include\Utils\singleton.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\script.hpp">
+    <ClInclude Include="include\Engine\script_component.hpp">
       <Filter>Fichiers d%27en-tête\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Resources\script.hpp">
+      <Filter>Fichiers d%27en-tête\Resources</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -682,6 +688,5 @@
     <None Include="resources\shaders\depthShader.vert">
       <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
     </None>
-    <None Include="resources\scripts\transform.py" />
   </ItemGroup>
 </Project>

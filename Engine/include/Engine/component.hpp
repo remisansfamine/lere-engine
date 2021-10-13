@@ -7,6 +7,8 @@
 #include "game_object.hpp"
 #include "collision.hpp"
 
+#include "script.hpp"
+
 namespace Physics
 {
 	class Collider;
@@ -20,6 +22,8 @@ namespace Engine
 		GameObject& m_gameObject;
 
 	protected:
+		std::shared_ptr<Resources::Script> script;
+
 		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
 		virtual ~Component();
 
@@ -41,28 +45,28 @@ namespace Engine
 
 		void setActive(bool value) override;
 
-		virtual void draw() const { }
-		virtual void drawImGui();
+		void virtual draw() const { }
+		void virtual drawImGui();
 
-		virtual void awake() { }
-		virtual void start() { }
-		virtual void update() { }
-		virtual void fixedUpdate() { }
-		virtual void lateFixedUpdate() { }
-		virtual void lateUpdate() { }
-		virtual void onEnable() { }
-		virtual void onDisable() { }
+		void virtual awake() { }
+		void virtual start() { }
+		void virtual update() { }
+		void virtual fixedUpdate() { }
+		void virtual lateFixedUpdate() { }
+		void virtual lateUpdate() { }
+		void virtual onEnable() { }
+		void virtual onDisable() { }
 
 		bool isActive() override;
 		void destroy() override;
 
-		virtual void onCollisionEnter(const Physics::Collision& collision) {}
-		virtual void onCollisionStay(const Physics::Collision& collision) {}
-		virtual void onCollisionExit(const Physics::Collision& collision) {}
+		void virtual onCollisionEnter(const Physics::Collision& collision) {}
+		void virtual onCollisionStay(const Physics::Collision& collision) {}
+		void virtual onCollisionExit(const Physics::Collision& collision) {}
 
-		virtual void onTriggerEnter(Physics::Collider* collider) {}
-		virtual void onTriggerStay(Physics::Collider* collider) {}
-		virtual void onTriggerExit(Physics::Collider* collider) {}
+		void virtual onTriggerEnter(Physics::Collider* collider) {}
+		void virtual onTriggerStay(Physics::Collider* collider) {}
+		void virtual onTriggerExit(Physics::Collider* collider) {}
 
 		GameObject& getHost();
 

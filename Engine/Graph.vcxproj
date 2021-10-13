@@ -231,7 +231,8 @@
     <ClCompile Include="src\Engine\Physics\Toolbox\intersection.cpp" />
     <ClCompile Include="src\Engine\Physics\Toolbox\referential.cpp" />
     <ClCompile Include="src\Engine\Physics\transform.cpp" />
-    <ClCompile Include="src\Engine\script.cpp" />
+    <ClCompile Include="src\Resources\script.cpp" />
+    <ClCompile Include="src\Engine\script_component.cpp" />
     <ClCompile Include="src\Engine\UI\button.cpp" />
     <ClCompile Include="src\Game\Gameplay\bullet_hole.cpp" />
     <ClCompile Include="src\Game\Gameplay\Enemy\enemy_life.cpp" />
@@ -346,7 +347,8 @@
     <ClInclude Include="include\Engine\Physics\Toolbox\quad.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
-    <ClInclude Include="include\Engine\script.hpp" />
+    <ClInclude Include="include\Engine\script_component.hpp" />
+    <ClInclude Include="include\Resources\script.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
     <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />

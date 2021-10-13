@@ -13,6 +13,10 @@ namespace Gameplay
 		std::shared_ptr<Physics::Transform> m_transform;
 		std::shared_ptr<Physics::SphereCollider> m_collider;
 
+		std::string jumpKey = "Jump";
+		std::string horizontalKey = "Horizontal";
+		std::string verticalKey = "Vertical";
+
 	public:
 		PlayerState(Engine::GameObject& gameObject);
 

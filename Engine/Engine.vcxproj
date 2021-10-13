@@ -112,8 +112,7 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,8 +135,7 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -158,8 +156,7 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -183,12 +180,11 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\script.cpp" />
+    <ClCompile Include="src\Engine\script_component.cpp" />
     <ClCompile Include="src\Core\application.cpp" />
     <ClCompile Include="src\Core\benchmarker.cpp" />
     <ClCompile Include="src\Core\debug.cpp" />
@@ -265,6 +261,7 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     <ClCompile Include="src\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Resources\resources_manager.cpp" />
+    <ClCompile Include="src\Resources\script.cpp" />
     <ClCompile Include="src\Resources\shader.cpp" />
     <ClCompile Include="src\Resources\texture.cpp" />
     <ClCompile Include="src\Utils\thread_pool.cpp" />
@@ -341,7 +338,7 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     <ClInclude Include="include\Engine\Physics\Toolbox\quad.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
-    <ClInclude Include="include\Engine\script.hpp" />
+    <ClInclude Include="include\Engine\script_component.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
     <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />
@@ -370,6 +367,7 @@ copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     <ClInclude Include="include\Resources\resource.hpp" />
     <ClInclude Include="include\Resources\scene.hpp" />
     <ClInclude Include="include\Resources\resources_manager.hpp" />
+    <ClInclude Include="include\Resources\script.hpp" />
     <ClInclude Include="include\Resources\shader.hpp" />
     <ClInclude Include="include\Resources\texture.hpp" />
     <ClInclude Include="include\Utils\concurrent_queue.hpp" />
