@@ -361,7 +361,7 @@
     <ClCompile Include="src\Engine\script.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="interfaces\physics_wrap.cxx">
+    <ClCompile Include="interfaces\engine_wrap.cxx">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
@@ -753,9 +753,11 @@
     <None Include="resources\shaders\depthShader.vert">
       <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
     </None>
-    <None Include="interfaces\physics.i" />
+    <None Include="interfaces\transform.i" />
     <None Include="interfaces\component.i" />
     <None Include="interfaces\game_object.i" />
     <None Include="interfaces\object.i" />
+    <None Include="interfaces\engine.i" />
+    <None Include="interfaces\rigidbody.i" />
   </ItemGroup>
 </Project>

@@ -339,5 +339,52 @@ class PyTransform(object):
 # Register PyTransform in _engine:
 _engine.PyTransform_swigregister(PyTransform)
 
+class Rigidbody(Component):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    velocity = property(_engine.Rigidbody_velocity_get, _engine.Rigidbody_velocity_set)
+    gravity = property(_engine.Rigidbody_gravity_get, _engine.Rigidbody_gravity_set)
+    mass = property(_engine.Rigidbody_mass_get, _engine.Rigidbody_mass_set)
+    drag = property(_engine.Rigidbody_drag_get, _engine.Rigidbody_drag_set)
+    isAwake = property(_engine.Rigidbody_isAwake_get, _engine.Rigidbody_isAwake_set)
+
+    def __init__(self, gameObject):
+        _engine.Rigidbody_swiginit(self, _engine.new_Rigidbody(gameObject))
+
+    def addForce(self, force):
+        return _engine.Rigidbody_addForce(self, force)
+
+    def getNewPosition(self, center):
+        return _engine.Rigidbody_getNewPosition(self, center)
+
+    def fixedUpdate(self):
+        return _engine.Rigidbody_fixedUpdate(self)
+
+    def computeNextPos(self):
+        return _engine.Rigidbody_computeNextPos(self)
+
+    def drawImGui(self):
+        return _engine.Rigidbody_drawImGui(self)
+
+    def onCollisionEnter(self, collision):
+        return _engine.Rigidbody_onCollisionEnter(self, collision)
+
+    def onCollisionStay(self, collision):
+        return _engine.Rigidbody_onCollisionStay(self, collision)
+
+    def toString(self):
+        return _engine.Rigidbody_toString(self)
+
+    @staticmethod
+    def parseComponent(gameObject, iss):
+        return _engine.Rigidbody_parseComponent(gameObject, iss)
+    __swig_destroy__ = _engine.delete_Rigidbody
+
+# Register Rigidbody in _engine:
+_engine.Rigidbody_swigregister(Rigidbody)
+
+def Rigidbody_parseComponent(gameObject, iss):
+    return _engine.Rigidbody_parseComponent(gameObject, iss)
+
 
 

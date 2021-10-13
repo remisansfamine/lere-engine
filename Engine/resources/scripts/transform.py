@@ -2,6 +2,7 @@ import engine
 
 go = engine.GameObject()
 tr = engine.Transform(go)
+rb = engine.Rigidbody(go)
 
 print(tr)
 print(tr.m_position)
@@ -15,3 +16,8 @@ tr.m_position.y -= 2
 
 print(tr.m_position.x)
 print(tr.m_position.y)
+
+print("-------------")
+print(rb.mass)
+rb.mass += 9
+print(rb.mass)

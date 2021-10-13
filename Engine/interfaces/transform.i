@@ -1,4 +1,4 @@
-%module engine
+%module transform
 
 %{
 #include "../include/Core/maths.hpp"

@@ -2689,24 +2689,26 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 
 /* -------- TYPES TABLE (BEGIN) -------- */
 
-#define SWIGTYPE_p_Core__Maths__mat4 swig_types[0]
-#define SWIGTYPE_p_Core__Maths__vec3 swig_types[1]
-#define SWIGTYPE_p_Engine__Component swig_types[2]
-#define SWIGTYPE_p_Engine__GameObject swig_types[3]
-#define SWIGTYPE_p_Engine__Object swig_types[4]
-#define SWIGTYPE_p_GameObject swig_types[5]
-#define SWIGTYPE_p_Physics__Collider swig_types[6]
-#define SWIGTYPE_p_Physics__Collision swig_types[7]
-#define SWIGTYPE_p_Physics__PyTransform swig_types[8]
-#define SWIGTYPE_p_Physics__Transform swig_types[9]
-#define SWIGTYPE_p_char swig_types[10]
-#define SWIGTYPE_p_std__istream swig_types[11]
-#define SWIGTYPE_p_std__istringstream swig_types[12]
-#define SWIGTYPE_p_std__shared_ptrT_Physics__Transform_t swig_types[13]
-#define SWIGTYPE_p_std__string swig_types[14]
-#define SWIGTYPE_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t swig_types[15]
-static swig_type_info *swig_types[17];
-static swig_module_info swig_module = {swig_types, 16, 0, 0, 0, 0};
+#define SWIGTYPE_p_Collision swig_types[0]
+#define SWIGTYPE_p_Core__Maths__mat4 swig_types[1]
+#define SWIGTYPE_p_Core__Maths__vec3 swig_types[2]
+#define SWIGTYPE_p_Engine__Component swig_types[3]
+#define SWIGTYPE_p_Engine__GameObject swig_types[4]
+#define SWIGTYPE_p_Engine__Object swig_types[5]
+#define SWIGTYPE_p_GameObject swig_types[6]
+#define SWIGTYPE_p_Physics__Collider swig_types[7]
+#define SWIGTYPE_p_Physics__Collision swig_types[8]
+#define SWIGTYPE_p_Physics__PyTransform swig_types[9]
+#define SWIGTYPE_p_Physics__Rigidbody swig_types[10]
+#define SWIGTYPE_p_Physics__Transform swig_types[11]
+#define SWIGTYPE_p_char swig_types[12]
+#define SWIGTYPE_p_std__istream swig_types[13]
+#define SWIGTYPE_p_std__istringstream swig_types[14]
+#define SWIGTYPE_p_std__shared_ptrT_Physics__Transform_t swig_types[15]
+#define SWIGTYPE_p_std__string swig_types[16]
+#define SWIGTYPE_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t swig_types[17]
+static swig_type_info *swig_types[19];
+static swig_module_info swig_module = {swig_types, 18, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2808,6 +2810,13 @@ namespace swig {
     }
   };
 }
+
+
+
+
+#include "../include/Engine/Physics/rigidbody.hpp"
+
+using namespace Physics;
 
 
 #include "../include/Core/maths.hpp"
@@ -5999,6 +6008,578 @@ SWIGINTERN PyObject *PyTransform_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObje
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_Rigidbody_velocity_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Core::Maths::vec3 *arg2 = (Core::Maths::vec3 *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_velocity_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_velocity_set" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Core__Maths__vec3, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_velocity_set" "', argument " "2"" of type '" "Core::Maths::vec3 *""'"); 
+  }
+  arg2 = reinterpret_cast< Core::Maths::vec3 * >(argp2);
+  if (arg1) (arg1)->velocity = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_velocity_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Core::Maths::vec3 *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_velocity_get" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = (Core::Maths::vec3 *)& ((arg1)->velocity);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Core__Maths__vec3, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_gravity_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Core::Maths::vec3 *arg2 = (Core::Maths::vec3 *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_gravity_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_gravity_set" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Core__Maths__vec3, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_gravity_set" "', argument " "2"" of type '" "Core::Maths::vec3 *""'"); 
+  }
+  arg2 = reinterpret_cast< Core::Maths::vec3 * >(argp2);
+  if (arg1) (arg1)->gravity = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_gravity_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Core::Maths::vec3 *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_gravity_get" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = (Core::Maths::vec3 *)& ((arg1)->gravity);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Core__Maths__vec3, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_mass_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_mass_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_mass_set" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  ecode2 = SWIG_AsVal_float(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Rigidbody_mass_set" "', argument " "2"" of type '" "float""'");
+  } 
+  arg2 = static_cast< float >(val2);
+  if (arg1) (arg1)->mass = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_mass_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  float result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_mass_get" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = (float) ((arg1)->mass);
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_drag_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  float arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  float val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_drag_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_drag_set" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  ecode2 = SWIG_AsVal_float(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Rigidbody_drag_set" "', argument " "2"" of type '" "float""'");
+  } 
+  arg2 = static_cast< float >(val2);
+  if (arg1) (arg1)->drag = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_drag_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  float result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_drag_get" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = (float) ((arg1)->drag);
+  resultobj = SWIG_From_float(static_cast< float >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_isAwake_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_isAwake_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_isAwake_set" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Rigidbody_isAwake_set" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->isAwake = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_isAwake_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_isAwake_get" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = (bool) ((arg1)->isAwake);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Rigidbody(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Physics::Rigidbody *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Engine__GameObject,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_Rigidbody" "', argument " "1"" of type '" "Engine::GameObject &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_Rigidbody" "', argument " "1"" of type '" "Engine::GameObject &""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result = (Physics::Rigidbody *)new Physics::Rigidbody(*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Physics__Rigidbody, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_addForce(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Core::Maths::vec3 *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_addForce", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_addForce" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Core__Maths__vec3,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_addForce" "', argument " "2"" of type '" "Core::Maths::vec3 const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_addForce" "', argument " "2"" of type '" "Core::Maths::vec3 const &""'"); 
+  }
+  arg2 = reinterpret_cast< Core::Maths::vec3 * >(argp2);
+  (arg1)->addForce((Core::Maths::vec3 const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_getNewPosition(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Core::Maths::vec3 *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  Core::Maths::vec3 result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_getNewPosition", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_getNewPosition" "', argument " "1"" of type '" "Physics::Rigidbody const *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Core__Maths__vec3,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_getNewPosition" "', argument " "2"" of type '" "Core::Maths::vec3 const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_getNewPosition" "', argument " "2"" of type '" "Core::Maths::vec3 const &""'"); 
+  }
+  arg2 = reinterpret_cast< Core::Maths::vec3 * >(argp2);
+  result = ((Physics::Rigidbody const *)arg1)->getNewPosition((Core::Maths::vec3 const &)*arg2);
+  resultobj = SWIG_NewPointerObj((new Core::Maths::vec3(static_cast< const Core::Maths::vec3& >(result))), SWIGTYPE_p_Core__Maths__vec3, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_fixedUpdate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_fixedUpdate" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  (arg1)->fixedUpdate();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_computeNextPos(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_computeNextPos" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  (arg1)->computeNextPos();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_drawImGui(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_drawImGui" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  (arg1)->drawImGui();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_onCollisionEnter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_onCollisionEnter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_onCollisionEnter" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_onCollisionEnter" "', argument " "2"" of type '" "Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_onCollisionEnter" "', argument " "2"" of type '" "Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Collision * >(argp2);
+  (arg1)->onCollisionEnter((Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_onCollisionStay(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_onCollisionStay", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_onCollisionStay" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_onCollisionStay" "', argument " "2"" of type '" "Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_onCollisionStay" "', argument " "2"" of type '" "Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Collision * >(argp2);
+  (arg1)->onCollisionStay((Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_toString" "', argument " "1"" of type '" "Physics::Rigidbody const *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  result = ((Physics::Rigidbody const *)arg1)->toString();
+  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Rigidbody_parseComponent(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = 0 ;
+  std::istringstream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Rigidbody_parseComponent", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_Engine__GameObject,  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Rigidbody_parseComponent" "', argument " "1"" of type '" "Engine::GameObject &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_parseComponent" "', argument " "1"" of type '" "Engine::GameObject &""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__istringstream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Rigidbody_parseComponent" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Rigidbody_parseComponent" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::istringstream * >(argp2);
+  Physics::Rigidbody::parseComponent(*arg1,*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Rigidbody(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Physics::Rigidbody *arg1 = (Physics::Rigidbody *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Physics__Rigidbody, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Rigidbody" "', argument " "1"" of type '" "Physics::Rigidbody *""'"); 
+  }
+  arg1 = reinterpret_cast< Physics::Rigidbody * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Rigidbody_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Physics__Rigidbody, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *Rigidbody_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 static PyMethodDef SwigMethods[] = {
 	 { "SWIG_PyInstanceMethod_New", SWIG_PyInstanceMethod_New, METH_O, NULL},
 	 { "vec3_x_set", _wrap_vec3_x_set, METH_VARARGS, NULL},
@@ -6115,6 +6696,29 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_PyTransform", _wrap_delete_PyTransform, METH_O, NULL},
 	 { "PyTransform_swigregister", PyTransform_swigregister, METH_O, NULL},
 	 { "PyTransform_swiginit", PyTransform_swiginit, METH_VARARGS, NULL},
+	 { "Rigidbody_velocity_set", _wrap_Rigidbody_velocity_set, METH_VARARGS, NULL},
+	 { "Rigidbody_velocity_get", _wrap_Rigidbody_velocity_get, METH_O, NULL},
+	 { "Rigidbody_gravity_set", _wrap_Rigidbody_gravity_set, METH_VARARGS, NULL},
+	 { "Rigidbody_gravity_get", _wrap_Rigidbody_gravity_get, METH_O, NULL},
+	 { "Rigidbody_mass_set", _wrap_Rigidbody_mass_set, METH_VARARGS, NULL},
+	 { "Rigidbody_mass_get", _wrap_Rigidbody_mass_get, METH_O, NULL},
+	 { "Rigidbody_drag_set", _wrap_Rigidbody_drag_set, METH_VARARGS, NULL},
+	 { "Rigidbody_drag_get", _wrap_Rigidbody_drag_get, METH_O, NULL},
+	 { "Rigidbody_isAwake_set", _wrap_Rigidbody_isAwake_set, METH_VARARGS, NULL},
+	 { "Rigidbody_isAwake_get", _wrap_Rigidbody_isAwake_get, METH_O, NULL},
+	 { "new_Rigidbody", _wrap_new_Rigidbody, METH_O, NULL},
+	 { "Rigidbody_addForce", _wrap_Rigidbody_addForce, METH_VARARGS, NULL},
+	 { "Rigidbody_getNewPosition", _wrap_Rigidbody_getNewPosition, METH_VARARGS, NULL},
+	 { "Rigidbody_fixedUpdate", _wrap_Rigidbody_fixedUpdate, METH_O, NULL},
+	 { "Rigidbody_computeNextPos", _wrap_Rigidbody_computeNextPos, METH_O, NULL},
+	 { "Rigidbody_drawImGui", _wrap_Rigidbody_drawImGui, METH_O, NULL},
+	 { "Rigidbody_onCollisionEnter", _wrap_Rigidbody_onCollisionEnter, METH_VARARGS, NULL},
+	 { "Rigidbody_onCollisionStay", _wrap_Rigidbody_onCollisionStay, METH_VARARGS, NULL},
+	 { "Rigidbody_toString", _wrap_Rigidbody_toString, METH_O, NULL},
+	 { "Rigidbody_parseComponent", _wrap_Rigidbody_parseComponent, METH_VARARGS, NULL},
+	 { "delete_Rigidbody", _wrap_delete_Rigidbody, METH_O, NULL},
+	 { "Rigidbody_swigregister", Rigidbody_swigregister, METH_O, NULL},
+	 { "Rigidbody_swiginit", Rigidbody_swiginit, METH_VARARGS, NULL},
 	 { NULL, NULL, 0, NULL }
 };
 
@@ -6134,9 +6738,16 @@ static void *_p_Engine__GameObjectTo_p_Engine__Object(void *x, int *SWIGUNUSEDPA
 static void *_p_Physics__TransformTo_p_Engine__Object(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Engine::Object *) (Engine::Component *) ((Physics::Transform *) x));
 }
+static void *_p_Physics__RigidbodyTo_p_Engine__Object(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Object *) (Engine::Component *) ((Physics::Rigidbody *) x));
+}
 static void *_p_Physics__TransformTo_p_Engine__Component(void *x, int *SWIGUNUSEDPARM(newmemory)) {
     return (void *)((Engine::Component *)  ((Physics::Transform *) x));
 }
+static void *_p_Physics__RigidbodyTo_p_Engine__Component(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Component *)  ((Physics::Rigidbody *) x));
+}
+static swig_type_info _swigt__p_Collision = {"_p_Collision", "Collision *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Core__Maths__mat4 = {"_p_Core__Maths__mat4", "Core::Maths::mat4 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Core__Maths__vec3 = {"_p_Core__Maths__vec3", "Core::Maths::vec3 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Engine__Component = {"_p_Engine__Component", "Engine::Component *", 0, 0, (void*)0, 0};
@@ -6146,6 +6757,7 @@ static swig_type_info _swigt__p_GameObject = {"_p_GameObject", "GameObject *", 0
 static swig_type_info _swigt__p_Physics__Collider = {"_p_Physics__Collider", "Physics::Collider *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Physics__Collision = {"_p_Physics__Collision", "Physics::Collision *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Physics__PyTransform = {"_p_Physics__PyTransform", "Physics::PyTransform *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Physics__Rigidbody = {"_p_Physics__Rigidbody", "Physics::Rigidbody *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Physics__Transform = {"_p_Physics__Transform", "Physics::Transform *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__istream = {"_p_std__istream", "std::istream *", 0, 0, (void*)0, 0};
@@ -6155,6 +6767,7 @@ static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *"
 static swig_type_info _swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t = {"_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t", "std::vector< std::shared_ptr< Engine::Component > > *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
+  &_swigt__p_Collision,
   &_swigt__p_Core__Maths__mat4,
   &_swigt__p_Core__Maths__vec3,
   &_swigt__p_Engine__Component,
@@ -6164,6 +6777,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Physics__Collider,
   &_swigt__p_Physics__Collision,
   &_swigt__p_Physics__PyTransform,
+  &_swigt__p_Physics__Rigidbody,
   &_swigt__p_Physics__Transform,
   &_swigt__p_char,
   &_swigt__p_std__istream,
@@ -6173,15 +6787,17 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t,
 };
 
+static swig_cast_info _swigc__p_Collision[] = {  {&_swigt__p_Collision, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Core__Maths__mat4[] = {  {&_swigt__p_Core__Maths__mat4, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Core__Maths__vec3[] = {  {&_swigt__p_Core__Maths__vec3, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Engine__Component[] = {  {&_swigt__p_Engine__Component, 0, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Component, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Engine__Component[] = {  {&_swigt__p_Engine__Component, 0, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Component, 0, 0},  {&_swigt__p_Physics__Rigidbody, _p_Physics__RigidbodyTo_p_Engine__Component, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Engine__GameObject[] = {  {&_swigt__p_Engine__GameObject, 0, 0, 0},{0, 0, 0, 0}};
-static swig_cast_info _swigc__p_Engine__Object[] = {  {&_swigt__p_Engine__Component, _p_Engine__ComponentTo_p_Engine__Object, 0, 0},  {&_swigt__p_Engine__Object, 0, 0, 0},  {&_swigt__p_Engine__GameObject, _p_Engine__GameObjectTo_p_Engine__Object, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Object, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Engine__Object[] = {  {&_swigt__p_Engine__Component, _p_Engine__ComponentTo_p_Engine__Object, 0, 0},  {&_swigt__p_Engine__Object, 0, 0, 0},  {&_swigt__p_Engine__GameObject, _p_Engine__GameObjectTo_p_Engine__Object, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Object, 0, 0},  {&_swigt__p_Physics__Rigidbody, _p_Physics__RigidbodyTo_p_Engine__Object, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_GameObject[] = {  {&_swigt__p_GameObject, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__Collider[] = {  {&_swigt__p_Physics__Collider, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__Collision[] = {  {&_swigt__p_Physics__Collision, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__PyTransform[] = {  {&_swigt__p_Physics__PyTransform, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Physics__Rigidbody[] = {  {&_swigt__p_Physics__Rigidbody, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__Transform[] = {  {&_swigt__p_Physics__Transform, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__istream[] = {  {&_swigt__p_std__istream, 0, 0, 0},{0, 0, 0, 0}};
@@ -6191,6 +6807,7 @@ static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0
 static swig_cast_info _swigc__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t[] = {  {&_swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
+  _swigc__p_Collision,
   _swigc__p_Core__Maths__mat4,
   _swigc__p_Core__Maths__vec3,
   _swigc__p_Engine__Component,
@@ -6200,6 +6817,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Physics__Collider,
   _swigc__p_Physics__Collision,
   _swigc__p_Physics__PyTransform,
+  _swigc__p_Physics__Rigidbody,
   _swigc__p_Physics__Transform,
   _swigc__p_char,
   _swigc__p_std__istream,

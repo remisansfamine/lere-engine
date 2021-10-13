@@ -186,7 +186,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="interfaces\physics_wrap.cxx" />
+    <ClCompile Include="interfaces\engine_wrap.cxx" />
     <ClCompile Include="src\Engine\script.cpp" />
     <ClCompile Include="src\Core\application.cpp" />
     <ClCompile Include="src\Core\benchmarker.cpp" />
@@ -382,9 +382,11 @@
   <ItemGroup>
     <None Include="include\Core\maths.inl" />
     <None Include="interfaces\component.i" />
+    <None Include="interfaces\engine.i" />
     <None Include="interfaces\game_object.i" />
     <None Include="interfaces\object.i" />
-    <None Include="interfaces\physics.i" />
+    <None Include="interfaces\rigidbody.i" />
+    <None Include="interfaces\transform.i" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\depthCubeShader.frag" />
