@@ -12,15 +12,14 @@
 namespace Engine
 {
 	ScriptComponent::ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName)
-		: Component(gameObject, std::shared_ptr<ScriptComponent>(this))
+		: Component(gameObject, std::shared_ptr<ScriptComponent>(this)), scriptName(scriptName)
 	{
 		transform = getHost().getComponent<Physics::Transform>().get();
 		rigidbody = getHost().getComponent<Physics::Rigidbody>().get();
 
-
 		script = Resources::ResourcesManager::loadScript(scriptName);
 		//script->initializeFunctions();
-		//instance = script->createClassInstance();
+		instance = script->createClassInstance(scriptName);
 	}
 
 	void ScriptComponent::awake()
@@ -41,6 +40,12 @@ namespace Engine
 		script->callFunction(instance, "update");
 	}
 
+	void ScriptComponent::lateUpdate()
+	{
+		script->callFunction("lateUpdate");
+		script->callFunction(instance, "lateUpdate");
+	}
+
 	void ScriptComponent::fixedUpdate()
 	{
 		script->callFunction("fixedUpdate");
@@ -51,12 +56,6 @@ namespace Engine
 	{
 		script->callFunction("lateFixedUpdate");
 		script->callFunction(instance, "lateFixedUpdate");
-	}
-
-	void ScriptComponent::lateUpdate()
-	{
-		script->callFunction("lateUpdate");
-		script->callFunction(instance, "lateUpdate");
 	}
 
 	void ScriptComponent::onEnable()

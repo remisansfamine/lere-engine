@@ -17,6 +17,8 @@ namespace Engine
 	private:
 		CPyObject* instance = nullptr;
 
+		std::string scriptName;
+
 	public:
 		Physics::Transform* transform;
 		Physics::Rigidbody* rigidbody;

@@ -88,6 +88,7 @@ namespace Resources
 		RM->purgeMap(RM->cubeMaps, RM->lockCubemaps);
 		RM->purgeMap(RM->meshes, RM->lockMeshes);
 		RM->purgeMap(RM->shaders);
+		RM->purgeMap(RM->scripts);
 		RM->purgeMap(RM->shaderPrograms);
  	}
 

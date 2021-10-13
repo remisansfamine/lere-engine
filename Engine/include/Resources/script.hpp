@@ -13,25 +13,22 @@ namespace Resources
 	private:
 		std::string scriptPath;
 
-		CPyObject pName;
 		CPyObject pyModule;
 		CPyObject pyDict;
 
 		std::vector<std::unique_ptr<CPyObject>> instances;
 
 		std::unordered_map<std::string, CPyObject> functions;
+		std::unordered_map<std::string, CPyObject> classes;
+		std::unordered_map<std::string, CPyObject> classFunctions;
 
 		void addFunction(const std::string& functionName);
 
-
 	public:
-		CPyObject pyClass;
-
 		Script(const std::string& scriptPath);
 
 		void initializeModule();
-		void initializeFunctions();
-		void initializeClass();
+		void initializeDictionary();
 
 		void killModule();
 
@@ -41,7 +38,7 @@ namespace Resources
 
 		void callFunction(CPyObject* instance, const std::string& functionName, const char* format = nullptr, ...);
 
-		CPyObject* createClassInstance();
+		CPyObject* createClassInstance(const std::string& classToInitialize);
 
 		std::string& getScriptPath();
 	};

@@ -14,68 +14,71 @@ namespace Resources
 		const char* scriptMod = scriptPath.c_str();
 
 		functions.clear();
+		classes.clear();
+		classFunctions.clear();
 
-		if (pyModule)
-		{
-			pyModule = PyImport_ReloadModule(pyModule);
+		pyModule = pyModule ? PyImport_ReloadModule(pyModule) : PyImport_ImportModule(scriptMod);
 
-			if (!pyModule)
-				Core::Debug::Log::error("Cannot reload the python script " + scriptPath);
-		}
-		else
-		{
-			pName = PyUnicode_FromString(scriptMod);
-			pyModule = PyImport_ImportModule(scriptMod);
+		if (!pyModule)
+			Core::Debug::Log::error("Cannot load the python script " + scriptPath);
 
-			if (!pyModule)
-				Core::Debug::Log::error("Cannot load the python script " + scriptPath);
-		}
-
-		pyDict = PyModule_GetDict(pyModule);
-
-		initializeFunctions();
-
+		initializeDictionary();
 	}
 
-	void Script::initializeFunctions()
+	void Script::initializeDictionary()
 	{
+		pyDict = PyModule_GetDict(pyModule);
+
 		PyObject* pyKey = nullptr, *pyValue = nullptr;
 		for (Py_ssize_t i = 0; PyDict_Next(pyDict, &i, &pyKey, &pyValue);)
 		{
 			const char* key = PyUnicode_AsUTF8(pyKey);
 
 			if (PyFunction_Check(pyValue))
+			{
 				functions[std::string(key)] = pyValue;
+				continue;
+			}
+
+			if (PyType_Check(pyValue))
+			{
+				classes[std::string(key)] = pyValue;
+
+				CPyObject classDict = PyObject_GenericGetDict(pyValue, nullptr);
+
+				PyObject* classKey = nullptr, * classValue = nullptr;
+				for (Py_ssize_t i = 0; PyDict_Next(classDict, &i, &classKey, &classValue);)
+				{
+					const char* ckey = PyUnicode_AsUTF8(classKey);
+
+					if (PyFunction_Check(classValue))
+					{
+						classFunctions[std::string(ckey)] = classValue;
+						continue;
+					}
+				}
+
+				continue;
+			}
 		}
-	}
-
-	void Script::initializeClass()
-	{
-		if (pyClass)
-			return;
-
-		const char* scriptMod = scriptPath.c_str();
-
-
-		pyClass = PyDict_GetItemString(pyDict, scriptMod);
-
-		if (!PyCallable_Check(pyClass))
-			Core::Debug::Log::error(scriptPath + " class not found");
 	}
 
 	void Script::killModule()
 	{
-		pName.release();
 		pyModule.release();
 		pyDict.release();
-		pyClass.release();
+
+		for (auto& objPair : functions)
+			objPair.second.release();
+
+		for (auto& objPair : classes)
+			objPair.second.release();
 	}
 
 	void Script::reload()
 	{
 		Core::Debug::Log::info(std::string("Reloading ") + scriptPath + std::string(" script"));
 
-		initializeClass();
 	}
 
 	void Script::addFunction(const std::string& functionName)
@@ -95,16 +98,17 @@ namespace Resources
 		if (functionIt == functions.end())
 			return nullptr;
 
-		return PyObject_CallObject(functionIt->second, nullptr);
+		return PyObject_CallFunction(functionIt->second, nullptr);
 	}
 
 	void Script::callFunction(CPyObject* instance, const std::string& functionName, const char* format, ...)
 	{
 		if (!instance)
 			return;
-
+		
 		if (!format)
 		{
+			//PyObject_CallFunction(classFunctions[functionName], nullptr);
 			PyObject_CallMethod(*instance, functionName.c_str(), format);
 			return;
 		}
@@ -117,10 +121,14 @@ namespace Resources
 		va_end(myargs);
 	}
 
-	CPyObject* Script::createClassInstance()
+	CPyObject* Script::createClassInstance(const std::string& className)
 	{
-		initializeClass();
-		instances.push_back(std::make_unique<CPyObject>(PyObject_CallObject(pyClass, nullptr)));
+		auto classIt = classes.find(className);
+
+		if (classIt == classes.end())
+			return nullptr;
+
+		instances.push_back(std::make_unique<CPyObject>(PyObject_CallObject(classIt->second, nullptr)));
 
 		return instances.back().get();
 	}
