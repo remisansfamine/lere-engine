@@ -1,6 +1,7 @@
 #include "script.hpp"
 
 #include "resources_manager.hpp"
+#include "inputs_manager.hpp"
 
 #include "debug.hpp"
 
@@ -12,12 +13,10 @@ namespace Resources
 		: scriptPath(scriptPath)
 	{
 	}
-
-	void Script::initializeClass()
+	
+	void Script::initializeModule()
 	{
 		const char* scriptMod = scriptPath.c_str();
-
-		void* ptr = nullptr;
 
 		if (pyModule)
 		{
@@ -34,7 +33,26 @@ namespace Resources
 			if (!pyModule)
 				Core::Debug::Log::error("Cannot load the python script " + scriptPath);
 		}
+	}
 
+	void Script::initializeFunctions()
+	{
+		addFunction("awake");
+		addFunction("start");
+		addFunction("update");
+		addFunction("lateUpdate");
+		addFunction("fixedUpdate");
+		addFunction("lateFixedUpdate");
+		addFunction("onEnable");
+		addFunction("onDisable");
+	}
+
+	void Script::initializeClass()
+	{
+		if (pyClass)
+			return;
+
+		const char* scriptMod = scriptPath.c_str();
 
 		pyDict = PyModule_GetDict(pyModule);
 
@@ -42,6 +60,14 @@ namespace Resources
 
 		if (!PyCallable_Check(pyClass))
 			Core::Debug::Log::error(scriptPath + " class not found");
+	}
+
+	void Script::killModule()
+	{
+		pName.release();
+		pyModule.release();
+		pyDict.release();
+		pyClass.release();
 	}
 
 	void Script::reload()
@@ -69,14 +95,32 @@ namespace Resources
 		PyObject_CallObject(functionIt->second, nullptr);
 	}
 
-	void Script::callFunction(CPyObject& instance, const std::string& functionName)
+	void Script::callFunction(CPyObject* instance, const std::string& functionName, const char* format, ...)
 	{
-		PyObject_CallMethod(instance, functionName.c_str(), nullptr);
+		if (!instance)
+			return;
+
+		if (!format)
+		{
+			PyObject_CallMethod(*instance, functionName.c_str(), format);
+			return;
+		}
+
+		va_list myargs;
+		va_start(myargs, format);
+
+		PyObject_CallMethod(*instance, functionName.c_str(), format, myargs);
+
+		va_end(myargs);
 	}
 
-	CPyObject Script::createClassInstance()
+	CPyObject* Script::createClassInstance()
 	{
-		return PyObject_CallObject(pyClass, nullptr);
+		initializeClass();
+
+		instances.push_back(std::make_unique<CPyObject>(PyObject_CallObject(pyClass, nullptr)));
+
+		return instances.back().get();
 	}
 }
 
@@ -85,11 +129,12 @@ namespace Engine
 	ScriptComponent::ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName)
 		: Component(gameObject, std::shared_ptr<ScriptComponent>(this))
 	{
+		transform = getHost().getComponent<Physics::Transform>().get();
+		rigidbody = getHost().getComponent<Physics::Rigidbody>().get();
+
 		script = Resources::ResourcesManager::loadScript(scriptName);
-
-		instance = script->createClassInstance();
-
-		void* ptr = nullptr;
+		script->initializeFunctions();
+		//instance = script->createClassInstance();
 	}
 
 	void ScriptComponent::awake()

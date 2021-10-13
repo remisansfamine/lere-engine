@@ -13,6 +13,8 @@ protected:
 
 	static T* currentInstance;
 
+
+public:
 	static T* instance()
 	{
 		if (!instantiateFlag.test_and_set())
@@ -24,7 +26,6 @@ protected:
 		return currentInstance;
 	}
 
-public:
 	static void kill()
 	{
 		delete currentInstance;

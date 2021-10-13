@@ -1,11 +1,13 @@
-[10/13/21 - 13:15:33] ERROR: Unable to read the file: C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/sphere.mtl
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/13/21 - 13:15:36] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/13/21 - 15:28:26] ERROR: Unable to read the file: C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/sphere.mtl
+[10/13/21 - 15:28:26] ERROR: Component not found
+[10/13/21 - 15:28:26] ERROR: Component not found
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: model - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: color - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
+[10/13/21 - 15:28:27] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that

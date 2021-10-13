@@ -1,84 +1,90 @@
-[10/13/21 - 13:15:31] Info: Creating the Application
-[10/13/21 - 13:15:31] Info: Creating the window
-[10/13/21 - 13:15:32] Info: Application initialized
-[10/13/21 - 13:15:33] Info: Creating the Resources Manager, the resources path will be C:\Users\r.giner\2021_gp_2025scripting_system\Engine
-[10/13/21 - 13:15:33] Info: Resources Manager initialized
-[10/13/21 - 13:15:33] Info: Loading program shader
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/vertexShader.vert and resources/shaders/fragmentShader.frag to shader
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/vertexShader.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/fragmentShader.frag
-[10/13/21 - 13:15:33] Info: Loading program skyBox
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/skyBox.vert and resources/shaders/skyBox.frag to skyBox
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/skyBox.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/skyBox.frag
-[10/13/21 - 13:15:33] Info: Loading program colliderShader
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/vertexCollider.vert and resources/shaders/fragmentCollider.frag to colliderShader
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/vertexCollider.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/fragmentCollider.frag
-[10/13/21 - 13:15:33] Info: Loading program spriteShader
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/spriteVertex.vert and resources/shaders/spriteFragment.frag to spriteShader
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/spriteVertex.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/spriteFragment.frag
-[10/13/21 - 13:15:33] Info: Loading program depthShader
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/depthShader.vert and resources/shaders/depthShader.frag to depthShader
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/depthShader.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/depthShader.frag
-[10/13/21 - 13:15:33] Info: Loading program depthCubeShader
-[10/13/21 - 13:15:33] Info: Linking resources/shaders/depthCubeShader.vert and resources/shaders/depthShader.frag to depthCubeShader
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/depthCubeShader.vert
-[10/13/21 - 13:15:33] Info: Loading resources/shaders/depthCubeShader.geom
-[10/13/21 - 13:15:33] Info: Start loading obj resources/obj/cube.obj
-[10/13/21 - 13:15:33] Info: Loading meshes
-[10/13/21 - 13:15:33] Info: Finish loading obj resources/obj/cube.obj
-[10/13/21 - 13:15:33] Info: Start loading obj resources/obj/sphere.obj
-[10/13/21 - 13:15:33] Info: Loading meshes
-[10/13/21 - 13:15:33] Info: Finish loading obj resources/obj/sphere.obj
-[10/13/21 - 13:15:33] Info: Start loading obj resources/obj/plane.obj
-[10/13/21 - 13:15:33] Info: Loading meshes
-[10/13/21 - 13:15:33] Info: Finish loading obj resources/obj/plane.obj
-[10/13/21 - 13:15:33] Info: Start loading obj resources/obj/colliders/boxCollider.obj
-[10/13/21 - 13:15:33] Info: Loading meshes
-[10/13/21 - 13:15:33] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
-[10/13/21 - 13:15:33] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
-[10/13/21 - 13:15:33] Info: Loading meshes
-[10/13/21 - 13:15:33] Info: Loading materials at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/colliders/boxCollider.mtl
-[10/13/21 - 13:15:33] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
-[10/13/21 - 13:15:33] Info: Creating the Input Manager
-[10/13/21 - 13:15:33] Info: Creating the Time Manager
-[10/13/21 - 13:15:33] Info: Loading materials at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/colliders/sphereCollider.mtl
-[10/13/21 - 13:15:33] Info: Loading resources/scenes/mainMenu.scn
-[10/13/21 - 13:15:33] Info: Creating a GameObject named MainCamera
-[10/13/21 - 13:15:33] Info: Creating the Render Manager
-[10/13/21 - 13:15:33] Info: Creating a GameObject named MainMenu
-[10/13/21 - 13:15:33] Info: Creating a GameObject named PythonGO
-[10/13/21 - 13:15:36] Info: Creating a GameObject named ExitButton
-[10/13/21 - 13:15:36] Info: Start loading resources/UI/exitText.png.
-[10/13/21 - 13:15:36] Info: Creating a GameObject named NewGameButton
-[10/13/21 - 13:15:36] Info: Start loading resources/UI/newGameText.png.
-[10/13/21 - 13:15:36] Info: Creating a GameObject named SkyBox
-[10/13/21 - 13:15:36] Info: Creating the Graph
-[10/13/21 - 13:15:36] Info: Creating the Engine
-[10/13/21 - 13:15:36] Info: Loading of resources/UI/exitText.png done with success in 3.881500 ms.
-[10/13/21 - 13:15:36] Info: Loading of resources/UI/newGameText.png done with success in 4.177800 ms.
-[10/13/21 - 13:15:36] Info: Loading of resources/skyboxes/right.png done with success
-[10/13/21 - 13:15:36] Info: Creating the Sound Manager
-[10/13/21 - 13:15:36] Info: Creating the Physic Manager
-[10/13/21 - 13:15:37] Info: Loading of resources/skyboxes/left.png done with success
-[10/13/21 - 13:15:37] Info: Loading of resources/skyboxes/top.png done with success
-[10/13/21 - 13:15:37] Info: Loading of resources/skyboxes/bottom.png done with success
-[10/13/21 - 13:15:37] Info: OpenGL initializing texture at whiteTex
-[10/13/21 - 13:15:37] Info: OpenGL initialization of whiteTex done with success in 0.056500 ms.
-[10/13/21 - 13:15:37] Info: OpenGL initializing texture at blackTex
-[10/13/21 - 13:15:37] Info: OpenGL initialization of blackTex done with success in 0.595000 ms.
-[10/13/21 - 13:15:37] Info: OpenGL initializing texture at noDiffuseTex
-[10/13/21 - 13:15:37] Info: OpenGL initialization of noDiffuseTex done with success in 0.035600 ms.
-[10/13/21 - 13:15:37] Info: OpenGL initializing texture at resources/UI/exitText.png
-[10/13/21 - 13:15:37] Info: OpenGL initialization of resources/UI/exitText.png done with success in 42.013200 ms.
-[10/13/21 - 13:15:37] Info: OpenGL initializing texture at resources/UI/newGameText.png
-[10/13/21 - 13:15:38] Info: Loading of resources/skyboxes/front.png done with success
-[10/13/21 - 13:15:38] Info: OpenGL initialization of resources/UI/newGameText.png done with success in 193.432800 ms.
-[10/13/21 - 13:15:38] Info: Loading of resources/skyboxes/back.png done with success
-[10/13/21 - 13:15:38] Info: The scene totally loaded in 5186.777800 ms, without OpenGL initialization the scene took 49736820000 ms to load with 4 threads.
-[10/13/21 - 13:18:00] Info: Destroying the Application
-[10/13/21 - 13:18:00] Info: Destroying the Input Manager
-[10/13/21 - 13:18:00] Info: Destroying the Engine
+[10/13/21 - 15:28:25] Info: Creating the Application
+[10/13/21 - 15:28:25] Info: Creating the window
+[10/13/21 - 15:28:26] Info: Application initialized
+[10/13/21 - 15:28:26] Info: Creating the Resources Manager, the resources path will be C:\Users\r.giner\2021_gp_2025scripting_system\Engine
+[10/13/21 - 15:28:26] Info: Resources Manager initialized
+[10/13/21 - 15:28:26] Info: Loading program shader
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/vertexShader.vert and resources/shaders/fragmentShader.frag to shader
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/vertexShader.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/fragmentShader.frag
+[10/13/21 - 15:28:26] Info: Loading program skyBox
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/skyBox.vert and resources/shaders/skyBox.frag to skyBox
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/skyBox.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/skyBox.frag
+[10/13/21 - 15:28:26] Info: Loading program colliderShader
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/vertexCollider.vert and resources/shaders/fragmentCollider.frag to colliderShader
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/vertexCollider.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/fragmentCollider.frag
+[10/13/21 - 15:28:26] Info: Loading program spriteShader
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/spriteVertex.vert and resources/shaders/spriteFragment.frag to spriteShader
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/spriteVertex.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/spriteFragment.frag
+[10/13/21 - 15:28:26] Info: Loading program depthShader
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/depthShader.vert and resources/shaders/depthShader.frag to depthShader
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/depthShader.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/depthShader.frag
+[10/13/21 - 15:28:26] Info: Loading program depthCubeShader
+[10/13/21 - 15:28:26] Info: Linking resources/shaders/depthCubeShader.vert and resources/shaders/depthShader.frag to depthCubeShader
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/depthCubeShader.vert
+[10/13/21 - 15:28:26] Info: Loading resources/shaders/depthCubeShader.geom
+[10/13/21 - 15:28:26] Info: Start loading obj resources/obj/cube.obj
+[10/13/21 - 15:28:26] Info: Loading meshes
+[10/13/21 - 15:28:26] Info: Finish loading obj resources/obj/cube.obj
+[10/13/21 - 15:28:26] Info: Start loading obj resources/obj/sphere.obj
+[10/13/21 - 15:28:26] Info: Loading meshes
+[10/13/21 - 15:28:26] Info: Finish loading obj resources/obj/sphere.obj
+[10/13/21 - 15:28:26] Info: Start loading obj resources/obj/plane.obj
+[10/13/21 - 15:28:26] Info: Loading meshes
+[10/13/21 - 15:28:26] Info: Finish loading obj resources/obj/plane.obj
+[10/13/21 - 15:28:26] Info: Start loading obj resources/obj/colliders/boxCollider.obj
+[10/13/21 - 15:28:26] Info: Loading meshes
+[10/13/21 - 15:28:26] Info: Loading materials at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/colliders/boxCollider.mtl
+[10/13/21 - 15:28:26] Info: Finish loading obj resources/obj/colliders/boxCollider.obj
+[10/13/21 - 15:28:26] Info: Start loading obj resources/obj/colliders/sphereCollider.obj
+[10/13/21 - 15:28:26] Info: Loading meshes
+[10/13/21 - 15:28:26] Info: Loading materials at C:\Users\r.giner\2021_gp_2025scripting_system\Engine/resources/obj/colliders/sphereCollider.mtl
+[10/13/21 - 15:28:26] Info: Finish loading obj resources/obj/colliders/sphereCollider.obj
+[10/13/21 - 15:28:26] Info: Creating the Input Manager
+[10/13/21 - 15:28:26] Info: Creating the Time Manager
+[10/13/21 - 15:28:26] Info: Loading resources/scenes/mainMenu.scn
+[10/13/21 - 15:28:26] Info: Creating a GameObject named MainCamera
+[10/13/21 - 15:28:26] Info: Creating the Render Manager
+[10/13/21 - 15:28:26] Info: Creating a GameObject named MainMenu
+[10/13/21 - 15:28:26] Info: Creating a GameObject named PythonGO
+[10/13/21 - 15:28:27] Info: Creating a GameObject named ExitButton
+[10/13/21 - 15:28:27] Info: Start loading resources/UI/exitText.png.
+[10/13/21 - 15:28:27] Info: Creating a GameObject named NewGameButton
+[10/13/21 - 15:28:27] Info: Start loading resources/UI/newGameText.png.
+[10/13/21 - 15:28:27] Info: Creating a GameObject named SkyBox
+[10/13/21 - 15:28:27] Info: Creating the Graph
+[10/13/21 - 15:28:27] Info: Creating the Engine
+[10/13/21 - 15:28:27] Info: Loading of resources/UI/newGameText.png done with success in 15.373400 ms.
+[10/13/21 - 15:28:27] Info: Loading of resources/UI/exitText.png done with success in 16.641800 ms.
+[10/13/21 - 15:28:27] Info: Loading of resources/skyboxes/right.png done with success
+[10/13/21 - 15:28:27] Info: Loading of resources/skyboxes/left.png done with success
+[10/13/21 - 15:28:28] Info: Loading of resources/skyboxes/top.png done with success
+[10/13/21 - 15:28:28] Info: Loading of resources/skyboxes/bottom.png done with success
+[10/13/21 - 15:28:28] Info: Loading of resources/skyboxes/front.png done with success
+[10/13/21 - 15:28:28] Info: Loading of resources/skyboxes/back.png done with success
+[10/13/21 - 15:28:32] Info: Creating the Sound Manager
+[10/13/21 - 15:28:32] Info: Creating the Physic Manager
+[10/13/21 - 15:28:33] Info: OpenGL initializing texture at whiteTex
+[10/13/21 - 15:28:33] Info: OpenGL initialization of whiteTex done with success in 26.661700 ms.
+[10/13/21 - 15:28:33] Info: OpenGL initializing texture at blackTex
+[10/13/21 - 15:28:33] Info: OpenGL initialization of blackTex done with success in 0.572100 ms.
+[10/13/21 - 15:28:33] Info: OpenGL initializing texture at noDiffuseTex
+[10/13/21 - 15:28:33] Info: OpenGL initialization of noDiffuseTex done with success in 0.091400 ms.
+[10/13/21 - 15:28:33] Info: OpenGL initializing texture at resources/UI/newGameText.png
+[10/13/21 - 15:28:33] Info: OpenGL initialization of resources/UI/newGameText.png done with success in 0.433400 ms.
+[10/13/21 - 15:28:33] Info: OpenGL initializing texture at resources/UI/exitText.png
+[10/13/21 - 15:28:33] Info: OpenGL initialization of resources/UI/exitText.png done with success in 8.595900 ms.
+[10/13/21 - 15:28:33] Info: The scene totally loaded in 6657.733400 ms, without OpenGL initialization the scene took 19222292000 ms to load with 4 threads.
+[10/13/21 - 15:29:21] Info: Destroying the Application
+[10/13/21 - 15:29:21] Info: Destroying the Input Manager
+[10/13/21 - 15:29:21] Info: Destroying the Engine
+[10/13/21 - 15:29:21] Info: Destroying the Graph
+[10/13/21 - 15:29:21] Info: Destroying the Physic Manager
+[10/13/21 - 15:29:21] Info: Destroying the Render Manager
+[10/13/21 - 15:29:21] Info: Destroying the Sound Manager
+[10/13/21 - 15:29:21] Info: Destroying the Resources Manager
+[10/13/21 - 15:29:21] Info: Destroying the Time Manager

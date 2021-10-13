@@ -14,6 +14,12 @@ public:
 	{
 		Py_Finalize();
 	}
+
+	void reload()
+	{
+		Py_Finalize();
+		Py_Initialize();
+	}
 };
 
 

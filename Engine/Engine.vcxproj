@@ -112,7 +112,8 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -135,7 +136,8 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -156,7 +158,8 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -180,7 +183,8 @@
       <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
+copy /Y "$(ProjectDir)resources\scripts" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -378,7 +382,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl" />
-    <None Include="resources\scripts\transform.py" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\depthCubeShader.frag" />

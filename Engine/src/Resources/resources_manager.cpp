@@ -195,7 +195,12 @@ namespace Resources
 		Core::Debug::Log::info("Reloading scripts");
 
 		for (auto& scriptPair : RM->scripts)
-			scriptPair.second->reload();
+			scriptPair.second->killModule();
+
+		RM->pyInstance.reload();
+
+		for (auto& scriptPair : RM->scripts)
+			scriptPair.second->initializeModule();
 	}
 
 	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
@@ -232,7 +237,7 @@ namespace Resources
 
 		RM->lockScripts.clear();
 
-		script->initializeClass();
+		script->initializeModule();
 
 		return script;
 	}

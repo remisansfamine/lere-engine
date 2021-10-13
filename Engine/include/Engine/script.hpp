@@ -8,6 +8,9 @@
 #include <memory>
 #include <unordered_map>
 
+#include "transform.hpp"
+#include "rigidbody.hpp"
+
 namespace Resources
 {
 	class Script
@@ -19,8 +22,9 @@ namespace Resources
 		CPyObject pyModule;
 		CPyObject pyDict;
 
-		std::unordered_map<std::string, CPyObject> functions;
+		std::vector<std::unique_ptr<CPyObject>> instances;
 
+		std::unordered_map<std::string, CPyObject> functions;
 
 		void addFunction(const std::string& functionName);
 
@@ -29,15 +33,19 @@ namespace Resources
 
 		Script(const std::string& scriptPath);
 
+		void initializeModule();
+		void initializeFunctions();
 		void initializeClass();
+
+		void killModule();
 
 		void reload();
 
 		void callFunction(const std::string& functionName);
 
-		void callFunction(CPyObject& instance, const std::string& functionName);
+		void callFunction(CPyObject* instance, const std::string& functionName, const char* format = nullptr, ...);
 
-		CPyObject createClassInstance();
+		CPyObject* createClassInstance();
 	};
 }
 
@@ -48,9 +56,12 @@ namespace Engine
 	private:
 		std::shared_ptr<Resources::Script> script;
 
-		CPyObject instance;
+		CPyObject* instance = nullptr;
 
 	public:
+		Physics::Transform* transform;
+		Physics::Rigidbody* rigidbody;
+
 		ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName);
 
 		void awake() override;
