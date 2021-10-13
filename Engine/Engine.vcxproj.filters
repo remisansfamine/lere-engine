@@ -682,5 +682,6 @@
     <None Include="resources\shaders\depthShader.vert">
       <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
     </None>
+    <None Include="resources\scripts\transform.py" />
   </ItemGroup>
 </Project>

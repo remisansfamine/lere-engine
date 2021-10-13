@@ -378,6 +378,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl" />
+    <None Include="resources\scripts\transform.py" />
     <None Include="resources\shaders\advancedLighting.frag" />
     <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\depthCubeShader.frag" />

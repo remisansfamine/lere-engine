@@ -60,4 +60,12 @@ namespace Physics
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName);
 	};
+
+	class PyTransform
+	{
+	public:
+		Core::Maths::vec3 m_position = Core::Maths::vec3(7.8f, 3.f, 1.3f);
+		Core::Maths::vec3 m_rotation = Core::Maths::vec3(0.f, 0.f, 0.f);
+		Core::Maths::vec3 m_scale = Core::Maths::vec3(1.f, 1.f, 1.f);
+	};
 }

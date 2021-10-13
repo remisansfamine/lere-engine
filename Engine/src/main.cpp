@@ -17,6 +17,16 @@ int main()
 	// Check for leak
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
+	Py_Initialize();
+	char filename[] = "resources/scripts/transform.py";
+	PyObject* obj = Py_BuildValue("s", filename);
+
+	FILE* file = _Py_fopen_obj(obj, "r+");
+
+	if (file != NULL)
+		PyRun_SimpleFile(file, filename);
+	Py_Finalize();
+
 	try
 	{
 		CPyInstance pyInstance;
