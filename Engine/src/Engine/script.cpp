@@ -9,34 +9,46 @@
 namespace Resources
 {
 	Script::Script(const std::string& scriptPath)
+		: scriptPath(scriptPath)
+	{
+	}
+
+	void Script::initializeClass()
 	{
 		const char* scriptMod = scriptPath.c_str();
 
-		CPyObject pName = PyUnicode_FromString(scriptMod);
+		void* ptr = nullptr;
 
-		pyModule = PyImport_Import(pName);
+		if (pyModule)
+		{
+			pyModule = PyImport_ReloadModule(pyModule);
 
-		if (!pyModule)
-			Core::Debug::Log::error("Cannot load the python script " + scriptPath);
+			if (!pyModule)
+				Core::Debug::Log::error("Cannot reload the python script " + scriptPath);
+		}
+		else
+		{
+			pName = PyUnicode_FromString(scriptMod);
+			pyModule = PyImport_Import(pName);
+
+			if (!pyModule)
+				Core::Debug::Log::error("Cannot load the python script " + scriptPath);
+		}
+
 
 		pyDict = PyModule_GetDict(pyModule);
 
 		pyClass = PyDict_GetItemString(pyDict, scriptMod);
 
-		PyObject_CallMethod(createClassInstance(),"update", "");
-
-
 		if (!PyCallable_Check(pyClass))
 			Core::Debug::Log::error(scriptPath + " class not found");
+	}
 
-		addFunction("awake");
-		addFunction("start");
-		addFunction("update");
-		addFunction("lateUpdate");
-		addFunction("fixedUpdate");
-		addFunction("lateFixedUpdate");
-		addFunction("onEnable");
-		addFunction("onDisable");
+	void Script::reload()
+	{
+		Core::Debug::Log::info(std::string("Reloading ") + scriptPath + std::string(" script"));
+
+		initializeClass();
 	}
 
 	void Script::addFunction(const std::string& functionName)
@@ -51,15 +63,15 @@ namespace Resources
 	{
 		auto functionIt = functions.find(functionName);
 
-		if (functionIt == functions.end() || !PyCallable_Check(functionIt->second))
+		if (functionIt == functions.end() || !PyCallable_Check(functionIt->second.get()))
 			return;
 
-		PyObject_CallObject(functionIt->second, NULL);
+		PyObject_CallObject(functionIt->second, nullptr);
 	}
 
 	void Script::callFunction(CPyObject& instance, const std::string& functionName)
 	{
-		PyObject_CallMethod(instance, functionName.c_str(), "");
+		PyObject_CallMethod(instance, functionName.c_str(), nullptr);
 	}
 
 	CPyObject Script::createClassInstance()
@@ -75,7 +87,9 @@ namespace Engine
 	{
 		script = Resources::ResourcesManager::loadScript(scriptName);
 
-		//instance = script->createClassInstance();
+		instance = script->createClassInstance();
+
+		void* ptr = nullptr;
 	}
 
 	void ScriptComponent::awake()

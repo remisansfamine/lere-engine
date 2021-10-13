@@ -30,13 +30,12 @@ namespace Core
 	{
 		Multithread::ThreadManager::kill();
 
-		Resources::ResourcesManager::kill();
-
 		Debug::Log::info("Destroying the Application");
 
 		Input::InputManager::kill();
 		Debug::Assertion::kill();
 		Engine::EngineMaster::kill();
+		Resources::ResourcesManager::kill();
 
 		TimeManager::kill();
 		Debug::Benchmarker::kill();

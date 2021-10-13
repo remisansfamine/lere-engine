@@ -13,16 +13,25 @@ namespace Resources
 	class Script
 	{
 	private:
+		std::string scriptPath;
+
+		CPyObject pName;
 		CPyObject pyModule;
 		CPyObject pyDict;
-		CPyObject pyClass;
 
 		std::unordered_map<std::string, CPyObject> functions;
+
 
 		void addFunction(const std::string& functionName);
 
 	public:
+		CPyObject pyClass;
+
 		Script(const std::string& scriptPath);
+
+		void initializeClass();
+
+		void reload();
 
 		void callFunction(const std::string& functionName);
 

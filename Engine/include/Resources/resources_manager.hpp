@@ -39,6 +39,7 @@ namespace Resources
 		// Purple and black grid
 		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
 
+		CPyInstance pyInstance;
 
 		std::atomic<bool> isLoading = false;
 
@@ -125,6 +126,8 @@ namespace Resources
 		static void mainThreadQueueInitialize();
 
 		static bool checkLoadEnd();
+
+		static void reloadScripts();
 
 		static std::shared_ptr<Font>	loadFont(const std::string& fontPath);
 		static std::shared_ptr<Script> loadScript(const std::string& scriptName);

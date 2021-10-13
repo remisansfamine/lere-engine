@@ -188,6 +188,16 @@ namespace Resources
 		return true;
 	}
 
+	void ResourcesManager::reloadScripts()
+	{
+		ResourcesManager* RM = instance();
+
+		Core::Debug::Log::info("Reloading scripts");
+
+		for (auto& scriptPair : RM->scripts)
+			scriptPair.second->reload();
+	}
+
 	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
 	{
 		ResourcesManager* RM = instance();
@@ -221,6 +231,8 @@ namespace Resources
 		RM->scripts[scriptName] = script;
 
 		RM->lockScripts.clear();
+
+		script->initializeClass();
 
 		return script;
 	}
@@ -683,6 +695,9 @@ namespace Resources
 
 		if (ImGui::Begin("Resources Manager"))
 		{
+			if (ImGui::Button("Reload scripts"))
+				reloadScripts();
+
 			if (ImGui::CollapsingHeader("Textures:"))
 			{
 				for (auto& texturePtr : RM->textures)

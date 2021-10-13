@@ -26,35 +26,45 @@ public:
 	CPyObject() = default;
 
 	CPyObject(PyObject* p) : p(p)
-	{}
+	{
+		Py_INCREF(p);
+	}
 
-	CPyObject(CPyObject& other) : p(other.AddRef())
+	CPyObject(CPyObject& other) : p(other.addRef())
 	{ }
 
 	~CPyObject()
 	{
-		Release();
+		release();
 	}
 
-	PyObject* getObject()
+	PyObject* get()
+	{
+		return p;
+	}
+
+	operator PyObject* ()
 	{
 		return p;
 	}
 
 	PyObject* setObject(PyObject* _p)
 	{
+		if (p)
+			release();
+
 		return (p = _p);
 	}
 
-	PyObject* AddRef()
+	PyObject* addRef()
 	{
 		if (p)
 			Py_INCREF(p);
-		
+
 		return p;
 	}
 
-	void Release()
+	void release()
 	{
 		if (p)
 			Py_DECREF(p);
@@ -67,14 +77,15 @@ public:
 		return p;
 	}
 
-	operator PyObject*()
+	PyObject* operator=(PyObject* pp)
 	{
-		return p;
-	}
+		release();
 
-	PyObject* operator = (PyObject* pp)
-	{
+		if (pp)
+			Py_INCREF(pp);
+
 		p = pp;
+
 		return p;
 	}
 };
