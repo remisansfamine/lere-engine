@@ -12,10 +12,10 @@ namespace Engine
 	protected:
 
 	public:
-		bool virtual isActive();
-		void virtual setActive(bool value);
-		
-		void virtual onDestroy() {}
-		void virtual destroy() {}
+		virtual bool isActive();
+		virtual void setActive(bool value);
+
+		virtual void onDestroy() {}
+		virtual void destroy() {}
 	};
 }

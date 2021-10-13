@@ -69,7 +69,7 @@ namespace Engine
 		}
 
 		template <class C, typename Base = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		[[nodiscard]] std::shared_ptr<C> getComponent()
+		std::shared_ptr<C> getComponent()
 		{
 			std::shared_ptr<C> componentToReturn;
 			

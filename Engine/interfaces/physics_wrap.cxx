@@ -2691,15 +2691,22 @@ SWIGINTERN PyObject *SWIG_PyStaticMethod_New(PyObject *SWIGUNUSEDPARM(self), PyO
 
 #define SWIGTYPE_p_Core__Maths__mat4 swig_types[0]
 #define SWIGTYPE_p_Core__Maths__vec3 swig_types[1]
-#define SWIGTYPE_p_Engine__GameObject swig_types[2]
-#define SWIGTYPE_p_Physics__PyTransform swig_types[3]
-#define SWIGTYPE_p_Physics__Transform swig_types[4]
-#define SWIGTYPE_p_char swig_types[5]
-#define SWIGTYPE_p_std__istringstream swig_types[6]
-#define SWIGTYPE_p_std__shared_ptrT_Physics__Transform_t swig_types[7]
-#define SWIGTYPE_p_std__string swig_types[8]
-static swig_type_info *swig_types[10];
-static swig_module_info swig_module = {swig_types, 9, 0, 0, 0, 0};
+#define SWIGTYPE_p_Engine__Component swig_types[2]
+#define SWIGTYPE_p_Engine__GameObject swig_types[3]
+#define SWIGTYPE_p_Engine__Object swig_types[4]
+#define SWIGTYPE_p_GameObject swig_types[5]
+#define SWIGTYPE_p_Physics__Collider swig_types[6]
+#define SWIGTYPE_p_Physics__Collision swig_types[7]
+#define SWIGTYPE_p_Physics__PyTransform swig_types[8]
+#define SWIGTYPE_p_Physics__Transform swig_types[9]
+#define SWIGTYPE_p_char swig_types[10]
+#define SWIGTYPE_p_std__istream swig_types[11]
+#define SWIGTYPE_p_std__istringstream swig_types[12]
+#define SWIGTYPE_p_std__shared_ptrT_Physics__Transform_t swig_types[13]
+#define SWIGTYPE_p_std__string swig_types[14]
+#define SWIGTYPE_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t swig_types[15]
+static swig_type_info *swig_types[17];
+static swig_module_info swig_module = {swig_types, 16, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -2711,16 +2718,16 @@ static swig_module_info swig_module = {swig_types, 9, 0, 0, 0, 0};
 #define SWIG_TypeQuery SWIG_Python_TypeQuery
 
 /*-----------------------------------------------
-              @(target):= _physics.so
+              @(target):= _engine.so
   ------------------------------------------------*/
 #if PY_VERSION_HEX >= 0x03000000
-#  define SWIG_init    PyInit__physics
+#  define SWIG_init    PyInit__engine
 
 #else
-#  define SWIG_init    init_physics
+#  define SWIG_init    init_engine
 
 #endif
-#define SWIG_name    "_physics"
+#define SWIG_name    "_engine"
 
 #define SWIGVERSION 0x040002 
 #define SWIG_VERSION SWIGVERSION
@@ -2932,14 +2939,21 @@ SWIG_From_float  (float value)
 }
 
 
-#include <limits.h>
-#if !defined(SWIG_NO_LLONG_MAX)
-# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
-#   define LLONG_MAX __LONG_LONG_MAX__
-#   define LLONG_MIN (-LLONG_MAX - 1LL)
-#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
-# endif
-#endif
+#include "../include/Engine/component.hpp"
+
+using namespace Engine;
+
+
+#include "../include/Engine/object.hpp"
+
+using namespace Engine;
+
+
+SWIGINTERNINLINE PyObject*
+  SWIG_From_bool  (bool value)
+{
+  return PyBool_FromLong(value ? 1 : 0);
+}
 
 
 SWIGINTERNINLINE int
@@ -3016,6 +3030,35 @@ SWIG_AsVal_long (PyObject *obj, long* val)
 
 
 SWIGINTERN int
+SWIG_AsVal_bool (PyObject *obj, bool *val)
+{
+  int r;
+  if (!PyBool_Check(obj))
+    return SWIG_ERROR;
+  r = PyObject_IsTrue(obj);
+  if (r == -1)
+    return SWIG_ERROR;
+  if (val) *val = r ? true : false;
+  return SWIG_OK;
+}
+
+
+#include "../include/Engine/game_object.hpp"
+
+using namespace Engine;
+
+
+#include <limits.h>
+#if !defined(SWIG_NO_LLONG_MAX)
+# if !defined(LLONG_MAX) && defined(__GNUC__) && defined (__LONG_LONG_MAX__)
+#   define LLONG_MAX __LONG_LONG_MAX__
+#   define LLONG_MIN (-LLONG_MAX - 1LL)
+#   define ULLONG_MAX (LLONG_MAX * 2ULL + 1ULL)
+# endif
+#endif
+
+
+SWIGINTERN int
 SWIG_AsVal_int (PyObject * obj, int *val)
 {
   long v;
@@ -3035,13 +3078,6 @@ SWIGINTERNINLINE PyObject*
   SWIG_From_int  (int value)
 {
   return PyInt_FromLong((long) value);
-}
-
-
-SWIGINTERNINLINE PyObject*
-  SWIG_From_bool  (bool value)
-{
-  return PyBool_FromLong(value ? 1 : 0);
 }
 
 #ifdef __cplusplus
@@ -3246,6 +3282,1614 @@ SWIGINTERN PyObject *vec3_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject 
 }
 
 SWIGINTERN PyObject *vec3_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_Object_isActive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *arg1 = (Engine::Object *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Object, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Object_isActive" "', argument " "1"" of type '" "Engine::Object *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Object * >(argp1);
+  result = (bool)(arg1)->isActive();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Object_setActive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *arg1 = (Engine::Object *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Object_setActive", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Object, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Object_setActive" "', argument " "1"" of type '" "Engine::Object *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Object * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Object_setActive" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  (arg1)->setActive(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Object_onDestroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *arg1 = (Engine::Object *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Object, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Object_onDestroy" "', argument " "1"" of type '" "Engine::Object *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Object * >(argp1);
+  (arg1)->onDestroy();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Object_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *arg1 = (Engine::Object *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Object, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Object_destroy" "', argument " "1"" of type '" "Engine::Object *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Object * >(argp1);
+  (arg1)->destroy();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_Object(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_Object", 0, 0, 0)) SWIG_fail;
+  result = (Engine::Object *)new Engine::Object();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Engine__Object, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Object(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Object *arg1 = (Engine::Object *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Object, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Object" "', argument " "1"" of type '" "Engine::Object *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Object * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Object_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Engine__Object, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *Object_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
+SWIGINTERN PyObject *_wrap_Component_hasStarted_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_hasStarted_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_hasStarted_set" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Component_hasStarted_set" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->hasStarted = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_hasStarted_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_hasStarted_get" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  result = (bool) ((arg1)->hasStarted);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_setActive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_setActive", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_setActive" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Component_setActive" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  (arg1)->setActive(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_draw(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_draw" "', argument " "1"" of type '" "Engine::Component const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  ((Engine::Component const *)arg1)->draw();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_drawImGui(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_drawImGui" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->drawImGui();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_awake(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_awake" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->awake();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_start(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_start" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->start();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_update(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_update" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->update();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_fixedUpdate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_fixedUpdate" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->fixedUpdate();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_lateFixedUpdate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_lateFixedUpdate" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->lateFixedUpdate();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_lateUpdate(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_lateUpdate" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->lateUpdate();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onEnable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onEnable" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->onEnable();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onDisable(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onDisable" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->onDisable();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_isActive(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_isActive" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  result = (bool)(arg1)->isActive();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_destroy" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  (arg1)->destroy();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onCollisionEnter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onCollisionEnter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onCollisionEnter" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onCollisionEnter" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Component_onCollisionEnter" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->onCollisionEnter((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onCollisionStay(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onCollisionStay", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onCollisionStay" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onCollisionStay" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Component_onCollisionStay" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->onCollisionStay((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onCollisionExit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onCollisionExit", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onCollisionExit" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onCollisionExit" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Component_onCollisionExit" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->onCollisionExit((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onTriggerEnter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onTriggerEnter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onTriggerEnter" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onTriggerEnter" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->onTriggerEnter(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onTriggerStay(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onTriggerStay", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onTriggerStay" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onTriggerStay" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->onTriggerStay(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_onTriggerExit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Component_onTriggerExit", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_onTriggerExit" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Component_onTriggerExit" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->onTriggerExit(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_getHost(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  GameObject *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_getHost" "', argument " "1"" of type '" "Engine::Component *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  result = (GameObject *) &(arg1)->getHost();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_GameObject, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Component_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::Component *arg1 = (Engine::Component *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__Component, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Component_toString" "', argument " "1"" of type '" "Engine::Component const *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::Component * >(argp1);
+  result = ((Engine::Component const *)arg1)->toString();
+  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Component_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Engine__Component, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *_wrap_GameObject_isStatic_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  bool arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  bool val2 ;
+  int ecode2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_isStatic_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_isStatic_set" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  ecode2 = SWIG_AsVal_bool(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "GameObject_isStatic_set" "', argument " "2"" of type '" "bool""'");
+  } 
+  arg2 = static_cast< bool >(val2);
+  if (arg1) (arg1)->isStatic = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_isStatic_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_isStatic_get" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result = (bool) ((arg1)->isStatic);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_name_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_m_name_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_name_set" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__string,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_m_name_set" "', argument " "2"" of type '" "std::string""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_m_name_set" "', argument " "2"" of type '" "std::string""'");
+    } else {
+      std::string * temp = reinterpret_cast< std::string * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  if (arg1) (arg1)->m_name = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_name_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_name_get" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result =  ((arg1)->m_name);
+  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_recipe_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::string arg2 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_m_recipe_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_recipe_set" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  {
+    res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__string,  0  | 0);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_m_recipe_set" "', argument " "2"" of type '" "std::string""'"); 
+    }  
+    if (!argp2) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_m_recipe_set" "', argument " "2"" of type '" "std::string""'");
+    } else {
+      std::string * temp = reinterpret_cast< std::string * >(argp2);
+      arg2 = *temp;
+      if (SWIG_IsNewObj(res2)) delete temp;
+    }
+  }
+  if (arg1) (arg1)->m_recipe = arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_recipe_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_recipe_get" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result =  ((arg1)->m_recipe);
+  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_components_set(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::vector< std::shared_ptr< Engine::Component > > *arg2 = (std::vector< std::shared_ptr< Engine::Component > > *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_m_components_set", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_components_set" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_m_components_set" "', argument " "2"" of type '" "std::vector< std::shared_ptr< Engine::Component > > *""'"); 
+  }
+  arg2 = reinterpret_cast< std::vector< std::shared_ptr< Engine::Component > > * >(argp2);
+  if (arg1) (arg1)->m_components = *arg2;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_m_components_get(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::vector< std::shared_ptr< Engine::Component > > *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_m_components_get" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result = (std::vector< std::shared_ptr< Engine::Component > > *)& ((arg1)->m_components);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_GameObject__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **SWIGUNUSEDPARM(swig_obj)) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *result = 0 ;
+  
+  if ((nobjs < 0) || (nobjs > 0)) SWIG_fail;
+  result = (Engine::GameObject *)new Engine::GameObject();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Engine__GameObject, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_GameObject__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  std::string *arg1 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  Engine::GameObject *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_std__string,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "new_GameObject" "', argument " "1"" of type '" "std::string const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "new_GameObject" "', argument " "1"" of type '" "std::string const &""'"); 
+  }
+  arg1 = reinterpret_cast< std::string * >(argp1);
+  result = (Engine::GameObject *)new Engine::GameObject((std::string const &)*arg1);
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Engine__GameObject, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_new_GameObject(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "new_GameObject", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 0) {
+    return _wrap_new_GameObject__SWIG_0(self, argc, argv);
+  }
+  if (argc == 1) {
+    int _v;
+    int res = SWIG_ConvertPtr(argv[0], 0, SWIGTYPE_p_std__string, SWIG_POINTER_NO_NULL | 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_new_GameObject__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'new_GameObject'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    Engine::GameObject::GameObject()\n"
+    "    Engine::GameObject::GameObject(std::string const &)\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_GameObject(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_GameObject" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_awakeComponents(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_awakeComponents" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->awakeComponents();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_updateComponents(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_updateComponents" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->updateComponents();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_fixedUpdateComponents(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_fixedUpdateComponents" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->fixedUpdateComponents();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_lateUpdateComponents(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_lateUpdateComponents" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->lateUpdateComponents();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callCollisionEnter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callCollisionEnter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callCollisionEnter" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callCollisionEnter" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_callCollisionEnter" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->callCollisionEnter((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callCollisionStay(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callCollisionStay", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callCollisionStay" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callCollisionStay" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_callCollisionStay" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->callCollisionStay((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callCollisionExit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collision *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callCollisionExit", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callCollisionExit" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Physics__Collision,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callCollisionExit" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_callCollisionExit" "', argument " "2"" of type '" "Physics::Collision const &""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collision * >(argp2);
+  (arg1)->callCollisionExit((Physics::Collision const &)*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callTriggerEnter(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callTriggerEnter", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callTriggerEnter" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callTriggerEnter" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->callTriggerEnter(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callTriggerStay(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callTriggerStay", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callTriggerStay" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callTriggerStay" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->callTriggerStay(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_callTriggerExit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  Physics::Collider *arg2 = (Physics::Collider *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_callTriggerExit", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_callTriggerExit" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_Physics__Collider, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_callTriggerExit" "', argument " "2"" of type '" "Physics::Collider *""'"); 
+  }
+  arg2 = reinterpret_cast< Physics::Collider * >(argp2);
+  (arg1)->callTriggerExit(arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_drawImGuiInspector(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_drawImGuiInspector" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->drawImGuiInspector();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_drawImGuiHierarchy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::string *arg2 = 0 ;
+  bool arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  bool val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_drawImGuiHierarchy", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_drawImGuiHierarchy" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__string,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_drawImGuiHierarchy" "', argument " "2"" of type '" "std::string &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_drawImGuiHierarchy" "', argument " "2"" of type '" "std::string &""'"); 
+  }
+  arg2 = reinterpret_cast< std::string * >(argp2);
+  ecode3 = SWIG_AsVal_bool(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "GameObject_drawImGuiHierarchy" "', argument " "3"" of type '" "bool""'");
+  } 
+  arg3 = static_cast< bool >(val3);
+  (arg1)->drawImGuiHierarchy(*arg2,arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_toString(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  std::string result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_toString" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  result = (arg1)->toString();
+  resultobj = SWIG_NewPointerObj((new std::string(static_cast< const std::string& >(result))), SWIGTYPE_p_std__string, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_parseComponents(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::istringstream *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_parseComponents", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_parseComponents" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__istringstream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_parseComponents" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parseComponents" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::istringstream * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_std__string,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "GameObject_parseComponents" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parseComponents" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  arg3 = reinterpret_cast< std::string * >(argp3);
+  (arg1)->parseComponents(*arg2,*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_parseScripts(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::istringstream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_parseScripts", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_parseScripts" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__istringstream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_parseScripts" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parseScripts" "', argument " "2"" of type '" "std::istringstream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::istringstream * >(argp2);
+  (arg1)->parseScripts(*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_parseRecipe(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::string *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_parseRecipe", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_parseRecipe" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__string,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_parseRecipe" "', argument " "2"" of type '" "std::string const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parseRecipe" "', argument " "2"" of type '" "std::string const &""'"); 
+  }
+  arg2 = reinterpret_cast< std::string * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_std__string,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "GameObject_parseRecipe" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parseRecipe" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  arg3 = reinterpret_cast< std::string * >(argp3);
+  (arg1)->parseRecipe((std::string const &)*arg2,*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_parse(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  std::istream *arg2 = 0 ;
+  std::string *arg3 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  PyObject *swig_obj[3] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "GameObject_parse", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_parse" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__istream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "GameObject_parse" "', argument " "2"" of type '" "std::istream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parse" "', argument " "2"" of type '" "std::istream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::istream * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3, SWIGTYPE_p_std__string,  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "GameObject_parse" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  if (!argp3) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "GameObject_parse" "', argument " "3"" of type '" "std::string &""'"); 
+  }
+  arg3 = reinterpret_cast< std::string * >(argp3);
+  (arg1)->parse(*arg2,*arg3);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_destroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_destroy" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->destroy();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_GameObject_onDestroy(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Engine::GameObject *arg1 = (Engine::GameObject *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Engine__GameObject, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "GameObject_onDestroy" "', argument " "1"" of type '" "Engine::GameObject *""'"); 
+  }
+  arg1 = reinterpret_cast< Engine::GameObject * >(argp1);
+  (arg1)->onDestroy();
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *GameObject_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Engine__GameObject, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *GameObject_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   return SWIG_Python_InitShadowInstance(args);
 }
 
@@ -4367,6 +6011,69 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_vec3", _wrap_delete_vec3, METH_O, NULL},
 	 { "vec3_swigregister", vec3_swigregister, METH_O, NULL},
 	 { "vec3_swiginit", vec3_swiginit, METH_VARARGS, NULL},
+	 { "Object_isActive", _wrap_Object_isActive, METH_O, NULL},
+	 { "Object_setActive", _wrap_Object_setActive, METH_VARARGS, NULL},
+	 { "Object_onDestroy", _wrap_Object_onDestroy, METH_O, NULL},
+	 { "Object_destroy", _wrap_Object_destroy, METH_O, NULL},
+	 { "new_Object", _wrap_new_Object, METH_NOARGS, NULL},
+	 { "delete_Object", _wrap_delete_Object, METH_O, NULL},
+	 { "Object_swigregister", Object_swigregister, METH_O, NULL},
+	 { "Object_swiginit", Object_swiginit, METH_VARARGS, NULL},
+	 { "Component_hasStarted_set", _wrap_Component_hasStarted_set, METH_VARARGS, NULL},
+	 { "Component_hasStarted_get", _wrap_Component_hasStarted_get, METH_O, NULL},
+	 { "Component_setActive", _wrap_Component_setActive, METH_VARARGS, NULL},
+	 { "Component_draw", _wrap_Component_draw, METH_O, NULL},
+	 { "Component_drawImGui", _wrap_Component_drawImGui, METH_O, NULL},
+	 { "Component_awake", _wrap_Component_awake, METH_O, NULL},
+	 { "Component_start", _wrap_Component_start, METH_O, NULL},
+	 { "Component_update", _wrap_Component_update, METH_O, NULL},
+	 { "Component_fixedUpdate", _wrap_Component_fixedUpdate, METH_O, NULL},
+	 { "Component_lateFixedUpdate", _wrap_Component_lateFixedUpdate, METH_O, NULL},
+	 { "Component_lateUpdate", _wrap_Component_lateUpdate, METH_O, NULL},
+	 { "Component_onEnable", _wrap_Component_onEnable, METH_O, NULL},
+	 { "Component_onDisable", _wrap_Component_onDisable, METH_O, NULL},
+	 { "Component_isActive", _wrap_Component_isActive, METH_O, NULL},
+	 { "Component_destroy", _wrap_Component_destroy, METH_O, NULL},
+	 { "Component_onCollisionEnter", _wrap_Component_onCollisionEnter, METH_VARARGS, NULL},
+	 { "Component_onCollisionStay", _wrap_Component_onCollisionStay, METH_VARARGS, NULL},
+	 { "Component_onCollisionExit", _wrap_Component_onCollisionExit, METH_VARARGS, NULL},
+	 { "Component_onTriggerEnter", _wrap_Component_onTriggerEnter, METH_VARARGS, NULL},
+	 { "Component_onTriggerStay", _wrap_Component_onTriggerStay, METH_VARARGS, NULL},
+	 { "Component_onTriggerExit", _wrap_Component_onTriggerExit, METH_VARARGS, NULL},
+	 { "Component_getHost", _wrap_Component_getHost, METH_O, NULL},
+	 { "Component_toString", _wrap_Component_toString, METH_O, NULL},
+	 { "Component_swigregister", Component_swigregister, METH_O, NULL},
+	 { "GameObject_isStatic_set", _wrap_GameObject_isStatic_set, METH_VARARGS, NULL},
+	 { "GameObject_isStatic_get", _wrap_GameObject_isStatic_get, METH_O, NULL},
+	 { "GameObject_m_name_set", _wrap_GameObject_m_name_set, METH_VARARGS, NULL},
+	 { "GameObject_m_name_get", _wrap_GameObject_m_name_get, METH_O, NULL},
+	 { "GameObject_m_recipe_set", _wrap_GameObject_m_recipe_set, METH_VARARGS, NULL},
+	 { "GameObject_m_recipe_get", _wrap_GameObject_m_recipe_get, METH_O, NULL},
+	 { "GameObject_m_components_set", _wrap_GameObject_m_components_set, METH_VARARGS, NULL},
+	 { "GameObject_m_components_get", _wrap_GameObject_m_components_get, METH_O, NULL},
+	 { "new_GameObject", _wrap_new_GameObject, METH_VARARGS, NULL},
+	 { "delete_GameObject", _wrap_delete_GameObject, METH_O, NULL},
+	 { "GameObject_awakeComponents", _wrap_GameObject_awakeComponents, METH_O, NULL},
+	 { "GameObject_updateComponents", _wrap_GameObject_updateComponents, METH_O, NULL},
+	 { "GameObject_fixedUpdateComponents", _wrap_GameObject_fixedUpdateComponents, METH_O, NULL},
+	 { "GameObject_lateUpdateComponents", _wrap_GameObject_lateUpdateComponents, METH_O, NULL},
+	 { "GameObject_callCollisionEnter", _wrap_GameObject_callCollisionEnter, METH_VARARGS, NULL},
+	 { "GameObject_callCollisionStay", _wrap_GameObject_callCollisionStay, METH_VARARGS, NULL},
+	 { "GameObject_callCollisionExit", _wrap_GameObject_callCollisionExit, METH_VARARGS, NULL},
+	 { "GameObject_callTriggerEnter", _wrap_GameObject_callTriggerEnter, METH_VARARGS, NULL},
+	 { "GameObject_callTriggerStay", _wrap_GameObject_callTriggerStay, METH_VARARGS, NULL},
+	 { "GameObject_callTriggerExit", _wrap_GameObject_callTriggerExit, METH_VARARGS, NULL},
+	 { "GameObject_drawImGuiInspector", _wrap_GameObject_drawImGuiInspector, METH_O, NULL},
+	 { "GameObject_drawImGuiHierarchy", _wrap_GameObject_drawImGuiHierarchy, METH_VARARGS, NULL},
+	 { "GameObject_toString", _wrap_GameObject_toString, METH_O, NULL},
+	 { "GameObject_parseComponents", _wrap_GameObject_parseComponents, METH_VARARGS, NULL},
+	 { "GameObject_parseScripts", _wrap_GameObject_parseScripts, METH_VARARGS, NULL},
+	 { "GameObject_parseRecipe", _wrap_GameObject_parseRecipe, METH_VARARGS, NULL},
+	 { "GameObject_parse", _wrap_GameObject_parse, METH_VARARGS, NULL},
+	 { "GameObject_destroy", _wrap_GameObject_destroy, METH_O, NULL},
+	 { "GameObject_onDestroy", _wrap_GameObject_onDestroy, METH_O, NULL},
+	 { "GameObject_swigregister", GameObject_swigregister, METH_O, NULL},
+	 { "GameObject_swiginit", GameObject_swiginit, METH_VARARGS, NULL},
 	 { "new_Transform", _wrap_new_Transform, METH_O, NULL},
 	 { "Transform_m_position_set", _wrap_Transform_m_position_set, METH_VARARGS, NULL},
 	 { "Transform_m_position_get", _wrap_Transform_m_position_get, METH_O, NULL},
@@ -4418,48 +6125,88 @@ static PyMethodDef SwigMethods_proxydocs[] = {
 
 /* -------- TYPE CONVERSION AND EQUIVALENCE RULES (BEGIN) -------- */
 
+static void *_p_Engine__ComponentTo_p_Engine__Object(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Object *)  ((Engine::Component *) x));
+}
+static void *_p_Engine__GameObjectTo_p_Engine__Object(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Object *)  ((Engine::GameObject *) x));
+}
+static void *_p_Physics__TransformTo_p_Engine__Object(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Object *) (Engine::Component *) ((Physics::Transform *) x));
+}
+static void *_p_Physics__TransformTo_p_Engine__Component(void *x, int *SWIGUNUSEDPARM(newmemory)) {
+    return (void *)((Engine::Component *)  ((Physics::Transform *) x));
+}
 static swig_type_info _swigt__p_Core__Maths__mat4 = {"_p_Core__Maths__mat4", "Core::Maths::mat4 *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Core__Maths__vec3 = {"_p_Core__Maths__vec3", "Core::Maths::vec3 *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Engine__Component = {"_p_Engine__Component", "Engine::Component *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Engine__GameObject = {"_p_Engine__GameObject", "Engine::GameObject *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Engine__Object = {"_p_Engine__Object", "Engine::Object *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_GameObject = {"_p_GameObject", "GameObject *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Physics__Collider = {"_p_Physics__Collider", "Physics::Collider *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_Physics__Collision = {"_p_Physics__Collision", "Physics::Collision *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Physics__PyTransform = {"_p_Physics__PyTransform", "Physics::PyTransform *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_Physics__Transform = {"_p_Physics__Transform", "Physics::Transform *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__istream = {"_p_std__istream", "std::istream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__istringstream = {"_p_std__istringstream", "std::istringstream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_Physics__Transform_t = {"_p_std__shared_ptrT_Physics__Transform_t", "std::shared_ptr< Physics::Transform > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__string = {"_p_std__string", "std::string *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t = {"_p_std__vectorT_std__shared_ptrT_Engine__Component_t_t", "std::vector< std::shared_ptr< Engine::Component > > *", 0, 0, (void*)0, 0};
 
 static swig_type_info *swig_type_initial[] = {
   &_swigt__p_Core__Maths__mat4,
   &_swigt__p_Core__Maths__vec3,
+  &_swigt__p_Engine__Component,
   &_swigt__p_Engine__GameObject,
+  &_swigt__p_Engine__Object,
+  &_swigt__p_GameObject,
+  &_swigt__p_Physics__Collider,
+  &_swigt__p_Physics__Collision,
   &_swigt__p_Physics__PyTransform,
   &_swigt__p_Physics__Transform,
   &_swigt__p_char,
+  &_swigt__p_std__istream,
   &_swigt__p_std__istringstream,
   &_swigt__p_std__shared_ptrT_Physics__Transform_t,
   &_swigt__p_std__string,
+  &_swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t,
 };
 
 static swig_cast_info _swigc__p_Core__Maths__mat4[] = {  {&_swigt__p_Core__Maths__mat4, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Core__Maths__vec3[] = {  {&_swigt__p_Core__Maths__vec3, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Engine__Component[] = {  {&_swigt__p_Engine__Component, 0, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Component, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Engine__GameObject[] = {  {&_swigt__p_Engine__GameObject, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Engine__Object[] = {  {&_swigt__p_Engine__Component, _p_Engine__ComponentTo_p_Engine__Object, 0, 0},  {&_swigt__p_Engine__Object, 0, 0, 0},  {&_swigt__p_Engine__GameObject, _p_Engine__GameObjectTo_p_Engine__Object, 0, 0},  {&_swigt__p_Physics__Transform, _p_Physics__TransformTo_p_Engine__Object, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_GameObject[] = {  {&_swigt__p_GameObject, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Physics__Collider[] = {  {&_swigt__p_Physics__Collider, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_Physics__Collision[] = {  {&_swigt__p_Physics__Collision, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__PyTransform[] = {  {&_swigt__p_Physics__PyTransform, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_Physics__Transform[] = {  {&_swigt__p_Physics__Transform, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__istream[] = {  {&_swigt__p_std__istream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__istringstream[] = {  {&_swigt__p_std__istringstream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_Physics__Transform_t[] = {  {&_swigt__p_std__shared_ptrT_Physics__Transform_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__string[] = {  {&_swigt__p_std__string, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t[] = {  {&_swigt__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t, 0, 0, 0},{0, 0, 0, 0}};
 
 static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_Core__Maths__mat4,
   _swigc__p_Core__Maths__vec3,
+  _swigc__p_Engine__Component,
   _swigc__p_Engine__GameObject,
+  _swigc__p_Engine__Object,
+  _swigc__p_GameObject,
+  _swigc__p_Physics__Collider,
+  _swigc__p_Physics__Collision,
   _swigc__p_Physics__PyTransform,
   _swigc__p_Physics__Transform,
   _swigc__p_char,
+  _swigc__p_std__istream,
   _swigc__p_std__istringstream,
   _swigc__p_std__shared_ptrT_Physics__Transform_t,
   _swigc__p_std__string,
+  _swigc__p_std__vectorT_std__shared_ptrT_Engine__Component_t_t,
 };
 
 

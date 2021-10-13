@@ -754,5 +754,8 @@
       <Filter>Fichiers de ressources\Shaders\Shadow</Filter>
     </None>
     <None Include="interfaces\physics.i" />
+    <None Include="interfaces\component.i" />
+    <None Include="interfaces\game_object.i" />
+    <None Include="interfaces\object.i" />
   </ItemGroup>
 </Project>

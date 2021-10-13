@@ -61,11 +61,283 @@ class _SwigNonDynamicMeta(type):
     __setattr__ = _swig_setattr_nondynamic_class_variable(type.__setattr__)
 
 
+class vec3(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    x = property(_engine.vec3_x_get, _engine.vec3_x_set)
+    y = property(_engine.vec3_y_get, _engine.vec3_y_set)
+    z = property(_engine.vec3_z_get, _engine.vec3_z_set)
 
-def info(infoLog):
-    return _engine.info(infoLog)
+    def __init__(self):
+        _engine.vec3_swiginit(self, _engine.new_vec3())
+    __swig_destroy__ = _engine.delete_vec3
 
-def error(infoLog):
-    return _engine.error(infoLog)
+# Register vec3 in _engine:
+_engine.vec3_swigregister(vec3)
+
+class Object(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def isActive(self):
+        return _engine.Object_isActive(self)
+
+    def setActive(self, value):
+        return _engine.Object_setActive(self, value)
+
+    def onDestroy(self):
+        return _engine.Object_onDestroy(self)
+
+    def destroy(self):
+        return _engine.Object_destroy(self)
+
+    def __init__(self):
+        _engine.Object_swiginit(self, _engine.new_Object())
+    __swig_destroy__ = _engine.delete_Object
+
+# Register Object in _engine:
+_engine.Object_swigregister(Object)
+
+class Component(Object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+
+    def __init__(self, *args, **kwargs):
+        raise AttributeError("No constructor defined")
+    __repr__ = _swig_repr
+    hasStarted = property(_engine.Component_hasStarted_get, _engine.Component_hasStarted_set)
+
+    def setActive(self, value):
+        return _engine.Component_setActive(self, value)
+
+    def draw(self):
+        return _engine.Component_draw(self)
+
+    def drawImGui(self):
+        return _engine.Component_drawImGui(self)
+
+    def awake(self):
+        return _engine.Component_awake(self)
+
+    def start(self):
+        return _engine.Component_start(self)
+
+    def update(self):
+        return _engine.Component_update(self)
+
+    def fixedUpdate(self):
+        return _engine.Component_fixedUpdate(self)
+
+    def lateFixedUpdate(self):
+        return _engine.Component_lateFixedUpdate(self)
+
+    def lateUpdate(self):
+        return _engine.Component_lateUpdate(self)
+
+    def onEnable(self):
+        return _engine.Component_onEnable(self)
+
+    def onDisable(self):
+        return _engine.Component_onDisable(self)
+
+    def isActive(self):
+        return _engine.Component_isActive(self)
+
+    def destroy(self):
+        return _engine.Component_destroy(self)
+
+    def onCollisionEnter(self, collision):
+        return _engine.Component_onCollisionEnter(self, collision)
+
+    def onCollisionStay(self, collision):
+        return _engine.Component_onCollisionStay(self, collision)
+
+    def onCollisionExit(self, collision):
+        return _engine.Component_onCollisionExit(self, collision)
+
+    def onTriggerEnter(self, collider):
+        return _engine.Component_onTriggerEnter(self, collider)
+
+    def onTriggerStay(self, collider):
+        return _engine.Component_onTriggerStay(self, collider)
+
+    def onTriggerExit(self, collider):
+        return _engine.Component_onTriggerExit(self, collider)
+
+    def getHost(self):
+        return _engine.Component_getHost(self)
+
+    def toString(self):
+        return _engine.Component_toString(self)
+
+# Register Component in _engine:
+_engine.Component_swigregister(Component)
+
+class GameObject(Object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    isStatic = property(_engine.GameObject_isStatic_get, _engine.GameObject_isStatic_set)
+    m_name = property(_engine.GameObject_m_name_get, _engine.GameObject_m_name_set)
+    m_recipe = property(_engine.GameObject_m_recipe_get, _engine.GameObject_m_recipe_set)
+    m_components = property(_engine.GameObject_m_components_get, _engine.GameObject_m_components_set)
+
+    def __init__(self, *args):
+        _engine.GameObject_swiginit(self, _engine.new_GameObject(*args))
+    __swig_destroy__ = _engine.delete_GameObject
+
+    def awakeComponents(self):
+        return _engine.GameObject_awakeComponents(self)
+
+    def updateComponents(self):
+        return _engine.GameObject_updateComponents(self)
+
+    def fixedUpdateComponents(self):
+        return _engine.GameObject_fixedUpdateComponents(self)
+
+    def lateUpdateComponents(self):
+        return _engine.GameObject_lateUpdateComponents(self)
+
+    def callCollisionEnter(self, collision):
+        return _engine.GameObject_callCollisionEnter(self, collision)
+
+    def callCollisionStay(self, collision):
+        return _engine.GameObject_callCollisionStay(self, collision)
+
+    def callCollisionExit(self, collision):
+        return _engine.GameObject_callCollisionExit(self, collision)
+
+    def callTriggerEnter(self, collider):
+        return _engine.GameObject_callTriggerEnter(self, collider)
+
+    def callTriggerStay(self, collider):
+        return _engine.GameObject_callTriggerStay(self, collider)
+
+    def callTriggerExit(self, collider):
+        return _engine.GameObject_callTriggerExit(self, collider)
+
+    def drawImGuiInspector(self):
+        return _engine.GameObject_drawImGuiInspector(self)
+
+    def drawImGuiHierarchy(self, curDrawGoName, isDrawFromScene):
+        return _engine.GameObject_drawImGuiHierarchy(self, curDrawGoName, isDrawFromScene)
+
+    def toString(self):
+        return _engine.GameObject_toString(self)
+
+    def parseComponents(self, parseComponent, parentName):
+        return _engine.GameObject_parseComponents(self, parseComponent, parentName)
+
+    def parseScripts(self, parseScript):
+        return _engine.GameObject_parseScripts(self, parseScript)
+
+    def parseRecipe(self, filePath, parentName):
+        return _engine.GameObject_parseRecipe(self, filePath, parentName)
+
+    def parse(self, scnStream, parentName):
+        return _engine.GameObject_parse(self, scnStream, parentName)
+
+    def destroy(self):
+        return _engine.GameObject_destroy(self)
+
+    def onDestroy(self):
+        return _engine.GameObject_onDestroy(self)
+
+# Register GameObject in _engine:
+_engine.GameObject_swigregister(GameObject)
+
+class Transform(Component):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+
+    def __init__(self, gameObject):
+        _engine.Transform_swiginit(self, _engine.new_Transform(gameObject))
+    m_position = property(_engine.Transform_m_position_get, _engine.Transform_m_position_set)
+    m_rotation = property(_engine.Transform_m_rotation_get, _engine.Transform_m_rotation_set)
+    m_scale = property(_engine.Transform_m_scale_get, _engine.Transform_m_scale_set)
+
+    def getGOParent(self):
+        return _engine.Transform_getGOParent(self)
+
+    def getParent(self):
+        return _engine.Transform_getParent(self)
+
+    def getChild(self, childIndex):
+        return _engine.Transform_getChild(self, childIndex)
+
+    def getGOChild(self, childIndex):
+        return _engine.Transform_getGOChild(self, childIndex)
+
+    def getChildrenCount(self):
+        return _engine.Transform_getChildrenCount(self)
+
+    def getModel(self):
+        return _engine.Transform_getModel(self)
+
+    def getGlobalModel(self):
+        return _engine.Transform_getGlobalModel(self)
+
+    def getParentModel(self):
+        return _engine.Transform_getParentModel(self)
+
+    def getGlobalRotation(self):
+        return _engine.Transform_getGlobalRotation(self)
+
+    def getGlobalPosition(self):
+        return _engine.Transform_getGlobalPosition(self)
+
+    def getParentRotation(self):
+        return _engine.Transform_getParentRotation(self)
+
+    def getParentPosition(self):
+        return _engine.Transform_getParentPosition(self)
+
+    def getForward(self):
+        return _engine.Transform_getForward(self)
+
+    def hasParent(self):
+        return _engine.Transform_hasParent(self)
+
+    def hasChild(self):
+        return _engine.Transform_hasChild(self)
+
+    def setParent(self, *args):
+        return _engine.Transform_setParent(self, *args)
+
+    def setChild(self, *args):
+        return _engine.Transform_setChild(self, *args)
+
+    def update(self):
+        return _engine.Transform_update(self)
+
+    def drawImGui(self):
+        return _engine.Transform_drawImGui(self)
+
+    def toString(self):
+        return _engine.Transform_toString(self)
+
+    @staticmethod
+    def parseComponent(gameObject, iss, parentName):
+        return _engine.Transform_parseComponent(gameObject, iss, parentName)
+    __swig_destroy__ = _engine.delete_Transform
+
+# Register Transform in _engine:
+_engine.Transform_swigregister(Transform)
+
+def Transform_parseComponent(gameObject, iss, parentName):
+    return _engine.Transform_parseComponent(gameObject, iss, parentName)
+
+class PyTransform(object):
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    m_position = property(_engine.PyTransform_m_position_get, _engine.PyTransform_m_position_set)
+    m_rotation = property(_engine.PyTransform_m_rotation_get, _engine.PyTransform_m_rotation_set)
+    m_scale = property(_engine.PyTransform_m_scale_get, _engine.PyTransform_m_scale_set)
+
+    def __init__(self):
+        _engine.PyTransform_swiginit(self, _engine.new_PyTransform())
+    __swig_destroy__ = _engine.delete_PyTransform
+
+# Register PyTransform in _engine:
+_engine.PyTransform_swigregister(PyTransform)
+
 
 

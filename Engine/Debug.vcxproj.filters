@@ -713,5 +713,6 @@
     </None>
     <None Include="interfaces\debug.i" />
     <None Include="interfaces\graph.i" />
+    <None Include="resources\scripts\player.py" />
   </ItemGroup>
 </Project>

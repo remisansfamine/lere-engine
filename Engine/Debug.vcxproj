@@ -393,6 +393,7 @@
     <None Include="include\Core\maths.inl" />
     <None Include="interfaces\debug.i" />
     <None Include="interfaces\graph.i" />
+    <None Include="resources\scripts\player.py" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

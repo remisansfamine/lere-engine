@@ -16,4 +16,6 @@ namespace Core::Maths
 	};
 }
 
+%include component.i
+%include game_object.i
 %include ../include/Engine/Physics/transform.hpp

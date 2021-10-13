@@ -41,28 +41,28 @@ namespace Engine
 
 		void setActive(bool value) override;
 
-		void virtual draw() const { }
-		void virtual drawImGui();
+		virtual void draw() const { }
+		virtual void drawImGui();
 
-		void virtual awake() { }
-		void virtual start() { }
-		void virtual update() { }
-		void virtual fixedUpdate() { }
-		void virtual lateFixedUpdate() { }
-		void virtual lateUpdate() { }
-		void virtual onEnable() { }
-		void virtual onDisable() { }
+		virtual void awake() { }
+		virtual void start() { }
+		virtual void update() { }
+		virtual void fixedUpdate() { }
+		virtual void lateFixedUpdate() { }
+		virtual void lateUpdate() { }
+		virtual void onEnable() { }
+		virtual void onDisable() { }
 
 		bool isActive() override;
 		void destroy() override;
 
-		void virtual onCollisionEnter(const Physics::Collision& collision) {}
-		void virtual onCollisionStay(const Physics::Collision& collision) {}
-		void virtual onCollisionExit(const Physics::Collision& collision) {}
+		virtual void onCollisionEnter(const Physics::Collision& collision) {}
+		virtual void onCollisionStay(const Physics::Collision& collision) {}
+		virtual void onCollisionExit(const Physics::Collision& collision) {}
 
-		void virtual onTriggerEnter(Physics::Collider* collider) {}
-		void virtual onTriggerStay(Physics::Collider* collider) {}
-		void virtual onTriggerExit(Physics::Collider* collider) {}
+		virtual void onTriggerEnter(Physics::Collider* collider) {}
+		virtual void onTriggerStay(Physics::Collider* collider) {}
+		virtual void onTriggerExit(Physics::Collider* collider) {}
 
 		GameObject& getHost();
 
