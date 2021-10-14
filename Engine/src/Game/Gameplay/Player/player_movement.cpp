@@ -17,7 +17,7 @@ namespace Gameplay
 	{
 		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
 
-		script = Resources::ResourcesManager::loadScript("player_movement");
+		script = Resources::ResourcesManager::loadScript("player_stats");
 	}
 
 	void PlayerMovement::fixedUpdate()

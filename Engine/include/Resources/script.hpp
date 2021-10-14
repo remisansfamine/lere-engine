@@ -20,7 +20,6 @@ namespace Resources
 
 		std::unordered_map<std::string, CPyObject> functions;
 		std::unordered_map<std::string, CPyObject> classes;
-		std::unordered_map<std::string, CPyObject> classFunctions;
 
 		void addFunction(const std::string& functionName);
 

@@ -278,7 +278,11 @@ namespace Engine
 		std::string comp;
 		parseScript >> comp;
 
-		addComponent<ScriptComponent>(comp);
+		bool fromInstance = false;
+
+		parseScript >> fromInstance;
+
+		addComponent<ScriptComponent>(comp, fromInstance);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)

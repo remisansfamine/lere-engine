@@ -26,6 +26,7 @@ namespace Gameplay
 		Core::Maths::vec3 initRotation;
 		Core::Maths::vec3 initPosition;
 
+		int damage = 1;
 		int ammo = 7;
 		int maxAmmo = 7;
 

@@ -11,15 +11,16 @@
 
 namespace Engine
 {
-	ScriptComponent::ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName)
+	ScriptComponent::ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName, bool fromInstance)
 		: Component(gameObject, std::shared_ptr<ScriptComponent>(this)), scriptName(scriptName)
 	{
 		transform = getHost().getComponent<Physics::Transform>().get();
 		rigidbody = getHost().getComponent<Physics::Rigidbody>().get();
 
 		script = Resources::ResourcesManager::loadScript(scriptName);
-		//script->initializeFunctions();
-		instance = script->createClassInstance(scriptName);
+		
+		if (fromInstance)
+			instance = script->createClassInstance(scriptName);
 	}
 
 	void ScriptComponent::awake()

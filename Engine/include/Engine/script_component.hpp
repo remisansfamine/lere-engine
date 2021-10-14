@@ -23,7 +23,7 @@ namespace Engine
 		Physics::Transform* transform;
 		Physics::Rigidbody* rigidbody;
 
-		ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName);
+		ScriptComponent(Engine::GameObject& gameObject, const std::string& scriptName, bool fromInstance = false);
 
 		void awake() override;
 		void start() override;

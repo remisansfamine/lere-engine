@@ -9,6 +9,8 @@
 #include "maths.hpp"
 #include "physic_manager.hpp"
 
+#include "resources_manager.hpp"
+
 #include "utils.hpp"
 
 namespace Gameplay
@@ -23,10 +25,14 @@ namespace Gameplay
 	void CameraMovement::start()
 	{
 		playerTransform = transform->getGOParent().getComponent<Physics::Transform>();
+
+		script = Resources::ResourcesManager::loadScript("player_stats");
 	}
 
 	void CameraMovement::fixedUpdate()
 	{
+		m_sensitivity = script->callFunction("getSensitivity").asFloat();
+
 		transform->m_rotation.x -= m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().y;
 		transform->m_rotation.x = std::clamp(transform->m_rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
 	}

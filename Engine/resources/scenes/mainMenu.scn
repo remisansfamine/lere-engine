@@ -7,6 +7,10 @@ GO MainMenu
 COMP MAINMENU
 endGO
 
+GO PythonExample
+SCRIPT menu 0
+endGO
+
 GO ExitButton
 COMP BUTTON spriteShader resources/UI/exitText.png
 COMP TRANSFORM 0.000000 -3.000000 0.000000 0.000000 0.000000 0.000000 1.000000 1.000000 1.000000 none

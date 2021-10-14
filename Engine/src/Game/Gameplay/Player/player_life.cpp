@@ -4,6 +4,8 @@
 #include "collider.hpp"
 #include "inputs_manager.hpp"
 
+#include "resources_manager.hpp"
+
 namespace Gameplay
 {
 	PlayerLife::PlayerLife(Engine::GameObject& gameObject)
@@ -16,6 +18,15 @@ namespace Gameplay
 	{
 		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
 		lifeBar = Core::Engine::Graph::findGameObjectWithName(lifeBarName)->getComponent<LifeBar>();
+
+		script = Resources::ResourcesManager::loadScript("player_stats");
+	}
+
+	void PlayerLife::update()
+	{
+		maxLife = script->callFunction("getMaxLife").asInt();
+
+		setLife(life);
 	}
 
 	void PlayerLife::drawImGui()

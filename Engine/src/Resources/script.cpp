@@ -15,7 +15,6 @@ namespace Resources
 
 		functions.clear();
 		classes.clear();
-		classFunctions.clear();
 
 		pyModule = pyModule ? PyImport_ReloadModule(pyModule) : PyImport_ImportModule(scriptMod);
 
@@ -43,21 +42,6 @@ namespace Resources
 			if (PyType_Check(pyValue))
 			{
 				classes[std::string(key)] = pyValue;
-
-				CPyObject classDict = PyObject_GenericGetDict(pyValue, nullptr);
-
-				PyObject* classKey = nullptr, * classValue = nullptr;
-				for (Py_ssize_t i = 0; PyDict_Next(classDict, &i, &classKey, &classValue);)
-				{
-					const char* ckey = PyUnicode_AsUTF8(classKey);
-
-					if (PyFunction_Check(classValue))
-					{
-						classFunctions[std::string(ckey)] = classValue;
-						continue;
-					}
-				}
-
 				continue;
 			}
 		}
@@ -68,17 +52,13 @@ namespace Resources
 		pyModule.release();
 		pyDict.release();
 
-		for (auto& objPair : functions)
-			objPair.second.release();
-
-		for (auto& objPair : classes)
-			objPair.second.release();
+		functions.clear();
+		classes.clear();
 	}
 
 	void Script::reload()
 	{
 		Core::Debug::Log::info(std::string("Reloading ") + scriptPath + std::string(" script"));
-
 	}
 
 	void Script::addFunction(const std::string& functionName)
@@ -108,7 +88,6 @@ namespace Resources
 		
 		if (!format)
 		{
-			//PyObject_CallFunction(classFunctions[functionName], nullptr);
 			PyObject_CallMethod(*instance, functionName.c_str(), format);
 			return;
 		}

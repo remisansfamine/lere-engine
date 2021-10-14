@@ -4,6 +4,7 @@
 
 #include "inputs_manager.hpp"
 #include "sound_manager.hpp"
+#include "resources_manager.hpp"
 #include "physic_manager.hpp"
 #include "graph.hpp"
 #include "time.hpp"
@@ -30,6 +31,8 @@ namespace Gameplay
 		initPosition = m_weaponTransform->m_position;
 
 		m_ammoCounter = Core::Engine::Graph::findGameObjectWithName("AmmoCounter")->getComponent<AmmoCounter>();
+
+		script = Resources::ResourcesManager::loadScript("player_stats");
 	}
 
 	int PlayerShooting::getMaxAmmoCount()
@@ -81,12 +84,14 @@ namespace Gameplay
 
 		if (Physics::PhysicManager::raycast(ray, raycastHit))
 		{
+			damage = script->callFunction("getShootDamage").asInt();
+
 			auto& hole = Core::Engine::Graph::instantiate("BulletHole", "resources/recipes/bulletHole.recipe");
 			hole.getComponent<Physics::Transform>()->m_position = raycastHit.hit.point;
 
 			std::shared_ptr<EnemyLife> life;
 			if (raycastHit.collider->getHost().tryGetComponent(life))
-				life->hurt();
+				life->hurt(damage);
 		}
 	}
 
