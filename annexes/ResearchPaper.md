@@ -5,7 +5,7 @@
 We were asked to link Python Scripts to a C++ project. At first, we started to follow the lesson on Teams to use the Python functions on C++. In order to use C++ functions with Python, we were then suggested to use one of these two technologies that are SWIG or Pybind11. Each member of the group tested one of the technologies.
  
 # SWIG (Rémi)
-Creating an empty project was the first step. Using the lesson on Teams, SWIG was really easy to implement. One of the major diffculties is that we had to use a new type of file : .i file. Those files are needed to interface functions from C++ to Python.\
+Creating an empty project was the first step. Using the lesson on Teams, SWIG was really easy to implement. One of the major diffculties is that we had to use a new type of file : .i file. Those files are needed to interface functions from C++ to Python. It is at first sight easy to use but finally hard to master and really understand.\
 ![doti](screenshots/doti_file.png)\
 Functions were really easy to bind but classes were not as natural. Another detail that slowed us is that we didn't have the idea to separate the solution into two project at first. We had to modify the main project properties from .exe to .pyd each time we wanted to compile.
  

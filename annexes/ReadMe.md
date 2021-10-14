@@ -7,7 +7,8 @@ This project is made to allow the user to change the game objects' behavior with
 # Informations
 The program only runs in Release because of a missing Python library, platform x64.\
 You need to put the Python scripts (they are in REMOD/BIN/resources/scripts) and the resources folder next to the .exe file.
- 
+The solution will only compile with C++ 20 standard (latest)
+
 The resources (obj, textures, mtl, etc) are in the zip file on sirius : REMOD/BIN/resources.
  
 # Controls
