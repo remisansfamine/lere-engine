@@ -10,6 +10,8 @@ You need to put the Python scripts (they are in REMOD/BIN/resources/scripts) and
 The solution will only compile with C++ 20 standard (latest)
 
 The resources (obj, textures, mtl, etc) are in the zip file on sirius : REMOD/BIN/resources.
+
+The screenshots for the .md files are in Sirius.
  
 # Controls
 - **C** : Open inspector, and the interfaces of the Managers.

@@ -8,6 +8,8 @@ We were asked to link Python Scripts to a C++ project. At first, we started to f
 Creating an empty project was the first step. Using the lesson on Teams, SWIG was really easy to implement. One of the major diffculties is that we had to use a new type of file : .i file. Those files are needed to interface functions from C++ to Python. It is at first sight easy to use but finally hard to master and really understand.\
 ![doti](screenshots/doti_file.png)\
 Functions were really easy to bind but classes were not as natural. Another detail that slowed us is that we didn't have the idea to separate the solution into two project at first. We had to modify the main project properties from .exe to .pyd each time we wanted to compile.
+
+Researches were made on the master branch.
  
 # Pybind11 (Jarod)
 First of all, we had to create an empty solution, to try implementing Pybind11 in the easiest engine, no engine.\
@@ -20,6 +22,8 @@ We then decided to remove the dll project from the solution. There for, we only 
 After finishing the CMake file, we had all we needed :
 - an engine : the executable project
 - a CMake project : responsible for the modules generation
+
+Researches were made on the jarod branch.
  
 # Our choice
 Because SWIG was already partially implemented into the main engine and looked easier to use, we decided to keep this technology instead of Pybind11.\
