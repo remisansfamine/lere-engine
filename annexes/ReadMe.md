@@ -1,110 +1,107 @@
-# **Resources Manager**
+# **Scripting System**
+##### by Rémi and Jarod
 
-Resources Manager improvement made using the previous engine for the FPS.
-
-**/!\ This engine is not the most optimized one nor the most efficient one. It supports only .obj models, .mtl materials and a custom scene format. /!\\**
-
+# Description
+This project is made to allow the user to change the game objects' behavior with Python script. They would be able to run specific scripts for each game object such as the player object.
+ 
 # Informations
-The program runs in Debug or Release, platform x64. 
-You need to put the files :
-- irrKlang.dll 
-- ikpMP3.dll
-- ikpFlac.dll <br>
-in the folder x64/Release (or x64/Debug), they can be found on sirius : RSMNGR/BIN.
-
-The resources (obj, textures, mtl, etc) are in the zip file on sirius : RSMNGR/BIN/resources.
-
+The program only runs in Release because of a missing Python library, platform x64.\
+You need to put the Python scripts (they are in REMOD/BIN/resources/scripts) and the resources folder next to the .exe file.
+ 
+The resources (obj, textures, mtl, etc) are in the zip file on sirius : REMOD/BIN/resources.
+ 
 # Controls
 - **C** : Open inspector, and the interfaces of the Managers.
-
+- **F5** : Hot reload the scripts.
+ 
 # Engine Features
-* The Game Engine uses a powerful leak-free Resources Manager
-* The Game Engine is formed by the Render Engine, the Physic Engine and a multi-treaded Resources Manager
-* The game can reload a scene very quickly (instantly) thanks to the use of shared_ptr
-* The game engine has a Benchmarking option to benchmark the load of a scene automatically
-
-# Benchmark
-For a scene using 221 Mo of resources: 13 different models, 81 different textures and 36 materials.
-The engine can load in:
-
-In Release
----
-- With multithreading: 7 seconds.
-- In monothread: 30 seconds.
-
-In Debug
----
-- With multithreading: 33 seconds.
-- In monothread: 5 minutes and 30 seconds.
-
-***Annexes***
-===
-- Link to the UML:
-https://miro.com/welcomeonboard/Y1VWWjN5ZUptejZDWVhxWkR2SElZZjRzR2RXaWZjMUpmUG5yZ05wUExSZmVPWFBpdDg3bXFPeklyVUpkRDdlaHwzMDc0NDU3MzU3NzMyNDc2MDQ5?invite_link_id=717859921437
-
+- The Game Engine reads Python scripts
+- The scripts have access to the modules:
+    - engine that contains Transform, Rigidbody, GameObject, Component and Object
+    - debug to show informations and errors
+- The scripts can be reloaded without restarting the program by pressing one button, either on the keyboard or on the inspector
+- The player object will by default load a Python scripts named player_stats.py in order to get scripted values (for movement speed, etc)
+ 
 ***Examples***
 ===
-
-Here are some examples of what you can see in the game. If you want more you can go to the folder annexes/screenshots.
-
+ 
+Here are some examples of what you can see in the engine. If you want more you can go to the directory annexes/screenshots.
+ 
 <div style="text-align:center">
 
-![Menu](screenshots/sponza.png)
-Screenshot of the Sponza loading its resources
-
-![Pause](screenshots/benchmarker.png)
-Screenshot of the benchmarker showing the loading statistics
-
+![Script](screenshots/python_script.png)\
+What a Python script looks like
+ 
+![Debug](screenshots/python_debug.png)\
+Testing the debug module
+ 
+![Console](screenshots/python_console.png)\
+Result
+ 
 <div style="text-align:left">
-
+ 
 ***Work in progress and future features***
 ===
 WIP
 ---
-- OBJ Parser group support
-
+- Instance script: When a script is made, it must have a class with the same name of the file to create an instance of it
+- Interfacing ScriptComponent class: have access to its functions from Python scripts
+- Module system supports all managers
+ 
 Next features
 ---
-- Multi-threading physics
-
-***Know bugs***
+- Script inheritage: Python scripts will be inherited from Component class to access to the different functions of it
+ 
+***Known bugs***
 ===
-- Sometimes some textures do not load due to an issue with fopen
-
-***Third-party programs, libraries and resoucres***
+- The instance script (where each script creates an instance of a class) system breaks the global script system
+- Only the first line of a method from an instance is called
+ 
+***Third-party programs, libraries and resources***
 ===
-
+ 
 # Download links
-
+ 
 irrKlang
 ---
-https://www.ambiera.com/irrklang/
-
+https://www.ambiera.com/irrklang/ 
+ 
 stb
 ---
-https://github.com/nothings/stb
-
+https://github.com/nothings/stb 
+ 
 GLFW
----
-https://www.glfw.org/
-
+--- 
+https://www.glfw.org/ 
+ 
 Glad
 ---
 https://glad.dav1d.de/
-
+ 
+Python
+---
+https://www.python.org/
+ 
 Sponza
 ---
-https://github.com/jimmiebergmann/Sponza
-
+https://github.com/jimmiebergmann/Sponza 
+ 
 ***References***
 ===
-OpenGL:
+PyHelper:
 ---
-- Gives the different functions of OpenGL:
-http://docs.gl/
-- Ditto:
-https://www.khronos.org/opengl/
-
+- Helper library to facilitate the use of PyObject pointers and instance:
+https://www.codeproject.com/Articles/820116/Embedding-Python-program-in-a-C-Cplusplus-code
+ 
+Swig:
+---
+- http://www.swig.org/Doc1.3/Python.html#Python_nn4
+- http://www.swig.org/Doc1.3/Library.html#Library 
+ 
+Pybind11:
+---
+- https://github.com/pybind/pybind11
+ 
 C++:
 ---
 - C++ references: https://en.cppreference.com/
