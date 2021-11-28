@@ -72,7 +72,7 @@ namespace Resources
 
 		void linkShaders();
 
-		void bindToUBO(const std::string& UBOName, GLint UBOBindID);
+		bool bindToUBO(const std::string& UBOName, GLint UBOBindID);
 
 		void drawImGui();
 	};

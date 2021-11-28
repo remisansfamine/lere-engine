@@ -307,7 +307,8 @@ namespace LowRenderer
 	{
 		RenderManager* RM = instance();
 
-		program->bindToUBO(UBOName, RM->lastBindingPoint);
+		if (!program->bindToUBO(UBOName, RM->lastBindingPoint))
+			return;
 
 		if (RM->uniformBlocks.find(UBOName) != RM->uniformBlocks.end())
 			return;

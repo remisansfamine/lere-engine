@@ -4,6 +4,8 @@
 //#define USE_NORMAL_MAP
 #define LIGHT_COUNT 8
 
+//#define USE_UBO
+
 in VS_OUT
 {
 	vec3 FragPos;

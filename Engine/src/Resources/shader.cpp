@@ -191,7 +191,6 @@ namespace Resources
 
         // TODO: REMOVE THIS SHIT 
         LowRenderer::RenderManager::bindUBO(this, "lightBlock");
-        
     }
 
     void ShaderProgram::create()
@@ -315,12 +314,15 @@ namespace Resources
         return name;
     }
 
-    void ShaderProgram::bindToUBO(const std::string& UBOName, GLint UBOBindID)
+    bool ShaderProgram::bindToUBO(const std::string& UBOName, GLint UBOBindID)
     {
         GLint UBOIndex = glGetUniformBlockIndex(programID, UBOName.c_str());
 
-        if (UBOIndex > 0)
-            glUniformBlockBinding(programID, UBOIndex, UBOBindID);
+        if (UBOIndex < 0)
+            return false;
+
+        glUniformBlockBinding(programID, UBOIndex, UBOBindID);
+        return true;
     }
 
     void ShaderProgram::drawImGui()
