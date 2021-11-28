@@ -8,6 +8,7 @@
 #include "shader.hpp"
 #include "shadow.hpp"
 
+#include "uniform.hpp"
 
 namespace LowRenderer
 {
@@ -51,8 +52,7 @@ namespace LowRenderer
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
-
-		GLEnable(GL_CULL_FACE);
+		glCullFace(GL_FRONT);
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
@@ -83,10 +83,8 @@ namespace LowRenderer
 
 			glClear(GL_DEPTH_BUFFER_BIT);
 
-			glCullFace(GL_FRONT);
 			for (auto& model : models)
 				model->simpleDraw(program);
-			glCullFace(GL_BACK);
 
 			light->shadow->unbindAndResetViewport();
 		}
@@ -133,6 +131,8 @@ namespace LowRenderer
 
 				getCurrentCamera()->sendViewProjToProgram(program);
 
+				std::vector<LightData> lightDatas;
+
 				int i = 0;
 				for (auto& light : lights)
 				{
@@ -140,8 +140,17 @@ namespace LowRenderer
 						break;
 
 					light->sendToProgram(program, i);
+
+					light->addToLightBuffer(lightDatas);
+
 					i++;
 				}
+
+				UniformBlock& lightBlock = uniformBlocks["lightBlock"];
+
+				lightBlock.bind();
+				//glBufferSubData(GL_UNIFORM_BUFFER, 0, lightDatas.size() * sizeof(LightData), lightDatas.data());
+				lightBlock.unbind();
 
 				for (auto& skyBox : skyBoxes)
 					skyBox->sendToProgram(program);
@@ -292,5 +301,19 @@ namespace LowRenderer
 			return *RM->cameras.rbegin();
 
 		return nullptr;
+	}
+
+	void RenderManager::bindUBO(Resources::ShaderProgram* program, const std::string& UBOName)
+	{
+		RenderManager* RM = instance();
+
+		program->bindToUBO(UBOName, RM->lastBindingPoint);
+
+		if (RM->uniformBlocks.find(UBOName) != RM->uniformBlocks.end())
+			return;
+
+		RM->uniformBlocks[UBOName] = UniformBlock(RM->lastBindingPoint, sizeof(LightData) * 8);
+
+		RM->lastBindingPoint++;
 	}
 }

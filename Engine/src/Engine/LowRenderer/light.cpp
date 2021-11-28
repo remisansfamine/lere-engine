@@ -25,7 +25,7 @@ namespace LowRenderer
 
 	void Light::setAsDirectionnal()
 	{
-		position.w = 0.f;
+		isPoint = 0.f;
 
 		cutoff = Core::Maths::PI;
 		outterCutoff = Core::Maths::PI;
@@ -33,7 +33,7 @@ namespace LowRenderer
 
 	void Light::setAsPoint()
 	{
-		position.w = 1.f;
+		isPoint = 1.f;
 
 		cutoff = Core::Maths::PI;
 		outterCutoff = Core::Maths::PI;
@@ -41,7 +41,7 @@ namespace LowRenderer
 
 	void Light::setAsSpot()
 	{
-		position.w = 1.f;
+		isPoint = 1.f;
 
 		cutoff = Core::Maths::PIO4;
 		outterCutoff = 50.f * Core::Maths::DEG2RAD;
@@ -55,7 +55,7 @@ namespace LowRenderer
 		{
 			bool isShadowMap = dynamic_cast<ShadowMap*>(shadow.get()) != nullptr;
 
-			if (!isShadowMap && position.w == 0.0)
+			if (!isShadowMap && isPoint == 0.0)
 				shadow = std::make_unique<ShadowMap>();
 			else if (!isShadowMap && dynamic_cast<ShadowPoint*>(shadow.get()) == nullptr)
 				shadow = std::make_unique<ShadowPoint>();
@@ -70,9 +70,9 @@ namespace LowRenderer
 	{
 		enable = (float)isActive();
 		hasShadow = (float)(shadow != nullptr);
-		position.xyz = m_transform->position;
+		position = m_transform->position;
 
-		if (hasShadow == 0.f || position.w != 0.f)
+		if (hasShadow == 0.f || isPoint != 0.f)
 			return;
 
 		Core::Maths::mat4 lightView = Core::Maths::lookAt(m_transform->position);
@@ -88,7 +88,7 @@ namespace LowRenderer
 		if (shadow != nullptr)
 		{
 			int correspondingIndex = index;
-			if (position.w == 0.f)
+			if (isPoint == 0.f)
 			{
 				correspondingIndex += 6;
 				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e, true, 1, 1);
@@ -110,6 +110,11 @@ namespace LowRenderer
 		}
 	}
 
+	void Light::addToLightBuffer(std::vector<LightData>& buffer)
+	{
+		buffer.push_back({position,isPoint,ambient, diffuse ,specular ,attenuation ,cutoff ,direction ,outterCutoff ,enable ,hasShadow ,spaceMatrix });
+	}
+
 	const Core::Maths::mat4& Light::getSpaceMatrix() const
 	{
 		return spaceMatrix;
@@ -119,6 +124,10 @@ namespace LowRenderer
 	{
 		if (ImGui::TreeNode("Light"))
 		{
+			bool isPointFlag = isPoint;
+			if (ImGui::Checkbox("Is point light", &isPointFlag))
+				isPoint = isPointFlag;
+
 			ImGui::ColorEdit3("Ambient: ", &ambient.data.x);
 			ImGui::ColorEdit3("Diffuse: ", &diffuse.data.x);
 			ImGui::ColorEdit3("Specular: ", &specular.data.x);
@@ -135,7 +144,7 @@ namespace LowRenderer
 
 	std::string Light::toString() const
 	{
-		return "COMP LIGHT " + std::to_string(position.w) + " " +
+		return "COMP LIGHT " + std::to_string(isPoint) + " " +
 							   Utils::vecToStringParsing(ambient.data) +
 							   Utils::vecToStringParsing(diffuse.data) +
 							   Utils::vecToStringParsing(specular.data) +
@@ -151,7 +160,7 @@ namespace LowRenderer
 		owner.addComponent<Light>();
 		auto light = owner.getComponent<Light>();
 
-		iss >> light->position.w;
+		iss >> light->isPoint;
 
 		iss >> light->ambient.data.r;
 		iss >> light->ambient.data.g;

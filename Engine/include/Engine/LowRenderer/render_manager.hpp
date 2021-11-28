@@ -25,13 +25,15 @@ namespace LowRenderer
 		~RenderManager();
 
 		std::unordered_map<GLenum, bool> enabledCaps;
+		std::unordered_map<std::string, UniformBlock> uniformBlocks;
+		GLuint lastBindingPoint = 0u;
 
 		std::unordered_set<ColliderRenderer*> colliders;
-		std::unordered_set<ModelRenderer*> models;
 		std::unordered_set<SpriteRenderer*> sprites;
+		std::unordered_set<ModelRenderer*> models;
+		std::unordered_set<SkyBox*> skyBoxes;
 		std::unordered_set<Light*> lights;
 		std::set<Camera*> cameras;
-		std::unordered_set<SkyBox*> skyBoxes;
 
 		void drawColliders() const;
 
@@ -100,5 +102,7 @@ namespace LowRenderer
 		static void removeComponent(ModelRenderer* compToRemove);
 
 		static void clearAll();
+
+		static void bindUBO(Resources::ShaderProgram* program, const std::string& UBOName);
 	};
 }

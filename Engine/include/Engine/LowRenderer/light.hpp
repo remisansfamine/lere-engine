@@ -13,23 +13,16 @@ namespace LowRenderer
 {
 	class Shadow;
 
-	class Light : public Engine::Component
+	struct LightData
 	{
-	private:
-		Physics::TransformComponent* m_transform = nullptr;
-
-		Core::Maths::mat4 spaceMatrix = Core::Maths::identity();
-
-	public:
-		Light(Engine::Entity& owner);
-
-		std::unique_ptr<Shadow> shadow = nullptr;
-
-		Core::Maths::vec4 position;
-		Color ambient  = Color::black;
-		Color diffuse  = Color::white;
+		// 16 f : 1 m
+		Core::Maths::vec3 position;
+		float isPoint;
+		Color ambient = Color::black;
+		Color diffuse = Color::white;
 		Color specular = Color::black;
 
+		// 8 f : 1/2 m
 		Core::Maths::vec3 attenuation = Core::Maths::vec3(1.f, 0.f, 0.f);
 		float cutoff = Core::Maths::PI;
 		Core::Maths::vec3 direction = Core::Maths::vec3(0.f, 0.f, -1.f);
@@ -37,6 +30,19 @@ namespace LowRenderer
 
 		float enable = 1.f;
 		float hasShadow = 0.f;
+
+		Core::Maths::mat4 spaceMatrix = Core::Maths::identity();
+	};
+
+	class Light : public Engine::Component, public LightData
+	{
+	private:
+		Physics::TransformComponent* m_transform = nullptr;
+
+	public:
+		Light(Engine::Entity& owner);
+
+		std::unique_ptr<Shadow> shadow = nullptr;
 		
 		void setAsDirectionnal();
 		void setAsPoint();
@@ -44,6 +50,8 @@ namespace LowRenderer
 		void setShadows(bool isShadow);
 		void compute();
 		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const;
+		void addToLightBuffer(std::vector<LightData>& buffer);
+
 
 		const Core::Maths::mat4& getSpaceMatrix() const;
 

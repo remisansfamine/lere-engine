@@ -6,6 +6,7 @@
 #include <imgui.h>
 
 #include "resources_manager.hpp"
+#include "render_manager.hpp"
 #include "thread_pool.hpp"
 #include "debug.hpp"
 
@@ -186,6 +187,11 @@ namespace Resources
     void ShaderProgram::mainThreadInitialization()
     {
         linkShaders();
+
+
+        // TODO: REMOVE THIS SHIT 
+        LowRenderer::RenderManager::bindUBO(this, "lightBlock");
+        
     }
 
     void ShaderProgram::create()
@@ -204,7 +210,7 @@ namespace Resources
         destroy();
     }
 
-    void ShaderProgram::loadLocations()
+    void ShaderProgram::loadUniforms()
     {
         uniforms.clear();
 
@@ -236,6 +242,11 @@ namespace Resources
             // And add it to a map
             uniforms[uniName] = LowRenderer::Uniform(location, type);
         }
+    }
+
+    void ShaderProgram::loadLocations()
+    {
+        loadUniforms();
     }
 
     void ShaderProgram::setUniform(const std::string& target, const void* value, bool shouldBeTracked, int count, bool transpose) const
@@ -302,6 +313,14 @@ namespace Resources
     std::string ShaderProgram::getName()
     {
         return name;
+    }
+
+    void ShaderProgram::bindToUBO(const std::string& UBOName, GLint UBOBindID)
+    {
+        GLint UBOIndex = glGetUniformBlockIndex(programID, UBOName.c_str());
+
+        if (UBOIndex > 0)
+            glUniformBlockBinding(programID, UBOIndex, UBOBindID);
     }
 
     void ShaderProgram::drawImGui()

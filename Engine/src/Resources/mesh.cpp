@@ -34,7 +34,7 @@ namespace Resources
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-		size_t stride = sizeof(Vertex);
+		GLsizei stride = sizeof(Vertex);
 
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * stride, vertices.data(), GL_STATIC_DRAW);
 

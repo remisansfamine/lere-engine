@@ -54,7 +54,7 @@ namespace LowRenderer
 
 	void ShadowPoint::sendToShader(const LowRenderer::Light* light) const
 	{
-		Core::Maths::vec3 lightPos = light->position.xyz;
+		Core::Maths::vec3 lightPos = light->position;
 		float farPlane = 25.f;
 
 		Core::Maths::mat4 shadowProjection = Core::Maths::perspective(Core::Maths::DEG2RAD * 90.f, getAspect(), 0.001f, farPlane);

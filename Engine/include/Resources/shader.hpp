@@ -50,6 +50,7 @@ namespace Resources
 
 		std::unordered_map<std::string, LowRenderer::Uniform> uniforms;
 
+		void loadUniforms();
 		void loadLocations();
 
 		void mainThreadInitialization() override;
@@ -70,6 +71,8 @@ namespace Resources
 		std::string getName();
 
 		void linkShaders();
+
+		void bindToUBO(const std::string& UBOName, GLint UBOBindID);
 
 		void drawImGui();
 	};

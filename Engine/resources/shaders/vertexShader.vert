@@ -50,10 +50,13 @@ void main()
 		vs_out.Bitangent = Bitangent;
 
 		vs_out.TBN = mat3(Tangent, Bitangent, Normal);
+
+		vs_out.TangentFragPos = vs_out.TBN * vs_out.FragPos;
+		vs_out.TangentViewPos = vs_out.TBN * viewPos;
 	#else
 		vs_out.TBN = mat3(1.0);
+		vs_out.TangentFragPos = vs_out.FragPos;
+		vs_out.TangentViewPos = viewPos;
 	#endif
 
-	vs_out.TangentFragPos = vs_out.TBN * vs_out.FragPos;
-	vs_out.TangentViewPos = vs_out.TBN * viewPos;
 }

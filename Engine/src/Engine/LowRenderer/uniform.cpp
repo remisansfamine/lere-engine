@@ -78,4 +78,32 @@ namespace LowRenderer
     {
         return currentValue == value || memcmp(currentValue, value, typeSize);
     }
+
+    UniformBlock::UniformBlock(GLuint bindingPoint, GLsizei UBOsize)
+        : bindingPoint(bindingPoint)
+    {
+        glGenBuffers(1, &UBO);
+
+        // TODO: REMOVE THIS SHIT
+        glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+        glBufferData(GL_UNIFORM_BUFFER, UBOsize, NULL, GL_DYNAMIC_DRAW);
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+
+        glBindBufferRange(GL_UNIFORM_BUFFER, bindingPoint, UBO, 0, UBOsize);
+    }
+
+    UniformBlock::~UniformBlock()
+    {
+        glDeleteBuffers(1, &UBO);
+    }
+
+    void UniformBlock::bind()
+    {
+        glBindBuffer(GL_UNIFORM_BUFFER, UBO);
+    }
+
+    void UniformBlock::unbind()
+    {
+        glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
 }

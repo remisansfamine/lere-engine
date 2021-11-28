@@ -20,4 +20,18 @@ namespace LowRenderer
 
 		bool areSame(const void* value);
 	};
+
+	class UniformBlock
+	{
+		GLuint	bindingPoint;
+		GLuint	UBO;
+
+	public:
+		UniformBlock() = default;
+		UniformBlock(GLuint bindingPoint, GLsizei UBOsize);
+		~UniformBlock();
+
+		void bind();
+		void unbind();
+	};
 }

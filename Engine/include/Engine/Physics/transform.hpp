@@ -15,7 +15,7 @@ namespace Physics
 {
 	using namespace Core::Maths;
 
-	struct LowTransformContent
+	struct LowTransformData
 	{
 		mat4 globalModelMatValue;
 		mat4 modelMatValue;
@@ -29,13 +29,13 @@ namespace Physics
 		vec3 scaleVecValue;
 	};
 
-	struct TransformContent : LowTransformContent
+	struct TransformData : LowTransformData
 	{
 		TransformComponent* parent = nullptr;
 		std::vector<TransformComponent*> children;
 	};
 
-	class Transform : protected TransformContent
+	class Transform : protected TransformData
 	{
 	protected:
 		Transform() = default;

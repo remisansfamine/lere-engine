@@ -16,7 +16,7 @@ in VS_OUT
 	mat3 TBN;
 } fs_in;
 
-struct Material
+uniform struct Material
 {
 	vec4 ambient;
 	vec4 diffuse;
@@ -31,11 +31,12 @@ struct Material
 	sampler2D emissiveTexture;
 	sampler2D specularTexture;
 	sampler2D normalMap;
-};
+} material;
 
 struct Light
 {
-	vec4 position;
+	vec3 position;
+	bool isPoint;
 	vec4 ambient;
 	vec4 diffuse;
 	vec4 specular;
@@ -50,14 +51,15 @@ struct Light
 	bool hasShadow;
 	
 	mat4 spaceMatrix;
+} lights[LIGHT_COUNT];
+
+layout(std140) uniform lightBlock
+{
+    Light lightBuffer[LIGHT_COUNT];
 };
 
 uniform vec3 viewPos;
 uniform float farPlane;
-
-uniform Material material;
-
-Light lights[LIGHT_COUNT];
 
 uniform mat4 lightAttribs1[LIGHT_COUNT][1];
 uniform mat4 lightAttribs2[LIGHT_COUNT][1];
@@ -77,7 +79,8 @@ void parseLights()
 	// Parse each light matrix to a light struct
 	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
-		lights[i].position	= lightAttribs1[i][0][0];
+		lights[i].position	= lightAttribs1[i][0][0].xyz;
+		lights[i].isPoint	= bool(lightAttribs1[i][0][0].w);
 		lights[i].ambient	= lightAttribs1[i][0][1];
 		lights[i].diffuse	= lightAttribs1[i][0][2];
 		lights[i].specular	= lightAttribs1[i][0][3];
@@ -182,7 +185,12 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 
 	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
+		// TODO: remove this
+		#ifdef USE_UBO
+		Light light = lightBuffer[i];
+		#else
 		Light light = lights[i];
+		#endif
 
 		if (!light.enable)
 			continue;
@@ -196,7 +204,7 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 		}
 
 		// Get light direction, if the light is a point light or a directionnal light
-		vec3 lightDir = fs_in.TBN * light.position.xyz - fs_in.TangentFragPos * light.position.w;
+		vec3 lightDir = fs_in.TBN * light.position.xyz - fs_in.TangentFragPos * float(light.isPoint);
 	
 		// Compute the light direction and the distance between the fragment and the light
 		float distance = length(lightDir);
@@ -207,7 +215,7 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 		float finalIntensity = 1.0;
 
 		// If the light is not a directionnal light, compute the final intensity
-		if (light.position.w != 0.0)
+		if (light.isPoint)
 		{
 			// Get spot cutoff and spot intensity 
 			float theta = dot(lightDir, normalize(light.spotDirection));
