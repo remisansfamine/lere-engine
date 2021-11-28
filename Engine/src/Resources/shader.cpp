@@ -3,12 +3,13 @@
 #include <fstream>
 #include <filesystem>
 
+#include <imgui.h>
+
 #include "resources_manager.hpp"
 #include "thread_pool.hpp"
 #include "debug.hpp"
 
 #include "utils.hpp"
-
 
 namespace Resources
 {
@@ -18,39 +19,60 @@ namespace Resources
 	{
 		Core::Debug::Log::info("Loading " + shaderPath);
 
-        setID();
-
+        load();
         //ResourcesManager::manageTask(&Shader::setCode, this);
-        setCode();
 	}
 
     Shader::~Shader()
     {
-        glDeleteShader(shaderID);
+        destroy();
     }
 
-    void Shader::setID()
+    void Shader::load()
+    {
+        setID();
+        create();
+        setCode();
+    }
+
+    void Shader::reload()
+    {
+        destroy();
+        create();
+        setCode();
+    }
+
+    bool Shader::setID()
     {
         // Check if the file can be read
-        if (std::filesystem::exists(m_filePath))
+        if (!std::filesystem::exists(m_filePath))
         {
-            // Create the shader by checking its extension
-            if (Utils::hasSuffix(m_filePath, ".vert"))
-                shaderID = glCreateShader(GL_VERTEX_SHADER);
-
-            else if (Utils::hasSuffix(m_filePath, ".frag"))
-                shaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-            else if (Utils::hasSuffix(m_filePath, ".geom"))
-                shaderID = glCreateShader(GL_GEOMETRY_SHADER);
-
-            else
-                Core::Debug::Log::error("File extension is not compatible");
-
-            return;
+            Core::Debug::Log::error("Cannot open the file " + m_filePath);
+            return false;
         }
 
-        Core::Debug::Log::error("Cannot open the file " + m_filePath);
+        // Create the shader by checking its extension
+        if (Utils::hasSuffix(m_filePath, ".vert"))
+        {
+            type = GL_VERTEX_SHADER;
+            return true;
+        }
+
+        if (Utils::hasSuffix(m_filePath, ".frag"))
+        {
+            type = GL_FRAGMENT_SHADER;
+            return true;
+        }
+
+        if (Utils::hasSuffix(m_filePath, ".geom"))
+        {
+            type = GL_GEOMETRY_SHADER;
+            return true;
+        }
+
+        Core::Debug::Log::error("File extension is not compatible");
+
+        return false;
     }
 
     void Shader::setCode()
@@ -89,16 +111,40 @@ namespace Resources
     {
         compile();
     }
+
+    void Shader::create()
+    {
+        shaderID = glCreateShader(type);
+    }
+
+    void Shader::destroy()
+    {
+        glDeleteShader(shaderID);
+        shaderID = 0;
+    }
+
+    void Shader::drawImGui()
+    {
+        if (ImGui::TreeNode(m_filePath.c_str()))
+        {
+            ImGui::Text("ID: %i", &shaderID);
+
+            ImGui::TreePop();
+        }
+    }
+
 #pragma endregion
 
 
 #pragma region SHADER_PROGRAM
 	ShaderProgram::ShaderProgram(const std::string& programName, const std::string& vertPath, const std::string& fragPath, const std::string& geomPath)
-        : programID(glCreateProgram()), name(programName)
+        : name(programName)
 	{
         Core::Debug::Log::info("Loading program " + programName);
 
         Core::Debug::Log::info("Linking " + vertPath + " and " + fragPath + " to " + programName);
+
+        create();
 
         vertShader = Resources::ResourcesManager::loadShader(vertPath);
         fragShader = Resources::ResourcesManager::loadShader(fragPath);
@@ -142,9 +188,20 @@ namespace Resources
         linkShaders();
     }
 
-    ShaderProgram::~ShaderProgram()
+    void ShaderProgram::create()
+    {
+        programID = glCreateProgram();
+    }
+
+    void ShaderProgram::destroy()
     {
         glDeleteProgram(programID);
+        programID = 0;
+    }
+
+    ShaderProgram::~ShaderProgram()
+    {
+        destroy();
     }
 
     void ShaderProgram::loadLocations()
@@ -177,92 +234,34 @@ namespace Resources
 
             // Create a new uniform with the location and the type
             // And add it to a map
-            uniforms[uniName] = { location, type };
+            uniforms[uniName] = LowRenderer::Uniform(location, type);
         }
     }
 
-    void ShaderProgram::setUniform(const std::string& target, const void* value,
-                                   int count, bool transpose) const
+    void ShaderProgram::setUniform(const std::string& target, const void* value, bool shouldBeTracked, int count, bool transpose) const
     {
+        if (!value)
+        {
+            Core::Debug::Log::error("Value sent at " + target + " is not valid");
+            return;
+        }
+
         // Get the iterator with the target
         const auto& currentIt = uniforms.find(target);
 
         // Check if this iterator is valid
         if (currentIt == uniforms.end())
         {
-            Core::Debug::Log::error("Cannot find the uniform named: " + target + " - There is no uniform named like that");
+            if (debugSetUniform)
+                Core::Debug::Log::warning("Cannot find the uniform named: " + target + " - There is no uniform named like that");
+
             return;
         }
 
-        const Uniform& uniform = currentIt->second;
+        const LowRenderer::Uniform& uniform = currentIt->second;
 
-        // Check if the location is valid
-        if (uniform.location < 0)
-        {
-            Core::Debug::Log::error("Cannot find the uniform named: " + target + " - Location not valid");
-            return;
-        }
-
-        // Call the correct function in function of the uniform's type
-        #pragma region Uniform seter
-        switch (uniform.type)
-        {
-            case GL_INT:
-            case GL_BOOL:
-            case GL_SAMPLER_2D_ARB:
-            case GL_SAMPLER_CUBE_ARB:
-                glUniform1iv(uniform.location, count, (GLint*)value);
-                break;
-
-            case GL_INT_VEC2:
-            case GL_BOOL_VEC2:
-                glUniform2iv(uniform.location, count, (GLint*)value);
-                break;
-
-            case GL_INT_VEC3:
-            case GL_BOOL_VEC3:
-                glUniform3iv(uniform.location, count, (GLint*)value);
-                break;
-
-            case GL_INT_VEC4:
-            case GL_BOOL_VEC4:
-                glUniform4iv(uniform.location, count, (GLint*)value);
-                break;
-
-            case GL_FLOAT:
-                glUniform1fv(uniform.location, count, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_VEC2:
-                glUniform2fv(uniform.location, count, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_VEC3:
-                glUniform3fv(uniform.location, count, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_VEC4:
-                glUniform4fv(uniform.location, count, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_MAT2:
-                glUniformMatrix2fv(uniform.location, count, transpose, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_MAT3:
-                glUniformMatrix3fv(uniform.location, count, transpose, (GLfloat*)value);
-                break;
-
-            case GL_FLOAT_MAT4:
-                glUniformMatrix4fv(uniform.location, count, transpose, (GLfloat*)value);
-                break;
-
-            default:
-                // If the type is not supported, log this message
-                Core::Debug::Log::error("Type not supported");
-                break;
-        }
-        #pragma endregion
+        if (!uniform.bind(value, count, transpose))
+            Core::Debug::Log::error("Cannot find the uniform named: " + target);
     }
 
     bool ShaderProgram::bind() const
@@ -280,8 +279,52 @@ namespace Resources
         glUseProgram(0);
     }
 
+    void ShaderProgram::reload()
+    {
+        Core::Debug::Log::info("Reloading shader program " + name);
+
+        destroy();
+
+        if (vertShader)
+            vertShader->reload();
+
+        if (fragShader)
+            fragShader->reload();
+
+        if (geomShader)
+            geomShader->reload();
+
+        create();
+
+        ResourcesManager::addToMainThreadInitializerQueue(this);
+    }
+
     std::string ShaderProgram::getName()
     {
         return name;
+    }
+
+    void ShaderProgram::drawImGui()
+    {
+        if (ImGui::TreeNode(name.c_str()))
+        {
+            ImGui::Checkbox("Debug set uniform", &debugSetUniform);
+
+            ImGui::Text("Uniform count: %i", uniforms.size());
+
+            if (vertShader)
+                vertShader->drawImGui();
+
+            if (fragShader)
+                fragShader->drawImGui();
+
+            if (geomShader)
+                geomShader->drawImGui();
+
+            if (ImGui::Button("Reload"))
+                reload();
+
+            ImGui::TreePop();
+        }
     }
 }

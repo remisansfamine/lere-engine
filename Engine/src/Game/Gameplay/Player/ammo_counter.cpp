@@ -7,17 +7,17 @@
 
 namespace Gameplay
 {
-	AmmoCounter::AmmoCounter(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<AmmoCounter>(this))
+	AmmoCounter::AmmoCounter(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void AmmoCounter::start()
 	{
-		previousCount = Core::Engine::Graph::findGameObjectWithName("Player")->getComponent<PlayerShooting>()->getMaxAmmoCount();
+		previousCount = Core::Engine::Graph::findEntityWithName("Player")->getComponent<PlayerShooting>()->getMaxAmmoCount();
 
-		std::shared_ptr<Physics::Transform> transform = getHost().getComponent<Physics::Transform>();
+		Physics::TransformComponent* transform = getHost().getComponent<Physics::TransformComponent>();
 		int childrenCount = transform->getChildrenCount();
 
 		for (int i = 0; i < childrenCount; ++i)
@@ -25,9 +25,12 @@ namespace Gameplay
 
 		for (size_t i = ammoTransforms.size(); i < previousCount; i++)
 		{
-			Engine::GameObject& go = Core::Engine::Graph::instantiate("Ammo", "resources/recipes/ammoSprite.recipe");
-			ammoTransforms.push_back(go.getComponent<Physics::Transform>().get());
-			ammoTransforms.back()->m_position.y += 1.f * (float)i;
+			Engine::Entity& entity = Core::Engine::Graph::instantiate("Ammo", "resources/recipes/ammoSprite.recipe");
+			ammoTransforms.push_back(entity.getComponent<Physics::TransformComponent>());
+
+			Core::Maths::vec3 position = ammoTransforms.back()->position;
+			position.y += 1.f * (float)i;
+			ammoTransforms.back()->position = position;
 		}
 	}
 
@@ -39,11 +42,16 @@ namespace Gameplay
 		{
 			auto ammo = *ammoIt;
 
-			ammo->m_position.x += deltaTime * animationSpeed;
+			Core::Maths::vec3 position = ammo->position;
+			position.x += deltaTime * animationSpeed;
+			ammo->position = position;
 
-			if (ammo->m_position.x > 11.f)
+			if (position.x > 11.f)
 			{
-				ammo->m_position.x = initialXPos;
+				Core::Maths::vec3 position = ammo->position;
+				position.x = initialXPos;
+				ammo->position = position;
+
 				ammo->getHost().setActive(false);
 				ammoIt = ammoShooted.erase(ammoIt);
 			}
@@ -58,7 +66,10 @@ namespace Gameplay
 
 		for (auto ammo : ammoTransforms)
 		{
-			ammo->m_position.x = initialXPos;
+			Core::Maths::vec3 position = ammo->position;
+			position.x = initialXPos;
+			ammo->position = position;
+
 			ammo->getHost().setActive(true);
 		}
 	}
@@ -77,10 +88,10 @@ namespace Gameplay
 		return "COMP AMMOCOUNTER ";
 	}
 
-	void AmmoCounter::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void AmmoCounter::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<AmmoCounter> ac;
-		if (!gameObject.tryGetComponent(ac))
-			ac = gameObject.addComponent<AmmoCounter>();
+		AmmoCounter* ac;
+		if (!owner.tryGetComponent(ac))
+			ac = owner.addComponent<AmmoCounter>();
 	}
 }

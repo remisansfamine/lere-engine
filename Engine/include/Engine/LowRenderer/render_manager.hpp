@@ -2,8 +2,10 @@
 
 #include "singleton.hpp"
 
-#include <vector>
-#include <memory>
+#include <glad\glad.h>
+
+#include <unordered_set>
+#include <set>
 
 #include "collider_renderer.hpp"
 #include "sprite_renderer.hpp"
@@ -22,12 +24,14 @@ namespace LowRenderer
 		RenderManager();
 		~RenderManager();
 
-		std::vector<std::shared_ptr<ColliderRenderer>> colliders;
-		std::vector<std::shared_ptr<ModelRenderer>> models;
-		std::vector<std::shared_ptr<SpriteRenderer>> sprites;
-		std::vector<std::shared_ptr<Light>> lights;
-		std::vector<std::shared_ptr<Camera>> cameras;
-		std::vector<std::shared_ptr<SkyBox>> skyBoxes;
+		std::unordered_map<GLenum, bool> enabledCaps;
+
+		std::unordered_set<ColliderRenderer*> colliders;
+		std::unordered_set<ModelRenderer*> models;
+		std::unordered_set<SpriteRenderer*> sprites;
+		std::unordered_set<Light*> lights;
+		std::set<Camera*> cameras;
+		std::unordered_set<SkyBox*> skyBoxes;
 
 		void drawColliders() const;
 
@@ -76,23 +80,22 @@ namespace LowRenderer
 		}
 
 	public:
+		static void GLSetCapState(const GLenum cap, bool state);
+		static void GLEnable(const GLenum cap);
+		static void GLDisable(const GLenum cap);
 
-		static std::shared_ptr<Camera> getCurrentCamera();
+		static Camera* getCurrentCamera();
 
 		static void draw();
 
-		static void linkComponent(const std::shared_ptr<Light>& compToLink);
+		static void linkComponent(Light* compToLink);
+		static void linkComponent(ModelRenderer* compToLink);
+		static void linkComponent(SpriteRenderer* compToLink);
+		static void linkComponent(Camera* compToLink);
+		static void linkComponent(ColliderRenderer* compToLink);
+		static void linkComponent(SkyBox* compToLink);
 
-		static void linkComponent(const std::shared_ptr<ModelRenderer>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<Camera>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<SkyBox>& compToLink);
-
-		static void linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink);
-
+		static void removeComponent(ColliderRenderer* compToRemove);
 		static void removeComponent(SpriteRenderer* compToRemove);
 		static void removeComponent(ModelRenderer* compToRemove);
 

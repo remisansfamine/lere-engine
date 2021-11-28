@@ -11,21 +11,20 @@
 
 namespace Gameplay
 {
-	LoseScreen::LoseScreen(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<LoseScreen>(this))
+	LoseScreen::LoseScreen(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void LoseScreen::start()
 	{
-		buttons[0] = Core::Engine::Graph::findGameObjectWithName("LoseMainMenuButton");
-		std::shared_ptr<UI::Button> buttonMainMenu = buttons[0]->getComponent<UI::Button>();
-		UI::Button* mainMenuptr = buttonMainMenu.get();
+		buttons[0] = Core::Engine::Graph::findEntityWithName("LoseMainMenuButton");
+		UI::Button* mainMenuptr = buttons[0]->getComponent<UI::Button>();
 
 		mainMenuptr->addListener(UI::ButtonState::DOWN, []() {
 			Core::TimeManager::setTimeScale(1.f);
-			Core::Engine::Graph::loadMainMenu();
+			Core::Engine::Graph::setLoadScene("resources/scenes/mainMenu.scn");
 			});
 
 		mainMenuptr->addListener(UI::ButtonState::HIGHLIGHT, [mainMenuptr]() {
@@ -33,9 +32,8 @@ namespace Gameplay
 			});
 
 
-		buttons[1] = Core::Engine::Graph::findGameObjectWithName("LoseExitButton");
-		std::shared_ptr<UI::Button> buttonExit = buttons[1]->getComponent<UI::Button>();
-		UI::Button* exitPtr = buttonExit.get();
+		buttons[1] = Core::Engine::Graph::findEntityWithName("LoseExitButton");
+		UI::Button* exitPtr = buttons[1]->getComponent<UI::Button>();
 		exitPtr->addListener(UI::ButtonState::DOWN, []() {
 			Core::Application::closeApplication();
 			});
@@ -43,7 +41,7 @@ namespace Gameplay
 			exitPtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
 			});
 
-		buttons[2] = Core::Engine::Graph::findGameObjectWithName("LoseText");
+		buttons[2] = Core::Engine::Graph::findEntityWithName("LoseText");
 
 		for (int i = 0; i < 3; ++i)
 			buttons[i]->setActive(false);
@@ -68,9 +66,9 @@ namespace Gameplay
 		return "COMP LOSESCREEN";
 	}
 
-	void LoseScreen::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void LoseScreen::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<LoseScreen>())
-			gameObject.addComponent<LoseScreen>();
+		if (!owner.tryGetComponent<LoseScreen>())
+			owner.addComponent<LoseScreen>();
 	}
 }

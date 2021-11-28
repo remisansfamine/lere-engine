@@ -5,7 +5,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 }
 
 namespace LowRenderer
@@ -13,13 +13,13 @@ namespace LowRenderer
 	class Renderer : public Engine::Component
 	{
 	protected:
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+		Physics::TransformComponent* m_transform = nullptr;
 		std::shared_ptr<Resources::ShaderProgram> m_shaderProgram = nullptr;
 
-		Renderer(Engine::GameObject& gameObject, const std::shared_ptr<Renderer>& childPtr, const std::string& shaderProgramName, bool link = true);
+		Renderer(Engine::Entity& owner, const std::string& shaderProgramName, bool link = true);
 
 	public:
-		std::shared_ptr<Resources::ShaderProgram> getProgram();
+		std::shared_ptr<Resources::ShaderProgram> getProgram() const;
 
 		void virtual draw() const = 0;
 	};

@@ -7,15 +7,16 @@
 namespace Gameplay
 {
 	class BulletHole : public Engine::Component
+
 	{
 		Core::Timer lifeTime;
 
 	public:
-		BulletHole(Engine::GameObject& gameObject);
+		BulletHole(Engine::Entity& owner);
 
 		void start() override;
 		void update() override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

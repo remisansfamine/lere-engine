@@ -17,14 +17,15 @@ namespace LowRenderer
 		std::vector<std::string> skyPaths;
 
 	public:
-		SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths);
-		SkyBox(Engine::GameObject& gameObject, std::shared_ptr<SkyBox> ptr);
+		SkyBox(Engine::Entity& owner, const std::vector<std::string>& paths);
 		~SkyBox();
 
 		void draw() const;
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
+
+		void sendToProgram(std::shared_ptr<Resources::ShaderProgram> program) const;
 	};
 }

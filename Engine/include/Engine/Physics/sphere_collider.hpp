@@ -8,11 +8,11 @@ namespace Physics
 	class SphereCollider : public Collider
 	{
 	private:
-		SphereCollider(Engine::GameObject& gameObject, std::shared_ptr<SphereCollider> ptr);
+		SphereCollider(Engine::Entity& owner, std::shared_ptr<SphereCollider> ptr);
 
 		void onDestroy() override;
 	public:
-		SphereCollider(Engine::GameObject& gameObject);
+		SphereCollider(Engine::Entity& owner);
 
 		void updateShape() override;
 		void drawImGui() override;
@@ -21,6 +21,6 @@ namespace Physics
 
 		Sphere sphere;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

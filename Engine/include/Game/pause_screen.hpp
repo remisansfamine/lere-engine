@@ -8,9 +8,9 @@ namespace Gameplay
 	class PauseScreen : public Engine::Component
 	{
 	public:
-		Engine::GameObject* buttons[3] = {nullptr};
+		Engine::Entity* buttons[3] = {nullptr};
 
-		PauseScreen(Engine::GameObject& gameObject);
+		PauseScreen(Engine::Entity& owner);
 
 		void start() override;
 		void drawImGui() override;
@@ -19,6 +19,6 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

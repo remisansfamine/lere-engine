@@ -4,7 +4,6 @@
 
 #include "inputs_manager.hpp"
 #include "sound_manager.hpp"
-#include "resources_manager.hpp"
 #include "physic_manager.hpp"
 #include "graph.hpp"
 #include "time.hpp"
@@ -15,24 +14,22 @@
 
 namespace Gameplay
 {
-	PlayerShooting::PlayerShooting(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<PlayerShooting>(this))
+	PlayerShooting::PlayerShooting(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void PlayerShooting::start()
 	{
-		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+		gameMaster = Core::Engine::Graph::findEntityWithName("GameMaster")->getComponent<GameMaster>();
 
-		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
-		m_weaponTransform = Core::Engine::Graph::findGameObjectWithName("Weapon")->getComponent<Physics::Transform>();
-		initRotation = m_weaponTransform->m_rotation;
-		initPosition = m_weaponTransform->m_position;
+		m_cameraTransform = Core::Engine::Graph::findEntityWithName("MainCamera")->getComponent<Physics::TransformComponent>();
+		m_weaponTransform = Core::Engine::Graph::findEntityWithName("Weapon")->getComponent<Physics::TransformComponent>();
+		initRotation = m_weaponTransform->rotation;
+		initPosition = m_weaponTransform->position;
 
-		m_ammoCounter = Core::Engine::Graph::findGameObjectWithName("AmmoCounter")->getComponent<AmmoCounter>();
-
-		script = Resources::ResourcesManager::loadScript("player_stats");
+		m_ammoCounter = Core::Engine::Graph::findEntityWithName("AmmoCounter")->getComponent<AmmoCounter>();
 	}
 
 	int PlayerShooting::getMaxAmmoCount()
@@ -54,24 +51,32 @@ namespace Gameplay
 
 		if (reload)
 		{
-			m_weaponTransform->m_rotation.z = Core::Maths::lerp(m_weaponTransform->m_rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * speedLerpReload);
 
-			if (m_weaponTransform->m_rotation.z >= Core::Maths::DEG2RAD * 90.f - 0.1f)
+			Core::Maths::vec3 rotation = m_weaponTransform->rotation;
+			rotation.z = Core::Maths::lerp(rotation.z, Core::Maths::DEG2RAD * 90.f, deltaTime * speedLerpReload);
+			m_weaponTransform->rotation = rotation;
+
+			if (m_weaponTransform->getRotation().z >= Core::Maths::DEG2RAD * 90.f - 0.1f)
 			{
 				reload = false;
 				m_ammoCounter->reload();
 			}
 		}
 		else
-			m_weaponTransform->m_rotation = Core::Maths::lerp(m_weaponTransform->m_rotation, initRotation, deltaTime * speedLerpShoot);
+			m_weaponTransform->rotation = Core::Maths::lerp((Core::Maths::vec3)m_weaponTransform->rotation, initRotation, deltaTime * speedLerpShoot);
 
-		m_weaponTransform->m_position = Core::Maths::lerp(m_weaponTransform->m_position, initPosition, deltaTime * speedLerpShoot);
+		m_weaponTransform->position = Core::Maths::lerp((Core::Maths::vec3)m_weaponTransform->position, initPosition, deltaTime * speedLerpShoot);
 	}
 	
 	void PlayerShooting::shoot()
 	{
-		m_weaponTransform->m_position.z += recoil;
-		m_weaponTransform->m_rotation.x -= recoil;
+		Core::Maths::vec3 rotation = m_weaponTransform->rotation;
+		rotation.z += recoil;
+		m_weaponTransform->rotation = rotation;
+
+		Core::Maths::vec3 position = m_weaponTransform->position;
+		position.z -= recoil;
+		m_weaponTransform->position = position;
 
 		ammo--;
 
@@ -84,14 +89,12 @@ namespace Gameplay
 
 		if (Physics::PhysicManager::raycast(ray, raycastHit))
 		{
-			damage = script->callFunction("getShootDamage").asInt();
-
 			auto& hole = Core::Engine::Graph::instantiate("BulletHole", "resources/recipes/bulletHole.recipe");
-			hole.getComponent<Physics::Transform>()->m_position = raycastHit.hit.point;
+			hole.getComponent<Physics::TransformComponent>()->position = raycastHit.hit.point;
 
-			std::shared_ptr<EnemyLife> life;
+			EnemyLife* life;
 			if (raycastHit.collider->getHost().tryGetComponent(life))
-				life->hurt(damage);
+				life->hurt();
 		}
 	}
 
@@ -147,10 +150,10 @@ namespace Gameplay
 		}
 	}
 
-	void PlayerShooting::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void PlayerShooting::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<PlayerShooting> ps;
-		if (!gameObject.tryGetComponent(ps))
-			ps = gameObject.addComponent<PlayerShooting>();
+		PlayerShooting* ps;
+		if (!owner.tryGetComponent(ps))
+			ps = owner.addComponent<PlayerShooting>();
 	}
 }

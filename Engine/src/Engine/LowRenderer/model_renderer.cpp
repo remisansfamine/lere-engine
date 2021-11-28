@@ -11,15 +11,11 @@
 
 namespace LowRenderer
 {
-	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::shared_ptr<ModelRenderer>& ptr, const std::string& filePath, const std::string& shaderPromgramName)
-		: Renderer(gameObject, ptr, shaderPromgramName), model(filePath, m_transform)
+	ModelRenderer::ModelRenderer(Engine::Entity& owner, const std::string& filePath, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling)
+		: Renderer(owner, shaderPromgramName), model(filePath, m_transform)
 	{
-		LowRenderer::RenderManager::linkComponent(ptr);
-	}
+		LowRenderer::RenderManager::linkComponent(this);
 
-	ModelRenderer::ModelRenderer(Engine::GameObject& gameObject, const std::string& filePath, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling)
-		: ModelRenderer(gameObject, std::shared_ptr<ModelRenderer>(this), filePath, shaderPromgramName)
-	{
 		tillingMultiplier = tilling.x;
 		tillingOffset = tilling.y;
 	}
@@ -38,7 +34,7 @@ namespace LowRenderer
 
 	void ModelRenderer::draw() const
 	{
-		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e);
+		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e, false);
 
 		model.draw(m_shaderProgram);
 	}
@@ -69,7 +65,7 @@ namespace LowRenderer
 		return "COMP MODELRENDERER " + model.getPath() + " " + m_shaderProgram->getName() + " " + std::to_string(tillingMultiplier) + " " + std::to_string(tillingOffset);
 	}
 
-	void ModelRenderer::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void ModelRenderer::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
 		std::string modelPath, shaderProgramName;
 		Core::Maths::vec2 tilling;
@@ -79,6 +75,6 @@ namespace LowRenderer
 		iss >> tilling.x;
 		iss >> tilling.y;
 
-		gameObject.addComponent<ModelRenderer>(modelPath, shaderProgramName, tilling);
+		owner.addComponent<ModelRenderer>(modelPath, shaderProgramName, tilling);
 	}
 }

@@ -9,32 +9,30 @@
 #include "maths.hpp"
 #include "physic_manager.hpp"
 
-#include "resources_manager.hpp"
-
 #include "utils.hpp"
 
 namespace Gameplay
 {
-	CameraMovement::CameraMovement(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<CameraMovement>(this))
+	CameraMovement::CameraMovement(Engine::Entity& owner)
+		: Component(owner)
 	{
 		camera = requireComponent<LowRenderer::Camera>();
-		transform = requireComponent<Physics::Transform>();
+		transform = requireComponent<Physics::TransformComponent>();
 	}
 
 	void CameraMovement::start()
 	{
-		playerTransform = transform->getGOParent().getComponent<Physics::Transform>();
-
-		script = Resources::ResourcesManager::loadScript("player_stats");
+		playerTransform = transform->getEntityParent().getComponent<Physics::TransformComponent>();
 	}
 
 	void CameraMovement::fixedUpdate()
 	{
-		m_sensitivity = script->callFunction("getSensitivity").asFloat();
+		Core::Maths::vec3 rotation = transform->rotation;
 
-		transform->m_rotation.x -= m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().y;
-		transform->m_rotation.x = std::clamp(transform->m_rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
+		rotation.x -= m_sensitivity * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().y;
+		rotation.x = std::clamp(rotation.x, -Core::Maths::PIO2, Core::Maths::PIO2);
+
+		transform->rotation = rotation;
 	}
 
 	void CameraMovement::drawImGui()
@@ -53,10 +51,10 @@ namespace Gameplay
 		return "COMP CAMERAMOVEMENT " + std::to_string(m_sensitivity);
 	}
 
-	void CameraMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void CameraMovement::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		gameObject.addComponent<CameraMovement>();
-		auto player = gameObject.getComponent<CameraMovement>();
+		owner.addComponent<CameraMovement>();
+		auto player = owner.getComponent<CameraMovement>();
 
 		iss >> player->m_sensitivity;
 	}

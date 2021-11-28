@@ -3,6 +3,7 @@
 #include <imgui.h>
 
 #include "utils.hpp"
+#include "time.hpp"
 
 #include "graph.hpp"
 
@@ -46,6 +47,8 @@ namespace Core::Debug
 		if (ImGui::Begin("Benchmarker"))
 		{
 			ImGui::InputInt("Reload count", &BM->reloadCount);
+
+			ImGui::Text("DeltaTime %f", Core::TimeManager::getDeltaTime());
 
 			if (ImGui::Button("Reload"))
 				Core::Engine::Graph::reloadScene(true);

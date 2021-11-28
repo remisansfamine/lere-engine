@@ -10,16 +10,16 @@ namespace Gameplay
     class LifeBar : public Engine::Component
     {
     private:
-        Physics::Transform* pivot = nullptr;
+        Physics::TransformComponent* pivot = nullptr;
 
     public:
-        LifeBar(Engine::GameObject& gameObject);
+        LifeBar(Engine::Entity& owner);
 
         void start() override;
         void updateSprite(int life, int maxLife);
 
         std::string toString() const;
 
-        static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+        static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
     };
 }

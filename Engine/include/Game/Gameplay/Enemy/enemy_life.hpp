@@ -12,17 +12,17 @@ namespace Gameplay
 	{
 	private:
 		void kill() override;
-		std::shared_ptr<GameMaster> gameMaster;
+		GameMaster* gameMaster = nullptr;
 
 	public:
-		EnemyLife(Engine::GameObject& gameObject);
+		EnemyLife(Engine::Entity& owner);
 
 		void start() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 		void onCollisionEnter(const Physics::Collision& collision) override {}
 		void onCollisionExit(const Physics::Collision& collision) override {}

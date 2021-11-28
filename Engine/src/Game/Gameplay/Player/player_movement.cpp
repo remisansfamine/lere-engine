@@ -1,13 +1,9 @@
 #include "player_movement.hpp"
 
-#include "pyhelper.hpp"
-
-#include "resources_manager.hpp"
-
 namespace Gameplay
 {
-	PlayerMovement::PlayerMovement(Engine::GameObject& gameObject)
-		: EntityMovement(gameObject, std::shared_ptr<PlayerMovement>(this))
+	PlayerMovement::PlayerMovement(Engine::Entity& owner)
+		: EntityMovement(owner)
 	{
 		m_playerState = requireComponent<Gameplay::PlayerState>();
 		m_transform = m_playerState->transform;
@@ -15,24 +11,20 @@ namespace Gameplay
 
 	void PlayerMovement::start()
 	{
-		m_cameraTransform = Core::Engine::Graph::findGameObjectWithName("MainCamera")->getComponent<Physics::Transform>();
-
-		script = Resources::ResourcesManager::loadScript("player_stats");
+		m_cameraTransform = Core::Engine::Graph::findEntityWithName("MainCamera")->getComponent<Physics::TransformComponent>();
 	}
 
 	void PlayerMovement::fixedUpdate()
 	{
-		m_speed = script->callFunction("getSpeed").asFloat();
-		m_sensivityY = script->callFunction("getSensitivity").asFloat();
-		m_jumpForce = script->callFunction("getJump").asFloat();
-
 		float fixedSpeed = m_speed * Core::TimeManager::getFixedDeltaTime();
 		float horizontal = m_playerState->horizontalMove;
 		float vertical = m_playerState->forwardMove;
 
-		m_transform->m_rotation.y -= m_sensivityY * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
+		Core::Maths::vec3 rotation = m_transform->rotation;
+		rotation.y -= m_sensivityY * Core::TimeManager::getFixedDeltaTime() * Core::Input::InputManager::getDeltasMouse().x;
+		m_transform->rotation = rotation;
 
-		float cos = cosf(m_transform->m_rotation.y), sin = sinf(m_transform->m_rotation.y);
+		float cos = cosf(rotation.y), sin = sinf(rotation.y);
 		Core::Maths::vec3 newVelocity = Core::Maths::vec3(horizontal * cos + vertical * sin, 0.f, vertical * cos - horizontal * sin).normalized() * fixedSpeed;
 		newVelocity.y = m_rigidbody->velocity.y;
 		m_rigidbody->velocity = newVelocity;
@@ -60,11 +52,11 @@ namespace Gameplay
 		return "COMP PLAYERMOVEMENT " + std::to_string(m_speed) + " " + std::to_string(m_jumpForce) + " " + std::to_string(m_sensivityY);
 	}
 
-	void PlayerMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void PlayerMovement::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<PlayerMovement> player;
-		if (!gameObject.tryGetComponent(player))
-			player = gameObject.addComponent<PlayerMovement>();
+		PlayerMovement* player;
+		if (!owner.tryGetComponent(player))
+			player = owner.addComponent<PlayerMovement>();
 
 		iss >> player->m_speed;
 		iss >> player->m_jumpForce;

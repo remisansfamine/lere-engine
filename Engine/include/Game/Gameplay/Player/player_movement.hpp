@@ -11,11 +11,11 @@ namespace Gameplay
 		float m_jumpForce = 500.f;
 		float m_sensivityY = 0.1f;
 
-		std::shared_ptr<Gameplay::PlayerState> m_playerState;
-		std::shared_ptr<Physics::Transform> m_cameraTransform;
+		Gameplay::PlayerState* m_playerState;
+		Physics::TransformComponent* m_cameraTransform;
 
 	public:
-		PlayerMovement(Engine::GameObject& gameObject);
+		PlayerMovement(Engine::Entity& owner);
 
 		void start() override;
 		void fixedUpdate() override;
@@ -23,7 +23,7 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 	};
 }

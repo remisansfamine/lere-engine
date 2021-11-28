@@ -25,12 +25,14 @@ namespace LowRenderer
 		glBindTexture(GL_TEXTURE_2D, ID);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, shadowWidth, shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
 
+		// Clamp to border for deactivate frustum shadows
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
-		// Clamp to border for deactivate frustum shadows
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+
+
 		float borderColor[] = { 1.f, 1.f, 1.f, 1.f };
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 	}
@@ -53,8 +55,8 @@ namespace LowRenderer
 		attachTextureToBuffer();
 	}
 
-	void ShadowMap::sendToShader(std::shared_ptr<LowRenderer::Light> light)
+	void ShadowMap::sendToShader(const LowRenderer::Light* light) const
 	{
-		program->setUniform("lightSpaceMatrix", light->getSpaceMatrix().e, 1, 1);
+		program->setUniform("lightSpaceMatrix", light->getSpaceMatrix().e, false, 1, 1);
 	}
 }

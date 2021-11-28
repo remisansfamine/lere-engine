@@ -2,13 +2,14 @@
 
 #include "imgui.h"
 
-#include "resources_manager.hpp"
+#include "render_manager.hpp"
 
 namespace LowRenderer
 {
-	ColliderRenderer::ColliderRenderer(Engine::GameObject& gameObject, std::shared_ptr<Physics::Collider> ptr, const std::string& modelFilePath)
-		: Renderer(gameObject, std::shared_ptr<ColliderRenderer>(this), "colliderShader", false), collider(ptr), model(modelFilePath, nullptr)
+	ColliderRenderer::ColliderRenderer(Engine::Entity& owner, Physics::Collider* ptr, const std::string& modelFilePath)
+		: Renderer(owner, "colliderShader", false), collider(ptr), model(modelFilePath, nullptr)
 	{
+		LowRenderer::RenderManager::linkComponent(this);
 	}
 
 	void ColliderRenderer::draw() const
@@ -20,13 +21,13 @@ namespace LowRenderer
 	Core::Maths::mat4 ColliderRenderer::getModelCollider() const
 	{
 		return Core::Maths::translate(collider->m_center) *
-			   Core::Maths::rotateX(m_transform->m_rotation.x) *
-			   Core::Maths::rotateY(m_transform->m_rotation.y) *
-			   Core::Maths::rotateZ(m_transform->m_rotation.z) *
+			   Core::Maths::rotateX(m_transform->getRotation().x) *
+			   Core::Maths::rotateY(m_transform->getRotation().y) *
+			   Core::Maths::rotateZ(m_transform->getRotation().z) *
 			   Core::Maths::scale(collider->extensions);
 	}
 
-	bool ColliderRenderer::canBeDraw()
+	bool ColliderRenderer::canBeDraw() const
 	{
 		return collider->isDraw;
 	}
@@ -41,5 +42,12 @@ namespace LowRenderer
 
 			ImGui::TreePop();
 		}
+	}
+
+	void ColliderRenderer::onDestroy()
+	{
+		Component::onDestroy();
+
+		LowRenderer::RenderManager::removeComponent(this);
 	}
 }

@@ -22,6 +22,7 @@ namespace LowRenderer
 	{
 		glGenTextures(1, &ID);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
+
 		for (int i = 0; i < 6; i++)
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_DEPTH_COMPONENT, 
 						 shadowWidth, shadowHeight, 0, GL_DEPTH_COMPONENT, GL_FLOAT, NULL);
@@ -51,7 +52,7 @@ namespace LowRenderer
 		attachTextureToBuffer();
 	}
 
-	void ShadowPoint::sendToShader(std::shared_ptr<LowRenderer::Light> light)
+	void ShadowPoint::sendToShader(const LowRenderer::Light* light) const
 	{
 		Core::Maths::vec3 lightPos = light->position.xyz;
 		float farPlane = 25.f;
@@ -72,9 +73,9 @@ namespace LowRenderer
 			Core::Maths::vec3(0.f, -1.f, 0.f)));
 
 		for (int i = 0; i < 6; i++)
-			program->setUniform("shadowMatrices[" + std::to_string(i) + "][0]", shadowTransforms[i].e, 1, 1);
+			program->setUniform("shadowMatrices[" + std::to_string(i) + "][0]", shadowTransforms[i].e, true, 1, 1);
 
-		program->setUniform("farPlane", &farPlane);
-		program->setUniform("lightPos", &lightPos);
+		program->setUniform("farPlane", &farPlane, true);
+		program->setUniform("lightPos", &lightPos, true);
 	}
 }

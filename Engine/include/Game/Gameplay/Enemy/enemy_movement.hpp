@@ -8,18 +8,18 @@ namespace Gameplay
 	class EnemyMovement : public EntityMovement
 	{
 	private:
-		std::shared_ptr<Gameplay::EnemyState> m_enemyState;
-		std::shared_ptr<Physics::Transform> m_target;
+		Gameplay::EnemyState* m_enemyState = nullptr;
+		Physics::TransformComponent* m_target = nullptr;
 
 	public:
-		EnemyMovement(Engine::GameObject& gameObject);
+		EnemyMovement(Engine::Entity& owner);
 
 		void fixedUpdate() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 		void onTriggerEnter(Physics::Collider* collider) override;
 		void onTriggerExit(Physics::Collider* collider) override;

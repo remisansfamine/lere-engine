@@ -7,16 +7,10 @@
 
 namespace Physics
 {
-	Rigidbody::Rigidbody(Engine::GameObject& gameObject)
-		: Rigidbody(gameObject, std::shared_ptr<Rigidbody>(this))
+	Rigidbody::Rigidbody(Engine::Entity& owner)
+		: Component(owner)
 	{
-		m_transform = requireComponent<Transform>();
-	}
-
-	Rigidbody::Rigidbody(Engine::GameObject& gameObject, std::shared_ptr<Rigidbody> ptr)
-		: Component(gameObject, ptr)
-	{
-
+		m_transform = requireComponent<TransformComponent>();
 	}
 
 	void Rigidbody::addForce(const Core::Maths::vec3& force)
@@ -31,7 +25,7 @@ namespace Physics
 
 	void Rigidbody::computeNextPos()
 	{
-		m_transform->m_position = getNewPosition(m_transform->m_position);
+		m_transform->position = getNewPosition(m_transform->position);
 	}
 
 	void Rigidbody::fixedUpdate()
@@ -89,11 +83,11 @@ namespace Physics
 								   std::to_string(mass) + " " + std::to_string(drag) + " " + std::to_string(isAwake);
 	}
 
-	void Rigidbody::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void Rigidbody::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<Rigidbody> rb;
-		if (!gameObject.tryGetComponent(rb))
-			rb = gameObject.addComponent<Rigidbody>();
+		Rigidbody* rb;
+		if (!owner.tryGetComponent(rb))
+			rb = owner.addComponent<Rigidbody>();
 
 		iss >> rb->velocity.x;
 		iss >> rb->velocity.y;

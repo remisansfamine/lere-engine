@@ -17,9 +17,6 @@ namespace Core::Input
 		friend Singleton<InputManager>;
 
 	private:
-		InputManager();
-		~InputManager();
-
 		bool initialized = false;
 		GLFWwindow* window = nullptr;
 
@@ -35,6 +32,7 @@ namespace Core::Input
 		static KeyAxis& getAxisByName(const std::string& name);
 
 	public:
+
 		static void init(GLFWwindow* window);
 
 		static void compute();

@@ -13,8 +13,8 @@
 
 namespace Gameplay
 {
-	GameMaster::GameMaster(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<GameMaster>(this))
+	GameMaster::GameMaster(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
@@ -22,9 +22,9 @@ namespace Gameplay
 	void GameMaster::start()
 	{
 		Core::Engine::Graph::setCursorState(false);
-		pauseScreen = Core::Engine::Graph::findGameObjectWithName("PauseScreen")->getComponent<PauseScreen>();
-		winScreen = Core::Engine::Graph::findGameObjectWithName("WinScreen")->getComponent<WinScreen>();
-		loseScreen = Core::Engine::Graph::findGameObjectWithName("LoseScreen")->getComponent<LoseScreen>();
+		pauseScreen = Core::Engine::Graph::findEntityWithName("PauseScreen")->getComponent<PauseScreen>();
+		winScreen = Core::Engine::Graph::findEntityWithName("WinScreen")->getComponent<WinScreen>();
+		loseScreen = Core::Engine::Graph::findEntityWithName("LoseScreen")->getComponent<LoseScreen>();
 	}
 
 	void GameMaster::update()
@@ -38,7 +38,6 @@ namespace Gameplay
 
 		if (Core::Input::InputManager::getButtonDown("Save"))
 		{
-			Core::Engine::Graph::saveCurrentScene();
 			Core::Debug::Log::info("Scene has been saved");
 		}
 	}
@@ -81,9 +80,9 @@ namespace Gameplay
 		return "COMP GAMEMASTER";
 	}
 
-	void GameMaster::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void GameMaster::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<GameMaster>())
-			gameObject.addComponent<GameMaster>();
+		if (!owner.tryGetComponent<GameMaster>())
+			owner.addComponent<GameMaster>();
 	}
 }

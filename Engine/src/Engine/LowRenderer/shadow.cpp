@@ -26,7 +26,7 @@ namespace LowRenderer
 		unbindAndResetViewport();
 	}
 
-	float Shadow::getAspect()
+	float Shadow::getAspect() const
 	{
 		return aspect;
 	}

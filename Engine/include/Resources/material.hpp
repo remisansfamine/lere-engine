@@ -18,14 +18,15 @@ namespace Resources
 		LowRenderer::Color specular = { 0.0f, 0.0f, 0.0f, 1.0f };
 		LowRenderer::Color emissive = { 0.0f, 0.0f, 0.0f, 0.0f };
 
-		std::shared_ptr<Resources::Texture> alphaTex	= Resources::Texture::defaultAlpha;
-		std::shared_ptr<Resources::Texture> ambientTex  = Resources::Texture::defaultAmbient;
-		std::shared_ptr<Resources::Texture> diffuseTex  = Resources::Texture::defaultDiffuse;
-		std::shared_ptr<Resources::Texture> emissiveTex = Resources::Texture::defaultEmissive;
-		std::shared_ptr<Resources::Texture> specularTex = Resources::Texture::defaultSpecular;
+		std::shared_ptr<Texture> alphaTex		= Texture::defaultAlpha;
+		std::shared_ptr<Texture> ambientTex		= Texture::defaultAmbient;
+		std::shared_ptr<Texture> diffuseTex		= Texture::defaultDiffuse;
+		std::shared_ptr<Texture> emissiveTex	= Texture::defaultEmissive;
+		std::shared_ptr<Texture> specularTex	= Texture::defaultSpecular;
+		std::shared_ptr<Texture> normalMap		= Texture::defaultNormalMap;
 
 		float shininess = 100.f;
-		float opticalDensity = 0.f;
+		float opticalDensity = 1.f;
 		float transparency = 0.f;
 		float illumination = 0.f;
 

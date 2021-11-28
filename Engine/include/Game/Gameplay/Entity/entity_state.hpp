@@ -6,7 +6,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 }
 
 namespace Gameplay
@@ -14,10 +14,10 @@ namespace Gameplay
 	class EntityState : public Engine::Component
 	{
 	protected:
-		EntityState(Engine::GameObject& gameObject, std::shared_ptr<EntityState> ptr);
+		EntityState(Engine::Entity& owner);
 
 	public:
-		std::shared_ptr<Physics::Transform> transform = nullptr;
+		Physics::TransformComponent* transform = nullptr;
 
 		bool isIdle = false;
 		bool isWalking = false;

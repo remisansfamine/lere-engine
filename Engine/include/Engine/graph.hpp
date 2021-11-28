@@ -3,58 +3,51 @@
 #include "singleton.hpp"
 
 #include "scene.hpp"
-#include "game_object.hpp"
+#include "entity.hpp"
 
-namespace Core
+namespace Core::Engine
 {
-	namespace Engine
+	class Graph final : public Singleton<Graph>
 	{
-		class Graph final : public Singleton<Graph>
-		{
-			friend class Singleton<Graph>;
+		friend class Singleton<Graph>;
 
-		private:
-			Graph();
-			~Graph();
+	private:
+		Graph();
+		~Graph();
 
-			bool isStartingNewGame = false;
-			bool isLoadingSavedScene = false;
-			bool isLoadingMainMenu = false;
+		bool showDemoWindowImGui = false;
 
-			bool showDemoWindowImGui = false;
+		Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
 
-			Resources::Scene curScene = Resources::Scene("resources/scenes/mainMenu.scn");
+		std::string sceneToLoad;
 
-		public:
-			static void reloadScene(bool wipeAll);
+	public:
+		static void reloadScene(bool wipeAll);
 
-			static void loadScene(const std::string& scenePath, bool wipeAll = false);
+		void loadScene(const std::string& scenePath, bool wipeAll = false);
 
-			static void saveCurrentScene();
-			static void loadNewGame();
-			static void loadSaveGame();
-			static void loadMainMenu();
+		static void setLoadScene(const std::string& scenePath);
 
-			static void init();
+		static void init();
 
-			static Resources::Scene& getCurScene();
+		static Resources::Scene& getCurScene();
 
-			static void draw();
-			static void update();
-			static void drawImGui();
-			static void fixedUpdate();
-			static void clean();
-			static void deleteGameObject(const std::string& goName);
+		static void draw();
+		static void update();
+		static void afterFrame();
+		static void drawImGui();
+		static void fixedUpdate();
+		static void clean();
+		static void deleteEntity(const std::string& entityName);
 
-			static ::Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+		static ::Engine::Entity* findEntityWithName(const std::string& entityName);
 
-			static void addToDestroyQueue(::Engine::Object* obj);
+		static void addToDestroyQueue(::Engine::Object* obj);
 
-			static bool getCursorState();
-			static void setCursorState(bool state);
+		static bool getCursorState();
+		static void setCursorState(bool state);
 
-			static ::Engine::GameObject& instantiate(const std::string& GOname);
-			static ::Engine::GameObject& instantiate(const std::string& GOname, const std::string& recipePath);
-		};
-	}
+		static ::Engine::Entity& instantiate(const std::string& entityName);
+		static ::Engine::Entity& instantiate(const std::string& entityName, const std::string& recipePath);
+	};
 }

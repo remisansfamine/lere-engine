@@ -31,8 +31,6 @@ namespace Core::Engine
 
 	void Graph::loadScene(const std::string& scenePath, bool wipeAll)
 	{
-		Graph* graph = instance();
-
 		Multithread::ThreadManager::syncAndClean("load");
 
 		LowRenderer::RenderManager::clearAll();
@@ -40,34 +38,20 @@ namespace Core::Engine
 
 		Resources::ResourcesManager::clearResources();
 
-		graph->curScene.clear();
+		curScene.clear();
 
 		if (wipeAll)
 			Resources::ResourcesManager::purgeResources();
 
-		graph->curScene.load(scenePath);
+		curScene.load(scenePath);
 
 		Core::TimeManager::resetTime();
 	}
 
-	void Graph::loadSaveGame()
+	void Graph::setLoadScene(const std::string& scenePath)
 	{
-		instance()->isLoadingSavedScene = true;
-	}
+		instance()->sceneToLoad = scenePath;
 
-	void Graph::loadNewGame()
-	{
-		instance()->isStartingNewGame = true;
-	}
-
-	void Graph::loadMainMenu()
-	{
-		instance()->isLoadingMainMenu = true;
-	}
-
-	void Graph::saveCurrentScene()
-	{
-		instance()->curScene.save();
 	}
 
 	void Graph::init()
@@ -88,30 +72,19 @@ namespace Core::Engine
 
 	void Graph::update()
 	{
+		// Update the scene
+		instance()->curScene.update();
+	}
+
+	void Graph::afterFrame()
+	{
 		Graph* graph = instance();
 
-		if (graph->isStartingNewGame)
+		if (!graph->sceneToLoad.empty())
 		{
-			graph->loadScene("resources/scenes/defaultScene.scn");
-			saveCurrentScene();
-			graph->isStartingNewGame = false;
+			graph->loadScene(graph->sceneToLoad);
+			graph->sceneToLoad.clear();
 		}
-		else if (graph->isLoadingSavedScene)
-		{
-			graph->loadScene("resources/scenes/savedScene.scn");
-			graph->isLoadingSavedScene = false;
-		}
-		else if (graph->isLoadingMainMenu)
-		{
-			graph->loadScene("resources/scenes/mainMenu.scn");
-			graph->isLoadingMainMenu = false;
-		}
-
-		// Update the scene
-		graph->curScene.update();
-
-		// Update rigidbodies and colliders
-		Physics::PhysicManager::update();
 	}
 
 	void Graph::fixedUpdate()
@@ -125,9 +98,9 @@ namespace Core::Engine
 		instance()->curScene.cleanObjects();
 	}
 
-	void Graph::deleteGameObject(const std::string& goName)
+	void Graph::deleteEntity(const std::string& entityName)
 	{
-		instance()->curScene.deleteGameObject(goName);
+		instance()->curScene.deleteEntity(entityName);
 	}
 
 	void Graph::drawImGui()
@@ -159,9 +132,9 @@ namespace Core::Engine
 		ImGui::End();
 	}
 
-	::Engine::GameObject* Graph::findGameObjectWithName(const std::string& gameObjectName)
+	::Engine::Entity* Graph::findEntityWithName(const std::string& entityName)
 	{
-		return instance()->curScene.findGameObjectWithName(gameObjectName);
+		return instance()->curScene.findEntityWithName(entityName);
 	}
 
 	void Graph::addToDestroyQueue(::Engine::Object* obj)
@@ -184,12 +157,12 @@ namespace Core::Engine
 		Core::Application::setCursor(state);
 	}
 
-	::Engine::GameObject& Graph::instantiate(const std::string& GOname)
+	::Engine::Entity& Graph::instantiate(const std::string& GOname)
 	{
 		return instance()->curScene.instantiate(GOname);
 	}
 
-	::Engine::GameObject& Graph::instantiate(const std::string& GOname, const std::string& recipePath)
+	::Engine::Entity& Graph::instantiate(const std::string& GOname, const std::string& recipePath)
 	{
 		return instance()->curScene.instantiate(GOname, recipePath);
 	}

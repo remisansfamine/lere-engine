@@ -5,7 +5,6 @@
 
 #include "inputs_manager.hpp"
 #include "physic_manager.hpp"
-#include "resources_manager.hpp"
 #include "sound_manager.hpp"
 
 #include "rigidbody.hpp"
@@ -15,10 +14,10 @@
 
 namespace Gameplay
 {
-	PlayerState::PlayerState(Engine::GameObject& gameObject)
-		: EntityState(gameObject, std::shared_ptr<PlayerState>(this))
+	PlayerState::PlayerState(Engine::Entity& owner)
+		: EntityState(owner)
 	{
-		m_transform = requireComponent<Physics::Transform>();
+		m_transform = requireComponent<Physics::TransformComponent>();
 	}
 
 	void PlayerState::start()
@@ -39,7 +38,7 @@ namespace Gameplay
 	void PlayerState::fixedUpdate()
 	{
 		Physics::RaycastHit hit;
-		Physics::Ray ray(m_transform->m_position, Core::Maths::vec3(0.f, -1.f, 0.f), m_collider->sphere.radius + 0.1f);
+		Physics::Ray ray(m_transform->position, Core::Maths::vec3(0.f, -1.f, 0.f), m_collider->sphere.radius + 0.1f);
 		isGrounded = Physics::PhysicManager::raycast(ray, hit);
 	}
 
@@ -62,12 +61,12 @@ namespace Gameplay
 			+ " " + std::to_string(isGrounded);
 	}
 
-	void PlayerState::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void PlayerState::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<PlayerState>())
-			gameObject.addComponent<PlayerState>();
+		if (!owner.tryGetComponent<PlayerState>())
+			owner.addComponent<PlayerState>();
 
-		auto player = gameObject.getComponent<PlayerState>();
+		auto player = owner.getComponent<PlayerState>();
 
 		iss >> player->isWalking;
 		iss >> player->isRunning;

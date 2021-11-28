@@ -2,14 +2,14 @@
 
 namespace Gameplay
 {
-	EnemyLife::EnemyLife(Engine::GameObject& gameObject)
-		: EntityLife(gameObject, std::shared_ptr<EnemyLife>(this), "resources/sounds/enemyDamage.ogg", "resources/sounds/enemyDeath.wav")
+	EnemyLife::EnemyLife(Engine::Entity& owner)
+		: EntityLife(owner, "resources/sounds/enemyDamage.ogg", "resources/sounds/enemyDeath.wav")
 	{
 	}
 
 	void EnemyLife::start()
 	{
-		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+		gameMaster = Core::Engine::Graph::findEntityWithName("GameMaster")->getComponent<GameMaster>();
 		gameMaster->enemyCount++;
 	}
 
@@ -27,11 +27,11 @@ namespace Gameplay
 		return "COMP ENEMYLIFE " + EntityLife::toString();
 	}
 
-	void EnemyLife::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void EnemyLife::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<EnemyLife> el;
-		if (!gameObject.tryGetComponent(el))
-			el = gameObject.addComponent<EnemyLife>();
+		EnemyLife* el;
+		if (!owner.tryGetComponent(el))
+			el = owner.addComponent<EnemyLife>();
 
 		iss >> el->life;
 		iss >> el->maxLife;

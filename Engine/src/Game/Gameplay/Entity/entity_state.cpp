@@ -10,9 +10,9 @@
 
 namespace Gameplay
 {
-	EntityState::EntityState(Engine::GameObject& gameObject, std::shared_ptr<EntityState> ptr)
-		: Component(gameObject, ptr)
+	EntityState::EntityState(Engine::Entity& owner)
+		: Component(owner)
 	{
-		transform = requireComponent<Physics::Transform>();
+		transform = requireComponent<Physics::TransformComponent>();
 	}
 }

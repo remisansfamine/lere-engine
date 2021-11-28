@@ -43,7 +43,7 @@ namespace Physics
 			Box newBox = boxCollider->box;
 			newBox.center = boxCollider->m_center;
 			newBox.size = boxCollider->extensions;
-			newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->m_rotation);
+			newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->rotation);
 
 			if (IntersectSegmentBox(segmentOrigin, segmentEnding, newBox, rayHit.hit))
 			{
@@ -64,7 +64,7 @@ namespace Physics
 			Sphere newSphere = sphereCollider->sphere;
 			newSphere.center = sphereCollider->m_center;
 			newSphere.radius = sphereCollider->extensions.x;
-			newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->m_rotation);
+			newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->rotation);
 
 			if (IntersectSegmentSphere(segmentOrigin, segmentEnding, newSphere, rayHit.hit))
 			{
@@ -92,7 +92,7 @@ namespace Physics
 		return true;
 	}
 
-	void PhysicManager::linkComponent(const std::shared_ptr<BoxCollider> compToLink)
+	void PhysicManager::linkComponent(BoxCollider* compToLink)
 	{
 		PhysicManager* PM = instance();
 
@@ -110,23 +110,18 @@ namespace Physics
 	{
 		PhysicManager* PM = instance();
 
-		for (auto it = PM->boxColliders.begin(); it != PM->boxColliders.end(); it++)
-		{
-			if (it->get() == compToRemove)
-			{
+		auto colliderIt = PM->boxColliders.find(compToRemove);
 
-				int a = it->use_count();
+		if (colliderIt == PM->boxColliders.end())
+			return;
 
-				if (it->get()->hasRigidbody())
-					PM->lastBoxRigidbodyIndex--;
+		if ((*colliderIt)->hasRigidbody())
+			PM->lastBoxRigidbodyIndex--;
 
-				PM->boxColliders.erase(it);
-				break;
-			}
-		}
+		PM->boxColliders.erase(colliderIt);
 	}
 
-	void PhysicManager::linkComponent(const std::shared_ptr<SphereCollider> compToLink)
+	void PhysicManager::linkComponent(SphereCollider* compToLink)
 	{
 		PhysicManager* PM = instance();
 
@@ -144,17 +139,16 @@ namespace Physics
 	{
 		PhysicManager* PM = instance();
 
-		for (auto it = PM->sphereColliders.begin(); it != PM->sphereColliders.end(); it++)
-		{
-			if (it->get() == compToRemove)
-			{
-				if (it->get()->hasRigidbody())
-					PM->lastSphereRigidbodyIndex--;
 
-				PM->sphereColliders.erase(it);
-				break;
-			}
-		}
+		auto colliderIt = PM->sphereColliders.find(compToRemove);
+
+		if (colliderIt == PM->sphereColliders.end())
+			return;
+
+		if ((*colliderIt)->hasRigidbody())
+			PM->lastSphereRigidbodyIndex--;
+
+		PM->sphereColliders.erase(colliderIt);
 	}
 
 	void PhysicManager::clearAll()
@@ -165,12 +159,14 @@ namespace Physics
 
 	void PhysicManager::computeCollisions()
 	{
-		// Sort the part of the colliders linked to a rigidbody
-		auto spherePartition = std::partition(sphereColliders.begin(), sphereColliders.begin() + lastSphereRigidbodyIndex, [](auto p) { return p->isRigidbodyAwake(); });
 
-		for (auto sphereColliderIt = sphereColliders.begin(); sphereColliderIt != spherePartition; sphereColliderIt++)
+		// Sort the part of the colliders linked to a rigidbody
+		for (auto sphereColliderIt = sphereColliders.begin(); sphereColliderIt != sphereColliders.end(); sphereColliderIt++)
 		{
 			auto sphereCollider = *sphereColliderIt;
+
+			if (!sphereCollider->isRigidbodyAwake())
+				continue;
 
 			if (!sphereCollider->isActive())
 				continue;
@@ -189,26 +185,26 @@ namespace Physics
 				Sphere newSphere = sphereCollider->sphere;
 				newSphere.center = sphereCollider->m_center;
 				newSphere.radius = sphereCollider->extensions.x;
-				newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->m_rotation);
+				newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->rotation);
 
 				Sphere newSphereToCheck = sphereToCheck->sphere;
 				newSphereToCheck.center = sphereToCheck->m_center;
 				newSphereToCheck.radius = sphereToCheck->extensions.x;
-				newSphereToCheck.quaternion = Core::Maths::quaternionFromEuler(sphereToCheck->m_transform->m_rotation);
+				newSphereToCheck.quaternion = Core::Maths::quaternionFromEuler(sphereToCheck->m_transform->rotation);
 
 				if (sphereCollider->isTrigger || sphereToCheck->isTrigger)
 				{
 					bool hasHit = TriggerSpheres(newSphere, newSphereToCheck);
-					sphereCollider->computeTriggerCallback(hasHit, sphereToCheck.get());
-					sphereToCheck->computeTriggerCallback(hasHit, sphereCollider.get());
+					sphereCollider->computeTriggerCallback(hasHit, sphereToCheck);
+					sphereToCheck->computeTriggerCallback(hasHit, sphereCollider);
 					continue;
 				}
 
 				Hit hit;
 				bool hasHit = IntersectSpheres(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newSphereToCheck, hit);
 
-				sphereCollider->computeCollisionCallback(hasHit, { sphereToCheck.get(), hit });
-				sphereToCheck->computeCollisionCallback(hasHit, { sphereCollider.get(), hit });
+				sphereCollider->computeCollisionCallback(hasHit, { sphereToCheck, hit });
+				sphereToCheck->computeCollisionCallback(hasHit, { sphereCollider, hit });
 			}
 
 			for (auto& boxCollider : boxColliders)
@@ -222,26 +218,26 @@ namespace Physics
 				Box newBox = boxCollider->box;
 				newBox.center = boxCollider->m_center;
 				newBox.size = boxCollider->extensions;
-				newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->m_rotation);
+				newBox.quaternion = Core::Maths::quaternionFromEuler(boxCollider->m_transform->rotation);
 
 				Sphere newSphere = sphereCollider->sphere;
 				newSphere.center = sphereCollider->m_center;
 				newSphere.radius = sphereCollider->extensions.x;
-				newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->m_rotation);
+				newSphere.quaternion = Core::Maths::quaternionFromEuler(sphereCollider->m_transform->rotation);
 
 				if (sphereCollider->isTrigger || boxCollider->isTrigger)
 				{
 					bool hasHit = TriggerSphereBox(newSphere, newBox);
-					sphereCollider->computeTriggerCallback(hasHit, boxCollider.get());
-					boxCollider->computeTriggerCallback(hasHit, sphereCollider.get());
+					sphereCollider->computeTriggerCallback(hasHit, boxCollider);
+					boxCollider->computeTriggerCallback(hasHit, sphereCollider);
 					continue;
 				}
 
 				Hit hit;
 				bool hasHit = IntersectSphereBox(newSphere, sphereCollider->m_rigidbody->getNewPosition(newSphere.center), newBox, hit);
 
-				sphereCollider->computeCollisionCallback(hasHit, { boxCollider.get(), hit });
-				boxCollider->computeCollisionCallback(hasHit, { sphereCollider.get(), hit });
+				sphereCollider->computeCollisionCallback(hasHit, { boxCollider, hit });
+				boxCollider->computeCollisionCallback(hasHit, { sphereCollider, hit });
 			}
 
 			sphereCollider->m_rigidbody->computeNextPos();

@@ -85,31 +85,6 @@ namespace Core
 			}
 		}
 
-		void Log::exception(const std::string& log)
-		{
-			instance()->queue.tryPush(LogInfo(std::string("EXCEPTION: ") + std::string(log), LogType::EXCEPTION));
-		}
-
-		void Log::warning(const std::string& log)
-		{
-			instance()->queue.tryPush(LogInfo(std::string("Warning: ") + std::string(log), LogType::WARNING));
-		}
-
-		void Log::assertion(const std::string& log)
-		{
-			instance()->queue.tryPush(LogInfo(std::string("ASSERTION: ") + std::string(log), LogType::ASSERTION));
-		}
-
-		void Log::error(const std::string& log)
-		{
-			instance()->queue.tryPush(LogInfo(std::string("ERROR: ") + std::string(log), LogType::ERROR));
-		}
-
-		void Log::info(const std::string& log)
-		{
-			instance()->queue.tryPush(LogInfo(std::string("Info: ") + std::string(log), LogType::INFO));
-		}
-
 		Assertion::Assertion()
 		{
 			Log::info("Creating the Assertions Manager");

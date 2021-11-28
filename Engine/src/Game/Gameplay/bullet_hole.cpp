@@ -2,8 +2,8 @@
 
 namespace Gameplay
 {
-	BulletHole::BulletHole(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<BulletHole>(this))
+	BulletHole::BulletHole(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
@@ -21,10 +21,10 @@ namespace Gameplay
 			getHost().destroy();
 	}
 
-	void BulletHole::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void BulletHole::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<BulletHole> bulletHole;
-		if (!gameObject.tryGetComponent(bulletHole))
-			gameObject.addComponent<BulletHole>();
+		BulletHole* bulletHole;
+		if (!owner.tryGetComponent(bulletHole))
+			owner.addComponent<BulletHole>();
 	}
 }

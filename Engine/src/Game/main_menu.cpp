@@ -11,8 +11,8 @@
 
 namespace Gameplay
 {
-	MainMenu::MainMenu(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<MainMenu>(this))
+	MainMenu::MainMenu(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
@@ -21,39 +21,17 @@ namespace Gameplay
 	{
 		Core::Engine::Graph::setCursorState(true);
 
-		Engine::GameObject* goButtonNewGame = Core::Engine::Graph::findGameObjectWithName("NewGameButton");
-		std::shared_ptr<UI::Button> buttonNewGame = goButtonNewGame->getComponent<UI::Button>();
-		UI::Button* newGameptr = buttonNewGame.get();
+		Engine::Entity* goButtonNewGame = Core::Engine::Graph::findEntityWithName("NewGameButton");
+		UI::Button* newGameptr = goButtonNewGame->getComponent<UI::Button>();
 		newGameptr->addListener(UI::ButtonState::DOWN, [](){
-			Core::Engine::Graph::loadNewGame();
+			Core::Engine::Graph::setLoadScene("resources/scenes/defaultScene.scn");
 		});
 		newGameptr->addListener(UI::ButtonState::HIGHLIGHT, [newGameptr]() {
 			newGameptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
 		});
 
-		/*Engine::GameObject* goButtonLoadScene = Core::Engine::Graph::findGameObjectWithName("LoadSceneButton");
-		std::shared_ptr<UI::Button> buttonLoadScene = goButtonLoadScene->getComponent<UI::Button>();
-		UI::Button* loadScenePtr = buttonLoadScene.get();
-		loadScenePtr->addListener(UI::ButtonState::DOWN, [](){
-			Core::Engine::Graph::loadSaveGame();
-		});
-		loadScenePtr->addListener(UI::ButtonState::HIGHLIGHT, [loadScenePtr]() {
-			loadScenePtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});*/
-
-		/*Engine::GameObject* goButtonOptions = Core::Engine::Graph::findGameObjectWithName("OptionsButton");
-		std::shared_ptr<UI::Button> buttonOptions = goButtonOptions->getComponent<UI::Button>();
-		UI::Button* optionsPtr = buttonOptions.get();
-		optionsPtr->addListener(UI::ButtonState::DOWN, [](){
-			Core::Debug::Log::info("Options");
-		});
-		optionsPtr->addListener(UI::ButtonState::HIGHLIGHT, [optionsPtr]() {
-			optionsPtr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);
-		});*/
-
-		Engine::GameObject* goButtonExit = Core::Engine::Graph::findGameObjectWithName("ExitButton");
-		std::shared_ptr<UI::Button> buttonExit = goButtonExit->getComponent<UI::Button>();
-		UI::Button* exitPtr = buttonExit.get();
+		Engine::Entity* goButtonExit = Core::Engine::Graph::findEntityWithName("ExitButton");
+		UI::Button* exitPtr = goButtonExit->getComponent<UI::Button>();
 		exitPtr->addListener(UI::ButtonState::DOWN, [](){
 			Core::Application::closeApplication();
 		});
@@ -80,9 +58,9 @@ namespace Gameplay
 		return "COMP MAINMENU";
 	}
 
-	void MainMenu::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void MainMenu::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<MainMenu>())
-			gameObject.addComponent<MainMenu>();
+		if (!owner.tryGetComponent<MainMenu>())
+			owner.addComponent<MainMenu>();
 	}
 }

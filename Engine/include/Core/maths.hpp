@@ -12,37 +12,43 @@ namespace Core::Maths
     constexpr float DEG2RAD = PI / 180.f;
     constexpr float RAD2DEG = 180.f / PI;
 
-    union vec2
+    struct vec2
     {
+        union
+        {
+            float e[2];
+
+            struct { float x; float y; };
+            struct { float s; float t; };
+            struct { float u; float v; };
+        };
+
         vec2(float x = 0.f, float y = 0.f)
             : x(x), y(y)
         {}
-
-        float e[2];
-
-        struct { float x; float y; };
-        struct { float s; float t; };
-        struct { float u; float v; };
     };
 
-    union vec3
+    struct vec3
     {
+        union
+        {
+            float e[3];
+            vec2  xy;
+            vec2  rg;
+            vec2  uv;
+
+            struct { float x; float y; float z; };
+            struct { float r; float g; float b; };
+            struct { float c; float l; float q; };
+            struct { float u; float v; float q; };
+        };
+
         vec3(float x = 0.f, float y = 0.f, float z = 0.f)
             : x(x), y(y), z(z)
         {}
         vec3(vec2 xy, float z = 0.f)
             : x(xy.x), y(xy.y), z(z)
         {}
-
-        float e[3];
-        vec2  xy;
-        vec2  rg;
-        vec2  uv;
-
-        struct { float x; float y; float z; };
-        struct { float r; float g; float b; };
-        struct { float c; float l; float q; };
-        struct { float u; float v; float q; };
 
         inline float squaredMagnitude() const;
 
@@ -53,8 +59,20 @@ namespace Core::Maths
         inline vec3& normalize();
     };
 
-    union vec4
+    struct vec4
     {
+        union
+        {
+            float e[4];
+            vec3  xyz;
+            vec3  rgb;
+            vec2  xy;
+            vec2  rg;
+
+            struct { float x; float y; float z; float w; };
+            struct { float r; float g; float b; float a; };
+        };
+
         vec4(float x = 0.f, float y = 0.f, float z = 0.f, float w = 0.f)
             : x(x), y(y), z(z), w(w)
         {}
@@ -64,27 +82,24 @@ namespace Core::Maths
         vec4(vec2 xy, float z = 0.f, float w = 0.f)
             : x(xy.x), y(xy.y), z(z), w(w)
         {}
-
-        float e[4];
-        vec3  xyz;
-        vec3  rgb;
-        vec2  xy;
-        vec2  rg;
-
-        struct { float x; float y; float z; float w; };
-        struct { float r; float g; float b; float a; };
     };
 
-    union mat3
+    struct mat3
     {
-        float e[9] = { 0.f };
-        vec3  c[3];
+        union
+        {
+            float e[9] = { 0.f };
+            vec3  c[3];
+        };
     };
 
-    union mat4
+    struct mat4
     {
-        float e[16] = { 0.f };
-        vec4  c[4];
+        union
+        {
+            float e[16] = { 0.f };
+            vec4  c[4];
+        };
     };
 
     union quat
@@ -258,7 +273,7 @@ namespace Core::Maths
         return result;
     }
 
-    inline mat4 operator*(const mat4& a, const mat4& b)
+    inline mat4 operator*(const mat4& lhs, const mat4& rhs)
     {
         mat4 result = { 0.f };
 
@@ -268,7 +283,7 @@ namespace Core::Maths
             {
                 float sum = 0.f;
                 for (int k = 0; k < 4; k++)
-                    sum += a.c[i].e[k] * b.c[k].e[j];
+                    sum += lhs.c[i].e[k] * rhs.c[k].e[j];
 
                 result.c[i].e[j] = sum;
             }
@@ -542,12 +557,12 @@ namespace Core::Maths
         return quaternionFromEuler(rotation.x, rotation.y, rotation.z);
     }
 
-    inline mat4 lookAt(const vec3& eye, const vec3& center, const vec3& up)
+    inline mat4 lookAt(const vec3& from, const vec3& to = vec3(0.f, 0.f, 0.f), const vec3& up = vec3(0.f, 1.f, 0.f))
     {
         // Create new coordinate system
-        vec3 newZ = (eye - center).normalized();
-        vec3 newX = (up ^ newZ).normalized();
-        vec3 newY = (newZ ^ newX).normalized();
+        vec3 newForward = (from - to).normalized();
+        vec3 newRight = (up ^ newForward).normalized();
+        vec3 newUp = newForward ^ newRight;
 
         /*return {
             newX.x, newY.x, newZ.x, 0.f,
@@ -557,10 +572,10 @@ namespace Core::Maths
         };*/
 
         return {
-            newX.x, newX.y, newX.z, -dot(newX, eye),
-            newY.x, newY.y, newY.z, -dot(newY, eye),
-            newZ.x, newZ.y, newZ.z, -dot(newZ, eye),
-            0.f, 0.f, 0.f,         1.f
+            newRight.x  , newRight.y  , newRight.z  , -dot(newRight, from),
+            newUp.x     , newUp.y     , newUp.z     , -dot(newUp, from),
+            newForward.x, newForward.y, newForward.z, -dot(newForward, from),
+            0.f         , 0.f         , 0.f         , 1.f
         };
     }
 }

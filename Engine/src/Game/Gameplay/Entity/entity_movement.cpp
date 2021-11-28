@@ -2,8 +2,8 @@
 
 namespace Gameplay
 {
-	EntityMovement::EntityMovement(Engine::GameObject& gameObject, std::shared_ptr<EntityMovement> ptr)
-		: Component(gameObject, ptr)
+	EntityMovement::EntityMovement(Engine::Entity& owner)
+		: Component(owner)
 	{
 		m_rigidbody = requireComponent<Physics::Rigidbody>();
 	}

@@ -22,6 +22,7 @@ namespace Resources
 	 std::shared_ptr<Texture> Texture::defaultDiffuse = nullptr;
 	 std::shared_ptr<Texture> Texture::defaultEmissive = nullptr;
 	 std::shared_ptr<Texture> Texture::defaultSpecular = nullptr;
+	 std::shared_ptr<Texture> Texture::defaultNormalMap = nullptr;
 
 	Texture::Texture(const std::string& filePath)
 		: Resource(filePath)
@@ -49,8 +50,6 @@ namespace Resources
 			return true;
 
 		Core::Debug::Log::info("Start loading " + m_filePath + '.');
-
-		int channel = 0;
 
 		auto loadStart = std::chrono::system_clock::now();
 
@@ -110,7 +109,7 @@ namespace Resources
 		glGenTextures(1, &textureID);
 		glBindTexture(GL_TEXTURE_2D, textureID);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, colorBuffer);
+		allocateTexture(GL_TEXTURE_2D);
 
 		// Generate its mipmap
 		glGenerateMipmap(GL_TEXTURE_2D);
@@ -133,6 +132,11 @@ namespace Resources
 		Core::Debug::Log::info("OpenGL initialization of " + m_filePath + " done with success in " + timeAsString + " ms.");
 
 		return true;
+	}
+
+	void Texture::allocateTexture(int textureType)
+	{
+		glTexImage2D(textureType, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, colorBuffer);
 	}
 
 	void Texture::mainThreadInitialization()
@@ -180,12 +184,11 @@ namespace Resources
 
 	bool CubeMapTexture::generateBuffer()
 	{
-		int channel;
 		stbi_set_flip_vertically_on_load_thread(false);
 
 		std::string correctPath = ResourcesManager::getResourcesPath() + m_filePath;
 
-		colorBuffer = stbi_loadf(correctPath.c_str(), &width, &height, &channel, 0);
+		colorBuffer = stbi_loadf(correctPath.c_str(), &width, &height, &channel, STBI_rgb_alpha);
 		stbi_set_flip_vertically_on_load_thread(true);
 
 		if (!colorBuffer)
@@ -204,7 +207,7 @@ namespace Resources
 
 	bool CubeMapTexture::generateID()
 	{
-		glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubeMapID, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_FLOAT, colorBuffer);
+		allocateTexture(GL_TEXTURE_CUBE_MAP_POSITIVE_X + cubeMapID);
 
 		if (stbiLoaded)
 			stbi_image_free(colorBuffer);

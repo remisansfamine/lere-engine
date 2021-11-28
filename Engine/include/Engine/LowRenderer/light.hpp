@@ -6,7 +6,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 }
 
 namespace LowRenderer
@@ -16,14 +16,12 @@ namespace LowRenderer
 	class Light : public Engine::Component
 	{
 	private:
-		Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr);
-
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+		Physics::TransformComponent* m_transform = nullptr;
 
 		Core::Maths::mat4 spaceMatrix = Core::Maths::identity();
 
 	public:
-		Light(Engine::GameObject& gameObject);
+		Light(Engine::Entity& owner);
 
 		std::unique_ptr<Shadow> shadow = nullptr;
 
@@ -52,6 +50,6 @@ namespace LowRenderer
 		void drawImGui() override;
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

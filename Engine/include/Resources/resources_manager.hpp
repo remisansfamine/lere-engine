@@ -7,11 +7,11 @@
 #include <atomic>
 
 #include "singleton.hpp"
+#include "manager.hpp"
 
 #include "thread_manager.hpp"
 #include "benchmarker.hpp"
 
-#include "script.hpp"
 #include "character.hpp"
 #include "cube_map.hpp"
 #include "material.hpp"
@@ -25,7 +25,7 @@
 
 namespace Resources
 {
-	class ResourcesManager final : public Singleton<ResourcesManager>
+	class ResourcesManager final : public Singleton<ResourcesManager>, Core::Manager
 	{
 		friend Singleton<ResourcesManager>;
 
@@ -39,11 +39,7 @@ namespace Resources
 		// Purple and black grid
 		float noDiffuseBuffer[16] = { 1.f, 0.f, 0.863f, 1.f, 0.f, 0.f, 0.f, 1.f, 0.f, 0.f, 0.f, 1.f, 1.f, 0.f, 0.863f, 1.f };
 
-		CPyInstance pyInstance;
-
 		std::atomic<bool> isLoading = false;
-
-		bool initialized = false;
 
 		ResourcesManager();
 		~ResourcesManager();
@@ -52,7 +48,6 @@ namespace Resources
 
 		std::atomic_flag lockPersistentResources = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockTextures = ATOMIC_FLAG_INIT;
-		std::atomic_flag lockScripts = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshes = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockMeshChildren = ATOMIC_FLAG_INIT;
 		std::atomic_flag lockCubemaps = ATOMIC_FLAG_INIT;
@@ -65,7 +60,6 @@ namespace Resources
 
 		std::vector<std::shared_ptr<Resource>>							persistentsResources;
 		std::unordered_map<std::string, std::shared_ptr<Texture>>		textures;
-		std::unordered_map<std::string, std::shared_ptr<Script>>		scripts;
 		std::unordered_map<std::string, std::shared_ptr<CubeMap>>		cubeMaps;
 		std::unordered_map<std::string, std::shared_ptr<Mesh>>			meshes;
 		std::unordered_map<std::string, std::shared_ptr<Material>>		materials;
@@ -127,10 +121,7 @@ namespace Resources
 
 		static bool checkLoadEnd();
 
-		static void reloadScripts();
-
 		static std::shared_ptr<Font>	loadFont(const std::string& fontPath);
-		static std::shared_ptr<Script> loadScript(const std::string& scriptName);
 		static std::shared_ptr<Texture> loadTexture(const std::string& texturePath, bool setAsPersistent = false);
 		static std::shared_ptr<Texture> loadTexture(const std::string& name, int width, int height, float* data, bool setAsPersistent = false);
 		static std::shared_ptr<CubeMap> loadCubeMap(const std::vector<std::string>& cubeMapPaths, bool setAsPersistent = false);

@@ -10,11 +10,11 @@
 
 namespace Physics
 {
-	Collider::Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr)
-		: Component(gameObject, ptr)
+	Collider::Collider(Engine::Entity& owner)
+		: Component(owner)
 	{
-		m_transform = requireComponent<Transform>();
-		m_rigidbody = gameObject.getComponent<Rigidbody>();
+		m_transform = requireComponent<TransformComponent>();
+		m_rigidbody = owner.getComponent<Rigidbody>();
 	}
 
 	bool Collider::hasRigidbody()
@@ -56,9 +56,9 @@ namespace Physics
 	{
 		auto colliderIt = std::find(m_triggers.begin(), m_triggers.end(), collider);
 
-		bool isInVector = colliderIt != m_triggers.end();
+		bool isInSet = colliderIt != m_triggers.end();
 
-		if (isInVector)
+		if (isInSet)
 		{
 			if (!hasHit)
 			{
@@ -73,7 +73,7 @@ namespace Physics
 
 		if (hasHit)
 		{
-			m_triggers.push_back(collider);
+			m_triggers.insert(collider);
 			getHost().callTriggerEnter(collider);
 			return;
 		}

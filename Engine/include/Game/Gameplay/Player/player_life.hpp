@@ -11,17 +11,16 @@ namespace Gameplay
 	private:
 		void kill() override;
 		std::string lifeBarName;
-		std::shared_ptr<GameMaster> gameMaster;
+		GameMaster* gameMaster = nullptr;
 
 	public:
-		PlayerLife(Engine::GameObject& gameObject);
+		PlayerLife(Engine::Entity& owner);
 
 		void start() override;
-		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

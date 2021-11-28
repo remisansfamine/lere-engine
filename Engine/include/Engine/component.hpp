@@ -1,13 +1,10 @@
 #pragma once
 
-#include <memory>
 #include <sstream>
 
 #include "object.hpp"
-#include "game_object.hpp"
+#include "entity.hpp"
 #include "collision.hpp"
-
-#include "script.hpp"
 
 namespace Physics
 {
@@ -19,28 +16,27 @@ namespace Engine
 	class Component : public Object
 	{
 	private:
-		GameObject& m_gameObject;
+		Entity& owner;
 
 	protected:
-		std::shared_ptr<Resources::Script> script;
-
-		Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr);
-		virtual ~Component();
+		Component(Entity& owner);
 
 		void onDestroy() override;
 
 		template <class C, class ...Crest, typename B = std::enable_if_t<std::is_base_of<Component, C>::value>>
-		std::shared_ptr<C> requireComponent(Crest... args)
+		C* requireComponent(Crest&&... args)
 		{
-			std::shared_ptr<C> tempPtr;
+			C* tempPtr;
 
-			if (!m_gameObject.tryGetComponent<C>(tempPtr))
-				return m_gameObject.addComponent<C>(args...);
+			if (!owner.tryGetComponent(tempPtr))
+				return owner.addComponent<C>(args...);
 
 			return tempPtr;
 		}
 
 	public:
+		virtual ~Component() = default;
+
 		bool hasStarted = false;
 
 		void setActive(bool value) override;
@@ -57,7 +53,8 @@ namespace Engine
 		void virtual onEnable() { }
 		void virtual onDisable() { }
 
-		bool isActive() override;
+
+		bool isActive() const override;
 		void destroy() override;
 
 		void virtual onCollisionEnter(const Physics::Collision& collision) {}
@@ -68,7 +65,8 @@ namespace Engine
 		void virtual onTriggerStay(Physics::Collider* collider) {}
 		void virtual onTriggerExit(Physics::Collider* collider) {}
 
-		GameObject& getHost();
+		Entity& getHost();
+		const Entity& getHost() const;
 
 		virtual std::string toString() const { return ""; }
 	};

@@ -12,14 +12,14 @@
 
 namespace LowRenderer
 {
-	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::shared_ptr<SpriteRenderer>& ptr, const std::string& shaderPromgramName)
-		: Renderer(gameObject, ptr, shaderPromgramName)
+	SpriteRenderer::SpriteRenderer(Engine::Entity& owner,const std::string& shaderProgramName)
+		: Renderer(owner, shaderProgramName)
 	{
-		LowRenderer::RenderManager::linkComponent(ptr);
+		LowRenderer::RenderManager::linkComponent(this);
 	}
 
-	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling)
-		: SpriteRenderer(gameObject, std::shared_ptr<SpriteRenderer>(this), shaderPromgramName)
+	SpriteRenderer::SpriteRenderer(Engine::Entity& owner, const std::string& shaderProgramName, const Core::Maths::vec2& tilling)
+		: SpriteRenderer(owner, shaderProgramName)
 	{ 
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
 		texture = Resources::Texture::defaultDiffuse;
@@ -28,8 +28,8 @@ namespace LowRenderer
 		tillingOffset = tilling.y;
 	}
 
-	SpriteRenderer::SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderProgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
-		: SpriteRenderer(gameObject, std::shared_ptr<SpriteRenderer>(this), shaderProgramName)
+	SpriteRenderer::SpriteRenderer(Engine::Entity& owner, const std::string& shaderProgramName, const std::string& texturePath, const Core::Maths::vec2& tilling)
+		: SpriteRenderer(owner, shaderProgramName)
 	{
 		texture = Resources::ResourcesManager::loadTexture(texturePath);
 		mesh = Resources::ResourcesManager::getMeshByName("Plane");
@@ -55,13 +55,13 @@ namespace LowRenderer
 		if (!mesh)
 			return;
 
-		m_shaderProgram->setUniform("model", m_transform->getGlobalModel().e, 1, 1);
-		m_shaderProgram->setUniform("color", m_color.e);
+		m_shaderProgram->setUniform("model", m_transform->getGlobalModel().e, false, 1, 1);
+		m_shaderProgram->setUniform("color", m_color.e, false);
 
-		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e);
+		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e, false);
 
 		int i = 0;
-		m_shaderProgram->setUniform("diffuseTex", &i);
+		m_shaderProgram->setUniform("diffuseTex", &i, false);
 
 		if (texture)
 			if (!texture->bind(0))
@@ -102,7 +102,7 @@ namespace LowRenderer
 		return "COMP SPRITERENDERER " +  m_shaderProgram->getName() + " " + texture->getPath() + " " + std::to_string(tillingMultiplier) + " " + std::to_string(tillingOffset);
 	}
 
-	void SpriteRenderer::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void SpriteRenderer::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
 		std::string texturePath, shaderProgramName;
 		Core::Maths::vec2 tilling;
@@ -113,15 +113,15 @@ namespace LowRenderer
 		iss >> tilling.x;
 		iss >> tilling.y;
 
-		std::shared_ptr<SpriteRenderer> sprite;
-		if (!gameObject.tryGetComponent<SpriteRenderer>(sprite))
+		SpriteRenderer* sprite;
+		if (!owner.tryGetComponent<SpriteRenderer>(sprite))
 		{
-			gameObject.addComponent<SpriteRenderer>(shaderProgramName, texturePath, tilling);
+			owner.addComponent<SpriteRenderer>(shaderProgramName, texturePath, tilling);
 			return;
 		}
 
-		sprite->m_shaderProgram = Resources::ResourcesManager::loadShaderProgram(shaderProgramName);
 		sprite->texture = Resources::ResourcesManager::loadTexture(texturePath);
+		sprite->m_shaderProgram = Resources::ResourcesManager::loadShaderProgram(shaderProgramName);
 		sprite->tillingMultiplier = tilling.x;
 		sprite->tillingOffset = tilling.y;
 	}

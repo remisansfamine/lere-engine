@@ -11,12 +11,12 @@ namespace Gameplay
 	class GameMaster : public Engine::Component
 	{
 	private:
-		std::shared_ptr<PauseScreen> pauseScreen;
-		std::shared_ptr<WinScreen> winScreen;
-		std::shared_ptr<LoseScreen> loseScreen;
+		PauseScreen* pauseScreen = nullptr;
+		WinScreen* winScreen = nullptr;
+		LoseScreen* loseScreen = nullptr;
 
 	public:
-		GameMaster(Engine::GameObject& gameObject);
+		GameMaster(Engine::Entity& owner);
 
 		bool isPaused = false;
 		int enemyCount = 0;
@@ -28,6 +28,6 @@ namespace Gameplay
 		void removePlayer();
 
 		std::string toString() const override;
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

@@ -76,15 +76,11 @@ namespace Resources
         FT_Done_FreeType(ft);
 	}
 
-	Text::Text(Engine::GameObject& gameObject, std::shared_ptr<Text> ptr)
-		: Component(gameObject, ptr)
+	Text::Text(Engine::Entity& owner, const std::string& path)
+		: Component(owner)
 	{
 		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
-	}
 
-	Text::Text(Engine::GameObject& gameObject, const std::string& path)
-		: Text(gameObject, std::shared_ptr<Text>(this))
-	{
 		m_font = Resources::ResourcesManager::loadFont(path);
 	}
 
@@ -103,11 +99,11 @@ namespace Resources
 		return "";
 	}
 
-	void Text::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void Text::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
 		std::string path;
 		iss >> path;
 
-		gameObject.addComponent<Text>(path);
+		owner.addComponent<Text>(path);
 	}
 }

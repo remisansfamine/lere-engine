@@ -10,18 +10,13 @@
 
 namespace Physics
 {
-	SphereCollider::SphereCollider(Engine::GameObject& gameObject, std::shared_ptr<SphereCollider> ptr)
-		: Collider(gameObject, ptr) 
-	{
-		PhysicManager::linkComponent(ptr);
-		gameObject.addComponent<LowRenderer::ColliderRenderer>(ptr, "resources/obj/colliders/sphereCollider.obj");
-		LowRenderer::RenderManager::linkComponent(gameObject.getComponent<LowRenderer::ColliderRenderer>());
-	}
-
-	SphereCollider::SphereCollider(Engine::GameObject& gameObject)
-		: SphereCollider(gameObject, std::shared_ptr<SphereCollider>(this))
+	SphereCollider::SphereCollider(Engine::Entity& owner)
+		: Collider(owner)
 	{
 		sphere = Sphere(vec3(0.f), 1.f);
+
+		PhysicManager::linkComponent(this);
+		owner.addComponent<LowRenderer::ColliderRenderer>(this, "resources/obj/colliders/sphereCollider.obj");
 	}
 
 	void SphereCollider::updateShape()
@@ -61,11 +56,11 @@ namespace Physics
 										Utils::quatToStringParsing(sphere.quaternion) + std::to_string(isTrigger);
 	}
 
-	void SphereCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void SphereCollider::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<SphereCollider> collider;
-		if (!gameObject.tryGetComponent(collider))
-			collider = gameObject.addComponent<SphereCollider>();
+		SphereCollider* collider;
+		if (!owner.tryGetComponent(collider))
+			collider = owner.addComponent<SphereCollider>();
 
 		iss >> collider->sphere.center.x;
 		iss >> collider->sphere.center.y;

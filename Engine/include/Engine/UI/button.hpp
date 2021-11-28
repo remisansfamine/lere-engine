@@ -9,7 +9,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 }
 
 namespace UI
@@ -25,8 +25,8 @@ namespace UI
 	class Button : public Engine::Component
 	{
 	private:
-		std::shared_ptr<LowRenderer::SpriteRenderer> m_image = nullptr;
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+		LowRenderer::SpriteRenderer* m_image = nullptr;
+		Physics::TransformComponent* m_transform = nullptr;
 		std::unordered_map<ButtonState, std::vector<std::function<void()>>> functions;
 
 		void onClick();
@@ -35,7 +35,7 @@ namespace UI
 		void onClickRelease();
 
 	public:
-		Button(Engine::GameObject& gameObject, const std::string& shaderProgramName, const std::string& texturePath);
+		Button(Engine::Entity& owner, const std::string& shaderProgramName, const std::string& texturePath);
 
 		void update() override;
 
@@ -44,8 +44,8 @@ namespace UI
 		void drawImGui() override;
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
-		std::shared_ptr<LowRenderer::SpriteRenderer> getSprite();
+		LowRenderer::SpriteRenderer* getSprite();
 	};
 }

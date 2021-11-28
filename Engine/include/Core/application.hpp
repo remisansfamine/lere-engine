@@ -6,16 +6,16 @@
 #include <GLFW/glfw3.h>
 
 #include "singleton.hpp"
+#include "manager.hpp"
 #include "maths.hpp"
 
 namespace Core
 {
-	class Application final : public Singleton<Application> 
+	class Application final : public Singleton<Application>, Manager
 	{
 		friend class Singleton<Application>;
 
 	private:
-		bool initialized = false;
 		GLFWwindow* window = nullptr;
 
 		Core::Maths::vec2 windowSize;
@@ -26,7 +26,6 @@ namespace Core
 
 		[[nodiscard]] static GLFWwindow* createWindow(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);
 		void setImGuiColorsEditor();
-
 
 	public:
 		static void init(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor = nullptr, GLFWwindow* share = nullptr);

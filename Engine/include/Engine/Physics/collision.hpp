@@ -26,7 +26,7 @@ namespace Physics
 
 	struct RaycastHit
 	{
-		std::shared_ptr<Collider> collider;
+		Collider* collider;
 		Hit hit;
 		float distance = 0.f;
 	};

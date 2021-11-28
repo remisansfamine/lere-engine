@@ -5,20 +5,16 @@
 
 namespace LowRenderer
 {
-	SkyBox::SkyBox(Engine::GameObject& gameObject, std::shared_ptr<SkyBox> ptr)
-		: Component(gameObject, ptr)
-	{
-		cubeMesh		= Resources::ResourcesManager::getMeshByName("cube");
-		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
-		LowRenderer::RenderManager::linkComponent(ptr);
-	}
-
-	SkyBox::SkyBox(Engine::GameObject& gameObject, const std::vector<std::string>& paths)
-		: SkyBox(gameObject, std::shared_ptr<SkyBox>(this))
+	SkyBox::SkyBox(Engine::Entity& owner, const std::vector<std::string>& paths)
+		: Component(owner)
 	{
 		// Delegation block other members initialization
 		cubeMap = Resources::ResourcesManager::loadCubeMap(paths);
 		skyPaths = paths;
+
+		cubeMesh = Resources::ResourcesManager::getMeshByName("cube");
+		m_shaderProgram = Resources::ResourcesManager::loadShaderProgram("skyBox");
+		LowRenderer::RenderManager::linkComponent(this);
 	}
 
 	SkyBox::~SkyBox()
@@ -28,14 +24,14 @@ namespace LowRenderer
 
 	void SkyBox::draw() const
 	{
-		glDepthMask(0);
+		glDepthFunc(GL_LEQUAL);
 
 		m_shaderProgram->bind();
 
-		std::shared_ptr<Camera> cam = LowRenderer::RenderManager::getCurrentCamera();
+		Camera* cam = LowRenderer::RenderManager::getCurrentCamera();
 
 		Core::Maths::mat4 newView =  Core::Maths::toMat4(Core::Maths::toMat3(cam->getViewMatrix()));
-		m_shaderProgram->setUniform("viewProj", (cam->getProjection() * newView).e, 1, 1);
+		m_shaderProgram->setUniform("viewProj", (cam->getProjection() * newView).e, true, 1, 1);
 
 		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap->getID());
 		
@@ -43,7 +39,7 @@ namespace LowRenderer
 
 		m_shaderProgram->unbind();
 
-		glDepthMask(1);
+		glDepthFunc(GL_LESS);
 	}
 
 	std::string SkyBox::toString() const
@@ -56,7 +52,7 @@ namespace LowRenderer
 		return strParse;
 	}
 
-	void SkyBox::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void SkyBox::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
 		std::vector<std::string> paths;
 		std::string curPath;
@@ -67,6 +63,15 @@ namespace LowRenderer
 			paths.push_back(curPath);
 		}
 
-		gameObject.addComponent<SkyBox>(paths);
+		owner.addComponent<SkyBox>(paths);
+	}
+
+	void SkyBox::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program) const
+	{
+		int cubemapIndex = 22;
+		program->setUniform("environmentMap", &cubemapIndex, true);
+
+		glActiveTexture(GL_TEXTURE0 + cubemapIndex);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap->getID());
 	}
 }

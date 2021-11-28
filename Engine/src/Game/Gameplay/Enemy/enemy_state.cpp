@@ -14,8 +14,8 @@
 
 namespace Gameplay
 {
-	EnemyState::EnemyState(Engine::GameObject& gameObject)
-		: EntityState(gameObject, std::shared_ptr<EnemyState>(this)) 
+	EnemyState::EnemyState(Engine::Entity& owner)
+		: EntityState(owner)
 	{
 		rb = getHost().getComponent<Physics::Rigidbody>();
 	}
@@ -31,7 +31,10 @@ namespace Gameplay
 
 	void EnemyState::start()
 	{
-		playerLife = Core::Engine::Graph::findGameObjectWithName("Player")->getComponent<PlayerLife>();
+		Engine::Entity* player = Core::Engine::Graph::findEntityWithName("Player");
+		
+		if (player)
+			player->tryGetComponent<PlayerLife>(playerLife);
 	}
 
 	void EnemyState::update()
@@ -46,7 +49,9 @@ namespace Gameplay
 		if (attackCooldown.timerOn())
 		{
 			attackCooldown.setDelay(1.f);
-			playerLife->hurt(1);
+
+			if (!playerLife)
+				playerLife->hurt(1);
 		}
 	}
 
@@ -71,11 +76,11 @@ namespace Gameplay
 			+ " " + std::to_string(isGrounded);
 	}
 
-	void EnemyState::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void EnemyState::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<EnemyState> es;
-		if (!gameObject.tryGetComponent(es))
-			es = gameObject.addComponent<EnemyState>();
+		EnemyState* es;
+		if (!owner.tryGetComponent(es))
+			es = owner.addComponent<EnemyState>();
 
 		iss >> es->isIdle;
 		iss >> es->isWalking;

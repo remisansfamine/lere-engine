@@ -13,15 +13,16 @@ namespace LowRenderer
 	{
 	private:
 		LowRenderer::Model model;
-		std::shared_ptr<Physics::Collider> collider = nullptr;
+		Physics::Collider* collider = nullptr;
 
 	public:
-		ColliderRenderer(Engine::GameObject& gameObject, std::shared_ptr<Physics::Collider> ptr, const std::string& modelFilePath);
+		ColliderRenderer(Engine::Entity& owner, Physics::Collider* ptr, const std::string& modelFilePath);
 		~ColliderRenderer() {}
 
 		Core::Maths::mat4 getModelCollider() const;
-		bool canBeDraw();
+		bool canBeDraw() const;
 		void draw() const override;
 		void drawImGui() override;
+		void onDestroy() override;
 	};
 }

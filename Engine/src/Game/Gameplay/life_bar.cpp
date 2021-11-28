@@ -5,15 +5,15 @@
 
 namespace Gameplay
 {
-	LifeBar::LifeBar(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<LifeBar>(this))
+	LifeBar::LifeBar(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void LifeBar::start()
 	{
-		pivot = getHost().getComponent<Physics::Transform>()->getChild(0);
+		pivot = getHost().getComponent<Physics::TransformComponent>()->getChild(0);
 	}
 
 	void LifeBar::updateSprite(int life, int maxLife)
@@ -21,7 +21,10 @@ namespace Gameplay
 		if (life < 0)
 			return;
 
-		pivot->m_scale.x = (float)life / (float)maxLife;
+		Core::Maths::vec3 scale = pivot->scale;
+		scale.x = (float)life / (float)maxLife;
+
+		pivot->scale = scale;
 	}
 
 	std::string LifeBar::toString() const
@@ -29,10 +32,10 @@ namespace Gameplay
 		return "COMP LIFEBAR ";
 	}
 
-	void LifeBar::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void LifeBar::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<LifeBar> lb;
-		if (!gameObject.tryGetComponent(lb))
-			lb = gameObject.addComponent<LifeBar>();
+		LifeBar* lb;
+		if (!owner.tryGetComponent(lb))
+			lb = owner.addComponent<LifeBar>();
 	}
 }

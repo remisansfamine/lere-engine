@@ -33,14 +33,13 @@ namespace Resources
 		std::shared_ptr<Font> m_font = nullptr;
 
 	public:
-		Text(Engine::GameObject& gameObject, const std::string& path);
-		Text(Engine::GameObject& gameObject, std::shared_ptr<Text> ptr);
+		Text(Engine::Entity& owner, const std::string& path);
 		~Text();
 
 		void draw() const;
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

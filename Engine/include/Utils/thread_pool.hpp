@@ -28,7 +28,7 @@ namespace Multithread
 
         void infiniteLoop();
 
-        std::size_t threadsCount;
+        std::size_t threadsCount = 0u;
 
     public:
         ~ThreadPool();

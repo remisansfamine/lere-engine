@@ -10,10 +10,10 @@ namespace Gameplay
 	private:
 
 		int healCount = 2;
-		std::shared_ptr<Physics::Transform> transform;
+		Physics::TransformComponent* transform;
 
 	public:
-		MedKit(Engine::GameObject& gameObject);
+		MedKit(Engine::Entity& owner);
 
 		void start() override;
 		void update() override;
@@ -21,7 +21,7 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 		void onTriggerEnter(Physics::Collider* collider) override;
 	};

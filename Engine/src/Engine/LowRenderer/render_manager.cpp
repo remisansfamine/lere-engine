@@ -25,19 +25,49 @@ namespace LowRenderer
 		Core::Debug::Log::info("Destroying the Render Manager");
 	}
 
+	void RenderManager::GLSetCapState(const GLenum cap, bool state)
+	{
+		RenderManager* renderManager = instance();
+
+		if (renderManager->enabledCaps[cap] == state)
+			return;
+
+		renderManager->enabledCaps[cap] = state;
+		state ? glEnable(cap) : glDisable(cap);
+	}
+
+
+	void RenderManager::GLEnable(const GLenum cap)
+	{
+		GLSetCapState(cap, true);
+	}
+
+	void RenderManager::GLDisable(const GLenum cap)
+	{
+		GLSetCapState(cap, false);
+	}
+
 	void RenderManager::drawShadows()
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
-		glCullFace(GL_FRONT);
+
+		GLEnable(GL_CULL_FACE);
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
 
-		for (int i = 0; i < lightCount; i++)
-			lights[i]->compute();
-
+		int i = 0;
 		for (auto& light : lights)
+		{
+			if (i >= lightCount)
+				break;
+
+			light->compute();
+			i++;
+		}
+
+		for (const auto& light : lights)
 		{
 			if (!light->isActive() || light->shadow == nullptr)
 				continue;
@@ -53,21 +83,25 @@ namespace LowRenderer
 
 			glClear(GL_DEPTH_BUFFER_BIT);
 
+			glCullFace(GL_FRONT);
 			for (auto& model : models)
 				model->simpleDraw(program);
+			glCullFace(GL_BACK);
 
 			light->shadow->unbindAndResetViewport();
 		}
+
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void RenderManager::drawSkybox()
 	{
-		glEnable(GL_FRAMEBUFFER_SRGB);
+		glCullFace(GL_FRONT);
 
-		if (skyBoxes.size() > 0)
+		for (auto& skyBox : skyBoxes)
 		{
-			if (skyBoxes.back()->isActive())
-				skyBoxes.back()->draw();
+			if (skyBox->isActive())
+				skyBox->draw();
 		}
 	}
 
@@ -75,13 +109,16 @@ namespace LowRenderer
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
+		GLEnable(GL_FRAMEBUFFER_SRGB);
+
+		GLEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
 		// Number of lights to render (8 max)
 		int lightCount = std::min((int)lights.size(), 8);
 
 		// Draw renderers
-		for (std::shared_ptr<ModelRenderer>& model : models)
+		for (const auto& model : models)
 		{
 			if (!model->isActive())
 				continue;
@@ -96,8 +133,18 @@ namespace LowRenderer
 
 				getCurrentCamera()->sendViewProjToProgram(program);
 
-				for (int i = 0; i < lightCount; i++)
-					lights[i]->sendToProgram(program, i);
+				int i = 0;
+				for (auto& light : lights)
+				{
+					if (i >= lightCount)
+						break;
+
+					light->sendToProgram(program, i);
+					i++;
+				}
+
+				for (auto& skyBox : skyBoxes)
+					skyBox->sendToProgram(program);
 			}
 
 			model->draw();
@@ -112,10 +159,12 @@ namespace LowRenderer
 	{
 		std::shared_ptr<Resources::ShaderProgram> program;
 
+		glCullFace(GL_BACK);
+
 		glClear(GL_DEPTH_BUFFER_BIT);
 
 		// Draw renderers
-		for (std::shared_ptr<SpriteRenderer>& sprite : sprites)
+		for (const auto& sprite : sprites)
 		{
 			if (!sprite->isActive())
 				continue;
@@ -136,7 +185,7 @@ namespace LowRenderer
 
 		program->unbind();
 
-		glDisable(GL_FRAMEBUFFER_SRGB);
+		GLDisable(GL_FRAMEBUFFER_SRGB);
 	}
 
 	void RenderManager::draw()
@@ -144,8 +193,8 @@ namespace LowRenderer
 		RenderManager* RM = instance();
 
 		RM->drawShadows();
-		RM->drawSkybox();
 		RM->drawModels();
+		RM->drawSkybox();
 		RM->drawSprites();
 	}
 
@@ -154,16 +203,16 @@ namespace LowRenderer
 		if (colliders.size() == 0)
 			return;
 
-		glDisable(GL_DEPTH_TEST);
+		GLDisable(GL_DEPTH_TEST);
 
-		std::shared_ptr<Resources::ShaderProgram> program = colliders[0]->getProgram();
+		std::shared_ptr<Resources::ShaderProgram> program = (*colliders.begin())->getProgram();
 
 		if (!program->bind())
 			return;
 
 		getCurrentCamera()->sendProjToProgram(program);
 
-		for (const std::shared_ptr<ColliderRenderer>& rendererCollider : colliders)
+		for (const auto& rendererCollider : colliders)
 		{
 			if (rendererCollider->canBeDraw())
 				rendererCollider->draw();
@@ -171,71 +220,58 @@ namespace LowRenderer
 
 		program->unbind();
 
-		glEnable(GL_DEPTH_TEST);
+		GLEnable(GL_DEPTH_TEST);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<Light>& compToLink)
+	void RenderManager::linkComponent(Light* compToLink)
 	{
 		// Insert light to render
-		instance()->lights.push_back(compToLink);
+		instance()->lights.insert(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<ModelRenderer>& compToLink)
+	void RenderManager::linkComponent(ModelRenderer* compToLink)
 	{
 		// Insert model to renderer
-		instance()->models.push_back(compToLink);
+		instance()->models.insert(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<SpriteRenderer>& compToLink)
+	void RenderManager::linkComponent(SpriteRenderer* compToLink)
 	{
 		// Insert sprite to renderer
-		instance()->sprites.push_back(compToLink);
+		instance()->sprites.insert(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<Camera>& compToLink)
+	void RenderManager::linkComponent(Camera* compToLink)
 	{
 		// Insert camera to render
-		instance()->cameras.push_back(compToLink);
+		instance()->cameras.insert(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<SkyBox>& compToLink)
+	void RenderManager::linkComponent(SkyBox* compToLink)
 	{
 		// Insert camera to render
-		instance()->skyBoxes.push_back(compToLink);
+		instance()->skyBoxes.insert(compToLink);
 	}
 
-	void RenderManager::linkComponent(const std::shared_ptr<ColliderRenderer>& compToLink)
+	void RenderManager::linkComponent(ColliderRenderer* compToLink)
 	{
 		// Insert camera to render
-		instance()->colliders.push_back(compToLink);
+		instance()->colliders.insert(compToLink);
+	}
+
+	void RenderManager::removeComponent(ColliderRenderer* compToRemove)
+	{
+		instance()->colliders.erase(compToRemove);
 	}
 
 	void RenderManager::removeComponent(SpriteRenderer* compToRemove)
 	{
-		RenderManager* RM = instance();
-
-		for (auto it = RM->sprites.begin(); it != RM->sprites.end(); it++)
-		{
-			if (it->get() == compToRemove)
-			{
-				RM->sprites.erase(it);
-				break;
-			}
-		}
+		instance()->sprites.erase(compToRemove);
 	}
 
 	void RenderManager::removeComponent(ModelRenderer* compToRemove)
 	{
-		RenderManager* RM = instance();
-
-		for (auto it = RM->models.begin(); it != RM->models.end(); it++)
-		{
-			if (it->get() == compToRemove)
-			{
-				RM->models.erase(it);
-				break;
-			}
-		}
+		instance()->models.erase(compToRemove);
 	}
 
 	void RenderManager::clearAll()
@@ -248,12 +284,12 @@ namespace LowRenderer
 		clearComponents<LowRenderer::SkyBox>();
 	}
 
-	std::shared_ptr<Camera> RenderManager::getCurrentCamera()
+	Camera* RenderManager::getCurrentCamera()
 	{
 		RenderManager* RM = instance();
 
 		if (RM->cameras.size() > 0)
-			return RM->cameras.back();
+			return *RM->cameras.rbegin();
 
 		return nullptr;
 	}

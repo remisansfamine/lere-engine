@@ -4,25 +4,27 @@
 #include <unordered_map>
 #include <queue>
 
-#include "game_object.hpp"
+#include "entity.hpp"
 
 namespace Resources
 {
 	class Scene
 	{
 	private:
-		std::string curGoName = "";
+		std::string curEntityName = "";
 
-		void setGameObjectParent(const std::string& goName, const std::string& goChildName);
+		void setEntityParent(const std::string& entityName, const std::string& entityChildName);
 
 		std::queue<Engine::Object*> destroyQueue;
 
 	public:
+		bool stopAllUpdate = false;
+
 		bool cursorState = true;
 		bool isLoadFinished = false;
 
 		std::string filePath;
-		std::unordered_map<std::string, Engine::GameObject> gameObjects;
+		std::unordered_map<std::string, Engine::Entity> entities;
 
 		Scene(const std::string& path);
 		~Scene();
@@ -35,17 +37,17 @@ namespace Resources
 		void fixedUpdate();
 
 		void cleanObjects();
-		Engine::GameObject* findGameObjectWithName(const std::string& gameObjectName);
+		Engine::Entity* findEntityWithName(const std::string& entityName);
 
-		void deleteGameObject(const std::string& goName);
+		void deleteEntity(const std::string& goName);
 
 		void drawHierarchy();
 		void drawInspector();
 
 		void addToDestroyQueue(Engine::Object* objToDestroy);
 
-		std::string getUniqueGOName(const std::string& gameObjectName);
-		Engine::GameObject& instantiate(const std::string& gameObjectName = "GameObject");
-		Engine::GameObject& instantiate(const std::string& gameObjectName, const std::string& recipePath);
+		std::string getUniqueEntityName(const std::string& entityName);
+		Engine::Entity& instantiate(const std::string& entityName = "Entity");
+		Engine::Entity& instantiate(const std::string& entityName, const std::string& recipePath);
 	};
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <unordered_set>
 
 #include "component.hpp"
 #include "rigidbody.hpp"
@@ -13,17 +14,17 @@ namespace Physics
 	{
 	protected:
 		std::unordered_map<Collider*, Collision> m_colliders;
-		std::vector<Collider*> m_triggers;
+		std::unordered_set<Collider*> m_triggers;
 		Core::Maths::vec3 m_positionOffset;
 
-		Collider(Engine::GameObject& gameObject, std::shared_ptr<Collider> ptr);
+		Collider(Engine::Entity& owner);
 
 	public:
 		Core::Maths::vec3 m_center;
 		Core::Maths::vec3 extensions;
 
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
-		std::shared_ptr<Physics::Rigidbody> m_rigidbody = nullptr;
+		Physics::TransformComponent* m_transform = nullptr;
+		Physics::Rigidbody* m_rigidbody = nullptr;
 
 		bool isTrigger = false;
 		bool isDraw = false;

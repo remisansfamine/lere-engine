@@ -1,14 +1,20 @@
 #version 450 core
 
-in vec3 TexCoord;
-in vec3 Normal;
-in vec3 FragPos;
+//#define BLINN_PHONG
+//#define USE_NORMAL_MAP
+#define LIGHT_COUNT 8
 
-uniform vec3 viewPos;
-uniform vec2 tilling;
-uniform float farPlane;
-
-out vec4 FragColor;
+in VS_OUT
+{
+	vec3 FragPos;
+	vec3 TangentFragPos;
+	vec3 TexCoord;
+	vec3 TangentViewPos;
+	vec3 Normal;
+	vec3 Tangent;
+	vec3 Bitangent;
+	mat3 TBN;
+} fs_in;
 
 struct Material
 {
@@ -17,15 +23,15 @@ struct Material
 	vec4 specular;
 	vec4 emissive;
 	float shininess;
+	float refractiveIndex;
 
 	sampler2D alphaTexture;
 	sampler2D ambientTexture;
 	sampler2D diffuseTexture;
 	sampler2D emissiveTexture;
 	sampler2D specularTexture;
+	sampler2D normalMap;
 };
-
-uniform Material material;
 
 struct Light
 {
@@ -46,19 +52,30 @@ struct Light
 	mat4 spaceMatrix;
 };
 
-#define NBR_LIGHTS 8
-Light lights[NBR_LIGHTS];
+uniform vec3 viewPos;
+uniform float farPlane;
 
-uniform mat4 lightAttribs2[NBR_LIGHTS][1];
-uniform mat4 lightAttribs1[NBR_LIGHTS][1];
-uniform mat4 lightAttribs3[NBR_LIGHTS][1];
-uniform sampler2D shadowMaps[NBR_LIGHTS][1];
-uniform samplerCube shadowCubeMaps[NBR_LIGHTS][1];
+uniform Material material;
+
+Light lights[LIGHT_COUNT];
+
+uniform mat4 lightAttribs1[LIGHT_COUNT][1];
+uniform mat4 lightAttribs2[LIGHT_COUNT][1];
+uniform mat4 lightAttribs3[LIGHT_COUNT][1];
+uniform sampler2D shadowMaps[LIGHT_COUNT][1];
+uniform samplerCube shadowCubeMaps[LIGHT_COUNT][1];
+
+uniform samplerCube environmentMap;
+
+vec3 normal;
+vec3 viewDir = normalize(fs_in.TangentFragPos - fs_in.TangentViewPos);
+
+out vec4 FragColor;
 
 void parseLights()
 {
 	// Parse each light matrix to a light struct
-	for (int i = 0; i < NBR_LIGHTS; i++)
+	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
 		lights[i].position	= lightAttribs1[i][0][0];
 		lights[i].ambient	= lightAttribs1[i][0][1];
@@ -81,16 +98,15 @@ float getDirectionalShadow(int indexLight)
 	float shadow = 0.0;
 
 	// Perspcetive divide
-	vec4 fragPosLightSpace = lights[indexLight].spaceMatrix * vec4(FragPos, 1.0);
+	vec4 fragPosLightSpace = lights[indexLight].spaceMatrix * vec4(fs_in.FragPos, 1.0);
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	// [0,1]
 	projCoords = projCoords * 0.5 + 0.5;
 
 	float closestDepth = texture(shadowMaps[indexLight][0], projCoords.xy).r;
 	float currentDepth = projCoords.z;
-	vec3 normal = normalize(Normal);
 
-	vec3 lightDir = normalize(lights[indexLight].position.xyz - FragPos);
+	vec3 lightDir = normalize(lights[indexLight].position.xyz - fs_in.FragPos);
 	float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
 
 	// Apply Percentage-Closer filtering to avoid "stair" shadows
@@ -128,13 +144,13 @@ vec3 sampleOffsetDirections[20] = vec3[]
 
 float getPointShadow(int indexLight)
 {
-	vec3 fragToLight = FragPos - lights[indexLight].position.xyz;
+	vec3 fragToLight = fs_in.FragPos - lights[indexLight].position.xyz;
 	float currentDepth = length(fragToLight);
 
 	float shadow = 0.0;
 	float bias = 0.15;
 	int samples = 20;
-	float viewDistance = length(viewPos - FragPos);
+	float viewDistance = length(fs_in.TangentViewPos - fs_in.FragPos);
 	float diskRadius = (1.0 + (viewDistance / farPlane)) / 25.0;
 	for (int i = 0; i < samples; i++)
 	{
@@ -164,16 +180,14 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 
 	shadow = 0.0;
 
-	// Initialize some variables to avoid to calculate them another time
-	vec3 normal = normalize(Normal);
-	vec3 viewDir = normalize(viewPos - FragPos);
-
-	for (int i = 0; i < NBR_LIGHTS; i++)
+	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
-		if (!lights[i].enable)
+		Light light = lights[i];
+
+		if (!light.enable)
 			continue;
 
-		if (lights[i].hasShadow)
+		if (light.hasShadow)
 		{
 			shadow += getShadow(i);
 
@@ -182,7 +196,7 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 		}
 
 		// Get light direction, if the light is a point light or a directionnal light
-		vec3 lightDir = lights[i].position.xyz - FragPos * lights[i].position.w;
+		vec3 lightDir = fs_in.TBN * light.position.xyz - fs_in.TangentFragPos * light.position.w;
 	
 		// Compute the light direction and the distance between the fragment and the light
 		float distance = length(lightDir);
@@ -193,65 +207,124 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 		float finalIntensity = 1.0;
 
 		// If the light is not a directionnal light, compute the final intensity
-		if (lights[i].position.w != 0.0)
+		if (light.position.w != 0.0)
 		{
 			// Get spot cutoff and spot intensity 
-			float theta = dot(lightDir, normalize(lights[i].spotDirection));
-			float spotIntensity = clamp((theta - lights[i].spotOuterCutoff) / (lights[i].spotCutoff - lights[i].spotOuterCutoff), 0.0, 1.0);
+			float theta = dot(lightDir, normalize(light.spotDirection));
+			float spotIntensity = clamp((theta - light.spotOuterCutoff) / (light.spotCutoff - light.spotOuterCutoff), 0.0, 1.0);
 
 			// Get attenuation (c + l * d + q * d²)
-			float attenuation = lights[i].attenuation.x +
-								lights[i].attenuation.y * distance +
-								lights[i].attenuation.z * distance * distance;
+			float attenuation = light.attenuation.x +
+								light.attenuation.y * distance +
+								light.attenuation.z * distance * distance;
 
 			// Apply attenuation  to the spot intensity
 			finalIntensity = spotIntensity / attenuation;
 		}
 
+		// Compute ambient
+		ambient += light.ambient;
+
 		// Pre-compute normal ElightDir
 		float NdotL = dot(normal, lightDir);
 
-		// Compute ambient
-		ambient += lights[i].ambient;
+		float diffuseValue = NdotL * finalIntensity;
+
+		if (diffuseValue <= 0.0)
+			continue;
 
 		// Compute diffuse
-		diffuse += max(NdotL, 0.0) * finalIntensity * lights[i].diffuse;
+		diffuse += diffuseValue * light.diffuse;
 
 		// Compute specular
-		vec3 reflectDir = 2.0 * NdotL * normal - lightDir;  
-		specular += pow(max(dot(viewDir, reflectDir), 0.0), material.shininess) * finalIntensity * lights[i].specular;
+
+		#ifdef BLINN_PHONG
+			// Blinn phong
+			vec3 halfwayDir = normalize(lightDir - viewDir);
+			float dotValue = dot(normal, halfwayDir);
+		#else
+			// Phong
+			vec3 reflectDir = lightDir - 2.0 * NdotL * normal; 
+			float dotValue = dot(viewDir, reflectDir);
+		#endif
+
+		specular += pow(max(dotValue, 0.0), material.shininess) * finalIntensity * light.specular;
 	}
 
 	shadow = 1.0 - shadow;
 }
 
-vec2 getTilledTexCoords()
-{	
-	return TexCoord.st * tilling.x + tilling.y;
+vec4 getReflectEMColor()
+{
+	vec3 reflected = reflect(viewDir, normal);
+
+	return texture(environmentMap, reflected);
+}
+
+vec4 getRefractedEMColor()
+{
+	float ratio = 1.0 / material.refractiveIndex;
+	vec3 refracted = refract(viewDir, normal, ratio);
+
+	return texture(environmentMap, refracted);
+}
+
+vec4 getEnvironmentColor()
+{
+	vec4 reflectedEMColor = getReflectEMColor();
+	vec4 refractedEMColor = getRefractedEMColor();
+
+	return mix(reflectedEMColor, refractedEMColor, 0);
+}
+
+vec4 getShadedColor()
+{
+	vec4 ambient, diffuse, specular;
+	float shadow;
+
+	getLightColor(ambient, diffuse, specular, shadow);
+
+	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, fs_in.TexCoord.st));
+
+	vec4 diffuseColor = material.diffuse * diffuse * shadow;
+
+	vec4 specularColor = specular * (material.specular + texture(material.specularTexture, fs_in.TexCoord.st));
+
+	vec4 emissiveColor = material.emissive + texture(material.emissiveTexture, fs_in.TexCoord.st);
+
+	return (ambientColor + diffuseColor) * texture(material.diffuseTexture, fs_in.TexCoord.st) + emissiveColor + specularColor;
+}
+
+float getAlphaValue()
+{
+	return texture(material.alphaTexture, fs_in.TexCoord.st).r;
+}
+
+void setNormal()
+{
+	#ifdef USE_NORMAL_MAP
+		normal = texture(material.normalMap, fs_in.TexCoord.st).rgb * 2.0 - 1.0;
+	#else
+		normal = fs_in.Normal;
+	#endif
+
+	normal = normalize(normal);
 }
 
 void main()
 {
 	parseLights();
 
-	vec4 ambient, diffuse, specular;
-	float shadow;
-
-	getLightColor(ambient, diffuse, specular, shadow);
-
-	vec2 tilledTexCoords = getTilledTexCoords();
-
-	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, tilledTexCoords));
-
-	vec4 diffuseColor = material.diffuse * diffuse * shadow;
-
-	vec4 specularColor = specular * shadow * (material.specular + texture(material.specularTexture, tilledTexCoords));
-
-	vec4 emissiveColor = material.emissive + texture(material.emissiveTexture, tilledTexCoords);
+	// Initialize some variables to avoid to calculate them another time
+	setNormal();
 
 	// Get texture color applied to the light
-	vec4 shadedColor = (ambientColor + diffuseColor) * texture(material.diffuseTexture, tilledTexCoords) + emissiveColor + specularColor;
-	FragColor = shadedColor;
+	vec4 shadedColor = getShadedColor();
+	vec4 environmentColor = getEnvironmentColor();
 
-	FragColor.a = texture(material.alphaTexture, tilledTexCoords).r;
+	vec4 finalColor = mix(shadedColor, environmentColor, 0);
+
+	FragColor.rgb = finalColor.rgb;
+
+	FragColor.a = getAlphaValue();
 }

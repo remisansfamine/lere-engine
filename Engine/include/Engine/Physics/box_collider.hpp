@@ -8,11 +8,11 @@ namespace Physics
 	class BoxCollider : public Collider
 	{
 	private:
-		BoxCollider(Engine::GameObject& gameObject, std::shared_ptr<BoxCollider> ptr);
+		BoxCollider(Engine::Entity& owner, std::shared_ptr<BoxCollider> ptr);
 
 		void onDestroy() override;
 	public:
-		BoxCollider(Engine::GameObject& gameObject);
+		BoxCollider(Engine::Entity& owner);
 
 		Box box = Box();
 
@@ -22,6 +22,6 @@ namespace Physics
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

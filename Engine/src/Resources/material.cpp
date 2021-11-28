@@ -19,20 +19,21 @@ namespace Resources
 	void Material::sendToShader(const std::shared_ptr<ShaderProgram>& shaderProgram) const
 	{
 		// Set the model's material informations 
-		shaderProgram->setUniform("material.ambient", &ambient);
-		shaderProgram->setUniform("material.diffuse", &diffuse);
-		shaderProgram->setUniform("material.specular", &specular);
-		shaderProgram->setUniform("material.emissive", &emissive);
+		shaderProgram->setUniform("material.ambient", &ambient, false);
+		shaderProgram->setUniform("material.diffuse", &diffuse, false);
+		shaderProgram->setUniform("material.specular", &specular, false);
+		shaderProgram->setUniform("material.emissive", &emissive, false);
 		
-		shaderProgram->setUniform("material.shininess", &shininess);
+		shaderProgram->setUniform("material.shininess", &shininess, false);
+		shaderProgram->setUniform("material.refractiveIndex", &opticalDensity, false);
 
 		// Set the textures' location of the shader program
-		std::vector<std::string> shaderName =
+		std::vector<std::string> textureName =
 		{ "material.alphaTexture", "material.ambientTexture", "material.diffuseTexture",
-			"material.emissiveTexture", "material.specularTexture"};
+			"material.emissiveTexture", "material.specularTexture", "material.normalMap" };
 
-		for (int i = 0; i < 5; i++)
-			shaderProgram->setUniform(shaderName[i], &i);
+		for (int i = 0; i < textureName.size(); i++)
+			shaderProgram->setUniform(textureName[i], &i, false);
 	}
 
 	void Material::bindTextures() const
@@ -57,6 +58,10 @@ namespace Resources
 			if (!specularTex->bind(4))
 				Texture::defaultSpecular->bind(4);
 
+		if (normalMap)
+			if (!normalMap->bind(5))
+				Texture::defaultNormalMap->bind(5);
+
 		glActiveTexture(0);
 	}
 
@@ -64,6 +69,16 @@ namespace Resources
 	{
 		if (ImGui::TreeNode(m_filePath.c_str()))
 		{
+			ImGui::ColorEdit4("Ambient color", &ambient.data.x);
+			ImGui::ColorEdit4("Diffule color", &diffuse.data.x);
+			ImGui::ColorEdit4("Specular color", &specular.data.x);
+			ImGui::ColorEdit4("Emissive color", &emissive.data.x);
+
+			ImGui::DragFloat("Shininess", &shininess);
+			ImGui::DragFloat("OpticalDensity", &opticalDensity);
+			ImGui::DragFloat("Transparency", &transparency);
+			ImGui::DragFloat("Illumination", &illumination);
+
 			if (ImGui::TreeNode("Alpha texture:"))
 			{
 				alphaTex->drawImGui();
@@ -91,6 +106,12 @@ namespace Resources
 			if (ImGui::TreeNode("Specular texture:"))
 			{
 				specularTex->drawImGui();
+				ImGui::TreePop();
+			}
+
+			if (ImGui::TreeNode("Normal texture:"))
+			{
+				normalMap->drawImGui();
 				ImGui::TreePop();
 			}
 
@@ -181,6 +202,8 @@ namespace Resources
 				texturePtr = &emissiveTex;
 			else if (type == "map_d")
 				texturePtr = &alphaTex;
+			else if (type == "map_bump")
+				texturePtr = &normalMap;
 			else
 				continue;
 

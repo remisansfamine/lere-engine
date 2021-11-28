@@ -165,7 +165,7 @@
     <ClCompile Include="src\Engine\object.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\game_object.cpp">
+    <ClCompile Include="src\Engine\entity.cpp">
       <Filter>Fichiers sources\Engine</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine\component.cpp">
@@ -354,11 +354,17 @@
     <ClCompile Include="src\Core\benchmarker.cpp">
       <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Engine\script_component.cpp">
-      <Filter>Fichiers sources\Engine</Filter>
+    <ClCompile Include="src\Core\manager.cpp">
+      <Filter>Fichiers sources\Core</Filter>
     </ClCompile>
-    <ClCompile Include="src\Resources\script.cpp">
-      <Filter>Fichiers sources\Resources</Filter>
+    <ClCompile Include="src\Engine\LowRenderer\uniform.cpp">
+      <Filter>Fichiers sources\Engine\LowRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\stdpch.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\no_clip_movement.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +373,9 @@
     </ClInclude>
     <ClInclude Include="include\Core\application.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\singleton.hpp">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
     <ClInclude Include="include\Resources\resources_manager.hpp">
       <Filter>Fichiers d%27en-tête\Resources</Filter>
@@ -392,7 +401,7 @@
     <ClInclude Include="include\Engine\object.hpp">
       <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\game_object.hpp">
+    <ClInclude Include="include\Engine\entity.hpp">
       <Filter>Fichiers d%27en-tête\Engine</Filter>
     </ClInclude>
     <ClInclude Include="include\Engine\component.hpp">
@@ -587,9 +596,6 @@
     <ClInclude Include="include\Game\Gameplay\medkit.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
     </ClInclude>
-    <ClInclude Include="include\Game\pause_screen.hpp">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="include\Game\lose_screen.hpp">
       <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
@@ -602,20 +608,32 @@
     <ClInclude Include="include\Utils\thread_pool.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="thread_manager.hpp">
+    <ClInclude Include="include\Core\thread_manager.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
     <ClInclude Include="include\Core\benchmarker.hpp">
       <Filter>Fichiers d%27en-tête\Core</Filter>
     </ClInclude>
-    <ClInclude Include="include\Utils\singleton.hpp">
+    <ClInclude Include="include\Core\manager.hpp">
+      <Filter>Fichiers d%27en-tête\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine\LowRenderer\uniform.hpp">
+      <Filter>Fichiers d%27en-tête\Engine\LowRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Utils\property.hpp">
       <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine\script_component.hpp">
-      <Filter>Fichiers d%27en-tête\Engine</Filter>
+    <ClInclude Include="include\Utils\property_extension.hpp">
+      <Filter>Fichiers d%27en-tête\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="include\Resources\script.hpp">
-      <Filter>Fichiers d%27en-tête\Resources</Filter>
+    <ClInclude Include="include\stdpch.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\pause_screen.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\no_clip_movement.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -632,12 +650,6 @@
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="resources\shaders\vertexCollider.vert">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\advancedLighting.frag">
-      <Filter>Fichiers de ressources\Shaders</Filter>
-    </None>
-    <None Include="resources\shaders\advancedLighting.vert">
       <Filter>Fichiers de ressources\Shaders</Filter>
     </None>
     <None Include="resources\shaders\fragmentShader.frag">

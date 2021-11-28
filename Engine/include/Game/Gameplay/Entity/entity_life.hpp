@@ -19,11 +19,11 @@ namespace Gameplay
 	class EntityLife : public Engine::Component
 	{
 	protected:
-		EntityLife(Engine::GameObject& gameObject, std::shared_ptr<EntityLife> ptr, const std::string& _hurtSound = "", const std::string& _deathSound = "");
+		EntityLife(Engine::Entity& owner, const std::string& _hurtSound = "", const std::string& _deathSound = "");
 		
 		virtual void kill();
 
-		std::shared_ptr<LifeBar> lifeBar;
+		LifeBar* lifeBar;
 
 		std::string hurtSound = "";
 		std::string deathSound = "";

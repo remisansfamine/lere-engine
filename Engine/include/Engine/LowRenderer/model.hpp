@@ -11,7 +11,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 }
 
 namespace LowRenderer
@@ -26,12 +26,14 @@ namespace LowRenderer
 		std::string m_filePath;
 		std::string m_name;
 
-		Model(std::shared_ptr<Physics::Transform>& transform, const std::string& meshName);
+		Model(Physics::TransformComponent* transform, const std::string& meshName);
 
 	public:
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+		bool hasFaceCulling = true;
 
-		Model(const std::string& filePath, std::shared_ptr<Physics::Transform> transform);
+		Physics::TransformComponent* m_transform = nullptr;
+
+		Model(const std::string& filePath, Physics::TransformComponent* transform);
 
 		Model() = default;
 

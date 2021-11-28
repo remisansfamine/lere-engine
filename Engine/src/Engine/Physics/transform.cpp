@@ -6,114 +6,117 @@
 
 namespace Physics
 {
-	Transform::Transform(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<Transform>(this))
+	void Transform::setChildrenDirty()
 	{
+		for (auto child : children)
+			child->dirty(dirtyFlag::GLOBAL_MODEL);
 	}
 
-	void Transform::onDestroy()
+	Core::Maths::mat4 Transform::getGlobalModel() const
 	{
-		if (hasParent())
-			getParent()->deleteChildFromTransform(this);
-	}
-
-	bool Transform::hasParent()
-	{
-		return parent != nullptr;
-	}
-
-	bool Transform::hasChild()
-	{
-		return children.size() > 0;
-	}
-
-	Transform* Transform::getChild(int childIndex)
-	{
-		return children[childIndex];
-	}
-
-	Engine::GameObject& Transform::getGOChild(int childIndex)
-	{
-		return children[childIndex]->getHost();
-	}
-
-	int Transform::getChildrenCount()
-	{
-		return (int)(children.size());
-	}
-
-	Engine::GameObject& Transform::getGOParent()
-	{
-		return parent->getHost();
-	}
-
-	std::shared_ptr<Physics::Transform> Transform::getParent()
-	{
-		return parent;
-	}
-
-	Core::Maths::mat4 Transform::getModel()
-	{
-		return Core::Maths::translate(m_position) *
-			Core::Maths::rotateZ(m_rotation.z) *
-			Core::Maths::rotateY(m_rotation.y) *
-			Core::Maths::rotateX(m_rotation.x) *
-			Core::Maths::scale(m_scale);
-		/*if (!m_hasBeenUpdated)
-		{
-			m_model = Core::Maths::translate(m_position) *
-					  Core::Maths::rotateZ(m_rotation.z) *
-					  Core::Maths::rotateY(m_rotation.y) *
-					  Core::Maths::rotateX(m_rotation.x) *
-					  Core::Maths::scale(m_scale);
-
-			m_hasBeenUpdated = true;
-		}
-
-		return m_model;*/
-	}
-
-	Core::Maths::mat4 Transform::getGlobalModel()
-	{
-		if (parent)
-			return getParentModel() * getModel();
-
-		return getModel();
+		return globalModel;
 	}
 
 	Core::Maths::mat4 Transform::getParentModel() const
 	{
 		if (parent)
-			return parent->getGlobalModel();
+			return parent->globalModel;
 
 		return Core::Maths::identity();
 	}
 
-	void Transform::deleteChildFromTransform(Transform* transform)
+	TransformComponent::TransformComponent(Engine::Entity& owner)
+		: Component(owner)
+	{
+
+	}
+
+	void TransformComponent::onDestroy()
+	{
+		removeFromParent();
+	}
+
+	Core::Maths::vec3 TransformComponent::getPosition() const
+	{
+		return position;
+	}
+
+	Core::Maths::vec3 TransformComponent::getRotation() const
+	{
+		return rotation;
+	}
+
+	Core::Maths::vec3 TransformComponent::getScale() const
+	{
+		return scale;
+	}
+
+	bool TransformComponent::hasParent()
+	{
+		return parent != nullptr;
+	}
+
+	bool TransformComponent::hasChild()
+	{
+		return children.size() > 0;
+	}
+
+	TransformComponent* TransformComponent::getChild(int childIndex)
+	{
+		return children[childIndex];
+	}
+
+	Engine::Entity& TransformComponent::getEntityChild(int childIndex)
+	{
+		return children[childIndex]->getHost();
+	}
+
+	int TransformComponent::getChildrenCount()
+	{
+		return (int)(children.size());
+	}
+
+	Engine::Entity& TransformComponent::getEntityParent()
+	{
+		return parent->getHost();
+	}
+
+	Physics::TransformComponent* TransformComponent::getParent()
+	{
+		return parent;
+	}
+
+	void TransformComponent::removeFromParent()
+	{
+		if (hasParent())
+			getParent()->removeChild(this);
+	}
+
+	void TransformComponent::removeChild(TransformComponent* child)
 	{
 		for (size_t i = 0; i < children.size(); i++)
 		{
-			if (children[i] == transform)
-			{
-				children[i] = children.back();
-				children.pop_back();
+			if (children[i] != child)
+				continue;
 
-				return;
-			}
+			children[i] = children.back();
+			children.pop_back();
+
+			return;
 		}
 	}
 
-	Core::Maths::vec3 Transform::getGlobalRotation() const
+	Core::Maths::vec3 TransformComponent::getGlobalRotation() const
 	{
-		return m_rotation + getParentRotation();
+		return rotation + getParentRotation();
 	}
 
-	Core::Maths::vec3 Transform::getGlobalPosition() const
+	Core::Maths::vec3 TransformComponent::getGlobalPosition() const
 	{
-		return m_position + getParentPosition();
+		return position + getParentPosition();
 	}
 
-	Core::Maths::vec3 Transform::getParentRotation() const
+	Core::Maths::vec3 TransformComponent::getParentRotation() const
 	{
 		if (parent)
 			return parent->getGlobalRotation();
@@ -121,7 +124,7 @@ namespace Physics
 		return Core::Maths::vec3(0.f, 0.f, 0.f);
 	}
 
-	Core::Maths::vec3 Transform::getParentPosition() const
+	Core::Maths::vec3 TransformComponent::getParentPosition() const
 	{
 		if (parent)
 			return parent->getGlobalPosition();
@@ -129,59 +132,63 @@ namespace Physics
 		return Core::Maths::vec3(0.f, 0.f, 0.f);
 	}
 
-	Core::Maths::vec3 Transform::getForward()
+	Core::Maths::vec3 TransformComponent::getForward()
 	{
 		auto model = getGlobalModel();
 
 		return -Core::Maths::vec3(model.e[2], model.e[6], model.e[10]);
 	}
 
-	void Transform::setParent(std::shared_ptr<Physics::Transform> _parent)
+	void TransformComponent::setParent(Physics::TransformComponent* newParent)
 	{
-		parent = _parent;
-	}
-
-	void Transform::setParent(Engine::GameObject& gameObject)
-	{
-		std::shared_ptr<Transform> newParent;
-		if (!gameObject.tryGetComponent<Transform>(newParent))
+		if (parent == newParent)
 			return;
 
+		removeFromParent();
+
 		parent = newParent;
+		dirty(dirtyFlag::GLOBAL_MODEL);
 	}
 
-	void Transform::setChild(Physics::Transform* child)
+	void TransformComponent::setParent(Engine::Entity& owner)
+	{
+		TransformComponent* newParent;
+		if (!owner.tryGetComponent<TransformComponent>(newParent))
+			return;
+
+		setParent(newParent);
+	}
+
+	void TransformComponent::setChild(Physics::TransformComponent* child)
 	{
 		children.push_back(child);
 	}
 
-	void Transform::setChild(Engine::GameObject& gameObject)
+	void TransformComponent::setChild(Engine::Entity& owner)
 	{
-		std::shared_ptr<Transform> newParent;
-		if (!gameObject.tryGetComponent<Transform>(newParent))
+		TransformComponent* newParent;
+		if (!owner.tryGetComponent<TransformComponent>(newParent))
 			return;
 
-		children.push_back(newParent.get());
+		children.push_back(newParent);
 	}
 
-	void Transform::update()
-	{
-		m_hasBeenUpdated = true;
-
-		//m_rotation = Utils::clampLoop(m_rotation, 0.f, Core::Maths::TAU);
-	}
-
-	void Transform::drawImGui()
+	void TransformComponent::drawImGui()
 	{
 		if (ImGui::TreeNode("Transform"))
 		{
-			Core::Maths::vec3 rotateDegrees = m_rotation * Core::Maths::RAD2DEG;
+			Core::Maths::vec3 tempPosition = position;
+			Core::Maths::vec3 tempRotation = (Core::Maths::vec3)rotation * Core::Maths::RAD2DEG;
+			Core::Maths::vec3 tempScale = scale;
 
-			ImGui::DragFloat3("Position :", &m_position.x);
-			ImGui::DragFloat3("Rotation :", &rotateDegrees.x, 1.f, 0.f, 360.f);
-			ImGui::DragFloat3("Scale :", &m_scale.x);
+			if (ImGui::DragFloat3("Position :", &tempPosition.x))
+				position = tempPosition;
 
-			m_rotation = rotateDegrees * Core::Maths::DEG2RAD;
+			if (ImGui::DragFloat3("Rotation :", &tempRotation.x, 1.f, 0.f, 360.f))
+				rotation = tempRotation * Core::Maths::DEG2RAD;
+
+			if (ImGui::DragFloat3("Scale :", &tempScale.x))
+				scale = tempScale;
 
 			if (parent)
 			{
@@ -193,34 +200,38 @@ namespace Physics
 
 			ImGui::TreePop();
 		}
-
-		m_hasBeenUpdated = false;
 	}
 
-	std::string Transform::toString() const
+	std::string TransformComponent::toString() const
 	{
-		return  "COMP TRANSFORM " + Utils::vecToStringParsing(m_position) + 
-									Utils::vecToStringParsing(m_rotation) + 
-									Utils::vecToStringParsing(m_scale) + (parent ? parent->getHost().m_name : "none");
+		return  "COMP TRANSFORM " + Utils::vecToStringParsing(position) +
+									Utils::vecToStringParsing(rotation) +
+									Utils::vecToStringParsing(scale) + (parent ? parent->getHost().m_name : "none");
 	}
 
-	void Transform::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss, std::string& parentName)
+	void TransformComponent::parseComponent(Engine::Entity& owner, std::istringstream& iss, std::string& parentName)
 	{
-		std::shared_ptr<Transform> transform;
-		if (!gameObject.tryGetComponent(transform))
-			transform = gameObject.addComponent<Transform>();
+		TransformComponent* transform;
+		if (!owner.tryGetComponent(transform))
+			transform = owner.addComponent<TransformComponent>();
 
-		iss >> transform->m_position.x;
-		iss >> transform->m_position.y;
-		iss >> transform->m_position.z;
+		Core::Maths::vec3 position;
+		iss >> position.x;
+		iss >> position.y;
+		iss >> position.z;
+		transform->position = position;
 
-		iss >> transform->m_rotation.x;
-		iss >> transform->m_rotation.y;
-		iss >> transform->m_rotation.z;
+		Core::Maths::vec3 rotation;
+		iss >> rotation.x;
+		iss >> rotation.y;
+		iss >> rotation.z;
+		transform->rotation = rotation;
 
-		iss >> transform->m_scale.x;
-		iss >> transform->m_scale.y;
-		iss >> transform->m_scale.z;
+		Core::Maths::vec3 scale;
+		iss >> scale.x;
+		iss >> scale.y;
+		iss >> scale.z;
+		transform->scale = scale;
 
 		iss >> parentName;
 	}

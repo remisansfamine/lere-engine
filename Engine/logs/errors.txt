@@ -1,33 +1,21 @@
-[10/14/21 - 09:21:29] ERROR: Unable to read the file: C:\Users\remig\gp_2025scripting_system\Engine/resources/obj/sphere.mtl
-[10/14/21 - 09:21:29] ERROR: Component not found
-[10/14/21 - 09:21:29] ERROR: Component not found
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: viewProj - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: viewOrtho - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: model - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: color - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: tilling - There is no uniform named like that
-[10/14/21 - 09:21:29] ERROR: Cannot find the uniform named: diffuseTex - There is no uniform named like that
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Component not found
-[10/14/21 - 09:21:32] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[10/14/21 - 09:21:32] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[10/14/21 - 09:21:33] ERROR: Cannot find the texture file at C:\Users\remig\gp_2025scripting_system\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory C:\Users\remig\gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.
-[10/14/21 - 09:21:33] ERROR: Cannot find the texture file at C:\Users\remig\gp_2025scripting_system\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory C:\Users\remig\gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.
-[10/14/21 - 09:21:35] ERROR: Cannot find the texture file at C:\Users\remig\gp_2025scripting_system\Engine/resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory C:\Users\remig\gp_2025scripting_system\Engine: Le fichier spécifié est introuvable.
+[11/28/21 - 12:43:03] ERROR: Unable to read the file: D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/sphere.mtl
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Component not found
+[11/28/21 - 12:43:08] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[11/28/21 - 12:43:08] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[11/28/21 - 12:43:09] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
+[11/28/21 - 12:43:09] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
+[11/28/21 - 12:43:11] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.

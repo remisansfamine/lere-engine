@@ -14,12 +14,12 @@ namespace Gameplay
 		float yaw = 0.f;
 		float pitch = 0.f;
 
-		std::shared_ptr<LowRenderer::Camera> camera = nullptr;
-		std::shared_ptr<Physics::Transform> transform = nullptr;
-		std::shared_ptr<Physics::Transform> playerTransform = nullptr;
+		LowRenderer::Camera* camera = nullptr;
+		Physics::TransformComponent* transform = nullptr;
+		Physics::TransformComponent* playerTransform = nullptr;
 
 	public:
-		CameraMovement(Engine::GameObject& gameObject);
+		CameraMovement(Engine::Entity& owner);
 
 		void start() override;
 		void fixedUpdate() override;
@@ -27,6 +27,6 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

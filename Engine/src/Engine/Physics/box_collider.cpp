@@ -10,17 +10,11 @@
 
 namespace Physics
 {
-	BoxCollider::BoxCollider(Engine::GameObject& gameObject, std::shared_ptr<BoxCollider> ptr)
-		: Collider(gameObject, ptr)
+	BoxCollider::BoxCollider(Engine::Entity& owner)
+		: Collider(owner)
 	{
-		PhysicManager::linkComponent(ptr);
-		gameObject.addComponent<LowRenderer::ColliderRenderer>(ptr, "resources/obj/colliders/boxCollider.obj");
-		LowRenderer::RenderManager::linkComponent(gameObject.getComponent<LowRenderer::ColliderRenderer>());
-	}
-
-	BoxCollider::BoxCollider(Engine::GameObject& gameObject)
-		: BoxCollider(gameObject, std::shared_ptr<BoxCollider>(this))
-	{
+		PhysicManager::linkComponent(this);
+		owner.addComponent<LowRenderer::ColliderRenderer>(this, "resources/obj/colliders/boxCollider.obj");
 	}
 
 	void BoxCollider::updateShape()
@@ -58,11 +52,11 @@ namespace Physics
 									 std::to_string(box.offsetRounding) + " " + std::to_string(isTrigger);
 	}
 
-	void BoxCollider::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void BoxCollider::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<BoxCollider> collider;
-		if (!gameObject.tryGetComponent(collider))
-			collider = gameObject.addComponent<BoxCollider>();
+		BoxCollider* collider;
+		if (!owner.tryGetComponent(collider))
+			collider = owner.addComponent<BoxCollider>();
 
 		iss >> collider->box.center.x;
 		iss >> collider->box.center.y;

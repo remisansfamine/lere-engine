@@ -2,7 +2,7 @@
 
 namespace Engine
 {
-	bool Object::isActive()
+	bool Object::isActive() const
 	{
 		return isEnable;
 	}

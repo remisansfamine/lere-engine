@@ -7,15 +7,15 @@
 
 namespace Gameplay
 {
-	MedKit::MedKit(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<MedKit>(this))
+	MedKit::MedKit(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void MedKit::start()
 	{
-		transform = getHost().getComponent<Physics::Transform>();
+		transform = getHost().getComponent<Physics::TransformComponent>();
 	}
 
 	void MedKit::update()
@@ -39,11 +39,11 @@ namespace Gameplay
 		return "COMP MEDKIT " + std::to_string(healCount);
 	}
 
-	void MedKit::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void MedKit::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<MedKit> mk;
-		if (!gameObject.tryGetComponent(mk))
-			mk = gameObject.addComponent<MedKit>();
+		MedKit* mk;
+		if (!owner.tryGetComponent(mk))
+			mk = owner.addComponent<MedKit>();
 
 		iss >> mk->healCount;
 	}

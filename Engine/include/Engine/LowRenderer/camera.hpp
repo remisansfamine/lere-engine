@@ -7,7 +7,7 @@
 
 namespace Physics
 {
-	class Transform;
+	class TransformComponent;
 };
 
 namespace LowRenderer
@@ -15,9 +15,7 @@ namespace LowRenderer
 	class Camera : public Engine::Component
 	{
 	private:
-		Camera(Engine::GameObject& gameObject, const std::shared_ptr<Camera>& ptr);
-
-		std::shared_ptr<Physics::Transform> m_transform = nullptr;
+		Physics::TransformComponent* m_transform = nullptr;
 
 	public:
 		float aspect = 0.f;
@@ -25,12 +23,11 @@ namespace LowRenderer
 		float far = 200.f;
 		float fovY = 60.f;
 
-		Camera(Engine::GameObject& gameObject);
+		Camera(Engine::Entity& owner);
 
 		Core::Maths::mat4 getViewMatrix() const;
 		Core::Maths::mat4 getProjection() const;
 		Core::Maths::mat4 getOrthographic() const;
-		Core::Maths::mat4 getShadowOrtho() const;
 		Core::Maths::mat4 getViewProjection() const;
 		Core::Maths::mat4 getViewOrthographic() const;
 
@@ -43,6 +40,6 @@ namespace LowRenderer
 		void sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 		void sendViewOrthoToProgram(const std::shared_ptr<Resources::ShaderProgram> program);
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

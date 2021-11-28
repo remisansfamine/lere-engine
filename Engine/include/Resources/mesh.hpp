@@ -11,6 +11,15 @@
 
 namespace Resources
 {
+	struct Vertex
+	{
+		Core::Maths::vec3 position;
+		Core::Maths::vec3 texCoords;
+		Core::Maths::vec3 tangent;
+		Core::Maths::vec3 bitangent;
+		Core::Maths::vec3 normal;
+	};
+
 	class Mesh : public Resource
 	{
 	private:
@@ -25,7 +34,8 @@ namespace Resources
 		Mesh(const std::string& name, const std::string& parentMeshName);
 		~Mesh();
 
-		std::vector<float> attributs;
+		//std::vector<float> attributs;
+		std::vector<Vertex> vertices;
 
 		void parse(const std::string& toParse, std::array<unsigned int, 3> offsets);
 

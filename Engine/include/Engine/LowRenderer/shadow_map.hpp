@@ -15,6 +15,6 @@ namespace LowRenderer
 
 		void create() override;
 
-		void sendToShader(std::shared_ptr<LowRenderer::Light> light) override;
+		void sendToShader(const LowRenderer::Light* light) const override;
 	};
 }

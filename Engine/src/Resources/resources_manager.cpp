@@ -34,6 +34,7 @@ namespace Resources
 		Texture::defaultDiffuse = noDiffuseTex;
 		Texture::defaultEmissive = blackTex;
 		Texture::defaultSpecular = whiteTex;
+		Texture::defaultNormalMap = whiteTex;
 
 		// Load the peristent material
 		Material::defaultMaterial = ResourcesManager::loadMaterial("defaultMaterial_LERE", true);
@@ -44,13 +45,13 @@ namespace Resources
 		ResourcesManager* RM = instance();
 
 		// Check if the ResourcesManager instance is already initialized
-		if (RM->initialized)
+		if (RM->hasBeenInitialized())
 		{
 			Core::Debug::Log::error("The Resources Manager is already initialized");
 			return;
 		}
 
-		RM->initialized = true;
+		RM->setInitializationState();
 		Core::Debug::Log::info("Resources Manager initialized");
 
 		Multithread::ThreadManager::init("load", workerCount);
@@ -88,7 +89,6 @@ namespace Resources
 		RM->purgeMap(RM->cubeMaps, RM->lockCubemaps);
 		RM->purgeMap(RM->meshes, RM->lockMeshes);
 		RM->purgeMap(RM->shaders);
-		RM->purgeMap(RM->scripts);
 		RM->purgeMap(RM->shaderPrograms);
  	}
 
@@ -189,21 +189,6 @@ namespace Resources
 		return true;
 	}
 
-	void ResourcesManager::reloadScripts()
-	{
-		ResourcesManager* RM = instance();
-
-		Core::Debug::Log::info("Reloading scripts");
-
-		for (auto& scriptPair : RM->scripts)
-			scriptPair.second->killModule();
-
-		RM->pyInstance.reload();
-
-		for (auto& scriptPair : RM->scripts)
-			scriptPair.second->initializeModule();
-	}
-
 	std::shared_ptr<Font> ResourcesManager::loadFont(const std::string& fontPath)
 	{
 		ResourcesManager* RM = instance();
@@ -215,32 +200,6 @@ namespace Resources
 			return fontIt->second;
 
 		return RM->fonts[fontPath] = std::make_shared<Font>(fontPath);
-	}
-
-	std::shared_ptr<Script> ResourcesManager::loadScript(const std::string& scriptName)
-	{
-		ResourcesManager* RM = instance();
-
-		while (RM->lockScripts.test_and_set());
-
-		const auto& scriptIt = RM->scripts.find(scriptName);
-
-		// Check if the Texture is already loaded
-		if (scriptIt != RM->scripts.end())
-		{
-			RM->lockScripts.clear();
-			return scriptIt->second;
-		}
-
-		std::shared_ptr<Script> script(new Script(scriptName));
-
-		RM->scripts[scriptName] = script;
-
-		RM->lockScripts.clear();
-
-		script->initializeModule();
-
-		return script;
 	}
 
 	std::shared_ptr<Texture> ResourcesManager::loadTexture(const std::string& texturePath, bool setAsPersistent)
@@ -701,8 +660,11 @@ namespace Resources
 
 		if (ImGui::Begin("Resources Manager"))
 		{
-			if (ImGui::Button("Reload scripts"))
-				reloadScripts();
+			if (ImGui::CollapsingHeader("Shaders:"))
+			{
+				for (auto& shaderPtr : RM->shaderPrograms)
+					shaderPtr.second->drawImGui();
+			}
 
 			if (ImGui::CollapsingHeader("Textures:"))
 			{

@@ -16,12 +16,15 @@ namespace Resources
 	protected:
 		GLuint textureID = 0;
 		
+		int		channel = 3;
 		int		width = 0;
 		int		height = 0;
 		float*	colorBuffer = nullptr;
 		bool	stbiLoaded = false;
 
 		void mainThreadInitialization() override;
+
+		void allocateTexture(int textureType);
 
 	public:
 		Texture() = default;
@@ -45,6 +48,7 @@ namespace Resources
 		static std::shared_ptr<Texture> defaultDiffuse;
 		static std::shared_ptr<Texture> defaultEmissive;
 		static std::shared_ptr<Texture> defaultSpecular;
+		static std::shared_ptr<Texture> defaultNormalMap;
 	};
 
 	class CubeMapTexture : public Texture

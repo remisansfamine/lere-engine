@@ -30,12 +30,13 @@ namespace Core
 	{
 		Multithread::ThreadManager::kill();
 
+		Resources::ResourcesManager::kill();
+
 		Debug::Log::info("Destroying the Application");
 
 		Input::InputManager::kill();
 		Debug::Assertion::kill();
 		Engine::EngineMaster::kill();
-		Resources::ResourcesManager::kill();
 
 		TimeManager::kill();
 		Debug::Benchmarker::kill();
@@ -53,7 +54,7 @@ namespace Core
 	GLFWwindow* Application::createWindow(unsigned int screenWidth, unsigned int screenHeight, const char* title, GLFWmonitor* monitor, GLFWwindow* share)
 	{
 		// Check if the Application instance is already initialized
-		if (instance()->initialized)
+		if (instance()->hasBeenInitialized())
 			return nullptr;
 
 		// glfw - Initialize and configuration
@@ -71,6 +72,8 @@ namespace Core
 
 		// Initialize glfw context
 		glfwMakeContextCurrent(newWindow);
+		// glfwSwapInterval(0);
+
 		glfwSetFramebufferSizeCallback(newWindow, framebufferSizeCallback);
 
 		// glad - Load all OpenGL function pointers, if it fails, assert
@@ -100,7 +103,7 @@ namespace Core
 		Application* AP = instance();
 
 		// Check if the Application is already initialized
-		if (AP->initialized)
+		if (AP->hasBeenInitialized())
 		{
 			Debug::Log::error("The Application is already initialized");
 			return;
@@ -108,7 +111,7 @@ namespace Core
 
 		// Return the Window created by GLFW
 		AP->window = createWindow(screenWidth, screenHeight, title, monitor, share);
-		AP->initialized = true;
+		AP->setInitializationState();
  		Debug::Log::info("Application initialized");
 
 		glfwSetWindowSizeCallback(AP->window, windowResizeCallback);

@@ -18,15 +18,14 @@ namespace Gameplay
 	class PlayerShooting : public Engine::Component
 	{
 	private:
-		std::shared_ptr<GameMaster> gameMaster;
+		GameMaster* gameMaster = nullptr;
 
-		std::shared_ptr<Physics::Transform> m_cameraTransform;
-		std::shared_ptr<Physics::Transform> m_weaponTransform;
-		std::shared_ptr<AmmoCounter> m_ammoCounter;
+		Physics::TransformComponent* m_cameraTransform = nullptr;
+		Physics::TransformComponent* m_weaponTransform = nullptr;
+		AmmoCounter* m_ammoCounter;
 		Core::Maths::vec3 initRotation;
 		Core::Maths::vec3 initPosition;
 
-		int damage = 1;
 		int ammo = 7;
 		int maxAmmo = 7;
 
@@ -44,7 +43,7 @@ namespace Gameplay
 		void shoot();
 
 	public:
-		PlayerShooting(Engine::GameObject& gameObject);
+		PlayerShooting(Engine::Entity& owner);
 
 		void shooting();
 		void reloading();
@@ -54,7 +53,7 @@ namespace Gameplay
 		void update() override;
 		void drawImGui() override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 		Core::Timer timer;
 	};

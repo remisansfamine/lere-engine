@@ -14,17 +14,13 @@
 
 namespace LowRenderer
 {
-	Light::Light(Engine::GameObject& gameObject)
-		: Light(gameObject, std::shared_ptr<Light>(this))
+	Light::Light(Engine::Entity& owner)
+		: Component(owner)
 	{
-		m_transform = requireComponent<Physics::Transform>();
+		m_transform = requireComponent<Physics::TransformComponent>();
 		shadow = std::make_unique<ShadowMap>();
-	}
 
-	Light::Light(Engine::GameObject& gameObject, const std::shared_ptr<Light>& ptr)
-		: Component(gameObject, ptr)
-	{
-		LowRenderer::RenderManager::linkComponent(ptr);
+		LowRenderer::RenderManager::linkComponent(this);
 	}
 
 	void Light::setAsDirectionnal()
@@ -74,41 +70,41 @@ namespace LowRenderer
 	{
 		enable = (float)isActive();
 		hasShadow = (float)(shadow != nullptr);
-		position.xyz = m_transform->m_position;
+		position.xyz = m_transform->position;
 
 		if (hasShadow == 0.f || position.w != 0.f)
 			return;
 
-		Core::Maths::mat4 lightView = Core::Maths::lookAt(position.xyz, Core::Maths::vec3(), Core::Maths::vec3(0.f, 1.f, 0.f));
-		spaceMatrix = LowRenderer::RenderManager::getCurrentCamera()->getShadowOrtho() * lightView;
+		Core::Maths::mat4 lightView = Core::Maths::lookAt(m_transform->position);
+		spaceMatrix = Core::Maths::orthographic(-90.f, 90.f, -90.f, 90.f, -90.f, 180.f) * lightView;
 	}
 
 	void Light::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program, int index) const
 	{
 		// Send light parameters to the ShaderProgram packed into matrices
-		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position);
-		program->setUniform("lightAttribs2[" + std::to_string(index) + "][0]", &attenuation);
+		program->setUniform("lightAttribs1[" + std::to_string(index) + "][0]", &position, true);
+		program->setUniform("lightAttribs2[" + std::to_string(index) + "][0]", &attenuation, true);
 
 		if (shadow != nullptr)
 		{
-			int test = 0;
+			int correspondingIndex = index;
 			if (position.w == 0.f)
 			{
-				test = 5 + index;
-				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e, 1, 1);
-				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &test);
+				correspondingIndex += 6;
+				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e, true, 1, 1);
+				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &correspondingIndex, true);
 
-				glActiveTexture(GL_TEXTURE5 + index);
+				glActiveTexture(GL_TEXTURE0 + correspondingIndex);
 				glBindTexture(GL_TEXTURE_2D, shadow->ID);
 			}
 			else
 			{
-				test = 13 + index;
+				correspondingIndex += 14;
 				float farPlane = 25.f;
-				program->setUniform("farPlane", &farPlane);
-				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &test);
+				program->setUniform("farPlane", &farPlane, true);
+				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &correspondingIndex, true);
 
-				glActiveTexture(GL_TEXTURE13 + index);
+				glActiveTexture(GL_TEXTURE0 + correspondingIndex);
 				glBindTexture(GL_TEXTURE_CUBE_MAP, shadow->ID);
 			}
 		}
@@ -150,10 +146,10 @@ namespace LowRenderer
 							   std::to_string(enable) + " " + std::to_string(shadow == nullptr);
 	}
 
-	void Light::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void Light::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		gameObject.addComponent<Light>();
-		auto light = gameObject.getComponent<Light>();
+		owner.addComponent<Light>();
+		auto light = owner.getComponent<Light>();
 
 		iss >> light->position.w;
 

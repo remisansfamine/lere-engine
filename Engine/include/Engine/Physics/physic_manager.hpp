@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <unordered_set>
 
 #include "singleton.hpp"
 
@@ -18,8 +18,8 @@ namespace Physics
 		PhysicManager();
 		~PhysicManager();
 
-		std::vector<std::shared_ptr<BoxCollider>> boxColliders;
-		std::vector<std::shared_ptr<SphereCollider>> sphereColliders;
+		std::unordered_set<BoxCollider*> boxColliders;
+		std::unordered_set<SphereCollider*> sphereColliders;
 
 		void computeCollisions();
 		float timeStocker = 0.f;
@@ -31,22 +31,16 @@ namespace Physics
 		static bool raycast(const Ray& ray, RaycastHit& raycastHit);
 		static std::vector<RaycastHit> raycastAll(const Ray& ray);
 
-		static void linkComponent(const std::shared_ptr<SphereCollider> compToLink);
+		static void linkComponent(SphereCollider* compToLink);
 		static void removeComponent(SphereCollider* compToRemove);
 
-		static void linkComponent(const std::shared_ptr<BoxCollider> compToLink);
+		static void linkComponent(BoxCollider* compToLink);
 		static void removeComponent(BoxCollider* compToRemove);
 
 		static void clearAll();
 
 		template <class C>
 		static void clearComponents();
-
-		/*template<>
-		static void clearComponents<Rigidbody>()
-		{
-			instance()->rigidbodies.clear();
-		}*/
 
 		template<>
 		static void clearComponents<SphereCollider>()

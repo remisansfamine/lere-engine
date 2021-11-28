@@ -17,7 +17,6 @@ namespace Core::Engine
 		Core::Debug::Log::info("Creating the Engine");
 
 		Core::Input::InputManager::addButton("Edit Toggle", GLFW_KEY_C);
-		Core::Input::InputManager::addButton("Reload Scripts", GLFW_KEY_F5);
 		Core::Application::setCursor(editMode || Graph::getCursorState());
 
 		Engine::SoundManager::init();
@@ -45,15 +44,13 @@ namespace Core::Engine
 	{
 		Graph::clean();
 
+
 		Graph::draw();
 
 		EngineMaster* EM = instance();
 
 		if (Core::Input::InputManager::getButtonDown("Edit Toggle"))
 			EM->toggleEditMode();
-
-		if (Core::Input::InputManager::getButtonDown("Reload Scripts"))
-			Resources::ResourcesManager::reloadScripts();
 
 		if (EM->editMode)
 		{
@@ -62,7 +59,13 @@ namespace Core::Engine
 			Core::Debug::Benchmarker::drawImGui();
 			Graph::drawImGui();
 		}
-		else 
+		else
+		{
 			Graph::update();
+			Physics::PhysicManager::update();
+		}
+
+		// Update rigidbodies and colliders
+		Graph::afterFrame();
 	}
 }	

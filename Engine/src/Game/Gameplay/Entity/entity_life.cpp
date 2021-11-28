@@ -4,8 +4,8 @@
 
 namespace Gameplay
 {
-	EntityLife::EntityLife(Engine::GameObject& gameObject, std::shared_ptr<EntityLife> ptr, const std::string& _hurtSound, const std::string& _deathSound)
-		: Component(gameObject, ptr), hurtSound(_hurtSound), deathSound(_deathSound)
+	EntityLife::EntityLife(Engine::Entity& owner, const std::string& _hurtSound, const std::string& _deathSound)
+		: Component(owner), hurtSound(_hurtSound), deathSound(_deathSound)
 	{
 
 	}

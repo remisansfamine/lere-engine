@@ -11,19 +11,18 @@
 
 namespace Gameplay
 {
-	PauseScreen::PauseScreen(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<PauseScreen>(this))
+	PauseScreen::PauseScreen(Engine::Entity& owner)
+		: Component(owner)
 	{
 
 	}
 
 	void PauseScreen::start()
 	{
-		std::shared_ptr<GameMaster> gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+		GameMaster* gameMaster = Core::Engine::Graph::findEntityWithName("GameMaster")->getComponent<GameMaster>();
 
-		buttons[0] = Core::Engine::Graph::findGameObjectWithName("ResumeGameButton");
-		std::shared_ptr<UI::Button> buttonResumeGame = buttons[0]->getComponent<UI::Button>();
-		UI::Button* resumeGameptr = buttonResumeGame.get();
+		buttons[0] = Core::Engine::Graph::findEntityWithName("ResumeGameButton");
+		UI::Button* resumeGameptr = buttons[0]->getComponent<UI::Button>();
 
 		resumeGameptr->addListener(UI::ButtonState::DOWN, [this, gameMaster]() {
 			Core::TimeManager::setTimeScale(1.f);
@@ -36,13 +35,12 @@ namespace Gameplay
 			});
 
 
-		buttons[1] = Core::Engine::Graph::findGameObjectWithName("PauseMainMenuButton");
-		std::shared_ptr<UI::Button> buttonMainMenu = buttons[1]->getComponent<UI::Button>();
-		UI::Button* mainMenuptr = buttonMainMenu.get();
+		buttons[1] = Core::Engine::Graph::findEntityWithName("PauseMainMenuButton");
+		UI::Button* mainMenuptr = buttons[1]->getComponent<UI::Button>();
 
 		mainMenuptr->addListener(UI::ButtonState::DOWN, []() {
 			Core::TimeManager::setTimeScale(1.f);
-			Core::Engine::Graph::loadMainMenu();
+			Core::Engine::Graph::setLoadScene("resources/scenes/mainMenu.scn");
 			});
 
 		mainMenuptr->addListener(UI::ButtonState::HIGHLIGHT, [mainMenuptr]() {
@@ -64,9 +62,8 @@ namespace Gameplay
 			});*/
 
 
-		buttons[2] = Core::Engine::Graph::findGameObjectWithName("PauseExitButton");
-		std::shared_ptr<UI::Button> buttonExit = buttons[2]->getComponent<UI::Button>();
-		UI::Button* exitPtr = buttonExit.get();
+		buttons[2] = Core::Engine::Graph::findEntityWithName("PauseExitButton");
+		UI::Button* exitPtr = buttons[2]->getComponent<UI::Button>();
 		exitPtr->addListener(UI::ButtonState::DOWN, []() {
 			Core::Application::closeApplication();
 			});
@@ -97,9 +94,9 @@ namespace Gameplay
 		return "COMP PAUSESCREEN";
 	}
 
-	void PauseScreen::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void PauseScreen::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		if (!gameObject.tryGetComponent<PauseScreen>())
-			gameObject.addComponent<PauseScreen>();
+		if (!owner.tryGetComponent<PauseScreen>())
+			owner.addComponent<PauseScreen>();
 	}
 }

@@ -12,16 +12,16 @@
 
 namespace UI
 {
-	Button::Button(Engine::GameObject& gameObject, const std::string& shaderProgramName, const std::string& texturePath)
-		: Component(gameObject, std::shared_ptr<Button>(this))
+	Button::Button(Engine::Entity& owner, const std::string& shaderProgramName, const std::string& texturePath)
+		: Component(owner)
 	{
-		m_transform = requireComponent<Physics::Transform>();
+		m_transform = requireComponent<Physics::TransformComponent>();
 		m_image = requireComponent<LowRenderer::SpriteRenderer>(shaderProgramName, texturePath);
 	}
 
 	void Button::update()
 	{
-		Physics::Rect2D buttonRect = Physics::Rect2D(m_transform->m_position.xy, m_transform->m_scale.x, m_transform->m_scale.y);	
+		Physics::Rect2D buttonRect = Physics::Rect2D(m_transform->getPosition().xy, m_transform->getScale().x, m_transform->getScale().y);
 		Core::Maths::vec2 mousePos = Core::Input::InputManager::getMousePos();
 
 		Core::Maths::vec2 windowSize = Core::Application::getWindowSize();
@@ -83,7 +83,7 @@ namespace UI
 		functions[state].push_back(function);
 	}
 
-	std::shared_ptr<LowRenderer::SpriteRenderer> Button::getSprite()
+	LowRenderer::SpriteRenderer* Button::getSprite()
 	{
 		return m_image;
 	}
@@ -102,13 +102,13 @@ namespace UI
 		return "COMP BUTTON " + m_image->getProgram()->getName() + " " + m_image->getTexturePath();
 	}
 
-	void Button::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void Button::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
 		std::string shaderProgramName, texturePath;
 
 		iss >> shaderProgramName;
 		iss >> texturePath;
 
-		gameObject.addComponent<Button>(shaderProgramName, texturePath);
+		owner.addComponent<Button>(shaderProgramName, texturePath);
 	}
 }

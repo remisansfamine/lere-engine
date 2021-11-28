@@ -34,48 +34,70 @@ namespace Resources
 		glGenBuffers(1, &VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-		glBufferData(GL_ARRAY_BUFFER, attributs.size() * sizeof(float), attributs.data(), GL_STATIC_DRAW);
+		size_t stride = sizeof(Vertex);
 
-		int stride = 3 * sizeof(Core::Maths::vec3);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * stride, vertices.data(), GL_STATIC_DRAW);
 
 		// Set the attrib pointer to the positions
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(0));
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(offsetof(Vertex, position)));
 		glEnableVertexAttribArray(0);
 
 		// Set the attrib pointer to the texture coordinates
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(sizeof(Core::Maths::vec3)));
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(offsetof(Vertex, texCoords)));
 		glEnableVertexAttribArray(1);
 
-		// Set the attrib pointer to the normals
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(2 * sizeof(Core::Maths::vec3)));
+		// Set the attrib pointer to the tangents
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(offsetof(Vertex, tangent)));
 		glEnableVertexAttribArray(2);
+
+		// Set the attrib pointer to the bitangents
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(offsetof(Vertex, bitangent)));
+		glEnableVertexAttribArray(3);
+
+		// Set the attrib pointer to the normals
+		glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, stride, (GLvoid*)(offsetof(Vertex, normal)));
+		glEnableVertexAttribArray(4);
 
 		glEnableVertexAttribArray(0);
 		glBindVertexArray(0);
 	}
 
-	void Mesh::compute(std::array<unsigned int, 3> offsets, std::vector<Core::Maths::vec3>& vertices, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices)
+	void Mesh::compute(std::array<unsigned int, 3> offsets, std::vector<Core::Maths::vec3>& positions, std::vector<Core::Maths::vec3>& texCoords, std::vector<Core::Maths::vec3>& normals, std::vector<unsigned int>& indices)
 	{
 		// Create attributs vector from mesh values
 		for (size_t i = 0; i < indices.size(); i += 3)
 		{
-			Core::Maths::vec3& vertex = vertices[indices[i] - offsets[0]];
-			attributs.push_back(vertex.x);
-			attributs.push_back(vertex.y);
-			attributs.push_back(vertex.z);
+			Vertex vertex;
+			vertex.position = positions[indices[i] - offsets[0]];
 
 			if (!texCoords.empty())
-			{
-				Core::Maths::vec3& textureCoords = texCoords[indices[i + 1] - offsets[1]];
-				attributs.push_back(textureCoords.x);
-				attributs.push_back(textureCoords.y);
-				attributs.push_back(textureCoords.z);
-			}
+				vertex.texCoords = texCoords[indices[i + 1] - offsets[1]];
 
-			Core::Maths::vec3& normal = normals[indices[i + 2] - offsets[2]];
-			attributs.push_back(normal.x);
-			attributs.push_back(normal.y);
-			attributs.push_back(normal.z);
+			vertex.normal = normals[indices[i + 2] - offsets[2]];
+
+			vertices.push_back(vertex);
+		}
+
+		if (!texCoords.empty())
+		for (size_t i = 0; i < vertices.size(); i += 3)
+		{
+			Vertex& vert1 = vertices[i + 0];
+			Vertex& vert2 = vertices[i + 1];
+			Vertex& vert3 = vertices[i + 2];
+
+			const Core::Maths::vec3& deltaPos1 = vert2.position - vert1.position;
+			const Core::Maths::vec3& deltaPos2 = vert3.position - vert1.position;
+
+			const Core::Maths::vec3& deltaUV1 = vert2.texCoords - vert1.texCoords;
+			const Core::Maths::vec3& deltaUV2 = vert3.texCoords - vert1.texCoords;
+
+			float f = 1.f / (deltaUV1.u * deltaUV2.v - deltaUV2.u * deltaUV1.v);
+
+			Core::Maths::vec3 tangent = f * (deltaUV2.v * deltaPos1 - deltaUV1.v * deltaPos2);
+			Core::Maths::vec3 bitangent = f * (deltaUV1.u * deltaPos2 - deltaUV2.u * deltaPos1);
+
+			vert1.tangent = vert2.tangent = vert3.tangent = tangent;
+			vert1.bitangent = vert2.bitangent = vert3.bitangent = bitangent;
 		}
 
 		// Tell to the RM that the initialization is finished
@@ -197,7 +219,7 @@ namespace Resources
 	{
 		std::istringstream stringStream(toParse);
 
-		std::vector<Core::Maths::vec3> vertices;
+		std::vector<Core::Maths::vec3> positions;
 		std::vector<Core::Maths::vec3> texCoords;
 		std::vector<Core::Maths::vec3> normals;
 		std::vector<unsigned int> indices;
@@ -212,7 +234,7 @@ namespace Resources
 				continue;
 
 			if (view.starts_with("v "))
-				addData(vertices, line.substr(2));
+				addData(positions, line.substr(2));
 			else if (view.starts_with("vt "))
 				addData(texCoords, line.substr(3));
 			else if (view.starts_with("vn "))
@@ -221,17 +243,17 @@ namespace Resources
 				addIndices(indices, line.substr(2));
 		}
 
-		compute(offsets, vertices, texCoords, normals, indices);
+		compute(offsets, positions, texCoords, normals, indices);
 	}
 
 	void Mesh::draw() const
 	{
-		if (!this || !VAO)
+		if (!VAO)
 			return;
 
 		// Bind the mesh's VAO and draw it
 		glBindVertexArray(VAO);
-		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)attributs.size());
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei)vertices.size() * sizeof(Vertex));
 		glBindVertexArray(0);
 	}
 

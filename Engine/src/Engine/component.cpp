@@ -1,6 +1,8 @@
 #include "component.hpp"
 
 #include <algorithm>
+#include <memory>
+
 #include <imgui.h>
 
 #include "graph.hpp"
@@ -10,13 +12,8 @@
 
 namespace Engine
 {
-	Component::Component(GameObject& gameObject, const std::shared_ptr<Component>& childPtr)
-		: m_gameObject(gameObject)
-	{
-		m_gameObject.m_components.push_back(childPtr);
-	}
-
-	Component::~Component()
+	Component::Component(Entity& owner)
+		: owner(owner)
 	{
 	}
 
@@ -43,20 +40,13 @@ namespace Engine
 
 	void Component::onDestroy()
 	{
-		if (m_gameObject.m_components.size() == 0)
+		if (owner.m_components.size() == 0)
 			return;
 
-		std::vector<std::shared_ptr<Component>>::iterator it;
-		for (it = m_gameObject.m_components.begin(); it != m_gameObject.m_components.end(); it++)
-		{
-			if (it->get() == this)
-				break;
-		}
-
-		m_gameObject.m_components.erase(it);
+		owner.m_components.erase(this);
 	}
 
-	bool Component::isActive()
+	bool Component::isActive() const
 	{
 		return getHost().isActive() && Object::isActive();
 	}
@@ -66,8 +56,13 @@ namespace Engine
 		Core::Engine::Graph::addToDestroyQueue(this);
 	}
 
-	GameObject& Component::getHost()
+	Entity& Component::getHost()
 	{
-		return m_gameObject;
+		return owner;
+	}
+
+	const Entity& Component::getHost() const
+	{
+		return owner;
 	}
 }

@@ -7,13 +7,13 @@
 
 namespace LowRenderer
 {
-	Renderer::Renderer(Engine::GameObject& gameObject, const std::shared_ptr<Renderer>& childPtr, const std::string& shaderProgramName, bool link)
-		: Component(gameObject, childPtr), m_shaderProgram(Resources::ResourcesManager::loadShaderProgram(shaderProgramName))
+	Renderer::Renderer(Engine::Entity& owner, const std::string& shaderProgramName, bool link)
+		: Component(owner), m_shaderProgram(Resources::ResourcesManager::loadShaderProgram(shaderProgramName))
 	{
-		m_transform = requireComponent<Physics::Transform>();
+		m_transform = requireComponent<Physics::TransformComponent>();
 	}
 
-	std::shared_ptr<Resources::ShaderProgram> Renderer::getProgram()
+	std::shared_ptr<Resources::ShaderProgram> Renderer::getProgram() const
 	{
 		return m_shaderProgram;
 	}

@@ -20,9 +20,9 @@ namespace LowRenderer
 	public:
 		Core::Maths::vec4 m_color = Core::Maths::vec4(1.f, 1.f, 1.f, 1.f);
 
-		SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling = Core::Maths::vec2(1.f, 0.f));
-		SpriteRenderer(Engine::GameObject& gameObject, const std::string& shaderPromgramName, const std::string& texturePath, const Core::Maths::vec2& tilling = Core::Maths::vec2(1.f, 0.f));
-		SpriteRenderer(Engine::GameObject& gameObject, const std::shared_ptr<SpriteRenderer>& ptr, const std::string& shaderPromgramName);
+		SpriteRenderer(Engine::Entity& owner, const std::string& shaderPromgramName, const Core::Maths::vec2& tilling);
+		SpriteRenderer(Engine::Entity& owner, const std::string& shaderPromgramName, const std::string& texturePath, const Core::Maths::vec2& tilling = Core::Maths::vec2(1.f, 0.f));
+		SpriteRenderer(Engine::Entity& owner, const std::string& shaderPromgramName);
 
 		std::string getTexturePath();
 
@@ -30,6 +30,6 @@ namespace LowRenderer
 		void drawImGui() override;
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

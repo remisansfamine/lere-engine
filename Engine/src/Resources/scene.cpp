@@ -35,19 +35,25 @@ namespace Resources
 
 	Scene::~Scene()
 	{
-		gameObjects.clear();
+		entities.clear();
 	}
 
-	void Scene::setGameObjectParent(const std::string& goName, const std::string& goChildName)
+	void Scene::setEntityParent(const std::string& goName, const std::string& goChildName)
 	{
-		gameObjects[goChildName].getComponent<Physics::Transform>()->setParent(gameObjects[goName]);
-		gameObjects[goName].getComponent<Physics::Transform>()->setChild(gameObjects[goChildName]);
+		Physics::TransformComponent* childTransform = entities[goChildName].getComponent<Physics::TransformComponent>();
+		Physics::TransformComponent* parentTransform = entities[goName].getComponent<Physics::TransformComponent>();
+
+		if (!childTransform || !parentTransform)
+			return;
+
+		childTransform->setParent(parentTransform);
+		parentTransform->setChild(childTransform);
 	}
 
 	void Scene::clear()
 	{
-		gameObjects.clear();
-		curGoName = "";
+		entities.clear();
+		curEntityName = "";
 
 		std::queue<Engine::Object*> emptyQueue;
 		destroyQueue.swap(emptyQueue);
@@ -77,8 +83,8 @@ namespace Resources
 				std::string goName, parentName;
 				iss >> goName;
 
-				Engine::GameObject& gameObject = instantiate(goName);
-				gameObject.parse(scnStream, parentName);
+				Engine::Entity& owner = instantiate(goName);
+				owner.parse(scnStream, parentName);
 
 				if (parentName == "" || parentName == "none")
 					continue;
@@ -90,7 +96,7 @@ namespace Resources
 		}
 
 		for (size_t i = 0; i < parents.size(); i += 2)
-			setGameObjectParent(parents[i], parents[i + 1]);
+			setEntityParent(parents[i], parents[i + 1]);
 
 		scnStream.close();
 
@@ -108,9 +114,9 @@ namespace Resources
 			return;
 		}
 
-		for (auto& gameObject : gameObjects)
+		for (auto& entity : entities)
 		{
-			scnFlux << gameObject.second.toString();
+			scnFlux << entity.second.toString();
 		}
 
 		scnFlux.close();
@@ -122,28 +128,27 @@ namespace Resources
 			return;
 
 		glClearColor(0.f, 0.f, 0.f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glPolygonMode(GL_FRONT, GL_FILL);
-		glEnable(GL_DEPTH_TEST);
+		LowRenderer::RenderManager::GLEnable(GL_DEPTH_TEST);
 
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_BLEND);
+		LowRenderer::RenderManager::GLEnable(GL_BLEND);
 
 		LowRenderer::RenderManager::draw();
 	}
 
 	void Scene::drawHierarchy()
 	{
-		for (auto& gameObject : gameObjects)
-			gameObject.second.drawImGuiHierarchy(curGoName, true);
+		for (auto& entity : entities)
+			entity.second.drawImGuiHierarchy(curEntityName, true);
 	}
 
 	void Scene::drawInspector()
 	{
-		if (curGoName == "")
+		if (curEntityName == "")
 			return;
 
-		gameObjects[curGoName].drawImGuiInspector();
+		entities[curEntityName].drawImGuiInspector();
 	}
 
 	void Scene::addToDestroyQueue(Engine::Object* objToDestroy)
@@ -160,19 +165,19 @@ namespace Resources
 		}
 	}
 
-	void Scene::deleteGameObject(const std::string& goName)
+	void Scene::deleteEntity(const std::string& goName)
 	{
-		auto objIt = gameObjects.find(goName);
+		auto objIt = entities.find(goName);
 
-		if (objIt == gameObjects.end())
+		if (objIt == entities.end())
 		{
 			Core::Debug::Log::error("Game object " + goName + " not found");
 			return;
 		}
 
-		gameObjects.erase(objIt);
+		entities.erase(objIt);
 
-		curGoName = "";
+		curEntityName = "";
 	}
 
 	void Scene::update()
@@ -180,71 +185,66 @@ namespace Resources
 		if (!isLoadFinished)
 			return;
 
-		for (auto& go : gameObjects)
+		for (auto& entity : entities)
 		{
-			if (go.second.isActive())
-				go.second.updateComponents();
+			if (entity.second.isActive())
+				entity.second.updateComponents();
 		}
 
-		for (auto& go : gameObjects)
+		for (auto& entity : entities)
 		{
-			if (go.second.isActive())
-				go.second.lateUpdateComponents();
+			if (entity.second.isActive())
+				entity.second.lateUpdateComponents();
 		}
 	}
 
 	void Scene::fixedUpdate()
 	{
-		for (auto& go : gameObjects)
+		for (auto& entity : entities)
 		{
-			if (go.second.isActive())
-				go.second.fixedUpdateComponents();
+			if (entity.second.isActive())
+				entity.second.fixedUpdateComponents();
 		}
 	}
 
-	std::string Scene::getUniqueGOName(const std::string& gameObjectName)
+	std::string Scene::getUniqueEntityName(const std::string& entityName)
 	{
-		std::string modifiedName = gameObjectName;
+		std::string modifiedName = entityName;
 
-		auto goIt = gameObjects.find(modifiedName);
-		for (int count = 1; goIt != gameObjects.end(); count++, goIt = gameObjects.find(modifiedName))
-			modifiedName = gameObjectName + "(" + std::to_string(count) + ")";
+		auto goIt = entities.find(modifiedName);
+		for (int count = 1; goIt != entities.end(); count++, goIt = entities.find(modifiedName))
+			modifiedName = entityName + "(" + std::to_string(count) + ")";
 
 		return modifiedName;
 	}
 
-	Engine::GameObject& Scene::instantiate(const std::string& gameObjectName)
+	Engine::Entity& Scene::instantiate(const std::string& entityName)
 	{
-		std::string finalName = getUniqueGOName(gameObjectName);
+		std::string finalName = getUniqueEntityName(entityName);
+		
+		auto entityIt = entities.emplace(finalName, finalName);
 
-		gameObjects[finalName] = Engine::GameObject(finalName);
-		return gameObjects[finalName];
+		return (*entityIt.first).second;
 	}
 
-	Engine::GameObject& Scene::instantiate(const std::string& gameObjectName, const std::string& recipePath)
+	Engine::Entity& Scene::instantiate(const std::string& entityName, const std::string& recipePath)
 	{
-		Engine::GameObject& go = instantiate(gameObjectName);
+		Engine::Entity& entity = instantiate(entityName);
 
 		std::string parentName;
-		go.parseRecipe(recipePath, parentName);
+		entity.parseRecipe(recipePath, parentName);
 
 		if (parentName != "" && parentName != "none")
-			setGameObjectParent(parentName, go.m_name);
+			setEntityParent(parentName, entity.m_name);
 
-		return go;
+		return entity;
 	}
 
-	Engine::GameObject* Scene::findGameObjectWithName(const std::string& gameObjectName)
+	Engine::Entity* Scene::findEntityWithName(const std::string& entityName)
 	{
-		/*for (auto& gameObject : gameObjects)
-		{
-			if (gameObjectName.compare(gameObject.second.m_name) == 0)
-				return &gameObject;
-		}*/
-
-		if (gameObjects.find(gameObjectName) == gameObjects.end())
+		if (entities.find(entityName) == entities.end())
 			return nullptr;
 
-		return &gameObjects[gameObjectName];
+		return &entities[entityName];
 	}
 }

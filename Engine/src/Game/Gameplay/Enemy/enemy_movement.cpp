@@ -4,8 +4,8 @@
 
 namespace Gameplay
 {
-	EnemyMovement::EnemyMovement(Engine::GameObject& gameObject)
-		: EntityMovement(gameObject, std::shared_ptr<EnemyMovement>(this))
+	EnemyMovement::EnemyMovement(Engine::Entity& owner)
+		: EntityMovement(owner)
 	{
 		m_enemyState = requireComponent<Gameplay::EnemyState>();
 		m_transform = m_enemyState->transform;
@@ -15,7 +15,7 @@ namespace Gameplay
 	{
 		if (m_target)
 		{
-			auto direction = (m_target->m_position - m_transform->m_position).normalized();
+			auto direction = (m_target->position - m_transform->position).normalized();
 
 			m_rigidbody->velocity.x = direction.x * m_speed;
 			m_rigidbody->velocity.z = direction.z * m_speed;
@@ -27,7 +27,7 @@ namespace Gameplay
 	void EnemyMovement::onTriggerEnter(Physics::Collider* collider)
 	{
 		if (collider->getHost().m_name == "Player")
-			m_target = collider->getHost().getComponent<Physics::Transform>();
+			m_target = collider->getHost().getComponent<Physics::TransformComponent>();
 	}
 
 	void EnemyMovement::onTriggerExit(Physics::Collider* collider)
@@ -54,11 +54,11 @@ namespace Gameplay
 		return "COMP ENEMYMOVEMENT " + std::to_string(m_speed);
 	}
 
-	void EnemyMovement::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void EnemyMovement::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		std::shared_ptr<EnemyMovement> em;
-		if (!gameObject.tryGetComponent(em))
-			em = gameObject.addComponent<EnemyMovement>();
+		EnemyMovement* em;
+		if (!owner.tryGetComponent(em))
+			em = owner.addComponent<EnemyMovement>();
 
 		iss >> em->m_speed;
 		int brak = 0;

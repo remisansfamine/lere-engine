@@ -13,9 +13,7 @@ protected:
 
 	static T* currentInstance;
 
-
-public:
-	static T* instance()
+	[[nodiscard]] static T* instance()
 	{
 		if (!instantiateFlag.test_and_set())
 		{
@@ -26,6 +24,7 @@ public:
 		return currentInstance;
 	}
 
+public:
 	static void kill()
 	{
 		delete currentInstance;

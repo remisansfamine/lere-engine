@@ -10,15 +10,11 @@ namespace Gameplay
 	class PlayerState : public EntityState
 	{
 	private:
-		std::shared_ptr<Physics::Transform> m_transform;
-		std::shared_ptr<Physics::SphereCollider> m_collider;
-
-		std::string jumpKey = "Jump";
-		std::string horizontalKey = "Horizontal";
-		std::string verticalKey = "Vertical";
+		Physics::TransformComponent* m_transform;
+		Physics::SphereCollider* m_collider;
 
 	public:
-		PlayerState(Engine::GameObject& gameObject);
+		PlayerState(Engine::Entity& owner);
 
 		void start() override;
 		void update() override;
@@ -27,6 +23,6 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

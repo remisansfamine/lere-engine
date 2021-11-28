@@ -15,11 +15,11 @@ namespace Gameplay
 	{
 	private:
 		Core::Timer attackCooldown;
-		std::shared_ptr<PlayerLife> playerLife;
-		std::shared_ptr<Physics::Rigidbody> rb;
+		PlayerLife* playerLife;
+		Physics::Rigidbody* rb = nullptr;
 
 	public:
-		EnemyState(Engine::GameObject& gameObject);
+		EnemyState(Engine::Entity& owner);
 
 		void start() override;
 		void update() override;
@@ -27,7 +27,7 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 
 		void hurtPlayer();
 		void onCollisionEnter(const Physics::Collision& collision) override;

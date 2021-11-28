@@ -72,29 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
-    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
-    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)include\Physics;$(ProjectDir)include\Utils;$(ProjectDir)include\LowRenderer;$(ProjectDir)include/Core;$(ProjectDir)include\Resources;$(ProjectDir)include;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Render;$(ProjectDir)include\Engine\Gameplay;$(ProjectDir)include\Engine\Gameplay\Player;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\</IncludePath>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
     <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
     <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
-    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(IncludePath);$(ProjectDir)include\Game\Gameplay;$(ProjectDir)..\common\include\;$(ProjectDir)include\Scripting</IncludePath>
-    <SourcePath>$(ProjectDir)src;$(SourcePath);$(VC_SourcePath);</SourcePath>
-    <LibraryPath>$(ProjectDir)lib;$(LibraryPath);$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(ProjectDir)..\common\lib</LibraryPath>
-    <TargetName>$(ProjectName)</TargetName>
-    <TargetExt>.exe</TargetExt>
-    <IntDir>$(Platform)\$(Configuration)$(ProjectName)\</IntDir>
+    <IncludePath>$(ProjectDir)include;$(ProjectDir)include\Core;$(ProjectDir)include\Core\Input;$(ProjectDir)include\Engine;$(ProjectDir)include\Engine\LowRenderer;$(ProjectDir)include\Engine\Physics;$(ProjectDir)include\Engine\Physics\Toolbox;$(ProjectDir)include\Engine\UI;$(ProjectDir)include\Game;$(ProjectDir)include\Game\Gameplay\Entity;$(ProjectDir)include\Game\Gameplay\Player;$(ProjectDir)include\Game\Gameplay\Enemy;$(ProjectDir)include\Resources;$(ProjectDir)include\Utils;$(ProjectDir)include\Game\Gameplay;$(IncludePath);$(ProjectDir)include\Game\Gameplay</IncludePath>
+    <SourcePath>$(ProjectDir)src;$(SourcePath)</SourcePath>
+    <LibraryPath>$(ProjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -103,17 +97,13 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -124,19 +114,15 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -144,21 +130,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSVCRT</IgnoreSpecificDefaultLibraries>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(LibraryPath);</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -168,9 +152,11 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories);$(ProjectDir)..\common\header;$(ProjectDir)..\common\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)header;$(ProjectDir)header\irrklang;$(ProjectDir)header\irrklang;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdpch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -178,15 +164,11 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;freetype.lib;irrklang.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(AdditionalLibraries);</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)lib;$(LibraryPath);</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)dll" "$(TargetDir)"
-copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\script_component.cpp" />
+    <ClCompile Include="src\Game\no_clip_movement.cpp" />
     <ClCompile Include="src\Core\application.cpp" />
     <ClCompile Include="src\Core\benchmarker.cpp" />
     <ClCompile Include="src\Core\debug.cpp" />
@@ -194,6 +176,7 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClCompile Include="src\Core\Input\key_axis.cpp" />
     <ClCompile Include="src\Core\Input\key_button.cpp" />
     <ClCompile Include="src\Core\Input\mouse_button.cpp" />
+    <ClCompile Include="src\Core\manager.cpp" />
     <ClCompile Include="src\Core\sound_manager.cpp" />
     <ClCompile Include="src\Core\stb_image.cpp" />
     <ClCompile Include="src\Core\thread_manager.cpp" />
@@ -201,7 +184,7 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClCompile Include="src\Core\timer.cpp" />
     <ClCompile Include="src\Engine\component.cpp" />
     <ClCompile Include="src\Engine\engine_master.cpp" />
-    <ClCompile Include="src\Engine\game_object.cpp" />
+    <ClCompile Include="src\Engine\entity.cpp" />
     <ClCompile Include="src\Engine\graph.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\camera.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\collider_renderer.cpp" />
@@ -216,6 +199,7 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClCompile Include="src\Engine\LowRenderer\shadow_point.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sky_box.cpp" />
     <ClCompile Include="src\Engine\LowRenderer\sprite_renderer.cpp" />
+    <ClCompile Include="src\Engine\LowRenderer\uniform.cpp" />
     <ClCompile Include="src\Engine\object.cpp" />
     <ClCompile Include="src\Engine\Physics\box_collider.cpp" />
     <ClCompile Include="src\Engine\Physics\collider.cpp" />
@@ -263,9 +247,14 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClCompile Include="src\imgui_widgets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Resources\resources_manager.cpp" />
-    <ClCompile Include="src\Resources\script.cpp" />
     <ClCompile Include="src\Resources\shader.cpp" />
     <ClCompile Include="src\Resources\texture.cpp" />
+    <ClCompile Include="src\stdpch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\Utils\thread_pool.cpp" />
     <ClCompile Include="src\Utils\utils.cpp" />
   </ItemGroup>
@@ -300,13 +289,14 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClInclude Include="include\Core\Input\key_button.hpp" />
     <ClInclude Include="include\Core\Input\mouse_button.hpp" />
     <ClInclude Include="include\Core\debug.hpp" />
+    <ClInclude Include="include\Core\manager.hpp" />
     <ClInclude Include="include\Core\maths.hpp" />
     <ClInclude Include="include\Core\sound_manager.hpp" />
     <ClInclude Include="include\Core\time.hpp" />
     <ClInclude Include="include\Core\timer.hpp" />
     <ClInclude Include="include\Engine\component.hpp" />
     <ClInclude Include="include\Engine\engine_master.hpp" />
-    <ClInclude Include="include\Engine\game_object.hpp" />
+    <ClInclude Include="include\Engine\entity.hpp" />
     <ClInclude Include="include\Engine\graph.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\camera.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\collider_renderer.hpp" />
@@ -321,6 +311,7 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClInclude Include="include\Engine\LowRenderer\shadow_point.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sky_box.hpp" />
     <ClInclude Include="include\Engine\LowRenderer\sprite_renderer.hpp" />
+    <ClInclude Include="include\Engine\LowRenderer\uniform.hpp" />
     <ClInclude Include="include\Engine\object.hpp" />
     <ClInclude Include="include\Engine\Physics\box_collider.hpp" />
     <ClInclude Include="include\Engine\Physics\collider.hpp" />
@@ -340,7 +331,6 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClInclude Include="include\Engine\Physics\Toolbox\quad.h" />
     <ClInclude Include="include\Engine\Physics\Toolbox\sphere.h" />
     <ClInclude Include="include\Engine\Physics\transform.hpp" />
-    <ClInclude Include="include\Engine\script_component.hpp" />
     <ClInclude Include="include\Engine\UI\button.hpp" />
     <ClInclude Include="include\Game\Gameplay\bullet_hole.hpp" />
     <ClInclude Include="include\Game\Gameplay\Enemy\enemy_life.hpp" />
@@ -369,22 +359,22 @@ copy /Y "$(ProjectDir)resources\scripts\*.py" "$(TargetDir)"</Command>
     <ClInclude Include="include\Resources\resource.hpp" />
     <ClInclude Include="include\Resources\scene.hpp" />
     <ClInclude Include="include\Resources\resources_manager.hpp" />
-    <ClInclude Include="include\Resources\script.hpp" />
     <ClInclude Include="include\Resources\shader.hpp" />
     <ClInclude Include="include\Resources\texture.hpp" />
+    <ClInclude Include="include\stdpch.h" />
     <ClInclude Include="include\Utils\concurrent_queue.hpp" />
+    <ClInclude Include="include\Utils\property.hpp" />
+    <ClInclude Include="include\Utils\property_extension.hpp" />
     <ClInclude Include="include\Utils\singleton.hpp" />
     <ClInclude Include="include\Utils\thread_pool.hpp" />
     <ClInclude Include="include\Utils\type_at.hpp" />
     <ClInclude Include="include\Utils\utils.hpp" />
     <ClInclude Include="include\Resources\recipe.hpp" />
-    <ClInclude Include="thread_manager.hpp" />
+    <ClInclude Include="include\Core\thread_manager.hpp" />
+    <ClInclude Include="include\Game\no_clip_movement.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Core\maths.inl" />
-    <None Include="resources\scripts\transform.py" />
-    <None Include="resources\shaders\advancedLighting.frag" />
-    <None Include="resources\shaders\advancedLighting.vert" />
     <None Include="resources\shaders\depthCubeShader.frag" />
     <None Include="resources\shaders\depthCubeShader.geom" />
     <None Include="resources\shaders\depthCubeShader.vert" />

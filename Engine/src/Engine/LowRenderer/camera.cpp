@@ -9,18 +9,17 @@
 
 #include "transform.hpp"
 
+#include "debug.hpp"
+#include "utils.hpp"
+
 namespace LowRenderer
 {
-	Camera::Camera(Engine::GameObject& gameObject)
-		: Camera(gameObject, std::shared_ptr<Camera>(this))
+	Camera::Camera(Engine::Entity& owner)
+		: Component(owner)
 	{
-		m_transform = requireComponent<Physics::Transform>();
-	}
+		m_transform = requireComponent<Physics::TransformComponent>();
 
-	Camera::Camera(Engine::GameObject& gameObject, const std::shared_ptr<Camera>& ptr)
-		: Component(gameObject, ptr)
-	{
-		LowRenderer::RenderManager::linkComponent(ptr);
+		LowRenderer::RenderManager::linkComponent(this);
 	}
 
 	Core::Maths::mat4 Camera::getViewMatrix() const
@@ -43,12 +42,6 @@ namespace LowRenderer
 	{
 		// Get the camera orthographic using the aspect ration, fov, near and far parameters
 		return Core::Maths::orthographic(-10.f, 10.f, -10.f, 10.f, -1.f, 10.f);
-	}
-
-	Core::Maths::mat4 Camera::getShadowOrtho() const
-	{
-		// Get the camera orthographic using the aspect ration, fov, near and far parameters
-		return Core::Maths::orthographic(-300.f, 300.f, -300.f, 300.f, 0.01f, 300.f);
 	}
 
 	Core::Maths::mat4 Camera::getViewProjection() const
@@ -84,35 +77,26 @@ namespace LowRenderer
 	void Camera::fixedUpdate()
 	{
 		aspect = Core::Application::getAspect();
-
-		/*float translationSpeed = 2.f * deltaTime;
-
-		float forwardMove = Core::Input::InputManager::getAxis("Vertical");
-		float strafeMove = Core::Input::InputManager::getAxis("Horizontal");
-		float verticalMove = Core::Input::InputManager::getAxis("UpDown");
-
-		float sin = sinf(m_transform->m_rotation.y), cos = cosf(m_transform->m_rotation.y);
-
-		m_transform->m_position.x += (sin * forwardMove + cos * strafeMove) * translationSpeed;
-		m_transform->m_position.z += (sin * strafeMove - cos * forwardMove) * translationSpeed;
-
-		m_transform->m_position.y += verticalMove * translationSpeed;*/
 	}
 
 	void Camera::sendViewProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
 	{
-		program->setUniform("viewProj", getViewProjection().e, 1, 1);
-		program->setUniform("viewPos", m_transform->m_position.e);
+		program->setUniform("viewProj", getViewProjection().e, true, 1, 1);
+
+		Core::Maths::mat4 model = m_transform->globalModel;
+		Core::Maths::vec3 viewPos = Core::Maths::vec3(model.e[3], model.e[7], model.e[11]);
+
+		program->setUniform("viewPos", viewPos.e, true);
 	}
 
 	void Camera::sendViewOrthoToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
 	{
-		program->setUniform("viewOrtho", getViewOrthographic().e, 1, 1);
+		program->setUniform("viewOrtho", getViewOrthographic().e, true, 1, 1);
 	}
 
 	void Camera::sendProjToProgram(const std::shared_ptr<Resources::ShaderProgram> program)
 	{
-		program->setUniform("viewProj", getViewProjection().e, 1, 1);
+		program->setUniform("viewProj", getViewProjection().e, true, 1, 1);
 	}
 
 	void Camera::drawImGui()
@@ -134,10 +118,10 @@ namespace LowRenderer
 		return "COMP CAMERA " + std::to_string(near) + " " + std::to_string(far) + " " + std::to_string(fovY);
 	}
 
-	void Camera::parseComponent(Engine::GameObject& gameObject, std::istringstream& iss)
+	void Camera::parseComponent(Engine::Entity& owner, std::istringstream& iss)
 	{
-		gameObject.addComponent<Camera>();
-		auto cam = gameObject.getComponent<Camera>();
+		owner.addComponent<Camera>();
+		auto cam = owner.getComponent<Camera>();
 
 		iss >> cam->near;
 		iss >> cam->far;

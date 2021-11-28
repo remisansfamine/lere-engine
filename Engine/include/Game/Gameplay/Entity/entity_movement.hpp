@@ -20,10 +20,10 @@ namespace Gameplay
 	protected:
 		float m_speed = 0.f;
 
-		std::shared_ptr<Physics::Rigidbody> m_rigidbody;
-		std::shared_ptr<Physics::Transform> m_transform;
+		Physics::Rigidbody* m_rigidbody;
+		Physics::TransformComponent* m_transform;
 
 	public:
-		EntityMovement(Engine::GameObject& gameObject, std::shared_ptr<EntityMovement> ptr);
+		EntityMovement(Engine::Entity& owner);
 	};
 }

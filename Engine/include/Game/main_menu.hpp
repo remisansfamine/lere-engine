@@ -8,7 +8,7 @@ namespace Gameplay
 	{
 	private:
 	public:
-		MainMenu(Engine::GameObject& gameObject);
+		MainMenu(Engine::Entity& owner);
 
 		void start() override;
 		void update() override;
@@ -16,6 +16,6 @@ namespace Gameplay
 
 		std::string toString() const override;
 
-		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+		static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
 	};
 }

@@ -12,10 +12,11 @@
 namespace Gameplay
 {
     class AmmoCounter : public Engine::Component
+
     {
     private:
-        std::vector<Physics::Transform*> ammoTransforms;
-        std::vector<Physics::Transform*> ammoShooted;
+        std::vector<Physics::TransformComponent*> ammoTransforms;
+        std::vector<Physics::TransformComponent*> ammoShooted;
 
         float animationSpeed = 5.f;
         float initialXPos = 0.f;
@@ -23,7 +24,7 @@ namespace Gameplay
         int previousCount = 0;
 
     public:
-        AmmoCounter(Engine::GameObject& gameObject);
+        AmmoCounter(Engine::Entity& owner);
 
         void updateHud(int ammoCount);
         void start() override;
@@ -32,6 +33,6 @@ namespace Gameplay
         void reload();
 
         std::string toString() const override;
-        static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
+        static void parseComponent(Engine::Entity& owner, std::istringstream& iss);
     };
 }
