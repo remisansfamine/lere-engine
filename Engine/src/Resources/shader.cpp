@@ -237,10 +237,15 @@ namespace Resources
                 continue;
             }
 
+            if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE)
+                samplerIDs[uniName] = samplerIDs.size();
+
             // Create a new uniform with the location and the type
             // And add it to a map
             uniforms[uniName] = LowRenderer::Uniform(location, type);
         }
+
+ 
     }
 
     void ShaderProgram::loadLocations()
@@ -274,12 +279,33 @@ namespace Resources
             Core::Debug::Log::error("Cannot find the uniform named: " + target);
     }
 
+    bool ShaderProgram::setSampler(const std::string& target, GLuint samplerID)
+    {
+        if (!samplerID)
+            return false;
+
+        const auto& samplerIt = samplerIDs.find(target);
+
+        if (samplerIt == samplerIDs.end())
+            return false;
+
+        auto [samplerName, ID] = *samplerIt;
+
+        glActiveTexture(GL_TEXTURE0 + ID);
+        glBindTexture(GL_TEXTURE_2D, samplerID);
+
+        return true;
+    }
+
     bool ShaderProgram::bind() const
     {
         if (!programID)
             return false;
 
         glUseProgram(programID);
+
+        for (auto[samplerName, ID] : samplerIDs)
+            setUniform(samplerName, &ID, false);
 
         return true;
     }

@@ -70,7 +70,6 @@ namespace LowRenderer
 
 			// Send and bind material to program
 			currentMat->sendToShader(shaderProgram);
-			currentMat->bindTextures();
 
 			// Draw the mesh
 			m_mesh->draw();

@@ -1,116 +1,117 @@
-[11/28/21 - 19:27:57] ERROR: Unable to read the file: D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/sphere.mtl
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[0].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[1].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[2].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[3].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[4].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[5].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[6].spotOuterCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].ambient - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].attenuation - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].diffuse - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].enable - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].hasShadow - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].isPoint - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].position - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].spaceMatrix - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].specular - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].spotCutoff - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].spotDirection - Location not valid
-[11/28/21 - 19:27:58] ERROR: Cannot find the uniform named: lightBuffer[7].spotOuterCutoff - Location not valid
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Component not found
-[11/28/21 - 19:28:02] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
-[11/28/21 - 19:28:02] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
-[11/28/21 - 19:28:03] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
-[11/28/21 - 19:28:03] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
+[11/29/21 - 18:32:02] ERROR: Unable to read the file: D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/sphere.mtl
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[0].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[1].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[2].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[3].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[4].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[5].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[6].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].ambient - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].attenuation - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].diffuse - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].enable - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].hasShadow - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].isPoint - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].position - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].spaceMatrix - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].specular - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].spotCutoff - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].spotDirection - Location not valid
+[11/29/21 - 18:32:02] ERROR: Cannot find the uniform named: lightBuffer[7].spotOuterCutoff - Location not valid
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Component not found
+[11/29/21 - 18:32:06] ERROR: Unable to read the file : resources/obj/heal/paramedic_bag_red.obj
+[11/29/21 - 18:32:06] ERROR: Can not find mesh children at resources/obj/heal/paramedic_bag_red.obj
+[11/29/21 - 18:32:07] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/vase_plant_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
+[11/29/21 - 18:32:07] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/chain_texture_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.
+[11/29/21 - 18:32:08] ERROR: Cannot find the texture file at D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine/resources/obj/Sponza-master/sponza_thorn_mask.tga in the directory D:\Env-master\cygwin64\home\RémiG\LEREEngine\Engine: Le fichier spécifié est introuvable.

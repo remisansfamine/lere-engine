@@ -14,8 +14,8 @@ namespace LowRenderer
         {
         case GL_INT:
         case GL_BOOL:
-        case GL_SAMPLER_2D_ARB:
-        case GL_SAMPLER_CUBE_ARB:
+        case GL_SAMPLER_2D:
+        case GL_SAMPLER_CUBE:
             glUniform1iv(location, count, (GLint*)value);
             return true;
 

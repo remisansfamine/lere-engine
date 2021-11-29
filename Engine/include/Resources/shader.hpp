@@ -49,6 +49,7 @@ namespace Resources
 		std::string name;
 
 		std::unordered_map<std::string, LowRenderer::Uniform> uniforms;
+		std::unordered_map<std::string, GLint> samplerIDs;
 
 		void loadUniforms();
 		void loadLocations();
@@ -63,6 +64,7 @@ namespace Resources
 		~ShaderProgram();
 
 		void setUniform(const std::string& target, const void* value, bool shouldBeTracked, int count = 1, bool transpose = false) const;
+		bool setSampler(const std::string& target, GLuint samplerID);
 		bool bind() const;
 		void unbind() const;
 

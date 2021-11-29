@@ -27,40 +27,29 @@ namespace Resources
 		shaderProgram->setUniform("material.shininess", &shininess, false);
 		shaderProgram->setUniform("material.refractiveIndex", &opticalDensity, false);
 
-		// Set the textures' location of the shader program
-		std::vector<std::string> textureName =
-		{ "material.alphaTexture", "material.ambientTexture", "material.diffuseTexture",
-			"material.emissiveTexture", "material.specularTexture", "material.normalMap" };
-
-		for (int i = 0; i < textureName.size(); i++)
-			shaderProgram->setUniform(textureName[i], &i, false);
-	}
-
-	void Material::bindTextures() const
-	{
 		if (alphaTex)
-			if (!alphaTex->bind(0))
-				Texture::defaultAlpha->bind(0);
+			if (!shaderProgram->setSampler("material.alphaTexture", alphaTex->getID()))
+				shaderProgram->setSampler("material.alphaTexture", Texture::defaultAlpha->getID());
 
 		if (ambientTex)
-			if (!ambientTex->bind(1))
-				Texture::defaultAmbient->bind(1);
+			if (!shaderProgram->setSampler("material.ambientTexture", ambientTex->getID()))
+				shaderProgram->setSampler("material.ambientTexture", Texture::defaultAmbient->getID());
 
 		if (diffuseTex)
-			if (!diffuseTex->bind(2))
-				Texture::defaultDiffuse->bind(2);
-			
+			if (!shaderProgram->setSampler("material.diffuseTexture", diffuseTex->getID()))
+				shaderProgram->setSampler("material.diffuseTexture", Texture::defaultDiffuse->getID());
+
 		if (emissiveTex)
-			if (!emissiveTex->bind(3))
-				Texture::defaultEmissive->bind(3);
+			if (!shaderProgram->setSampler("material.emissiveTexture", emissiveTex->getID()))
+				shaderProgram->setSampler("material.emissiveTexture", Texture::defaultEmissive->getID());
 
 		if (specularTex)
-			if (!specularTex->bind(4))
-				Texture::defaultSpecular->bind(4);
+			if (!shaderProgram->setSampler("material.specularTexture", specularTex->getID()))
+				shaderProgram->setSampler("material.specularTexture", Texture::defaultSpecular->getID());
 
 		if (normalMap)
-			if (!normalMap->bind(5))
-				Texture::defaultNormalMap->bind(5);
+			if (!shaderProgram->setSampler("material.normalMap", normalMap->getID()))
+				shaderProgram->setSampler("material.normalMap", Texture::defaultNormalMap->getID());
 
 		glActiveTexture(0);
 	}
