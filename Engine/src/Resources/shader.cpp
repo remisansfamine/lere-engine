@@ -212,6 +212,7 @@ namespace Resources
     void ShaderProgram::loadUniforms()
     {
         uniforms.clear();
+        samplerIDs.clear();
 
         // Get the active uniforms count
         GLint uniformCount;
@@ -237,15 +238,20 @@ namespace Resources
                 continue;
             }
 
-            if (type == GL_SAMPLER_2D || type == GL_SAMPLER_CUBE)
-                samplerIDs[uniName] = samplerIDs.size();
+            switch (type)
+            {
+            case GL_SAMPLER_2D:
+                samplerIDs[uniName] = { (GLuint)samplerIDs.size(), GL_TEXTURE_2D };
+                break;
+            case GL_SAMPLER_CUBE:
+                samplerIDs[uniName] = { (GLuint)samplerIDs.size(), GL_TEXTURE_CUBE_MAP };
+                break;
+            }
 
             // Create a new uniform with the location and the type
             // And add it to a map
             uniforms[uniName] = LowRenderer::Uniform(location, type);
         }
-
- 
     }
 
     void ShaderProgram::loadLocations()
@@ -279,9 +285,15 @@ namespace Resources
             Core::Debug::Log::error("Cannot find the uniform named: " + target);
     }
 
-    bool ShaderProgram::setSampler(const std::string& target, GLuint samplerID)
+    void Sampler::bind(GLuint textureID)
     {
-        if (!samplerID)
+        glActiveTexture(GL_TEXTURE0 + location);
+        glBindTexture(type, textureID);
+    }
+
+    bool ShaderProgram::setSampler(const std::string& target, GLuint textureID)
+    {
+        if (!textureID)
             return false;
 
         const auto& samplerIt = samplerIDs.find(target);
@@ -289,10 +301,9 @@ namespace Resources
         if (samplerIt == samplerIDs.end())
             return false;
 
-        auto [samplerName, ID] = *samplerIt;
+        auto [samplerName, sampler] = *samplerIt;
 
-        glActiveTexture(GL_TEXTURE0 + ID);
-        glBindTexture(GL_TEXTURE_2D, samplerID);
+        sampler.bind(textureID);
 
         return true;
     }
@@ -304,7 +315,7 @@ namespace Resources
 
         glUseProgram(programID);
 
-        for (auto[samplerName, ID] : samplerIDs)
+        for (auto [samplerName, ID] : samplerIDs)
             setUniform(samplerName, &ID, false);
 
         return true;

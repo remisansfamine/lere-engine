@@ -68,10 +68,6 @@ namespace LowRenderer
 
 	void SkyBox::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program) const
 	{
-		int cubemapIndex = 22;
-		program->setUniform("environmentMap", &cubemapIndex, true);
-
-		glActiveTexture(GL_TEXTURE0 + cubemapIndex);
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap->getID());
+		program->setSampler("environmentMap", cubeMap->getID());
 	}
 }

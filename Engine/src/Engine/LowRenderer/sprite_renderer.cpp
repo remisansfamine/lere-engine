@@ -60,12 +60,9 @@ namespace LowRenderer
 
 		m_shaderProgram->setUniform("tilling", Core::Maths::vec2(tillingMultiplier, tillingOffset).e, false);
 
-		int i = 0;
-		m_shaderProgram->setUniform("diffuseTex", &i, false);
-
 		if (texture)
-			if (!texture->bind(0))
-				Resources::Texture::defaultDiffuse->bind(0);
+			if (!m_shaderProgram->setSampler("diffuseTex", texture->getID()))
+				m_shaderProgram->setSampler("diffuseTex", Resources::Texture::defaultDiffuse->getID());
 
 		mesh->draw();
 	}
