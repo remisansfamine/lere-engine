@@ -87,25 +87,16 @@ namespace LowRenderer
 
 		if (shadow != nullptr)
 		{
-			int correspondingIndex = index;
 			if (isPoint == 0.f)
 			{
-				correspondingIndex += 6;
 				program->setUniform("lightAttribs3[" + std::to_string(index) + "][0]", &spaceMatrix.e, true, 1, 1);
-				program->setUniform("shadowMaps[" + std::to_string(index) + "][0]", &correspondingIndex, true);
-
-				glActiveTexture(GL_TEXTURE0 + correspondingIndex);
-				glBindTexture(GL_TEXTURE_2D, shadow->ID);
+				program->setSampler("shadowMaps[" + std::to_string(index) + "][0]", shadow->ID);
 			}
 			else
 			{
-				correspondingIndex += 14;
 				float farPlane = 25.f;
 				program->setUniform("farPlane", &farPlane, true);
-				program->setUniform("shadowCubeMaps[" + std::to_string(index) + "][0]", &correspondingIndex, true);
-
-				glActiveTexture(GL_TEXTURE0 + correspondingIndex);
-				glBindTexture(GL_TEXTURE_CUBE_MAP, shadow->ID);
+				program->setSampler("shadowCubeMaps[" + std::to_string(index) + "][0]", shadow->ID);
 			}
 		}
 	}

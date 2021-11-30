@@ -33,8 +33,9 @@ namespace LowRenderer
 		Core::Maths::mat4 newView =  Core::Maths::toMat4(Core::Maths::toMat3(cam->getViewMatrix()));
 		m_shaderProgram->setUniform("viewProj", (cam->getProjection() * newView).e, true, 1, 1);
 
-		glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMap->getID());
-		
+		m_shaderProgram->setSampler("cubemap", cubeMap->getID());
+		glActiveTexture(0);
+
 		cubeMesh->draw();
 
 		m_shaderProgram->unbind();
@@ -69,5 +70,6 @@ namespace LowRenderer
 	void SkyBox::sendToProgram(std::shared_ptr<Resources::ShaderProgram> program) const
 	{
 		program->setSampler("environmentMap", cubeMap->getID());
+		glActiveTexture(0);
 	}
 }

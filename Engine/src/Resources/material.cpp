@@ -27,29 +27,14 @@ namespace Resources
 		shaderProgram->setUniform("material.shininess", &shininess, false);
 		shaderProgram->setUniform("material.refractiveIndex", &opticalDensity, false);
 
-		if (alphaTex)
-			if (!shaderProgram->setSampler("material.alphaTexture", alphaTex->getID()))
-				shaderProgram->setSampler("material.alphaTexture", Texture::defaultAlpha->getID());
+		for (auto [textureName, texturePtr] : textures)
+		{
+			if (!texturePtr)
+				continue;
 
-		if (ambientTex)
-			if (!shaderProgram->setSampler("material.ambientTexture", ambientTex->getID()))
-				shaderProgram->setSampler("material.ambientTexture", Texture::defaultAmbient->getID());
-
-		if (diffuseTex)
-			if (!shaderProgram->setSampler("material.diffuseTexture", diffuseTex->getID()))
-				shaderProgram->setSampler("material.diffuseTexture", Texture::defaultDiffuse->getID());
-
-		if (emissiveTex)
-			if (!shaderProgram->setSampler("material.emissiveTexture", emissiveTex->getID()))
-				shaderProgram->setSampler("material.emissiveTexture", Texture::defaultEmissive->getID());
-
-		if (specularTex)
-			if (!shaderProgram->setSampler("material.specularTexture", specularTex->getID()))
-				shaderProgram->setSampler("material.specularTexture", Texture::defaultSpecular->getID());
-
-		if (normalMap)
-			if (!shaderProgram->setSampler("material.normalMap", normalMap->getID()))
-				shaderProgram->setSampler("material.normalMap", Texture::defaultNormalMap->getID());
+			if (!shaderProgram->setSampler(textureName, texturePtr->getID()))
+				shaderProgram->setSampler(textureName, Material::defaultMaterial->textures[textureName]->getID());
+		}
 
 		glActiveTexture(0);
 	}
@@ -68,40 +53,16 @@ namespace Resources
 			ImGui::DragFloat("Transparency", &transparency);
 			ImGui::DragFloat("Illumination", &illumination);
 
-			if (ImGui::TreeNode("Alpha texture:"))
+			for (auto [textureName, texturePtr] : textures)
 			{
-				alphaTex->drawImGui();
-				ImGui::TreePop();
-			}
+				if (!texturePtr)
+					continue;
 
-			if (ImGui::TreeNode("Ambient texture:"))
-			{
-				ambientTex->drawImGui();
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Diffuse texture:"))
-			{
-				diffuseTex->drawImGui();
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Emissive texture:"))
-			{
-				emissiveTex->drawImGui();
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Specular texture:"))
-			{
-				specularTex->drawImGui();
-				ImGui::TreePop();
-			}
-
-			if (ImGui::TreeNode("Normal texture:"))
-			{
-				normalMap->drawImGui();
-				ImGui::TreePop();
+				if (ImGui::TreeNode(textureName.c_str()))
+				{
+					texturePtr->drawImGui();
+					ImGui::TreePop();
+				}
 			}
 
 			ImGui::TreePop();
@@ -178,25 +139,21 @@ namespace Resources
 			std::string texName;
 			iss >> texName;
 
-			std::shared_ptr<Texture>* texturePtr;
+			std::shared_ptr<Texture> texturePtr = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 
 			// Load mesh textures
-			if (type == "map_Ka")
-				texturePtr = &ambientTex;
+			if (type == "map_d")
+				textures["material.alphaTexture"] = texturePtr;
+			else if (type == "map_Ka")
+				textures["material.ambientTexture"] = texturePtr;
 			else if (type == "map_Kd")
-				texturePtr = &diffuseTex;
-			else if (type == "map_Ks")
-				texturePtr = &specularTex;
+				textures["material.diffuseTexture"] = texturePtr;
 			else if (type == "map_Ke")
-				texturePtr = &emissiveTex;
-			else if (type == "map_d")
-				texturePtr = &alphaTex;
+				textures["material.emissiveTexture"] = texturePtr;
+			else if (type == "map_Ks")
+				textures["material.specularTexture"] = texturePtr;
 			else if (type == "map_bump")
-				texturePtr = &normalMap;
-			else
-				continue;
-
-			*texturePtr = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
+				textures["material.normalMap"] = texturePtr;
 		}
 	}
 }

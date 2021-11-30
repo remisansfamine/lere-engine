@@ -36,7 +36,7 @@ namespace Resources
 	bool CubeMap::generateID()
 	{
 		glGenTextures(1, &ID);
-		glBindTexture(GL_TEXTURE_2D, ID);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, ID);
 
 		for (int i = 0; i < 6; i++)
 			textures[i].generateID();
@@ -47,9 +47,11 @@ namespace Resources
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 
+		glActiveTexture(0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
+
 		return true;
 	}
-
 
 	GLuint CubeMap::getID() const
 	{

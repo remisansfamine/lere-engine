@@ -146,6 +146,8 @@ namespace LowRenderer
 					i++;
 				}
 
+				glActiveTexture(0);
+
 				UniformBlock& lightBlock = uniformBlocks["lightBlock"];
 
 				lightBlock.bind();
