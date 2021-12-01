@@ -148,11 +148,11 @@ namespace LowRenderer
 
 				glActiveTexture(0);
 
-				UniformBlock& lightBlock = uniformBlocks["lightBlock"];
+				auto& lightBlock = uniformBlocks["lightBlock"];
 
-				lightBlock.bind();
-				//glBufferSubData(GL_UNIFORM_BUFFER, 0, lightDatas.size() * sizeof(LightData), lightDatas.data());
-				lightBlock.unbind();
+				lightBlock->bind();
+				glBufferSubData(GL_UNIFORM_BUFFER, 0, lightDatas.size() * sizeof(LightData), lightDatas.data());
+				lightBlock->unbind();
 
 				for (auto& skyBox : skyBoxes)
 					skyBox->sendToProgram(program);
@@ -315,7 +315,7 @@ namespace LowRenderer
 		if (RM->uniformBlocks.find(UBOName) != RM->uniformBlocks.end())
 			return;
 
-		RM->uniformBlocks[UBOName] = UniformBlock(RM->lastBindingPoint, sizeof(LightData) * 8);
+		RM->uniformBlocks[UBOName] = std::make_unique<UniformBlock>(RM->lastBindingPoint, sizeof(LightData) * 8);
 
 		RM->lastBindingPoint++;
 	}

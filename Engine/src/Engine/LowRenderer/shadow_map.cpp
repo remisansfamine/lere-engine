@@ -35,6 +35,8 @@ namespace LowRenderer
 
 		float borderColor[] = { 1.f, 1.f, 1.f, 1.f };
 		glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 	void ShadowMap::attachTextureToBuffer()

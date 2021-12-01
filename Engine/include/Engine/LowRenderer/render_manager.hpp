@@ -25,7 +25,7 @@ namespace LowRenderer
 		~RenderManager();
 
 		std::unordered_map<GLenum, bool> enabledCaps;
-		std::unordered_map<std::string, UniformBlock> uniformBlocks;
+		std::unordered_map<std::string, std::unique_ptr<UniformBlock>> uniformBlocks;
 		GLuint lastBindingPoint = 0u;
 
 		std::unordered_set<ColliderRenderer*> colliders;

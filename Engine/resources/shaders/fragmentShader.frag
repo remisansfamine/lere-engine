@@ -4,7 +4,7 @@
 //#define USE_NORMAL_MAP
 #define LIGHT_COUNT 8
 
-//#define USE_UBO
+#define USE_UBO
 
 in VS_OUT
 {
@@ -100,8 +100,6 @@ void parseLights()
 
 float getDirectionalShadow(int indexLight)
 {
-	float shadow = 0.0;
-
 	// Perspcetive divide
 	vec4 fragPosLightSpace = lights[indexLight].spaceMatrix * vec4(fs_in.FragPos, 1.0);
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -118,8 +116,8 @@ float getDirectionalShadow(int indexLight)
 	// Use to soft shadow boders
 
 	// Avoid shadow out of the frustum
-	if (projCoords.z > 1.0)
-		return 0.0;
+
+	float shadow = 0.0;
 
 	// Calculate the texel size from the depth texture size
 	vec2 texelSize = 1.0 / textureSize(shadowMaps[indexLight][0], 0);
@@ -135,7 +133,10 @@ float getDirectionalShadow(int indexLight)
 		}
 	}
 
-	return shadow / 9;
+	if (projCoords.z > 1.0)
+		return 0.0;
+
+	return shadow / 9.0;
 }
 
 vec3 sampleOffsetDirections[20] = vec3[]

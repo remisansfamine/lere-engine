@@ -41,7 +41,6 @@ namespace Resources
 			stbi_image_free(colorBuffer);
 
 		glDeleteTextures(1, &textureID);
-		glActiveTexture(0);
 	}
 
 	bool Texture::generateBuffer()
@@ -114,7 +113,6 @@ namespace Resources
 		// Generate its mipmap
 		glGenerateMipmap(GL_TEXTURE_2D);
 
-		glActiveTexture(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Free the color buffer allocated by stbi
@@ -163,17 +161,6 @@ namespace Resources
 	{
 		ImGui::Text(m_filePath.c_str());
 		ImGui::Image((void*)(std::intptr_t)textureID, ImVec2(128, 128), ImVec2(0, 1), ImVec2(1, 0));
-	}
-
-	bool Texture::bind(int textureIndex) const
-	{
-		if (!textureID)
-			return false;
-
-		glActiveTexture(GL_TEXTURE0 + textureIndex);
-		glBindTexture(GL_TEXTURE_2D, textureID);
-
-		return true;
 	}
 
 	CubeMapTexture::CubeMapTexture(int ID, const std::string& filePath)

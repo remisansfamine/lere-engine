@@ -41,8 +41,6 @@ namespace Resources
 
 		void drawImGui();
 
-		bool bind(int textureIndex) const;
-
 		static std::shared_ptr<Texture> defaultAlpha;
 		static std::shared_ptr<Texture> defaultAmbient;
 		static std::shared_ptr<Texture> defaultDiffuse;
