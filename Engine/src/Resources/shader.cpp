@@ -351,14 +351,17 @@ namespace Resources
         return name;
     }
 
-    bool ShaderProgram::bindToUBO(const std::string& UBOName, GLint UBOBindID)
+    GLint ShaderProgram::getUBOLocation(const std::string& UBOName) const
     {
-        GLint UBOIndex = glGetUniformBlockIndex(programID, UBOName.c_str());
+        return glGetUniformBlockIndex(programID, UBOName.c_str());
+    }
 
-        if (UBOIndex < 0)
+    bool ShaderProgram::bindToUBO(const std::string& UBOName, GLint UBIndex, GLuint bindingPoint)
+    {
+        if (UBIndex < -1)
             return false;
 
-        glUniformBlockBinding(programID, UBOIndex, UBOBindID);
+        glUniformBlockBinding(programID, UBIndex, bindingPoint);
         return true;
     }
 

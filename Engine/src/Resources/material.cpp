@@ -139,21 +139,19 @@ namespace Resources
 			std::string texName;
 			iss >> texName;
 
-			std::shared_ptr<Texture> texturePtr = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
-
 			// Load mesh textures
 			if (type == "map_d")
-				textures["material.alphaTexture"] = texturePtr;
+				textures["material.alphaTexture"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ka")
-				textures["material.ambientTexture"] = texturePtr;
+				textures["material.ambientTexture"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Kd")
-				textures["material.diffuseTexture"] = texturePtr;
+				textures["material.diffuseTexture"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ke")
-				textures["material.emissiveTexture"] = texturePtr;
+				textures["material.emissiveTexture"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_Ks")
-				textures["material.specularTexture"] = texturePtr;
+				textures["material.specularTexture"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 			else if (type == "map_bump")
-				textures["material.normalMap"] = texturePtr;
+				textures["material.normalMap"] = ResourcesManager::loadTexture(directoryPath + Utils::getFileNameFromPath(texName));
 		}
 	}
 }

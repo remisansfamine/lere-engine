@@ -86,9 +86,9 @@ namespace LowRenderer
 
         // TODO: REMOVE THIS SHIT
         glBindBuffer(GL_UNIFORM_BUFFER, UBO);
-        glBufferData(GL_UNIFORM_BUFFER, UBOsize, NULL, GL_DYNAMIC_DRAW);
+        glBufferData(GL_UNIFORM_BUFFER, UBOsize, NULL, GL_STATIC_DRAW);
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
-
+        
         glBindBufferRange(GL_UNIFORM_BUFFER, bindingPoint, UBO, 0, UBOsize);
     }
 
@@ -105,5 +105,10 @@ namespace LowRenderer
     void UniformBlock::unbind()
     {
         glBindBuffer(GL_UNIFORM_BUFFER, 0);
+    }
+
+    GLuint UniformBlock::getBindingPoint() const
+    {
+        return bindingPoint;
     }
 }

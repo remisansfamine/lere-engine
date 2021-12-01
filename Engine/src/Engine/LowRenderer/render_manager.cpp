@@ -309,14 +309,29 @@ namespace LowRenderer
 	{
 		RenderManager* RM = instance();
 
-		if (!program->bindToUBO(UBOName, RM->lastBindingPoint))
+		GLuint UBIndex = program->getUBOLocation(UBOName);
+
+		// Uniform Block not include in the current shader
+		if (UBIndex < -1)
 			return;
 
-		if (RM->uniformBlocks.find(UBOName) != RM->uniformBlocks.end())
-			return;
+		auto uniformBlockIt = RM->uniformBlocks.find(UBOName);
 
-		RM->uniformBlocks[UBOName] = std::make_unique<UniformBlock>(RM->lastBindingPoint, sizeof(LightData) * 8);
+		GLuint bindingPoint;
 
-		RM->lastBindingPoint++;
+		// If the Uniform block already exists, return its binding point
+		if (uniformBlockIt != RM->uniformBlocks.end())
+		{
+			auto [uniformBlockName, uniformBlock] = *uniformBlockIt;
+			bindingPoint = uniformBlock->getBindingPoint();
+		}
+		// else create a new one, then return its binding point
+		else
+		{
+			bindingPoint = RM->uniformBlocks.size();
+			RM->uniformBlocks[UBOName] = std::make_shared<UniformBlock>(bindingPoint, sizeof(LightData) * 8);
+		}
+
+		program->bindToUBO(UBOName, UBIndex, bindingPoint);
 	}
 }

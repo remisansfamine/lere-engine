@@ -103,7 +103,7 @@ namespace LowRenderer
 
 	void Light::addToLightBuffer(std::vector<LightData>& buffer)
 	{
-		buffer.push_back({position,isPoint,ambient, diffuse ,specular ,attenuation ,cutoff ,direction ,outterCutoff ,enable ,hasShadow ,spaceMatrix });
+		buffer.push_back({position, isPoint, ambient, diffuse, specular, attenuation, cutoff, direction, outterCutoff, enable, hasShadow, spaceMatrix });
 	}
 
 	const Core::Maths::mat4& Light::getSpaceMatrix() const

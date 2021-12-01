@@ -33,5 +33,7 @@ namespace LowRenderer
 
 		void bind();
 		void unbind();
+
+		GLuint getBindingPoint() const;
 	};
 }

@@ -59,6 +59,7 @@ namespace Resources
 		glEnableVertexAttribArray(4);
 
 		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindVertexArray(0);
 	}
 
