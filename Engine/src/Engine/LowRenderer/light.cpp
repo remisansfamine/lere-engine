@@ -119,6 +119,13 @@ namespace LowRenderer
 			if (ImGui::Checkbox("Is point light", &isPointFlag))
 				isPoint = isPointFlag;
 
+			bool hasShadowFlag = hasShadow;
+			if (ImGui::Checkbox("Has shadow", &hasShadowFlag))
+			{
+				hasShadow = hasShadowFlag;
+				shadow = nullptr;
+			}
+
 			ImGui::ColorEdit3("Ambient: ", &ambient.data.x);
 			ImGui::ColorEdit3("Diffuse: ", &diffuse.data.x);
 			ImGui::ColorEdit3("Specular: ", &specular.data.x);

@@ -24,7 +24,7 @@ namespace Gameplay
 		Engine::Entity* goButtonNewGame = Core::Engine::Graph::findEntityWithName("NewGameButton");
 		UI::Button* newGameptr = goButtonNewGame->getComponent<UI::Button>();
 		newGameptr->addListener(UI::ButtonState::DOWN, [](){
-			Core::Engine::Graph::setLoadScene("resources/scenes/defaultScene.scn");
+			Core::Engine::Graph::setLoadScene("resources/scenes/debugScene.scn");
 		});
 		newGameptr->addListener(UI::ButtonState::HIGHLIGHT, [newGameptr]() {
 			newGameptr->getSprite()->m_color = Core::Maths::vec4(0.8f, 0.3f, 0.3f, 1.f);

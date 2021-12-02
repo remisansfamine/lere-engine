@@ -134,6 +134,8 @@ namespace Resources
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		LowRenderer::RenderManager::GLEnable(GL_BLEND);
 
+		LowRenderer::RenderManager::GLEnable(GL_CULL_FACE);
+
 		LowRenderer::RenderManager::draw();
 	}
 

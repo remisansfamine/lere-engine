@@ -2,6 +2,8 @@
 
 #include <algorithm>
 
+#include <imgui.h>
+
 #include "debug.hpp"
 #include "resources_manager.hpp"
 
@@ -9,6 +11,8 @@
 #include "shadow.hpp"
 
 #include "uniform.hpp"
+
+#include "application.hpp"
 
 namespace LowRenderer
 {
@@ -66,7 +70,6 @@ namespace LowRenderer
 			light->compute();
 			i++;
 		}
-
 		for (const auto& light : lights)
 		{
 			if (!light->isActive() || light->shadow == nullptr)
@@ -86,8 +89,12 @@ namespace LowRenderer
 			for (auto& model : models)
 				model->simpleDraw(program);
 
-			light->shadow->unbindAndResetViewport();
 		}
+
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		Core::Maths::vec2 windowSize = Core::Application::getWindowSize();
+		glViewport(0, 0, (GLsizei)windowSize.x, (GLsizei)windowSize.y);
 
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -109,7 +116,6 @@ namespace LowRenderer
 
 		GLEnable(GL_FRAMEBUFFER_SRGB);
 
-		GLEnable(GL_CULL_FACE);
 		glCullFace(GL_BACK);
 
 		// Number of lights to render (8 max)
@@ -128,6 +134,9 @@ namespace LowRenderer
 
 				if (!program->bind())
 					continue;
+
+				program->setUniform("minBias", (void*)&minBias, true);
+				program->setUniform("maxBias", (void*)&maxBias, true);
 
 				getCurrentCamera()->sendViewProjToProgram(program);
 
@@ -333,5 +342,17 @@ namespace LowRenderer
 		}
 
 		program->bindToUBO(UBOName, UBIndex, bindingPoint);
+	}
+
+	void RenderManager::drawImGui()
+	{
+		auto RM = instance();
+
+		if (ImGui::Begin("Resources Manager"))
+		{
+			ImGui::SliderFloat("Min bias", &RM->minBias, 0.f, 1.f, "%.6f", 0.001f);
+			ImGui::SliderFloat("Max bias", &RM->maxBias, 0.f, 1.f, "%.6f", 0.001f);
+		}
+		ImGui::End();
 	}
 }

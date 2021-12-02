@@ -1,8 +1,13 @@
 #version 450 core
 
-#define BLINN_PHONG
-//#define USE_NORMAL_MAP
 #define LIGHT_COUNT 8
+#define BLINN_PHONG
+
+//#define USE_NORMAL_MAP
+
+#define PCF 1
+#define PCFSampleCount (1 + 2 * PCF) * (1 + 2 * PCF)
+#define PCFFactor 1.0 / (PCFSampleCount)
 
 //#define USE_UBO
 
@@ -63,6 +68,9 @@ layout(std140) uniform lightBlock
 uniform vec3 viewPos;
 uniform float farPlane;
 
+uniform float maxBias;
+uniform float minBias;
+
 uniform mat4 lightAttribs1[LIGHT_COUNT][1];
 uniform mat4 lightAttribs2[LIGHT_COUNT][1];
 uniform mat4 lightAttribs3[LIGHT_COUNT][1];
@@ -103,40 +111,41 @@ float getDirectionalShadow(in Light light, int index)
 	// Perspcetive divide
 	vec4 fragPosLightSpace = light.spaceMatrix * vec4(fs_in.FragPos, 1.0);
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+
+	// Avoid shadow out of the frustum
+	if (projCoords.z > 1.0)
+		return 0.0;
+
 	// [0,1]
 	projCoords = projCoords * 0.5 + 0.5;
 
-	float closestDepth = texture(shadowMaps[index][0], projCoords.xy).r;
-	float currentDepth = projCoords.z;
+	vec3 lightDir = normalize(light.position - fs_in.FragPos);
 
-	vec3 lightDir = normalize(light.position.xyz - fs_in.FragPos);
-	float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
+	float slopeFactor = 1.0 - dot(normal, lightDir);
+
+	float bias = max(minBias * slopeFactor, maxBias);
+	float currentDepth = projCoords.z - bias;
 
 	// Apply Percentage-Closer filtering to avoid "stair" shadows
 	// Use to soft shadow boders
-
-	// Avoid shadow out of the frustum
-
 	float shadow = 0.0;
-
+		
 	// Calculate the texel size from the depth texture size
 	vec2 texelSize = 1.0 / textureSize(shadowMaps[index][0], 0);
-
-	for (int x = -1; x <= 1; x++)
+		
+	for (int x = -PCF; x <= PCF; x++)
 	{
-		for (int y = -1; y <= 1; y++)
+		for (int y = -PCF; y <= PCF; y++)
 		{
 			float pcfDepth = texture(shadowMaps[index][0], projCoords.xy + vec2(x, y) * texelSize).r;
 
 			// Compare pcf and current depth of fragment to determine shadow
-			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
+			shadow += float(currentDepth > pcfDepth);
 		}
 	}
 
-	if (projCoords.z > 1.0)
-		return 0.0;
+	return shadow * PCFFactor;
 
-	return shadow / 9.0;
 }
 
 vec3 sampleOffsetDirections[20] = vec3[]
@@ -187,14 +196,14 @@ void getLightColor(in Light light, int index, inout vec4 ambient, inout vec4 dif
 
 	if (light.hasShadow)
 	{
-		shadow += getShadow(light, index);
+		shadow -= getShadow(light, index);
 
-		if (shadow > 1.0)
-			shadow = 1.0;
+		//if (shadow > 1.0)
+		//	shadow = 1.0;
 	}
 
 	// Get light direction, if the light is a point light or a directionnal light
-	vec3 lightDir = fs_in.TBN * light.position.xyz - float(light.isPoint) * fs_in.TangentFragPos;
+	vec3 lightDir = fs_in.TBN * light.position - float(light.isPoint) * fs_in.TangentFragPos;
 	
 	// Compute the light direction and the distance between the fragment and the light
 	float distance = length(lightDir);
@@ -251,21 +260,19 @@ void getLightsSumColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, ou
 {
 	ambient = diffuse = specular = vec4(0.0, 0.0, 0.0, 1.0);
 
-	shadow = 0.0;
+	shadow = 1.0;
 
 	for (int i = 0; i < LIGHT_COUNT; i++)
 	{
 		// TODO: remove this
 		#ifdef USE_UBO
-		Light light = lightBuffer[i];
+			getLightColor(lightBuffer[i], i, ambient, diffuse, specular, shadow);
 		#else
-		Light light = lights[i];
+			getLightColor(lights[i], i, ambient, diffuse, specular, shadow);
 		#endif
-
-		getLightColor(light, i, ambient, diffuse, specular, shadow);
 	}
 
-	shadow = 1.0 - shadow;
+	shadow = clamp(shadow, 0.0, 1.0);
 }
 
 vec4 getReflectEMColor()

@@ -55,6 +55,7 @@ namespace Core::Engine
 		if (EM->editMode)
 		{
 			Resources::ResourcesManager::drawImGui();
+			LowRenderer::RenderManager::drawImGui();
 			Multithread::ThreadManager::drawImGui();
 			Core::Debug::Benchmarker::drawImGui();
 			Graph::drawImGui();

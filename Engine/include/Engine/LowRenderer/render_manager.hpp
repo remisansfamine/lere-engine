@@ -34,6 +34,9 @@ namespace LowRenderer
 		std::unordered_set<Light*> lights;
 		std::set<Camera*> cameras;
 
+		float minBias = 0.00005;
+		float maxBias = 0.0005;
+
 		void drawColliders() const;
 
 		void drawShadows();
@@ -103,5 +106,7 @@ namespace LowRenderer
 		static void clearAll();
 
 		static void bindUBO(Resources::ShaderProgram* program, const std::string& UBOName);
+
+		static void drawImGui();
 	};
 }
