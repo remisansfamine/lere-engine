@@ -1,10 +1,10 @@
 #version 450 core
 
-//#define BLINN_PHONG
+#define BLINN_PHONG
 //#define USE_NORMAL_MAP
 #define LIGHT_COUNT 8
 
-#define USE_UBO
+//#define USE_UBO
 
 in VS_OUT
 {
@@ -98,18 +98,18 @@ void parseLights()
 	}
 }
 
-float getDirectionalShadow(int indexLight)
+float getDirectionalShadow(in Light light, int index)
 {
 	// Perspcetive divide
-	vec4 fragPosLightSpace = lights[indexLight].spaceMatrix * vec4(fs_in.FragPos, 1.0);
+	vec4 fragPosLightSpace = light.spaceMatrix * vec4(fs_in.FragPos, 1.0);
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
 	// [0,1]
 	projCoords = projCoords * 0.5 + 0.5;
 
-	float closestDepth = texture(shadowMaps[indexLight][0], projCoords.xy).r;
+	float closestDepth = texture(shadowMaps[index][0], projCoords.xy).r;
 	float currentDepth = projCoords.z;
 
-	vec3 lightDir = normalize(lights[indexLight].position.xyz - fs_in.FragPos);
+	vec3 lightDir = normalize(light.position.xyz - fs_in.FragPos);
 	float bias = max(0.05 * (1.0 - dot(normal, lightDir)), 0.005);
 
 	// Apply Percentage-Closer filtering to avoid "stair" shadows
@@ -120,13 +120,13 @@ float getDirectionalShadow(int indexLight)
 	float shadow = 0.0;
 
 	// Calculate the texel size from the depth texture size
-	vec2 texelSize = 1.0 / textureSize(shadowMaps[indexLight][0], 0);
+	vec2 texelSize = 1.0 / textureSize(shadowMaps[index][0], 0);
 
 	for (int x = -1; x <= 1; x++)
 	{
 		for (int y = -1; y <= 1; y++)
 		{
-			float pcfDepth = texture(shadowMaps[indexLight][0], projCoords.xy + vec2(x, y) * texelSize).r;
+			float pcfDepth = texture(shadowMaps[index][0], projCoords.xy + vec2(x, y) * texelSize).r;
 
 			// Compare pcf and current depth of fragment to determine shadow
 			shadow += currentDepth - bias > pcfDepth ? 1.0 : 0.0;
@@ -171,16 +171,83 @@ float getPointShadow(int indexLight)
 	return shadow;
 }
 
-float getShadow(int indexLight)
+float getShadow(in Light light, int index)
 {
-	return getDirectionalShadow(indexLight);
+	return getDirectionalShadow(light, index);
 	/*if (lights[indexLight].position.w == 0.0)
 		return getDirectionalShadow(indexLight);
 
 	return getPointShadow(indexLight);*/
 }
 
-void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out float shadow)
+void getLightColor(in Light light, int index, inout vec4 ambient, inout vec4 diffuse, inout vec4 specular, inout float shadow)
+{
+	if (!light.enable)
+		return;
+
+	if (light.hasShadow)
+	{
+		shadow += getShadow(light, index);
+
+		if (shadow > 1.0)
+			shadow = 1.0;
+	}
+
+	// Get light direction, if the light is a point light or a directionnal light
+	vec3 lightDir = fs_in.TBN * light.position.xyz - float(light.isPoint) * fs_in.TangentFragPos;
+	
+	// Compute the light direction and the distance between the fragment and the light
+	float distance = length(lightDir);
+
+	// Normalize the light direction manually
+	lightDir /= distance;
+
+	float finalIntensity = 1.0;
+
+	// If the light is not a directionnal light, compute the final intensity
+	if (light.isPoint)
+	{
+		// Get spot cutoff and spot intensity 
+		float theta = -dot(lightDir, normalize(light.spotDirection));
+		float spotIntensity = clamp((theta - light.spotOuterCutoff) / (light.spotCutoff - light.spotOuterCutoff), 0.0, 1.0);
+
+		// Get attenuation (c + l * d + q * d≤)
+		float attenuation = dot(light.attenuation, vec3(1.0, distance, distance * distance));
+
+		// Apply attenuation  to the spot intensity
+		finalIntensity = spotIntensity / attenuation;
+	}
+
+	// Compute ambient
+	ambient += light.ambient;
+
+	// Pre-compute normal ÅElightDir
+	float NdotL = dot(normal, lightDir);
+
+	float diffuseValue = NdotL * finalIntensity;
+
+	if (diffuseValue <= 0.0)
+		return;
+
+	// Compute diffuse
+	diffuse += diffuseValue * light.diffuse;
+
+	// Compute specular
+
+	#ifdef BLINN_PHONG
+		// Blinn phong
+		vec3 halfwayDir = normalize(lightDir - viewDir);
+		float dotValue = dot(normal, halfwayDir);
+	#else
+		// Phong
+		vec3 reflectDir = lightDir - 2.0 * NdotL * normal; 
+		float dotValue = dot(viewDir, reflectDir);
+	#endif
+
+	specular += pow(max(dotValue, 0.0), material.shininess) * finalIntensity * light.specular;
+}
+
+void getLightsSumColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out float shadow)
 {
 	ambient = diffuse = specular = vec4(0.0, 0.0, 0.0, 1.0);
 
@@ -195,71 +262,7 @@ void getLightColor(out vec4 ambient, out vec4 diffuse, out vec4 specular, out fl
 		Light light = lights[i];
 		#endif
 
-		if (!light.enable)
-			continue;
-
-		if (light.hasShadow)
-		{
-			shadow += getShadow(i);
-
-			if (shadow > 1.0)
-				shadow = 1.0;
-		}
-
-		// Get light direction, if the light is a point light or a directionnal light
-		vec3 lightDir = fs_in.TBN * light.position.xyz - fs_in.TangentFragPos * float(light.isPoint);
-	
-		// Compute the light direction and the distance between the fragment and the light
-		float distance = length(lightDir);
-
-		// Normalize the light direction manually
-		lightDir /= distance;
-
-		float finalIntensity = 1.0;
-
-		// If the light is not a directionnal light, compute the final intensity
-		if (light.isPoint)
-		{
-			// Get spot cutoff and spot intensity 
-			float theta = dot(lightDir, normalize(light.spotDirection));
-			float spotIntensity = clamp((theta - light.spotOuterCutoff) / (light.spotCutoff - light.spotOuterCutoff), 0.0, 1.0);
-
-			// Get attenuation (c + l * d + q * d≤)
-			float attenuation = light.attenuation.x +
-								light.attenuation.y * distance +
-								light.attenuation.z * distance * distance;
-
-			// Apply attenuation  to the spot intensity
-			finalIntensity = spotIntensity / attenuation;
-		}
-
-		// Compute ambient
-		ambient += light.ambient;
-
-		// Pre-compute normal ÅElightDir
-		float NdotL = dot(normal, lightDir);
-
-		float diffuseValue = NdotL * finalIntensity;
-
-		if (diffuseValue <= 0.0)
-			continue;
-
-		// Compute diffuse
-		diffuse += diffuseValue * light.diffuse;
-
-		// Compute specular
-
-		#ifdef BLINN_PHONG
-			// Blinn phong
-			vec3 halfwayDir = normalize(lightDir - viewDir);
-			float dotValue = dot(normal, halfwayDir);
-		#else
-			// Phong
-			vec3 reflectDir = lightDir - 2.0 * NdotL * normal; 
-			float dotValue = dot(viewDir, reflectDir);
-		#endif
-
-		specular += pow(max(dotValue, 0.0), material.shininess) * finalIntensity * light.specular;
+		getLightColor(light, i, ambient, diffuse, specular, shadow);
 	}
 
 	shadow = 1.0 - shadow;
@@ -293,7 +296,7 @@ vec4 getShadedColor()
 	vec4 ambient, diffuse, specular;
 	float shadow;
 
-	getLightColor(ambient, diffuse, specular, shadow);
+	getLightsSumColor(ambient, diffuse, specular, shadow);
 
 	vec4 ambientColor = ambient * (material.ambient + texture(material.ambientTexture, fs_in.TexCoord.st));
 
