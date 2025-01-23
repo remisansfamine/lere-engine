@@ -103,6 +103,13 @@ COMP MODELRENDERER resources/obj/gun/M1A1_thompson.obj shader 1.000000 0.000000
 COMP TRANSFORM 0.160000 -0.150000 -0.320000 0.000000 3.149097 0.000000 0.750000 0.750000 0.750000 MainCamera
 endGO
 
+GO HealKit
+COMP MODELRENDERER resources/obj/heal/paramedic_bag_red.obj shader 1.000000 0.000000
+COMP TRANSFORM 20.000000 2.000000 5.000000 0.000000 0.000000 0.000000 0.025000 0.025000 0.025000 none
+COMP BOXCOLLIDER 0.000000 1.000000 0.000000 40.000000 40.000000 40.000000 0.000000 0.000000 0.000000 1.000000 0.000000 1
+COMP MEDKIT 2
+endGO
+
 GO SkyBox
 COMP SKYBOX resources/skyboxes/right.jpg resources/skyboxes/left.jpg resources/skyboxes/top.jpg resources/skyboxes/bottom.jpg resources/skyboxes/front.jpg resources/skyboxes/back.jpg
 endGO

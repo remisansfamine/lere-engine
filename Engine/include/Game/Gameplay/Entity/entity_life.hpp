@@ -40,7 +40,9 @@ namespace Gameplay
 		void start() override;
 		void drawImGui() override;
 
-
 		std::string toString() const override;
+
+		int getCurrentLife() const;
+		int getMaxLife() const;
 	};
 }

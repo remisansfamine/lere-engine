@@ -3,17 +3,21 @@
 #include <imgui.h>
 #include <algorithm>
 
-#include "rigidbody.hpp"
-#include "maths.hpp"
-
 #include "inputs_manager.hpp"
 #include "graph.hpp"
+
+#include "collider.hpp"
+#include "rigidbody.hpp"
+#include "player_life.hpp"
+#include "maths.hpp"
+
 
 namespace Gameplay
 {
 	EnemyState::EnemyState(Engine::GameObject& gameObject)
 		: EntityState(gameObject, std::shared_ptr<EnemyState>(this)) 
 	{
+		rb = getHost().getComponent<Physics::Rigidbody>();
 	}
 
 	void EnemyState::drawImGui()
@@ -25,21 +29,34 @@ namespace Gameplay
 		}
 	}
 
-	void EnemyState::onCollisionEnter(const Physics::Collision& collision)
+	void EnemyState::start()
 	{
-		if (collision.hit.normal.y <= 0.f)
-			return;
-
-		colliderCount++;
-		isGrounded = true;
+		playerLife = Core::Engine::Graph::findGameObjectWithName("Player")->getComponent<PlayerLife>();
 	}
 
-	void EnemyState::onCollisionExit(const Physics::Collision& collision)
+	void EnemyState::update()
 	{
-		colliderCount = std::max(0, colliderCount - 1);
+		attackCooldown.update();
+	}
 
-		if (colliderCount == 0)
-			isGrounded = false;
+	void EnemyState::onCollisionEnter(const Physics::Collision& collision)
+	{
+		if (collision.collider->getHost().m_name == "Player")
+			attackCooldown.setDelay(1.f);
+	}
+
+	void EnemyState::onCollisionStay(const Physics::Collision& collision)
+	{
+		if (collision.collider->getHost().m_name == "Player")
+		{
+			rb->velocity.x = rb->velocity.z = 0.f;
+
+			if (attackCooldown.timerOn())
+			{
+				attackCooldown.setDelay(1.f);
+				playerLife->hurt(1);
+			}
+		}
 	}
 
 	std::string EnemyState::toString() const

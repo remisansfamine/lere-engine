@@ -14,10 +14,20 @@ namespace Gameplay
 	{
 	}
 
+	int EntityLife::getCurrentLife() const
+	{
+		return life;
+	}
+
+	int EntityLife::getMaxLife() const
+	{
+		return maxLife;
+	}
+
 	void EntityLife::hurt(int damage)
 	{
-		if (setLife(life - damage))
-			Core::Engine::SoundManager::play2D(hurtSound.c_str());
+		if (!setLife(life - damage))
+			Core::Engine::SoundManager::play2D(hurtSound);
 	}
 
 	void EntityLife::heal(int heal)
@@ -28,12 +38,12 @@ namespace Gameplay
 
 	bool EntityLife::setLife(int _life)
 	{
-		life = _life;
+		life = std::clamp(_life, 0, maxLife);
 
 		if (lifeBar)
 			lifeBar->updateSprite(life, maxLife);
 
-		bool isDead = life <= 0;
+		bool isDead = life == 0;
 		if (isDead)
 			kill();
 
