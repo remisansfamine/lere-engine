@@ -336,6 +336,15 @@
     <ClCompile Include="src\Game\Gameplay\Player\ammo_counter.cpp">
       <Filter>Fichiers sources\Game\Gameplay\Player</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game\Gameplay\medkit.cpp">
+      <Filter>Fichiers sources\Game\Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\win_screen.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Game\lose_screen.cpp">
+      <Filter>Fichiers sources\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\stb_image.h">
@@ -563,7 +572,16 @@
     <ClInclude Include="include\Game\Gameplay\Player\ammo_counter.hpp">
       <Filter>Fichiers d%27en-tête\Game\Gameplay\Player</Filter>
     </ClInclude>
+    <ClInclude Include="include\Game\Gameplay\medkit.hpp">
+      <Filter>Fichiers d%27en-tête\Game\Gameplay</Filter>
+    </ClInclude>
     <ClInclude Include="include\Game\pause_screen.hpp">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\lose_screen.hpp">
+      <Filter>Fichiers d%27en-tête\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Game\win_screen.hpp">
       <Filter>Fichiers d%27en-tête\Game</Filter>
     </ClInclude>
   </ItemGroup>

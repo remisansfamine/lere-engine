@@ -19,6 +19,8 @@
 #include "player_life.hpp"
 #include "box_collider.hpp"
 #include "pause_screen.hpp"
+#include "lose_screen.hpp"
+#include "win_screen.hpp"
 #include "bullet_hole.hpp"
 #include "enemy_state.hpp"
 #include "game_master.hpp"
@@ -30,6 +32,7 @@
 #include "life_bar.hpp"
 #include "sky_box.hpp"
 #include "button.hpp"
+#include "medkit.hpp"
 #include "camera.hpp"
 #include "utils.hpp"
 #include "light.hpp"
@@ -251,6 +254,10 @@ namespace Engine
 			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "MAINMENU")
 			Gameplay::MainMenu::parseComponent(*this, goStream);		
+		else if (comp == "LOSESCREEN")
+			Gameplay::LoseScreen::parseComponent(*this, goStream);
+		else if (comp == "WINSCREEN")
+			Gameplay::WinScreen::parseComponent(*this, goStream);
 		else if (comp == "PAUSESCREEN")
 			Gameplay::PauseScreen::parseComponent(*this, goStream);
 		else if (comp == "GAMEMASTER")
@@ -261,6 +268,8 @@ namespace Engine
 			UI::Button::parseComponent(*this, goStream);
 		else if (comp == "BULLETHOLE")
 			Gameplay::BulletHole::parseComponent(*this, goStream);
+		else if (comp == "MEDKIT")
+			Gameplay::MedKit::parseComponent(*this, goStream);
 	}
 
 	void GameObject::parseRecipe(const std::string& filePath, std::string& parentName)

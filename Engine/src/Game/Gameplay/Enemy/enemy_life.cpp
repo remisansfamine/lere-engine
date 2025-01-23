@@ -7,6 +7,12 @@ namespace Gameplay
 	{
 	}
 
+	void EnemyLife::start()
+	{
+		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
+		gameMaster->enemyCount++;
+	}
+
 	void EnemyLife::drawImGui()
 	{
 		if (ImGui::TreeNode("EnemyLife"))
@@ -38,6 +44,8 @@ namespace Gameplay
 
 	void EnemyLife::kill()
 	{
+		gameMaster->removeEnemy();
+
 		EntityLife::kill();
 
 		getHost().destroy();

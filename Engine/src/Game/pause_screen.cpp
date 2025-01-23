@@ -36,7 +36,7 @@ namespace Gameplay
 			});
 
 
-		buttons[1] = Core::Engine::Graph::findGameObjectWithName("MainMenuButton");
+		buttons[1] = Core::Engine::Graph::findGameObjectWithName("PauseMainMenuButton");
 		std::shared_ptr<UI::Button> buttonMainMenu = buttons[1]->getComponent<UI::Button>();
 		UI::Button* mainMenuptr = buttonMainMenu.get();
 
@@ -64,7 +64,7 @@ namespace Gameplay
 			});*/
 
 
-		buttons[2] = Core::Engine::Graph::findGameObjectWithName("ExitButton");
+		buttons[2] = Core::Engine::Graph::findGameObjectWithName("PauseExitButton");
 		std::shared_ptr<UI::Button> buttonExit = buttons[2]->getComponent<UI::Button>();
 		UI::Button* exitPtr = buttonExit.get();
 		exitPtr->addListener(UI::ButtonState::DOWN, []() {

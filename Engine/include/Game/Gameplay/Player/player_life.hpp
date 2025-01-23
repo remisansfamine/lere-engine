@@ -2,27 +2,25 @@
 #include <string>
 
 #include "entity_life.hpp"
+#include "game_master.hpp"
 
 namespace Gameplay
 {
 	class PlayerLife : public EntityLife
 	{
 	private:
-
+		void kill() override;
 		std::string lifeBarName;
+		std::shared_ptr<GameMaster> gameMaster;
 
 	public:
 		PlayerLife(Engine::GameObject& gameObject);
 
 		void start() override;
-		void update() override;
 		void drawImGui() override;
 
 		std::string toString() const override;
 
 		static void parseComponent(Engine::GameObject& gameObject, std::istringstream& iss);
-
-		void onCollisionEnter(const Physics::Collision& collision) override {}
-		void onCollisionExit(const Physics::Collision& collision) override {}
 	};
 }

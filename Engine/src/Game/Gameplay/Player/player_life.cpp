@@ -1,6 +1,7 @@
 #include "player_life.hpp"
 
 #include "graph.hpp"
+#include "collider.hpp"
 #include "inputs_manager.hpp"
 
 namespace Gameplay
@@ -13,16 +14,8 @@ namespace Gameplay
 
 	void PlayerLife::start()
 	{
+		gameMaster = Core::Engine::Graph::findGameObjectWithName("GameMaster")->getComponent<GameMaster>();
 		lifeBar = Core::Engine::Graph::findGameObjectWithName(lifeBarName)->getComponent<LifeBar>();
-	}
-
-	void PlayerLife::update()
-	{
-		if (life <= 0)
-			Core::Debug::Log::info("You lose!");
-
-		if (Core::Input::InputManager::getMouseButtonDown("RightClick"))
-			hurt();
 	}
 
 	void PlayerLife::drawImGui()
@@ -49,5 +42,14 @@ namespace Gameplay
 		iss >> pl->life;
 		iss >> pl->maxLife;
 		iss >> pl->lifeBarName;
+	}
+
+	void PlayerLife::kill()
+	{
+		gameMaster->removePlayer();
+
+		EntityLife::kill();
+
+		getHost().destroy();
 	}
 }
