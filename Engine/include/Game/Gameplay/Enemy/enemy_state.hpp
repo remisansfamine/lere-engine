@@ -1,12 +1,12 @@
 #pragma once
 
-#include "component.hpp"
-#include "rigidbody.hpp"
-#include "maths.hpp"
+#include "entity_state.hpp"
+
+#include <memory>
 
 namespace Gameplay
 {
-	class EnemyState : public Engine::Component
+	class EnemyState : public EntityState
 	{
 	private:
 		std::shared_ptr<Physics::Transform> playerTransform = nullptr;
@@ -14,22 +14,8 @@ namespace Gameplay
 	public:
 		EnemyState(Engine::GameObject& gameObject);
 
-		bool isIdle = false;
-		bool isWalking = false;
-		bool isFalling = false;
-		bool isGrounded = false;
-
-		float horizontalMove = 0.f;
-		float forwardMove = 0.f;
-
-		int colliderCount = 0;
-
-		int life = 5;
-
-		std::shared_ptr<Physics::Transform> transform = nullptr;
 		Core::Maths::vec3 direction = {0.f, 0.f, 0.f};
 
-		void start() override;
 		void update() override;
 		void drawImGui() override;
 

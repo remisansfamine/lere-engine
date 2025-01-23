@@ -1,23 +1,18 @@
 #include "player_state.hpp"
 
-#include <algorithm> 
 #include <imgui.h>
+#include <algorithm>
+
+#include "rigidbody.hpp"
+#include "maths.hpp"
 
 #include "inputs_manager.hpp"
-#include "button.hpp"
-#include "graph.hpp"
 
 namespace Gameplay
 {
 	PlayerState::PlayerState(Engine::GameObject& gameObject)
-		: Component(gameObject, std::shared_ptr<PlayerState>(this))
+		: EntityState(gameObject, std::shared_ptr<PlayerState>(this))
 	{
-
-	}
-
-	void PlayerState::start()
-	{
-		
 	}
 
 	void PlayerState::update()
